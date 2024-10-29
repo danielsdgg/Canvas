@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import SideNav from './SideNav';
 
 interface Course {
   id: number;
@@ -8,20 +9,6 @@ interface Course {
   instructor: string;
   term: string;
 }
-
-// SideNav Component
-const SideNav: React.FC = () => (
-  <div className="fixed top-0 left-0 h-full w-64 bg-blue-900 text-white p-4 shadow-lg">
-    <h2 className="text-2xl font-semibold mb-6">Courses</h2>
-    {/* Categories */}
-    <ul className="space-y-4">
-      <li><Link to="#" className="hover:underline">Current Courses</Link></li>
-      <li><Link to="#" className="hover:underline">Upcoming Courses</Link></li>
-      <li><Link to="#" className="hover:underline">Completed Courses</Link></li>
-      <li><Link to="#" className="hover:underline">Archived Courses</Link></li>
-    </ul>
-  </div>
-);
 
 // Courses Component
 const Courses: React.FC = () => {
