@@ -1,0 +1,40 @@
+{
+    "courses": [
+      {
+        "id": 1,
+        "title": "Cyber Security",
+        "description": "Introduction to cyber security fundamentals.",
+        "instructor": "Prof. Morgan",
+        "term": "2024/5",
+        "content": [
+          { "module": "Introduction to Cyber Security", "lessons": ["What is Cyber Security?", "Types of Cyber Threats", "Security Fundamentals"] },
+          { "module": "Network Security", "lessons": ["Firewalls and VPNs", "Intrusion Detection Systems", "Security Protocols"] }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Software Engineering - Frontend Development",
+        "description": "Creating stunning UIs.",
+        "instructor": "Dr. Daniel Muiruri",
+        "term": "2025/6",
+        "content": [
+          { "module": "HTML Basics", "lessons": ["HTML Syntax", "Tags and Attributes", "Building a Basic Webpage"] },
+          { "module": "CSS for Styling", "lessons": ["CSS Syntax", "Selectors", "Responsive Design with Flexbox and Grid"] },
+          { "module": "JavaScript Basics", "lessons": ["Variables and Types", "Control Structures", "DOM Manipulation"] },
+          { "module": "React Basics", "lessons": ["Components and Props", "State and Lifecycle", "Building a Simple React App"] }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Graphics Design",
+        "description": "An in-depth look at graphical designs.",
+        "instructor": "Prof. Morgan",
+        "term": "2025/6",
+        "content": [
+          { "module": "Introduction to Graphic Design", "lessons": ["Basics of Graphic Design", "Tools and Software", "Design Principles"] },
+          { "module": "Photoshop Basics", "lessons": ["Working with Layers", "Editing Images", "Using Filters"] }
+        ]
+      }
+    ]
+  }
+  
