@@ -8,6 +8,7 @@ import Calendar from './components/Calendar';
 import SideNav from './components/SideNav';
 import CourseDetails from './components/CourseDetails';
 import CoursesList from './components/CoursesList';
+import LessonDetails from './components/LessonDetails';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/" element={<Navigate to="/courses" replace />} />
             <Route path="/courses" element={<CoursesList />} />
             <Route path="/courses/:courseId" element={<CourseDetails />} />
+            <Route path="/courses/:courseId/lessons/:lessonId" element={<LessonDetails />} />
             <Route path="*" element={<p className="text-center text-gray-500">404 - Page Not Found</p>} />
           </Routes>
         </div>

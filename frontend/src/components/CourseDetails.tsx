@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 interface Lesson {
     id: number;
@@ -63,7 +63,9 @@ const CourseDetails: React.FC = () => {
                         <ul className="space-y-4">
                             {course.lessons.map((lesson) => (
                                 <li key={lesson.id} className="p-4 border rounded-lg bg-gray-50">
-                                    <h4 className="text-lg font-semibold text-gray-700">{lesson.title}</h4>
+                                    <Link to={`/courses/${courseId}/lessons/${lesson.id}`} className="text-lg font-semibold text-blue-600 hover:underline">
+                                        {lesson.title}
+                                    </Link>
                                     <p className="text-gray-600">{lesson.description}</p>
                                     {lesson.materials && <p className="text-gray-500 mt-2">Materials: {lesson.materials}</p>}
                                 </li>
