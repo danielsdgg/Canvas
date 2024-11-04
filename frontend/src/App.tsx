@@ -5,19 +5,23 @@ import Dashboard from './components/Dashboard';
 import Calendar from './components/Calendar';
 // import Courses from './components/CoursesList';
 // import Details from './components/Details';
-import SideNav from './components/SideNav';
 import CourseDetails from './components/CourseDetails';
 import CoursesList from './components/CoursesList';
 import LessonDetails from './components/LessonDetails';
+import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
+import CreateCourse from './components/CreateCourse';
 
 function App() {
   return (
       <Router>
       <div className="flex">
-        <SideNav />
         <div className="flex-grow p-4 md:ml-64">
           <Routes>
-            <Route path='/' element={<Dashboard/>} />
+            <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/create-course" element={<CreateCourse />} />
+            <Route path='/dashboard' element={<Dashboard/>} />
             <Route path='/calendar' element={<Calendar/>} />
             <Route path="/" element={<Navigate to="/courses" replace />} />
             <Route path="/courses" element={<CoursesList />} />

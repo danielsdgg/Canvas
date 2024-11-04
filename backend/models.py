@@ -1,16 +1,27 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 
-class User(db.Model):
-    __tablename__ = 'users'
-
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(), nullable=False)
-    email = db.Column(db.String(), unique=True, nullable=False)
-    password = db.Column(db.String(), nullable=False)
-    role = db.Column(db.String(), default='student')  # Assuming a default role
+    username = db.Column(db.String(150), unique=True, nullable=False)
+    password = db.Column(db.String(150), nullable=False)
+    email = db.Column(db.String(150), unique=True, nullable=False)
+    first_name = db.Column(db.String(150))
+    last_name = db.Column(db.String(150))
+    role = db.Column(db.String(50), nullable=False)  # e.g., 'superuser', 'admin', 'student'
+
+    # Relationship to associate students with courses
+    courses = db.relationship('Course', backref='student', lazy=True)
+
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
 
 class Course(db.Model):  
     __tablename__ = 'courses'
@@ -18,7 +29,7 @@ class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(), nullable=False)
     description = db.Column(db.String())
-    instructor = db.Column(db.String())
+    instructor_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Assuming instructor is a User
     term = db.Column(db.String())
 
     lessons = db.relationship("Lesson", backref="course", cascade="all, delete-orphan")
