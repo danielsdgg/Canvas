@@ -8,48 +8,46 @@ interface Event {
 
 const Calendar: React.FC = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [events] = useState<Event[]>([
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const events: Event[] = [
     { date: 5, title: 'Assignment Due' },
     { date: 15, title: 'Project Presentation' },
     { date: 20, title: 'Meeting with Team' },
     { date: 27, title: 'Workshop' },
-  ]);
+  ];
 
-  // Get month and year
   const monthName = currentDate.toLocaleString('default', { month: 'long' }) + ' ' + currentDate.getFullYear();
-  
-  // Calculate days in the current month
   const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
-  
-  // Calculate the starting day of the month (0 = Sunday, 1 = Monday, ...)
   const startDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
 
-  // Function to render the days in the calendar
   const renderDays = () => {
     const days = [];
     
-    // Empty slots for the days before the start of the month
     for (let i = 0; i < startDay; i++) {
       days.push(<div key={`empty-${i}`} className="h-20"></div>);
     }
 
-    // Adding the actual days of the month
     for (let day = 1; day <= daysInMonth; day++) {
-      const isToday = day === currentDate.getDate();
       const eventForDay = events.find(event => event.date === day);
 
       days.push(
         <div 
           key={day} 
           className={`border h-20 flex items-center justify-center relative ${
-            isToday ? 'bg-blue-200' : 'bg-white'
+            day === currentDate.getDate() ? 'bg-blue-200' : 'bg-white'
           }`}
+          onClick={() => {
+            if (eventForDay) {
+              setSelectedEvent(eventForDay);
+              setIsModalOpen(true);
+            }
+          }}
         >
           {day}
           {eventForDay && (
-            <div className="absolute bottom-2 text-sm text-red-500">
-              {eventForDay.title}
-            </div>
+            <div className="absolute bottom-2 w-2 h-2 rounded-full bg-red-500"></div>
           )}
         </div>
       );
@@ -59,7 +57,6 @@ const Calendar: React.FC = () => {
   };
 
   useEffect(() => {
-    // Update current date to the current day whenever the component mounts
     const now = new Date();
     setCurrentDate(now);
   }, []);
@@ -68,7 +65,6 @@ const Calendar: React.FC = () => {
     <div className="flex flex-col md:flex-row">
       <SideNav />
       <div className="flex-1 p-4 md:ml-64 h-screen overflow-y-auto">
-        {/* Adjusting the left margin to accommodate the SideNav width */}
         <h2 className="text-2xl font-bold text-center mb-4">{monthName}</h2>
         <div className="grid grid-cols-7 gap-1">
           {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, index) => (
@@ -78,6 +74,23 @@ const Calendar: React.FC = () => {
           ))}
           {renderDays()}
         </div>
+
+        {/* Event Details Modal */}
+        {isModalOpen && selectedEvent && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20">
+            <div className="bg-white rounded-lg p-6 w-80 max-w-full">
+              <h3 className="text-xl font-semibold mb-4">Event Details</h3>
+              <p><strong>Date:</strong> {selectedEvent.date}</p>
+              <p><strong>Event:</strong> {selectedEvent.title}</p>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

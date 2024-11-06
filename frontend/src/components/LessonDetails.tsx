@@ -30,7 +30,7 @@ const LessonDetails: React.FC = () => {
     useEffect(() => {
         const fetchLesson = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/lessons/${lessonId}`);
+                const response = await fetch(`/lessons/${lessonId}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }

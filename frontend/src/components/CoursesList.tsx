@@ -1,36 +1,24 @@
-// src/components/Courses/CourseList.tsx
+// src/components/CoursesList.tsx
 import React, { useEffect, useState } from 'react';
-import { getAllCourses } from './Services/courseService';
 import { Link } from 'react-router-dom';
 
+interface Course {
+  id: number;
+  title: string;
+  description: string;
+  instructor: string;
+  term: string;
+}
+
 const CoursesList: React.FC = () => {
-    const [courses, setCourses] = useState<any[]>([]); // Use 'any' or define a specific type if needed
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+  const [courses, setCourses] = useState<Course[]>([]);
 
-    useEffect(() => {
-        const fetchCourses = async () => {
-            setLoading(true);
-            try {
-                const data = await getAllCourses();
-                setCourses(data);
-            } catch (error) {
-                setError("Error fetching courses: " + (error instanceof Error ? error.message : 'Unknown error'));
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchCourses();
-    }, []);
-
-    if (loading) {
-        return <div className="text-center p-4">Loading courses...</div>;
-    }
-
-    if (error) {
-        return <div className="text-red-500 text-center p-4">{error}</div>;
-    }
+  useEffect(() => {
+    fetch('/courses') // adjust the endpoint if necessary
+      .then((response) => response.json())
+      .then((data) => setCourses(data))
+      .catch((error) => console.error('Error fetching courses:', error));
+  }, []);
 
   return (
     <div className="p-4 md:p-8 bg-gray-50">

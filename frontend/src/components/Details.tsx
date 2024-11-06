@@ -21,7 +21,7 @@ const Details: React.FC = () => {
     }
     
     // Fetch course details from db.json
-    fetch(`http://localhost:5000/courses/${id}`)
+    fetch(`/courses/${id}`)
       .then((response) => response.json())
       .then((data) => {
         const courseData = data.courses.find((course: Course) => course.id === parseInt(id, 10));

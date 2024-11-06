@@ -28,7 +28,7 @@ const CourseDetails: React.FC = () => {
         const fetchCourse = async () => {
             try {
                 console.log('Course ID:', courseId); // Log the course ID
-                const response = await fetch(`http://localhost:5000/courses/${courseId}`);
+                const response = await fetch(`/courses/${courseId}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch course details');
                 }
