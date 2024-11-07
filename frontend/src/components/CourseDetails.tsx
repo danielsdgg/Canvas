@@ -1,85 +1,92 @@
+// src/components/CourseDetails.tsx
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import SideNav from './SideNav';
 
 interface Lesson {
-    id: number;
-    title: string;
-    description: string;
-    order: number;
-    materials?: string;
+  id: number;
+  title: string;
+  description: string;
+  order: number;
 }
 
 interface Course {
-    id: number;
-    title: string;
-    description: string;
-    instructor: string;
-    term: string;
-    lessons: Lesson[];
+  id: number;
+  title: string;
+  description: string;
+  lessons: Lesson[];
 }
 
 const CourseDetails: React.FC = () => {
-    const { courseId } = useParams();
-    const [course, setCourse] = useState<Course | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+  const { courseId } = useParams<{ courseId: string }>();
+  const courseIdNumber = Number(courseId); // Ensure it's a number
+  const [course, setCourse] = useState<Course | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-        const fetchCourse = async () => {
-            try {
-                console.log('Course ID:', courseId); // Log the course ID
-                const response = await fetch(`/courses/${courseId}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch course details');
-                }
-                const data = await response.json();
-                console.log('Fetched course data:', data); // Log the fetched data
-                // Ensure lessons is an array
-                setCourse({ ...data, lessons: data.lessons || [] });
-            } catch (error) {
-                setError((error as Error).message);
-            } finally {
-                setLoading(false);
-            }
-        };
+  useEffect(() => {
+    if (!courseId || isNaN(courseIdNumber)) {
+      setError('Invalid course ID.');
+      setLoading(false);
+      return;
+    }
 
-        fetchCourse();
-    }, [courseId]);
+    const fetchCourse = async () => {
+      try {
+        const response = await fetch(`/course/${courseIdNumber}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch course details');
+        }
+        const data = await response.json();
+        setCourse({ ...data, lessons: data.lessons || [] });
+      } catch (error) {
+        setError((error as Error).message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    if (loading) return <p>Loading course details...</p>;
-    if (error) return <p className="text-red-500">{error}</p>;
+    fetchCourse();
+  }, [courseId, courseIdNumber]);
 
-    return (
-        <div className="p-6 bg-white rounded-lg shadow-lg">
-            {course ? (
-                <>
-                    <h2 className="text-3xl font-bold text-gray-800 mb-4">{course.title}</h2>
-                    <p className="text-gray-600 mb-2">Instructor: {course.instructor}</p>
-                    <p className="text-gray-500 mb-4">Term: {course.term}</p>
-                    <p className="text-gray-700 mb-6">{course.description}</p>
+  if (loading) return <div className="spinner">Loading...</div>;
+  if (error) return <p className="text-red-500">{error}</p>;
 
-                    <h3 className="text-2xl font-semibold text-gray-800 mb-4">Lessons</h3>
-                    {course.lessons && course.lessons.length > 0 ? (
-                        <ul className="space-y-4">
-                            {course.lessons.map((lesson) => (
-                                <li key={lesson.id} className="p-4 border rounded-lg bg-gray-50">
-                                    <Link to={`/courses/${courseId}/lessons/${lesson.id}`} className="text-lg font-semibold text-blue-600 hover:underline">
-                                        {lesson.title}
-                                    </Link>
-                                    <p className="text-gray-600">{lesson.description}</p>
-                                    {lesson.materials && <p className="text-gray-500 mt-2">Materials: {lesson.materials}</p>}
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>No lessons available for this course.</p>
-                    )}
-                </>
+  return (
+    <>
+      <SideNav />
+      <div className="p-6 bg-white rounded-lg shadow-lg">
+        {course ? (
+          <>
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">{course.title}</h2>
+            <p className="text-black mb-2">Description: {course.description}</p>
+
+            <h3 className="text-2xl font-semibold text-gray-800 mb-4">Lessons</h3>
+            {course.lessons && course.lessons.length > 0 ? (
+              <ul className="space-y-4">
+                {course.lessons.map((lesson) => (
+                  <li key={lesson.id} className="p-4 border rounded-lg bg-gray-50">
+                    <Link
+                      to={`/course/${courseId}/lessons/${lesson.id}`}
+                      className="text-lg font-semibold text-blue-600 hover:underline"
+                    >
+                      {lesson.title}
+                    </Link>
+                    <p className="text-gray-600">{lesson.description}</p>
+                    <p className="text-gray-600">Order: {lesson.order}</p>
+                  </li>
+                ))}
+              </ul>
             ) : (
-                <p>Course not found.</p>
+              <p>No lessons available for this course.</p>
             )}
-        </div>
-    );
+          </>
+        ) : (
+          <p>Course not found.</p>
+        )}
+      </div>
+    </>
+  );
 };
 
 export default CourseDetails;

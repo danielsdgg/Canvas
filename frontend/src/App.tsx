@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import Calendar from './components/Calendar';
 // import Courses from './components/CoursesList';
@@ -37,10 +37,18 @@ function App() {
             <Route path='/help' element={<Help/>} />
             <Route path="/create-course" element={<CreateCourse />} />
             <Route path='/calendar' element={<Calendar/>} />
-            {/* <Route path="/" element={<Navigate to="/courses" replace />} /> */}
-            <Route path="/courses" element={<CoursesList />} />
-            <Route path="/courses/:courseId" element={<CourseDetails />} />
-            <Route path="/courses/:courseId/lessons/:lessonId" element={<LessonDetails />} />
+        {/* Redirect from root to courses list */}
+        <Route path="/" element={<Navigate to="/courses" replace />} />
+
+        {/* Route for the courses list */}
+        <Route path="/courses" element={<CoursesList />} />
+
+        {/* Route for course details page with dynamic courseId */}
+        <Route path="/course/:courseId" element={<CourseDetails />} />
+
+        {/* Optional: Add a fallback route for unmatched paths */}
+        <Route path="*" element={<Navigate to="/courses" replace />} />
+            <Route path="/course/:courseId/lessons/:lessonId" element={<LessonDetails />} />
             {/* <Route path="*" element={<p className="text-center text-gray-500">404 - Page Not Found</p>} /> */}
           </Routes>
         </div>
