@@ -66,6 +66,7 @@ class LessonContent(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     lesson_id = db.Column(db.Integer, db.ForeignKey('lessons.id'))
+    week_number = db.Column(db.Integer())
     content_type = db.Column(db.String())  # e.g., "Video", "Reading", "Exercise"
     content = db.Column(db.Text())  # Content text or file URL
     week_start = db.Column(db.Date())
@@ -73,6 +74,7 @@ class LessonContent(db.Model):
     
     # Relationships
     lesson = db.relationship('Lesson', back_populates='lesson_contents')
+    assignments = db.relationship('Assignment', backref='lesson_content', lazy=True)
     
     def __repr__(self):
         return f'<LessonContent {self.content_type}>'
@@ -98,6 +100,7 @@ class Assignment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     course_id = db.Column(db.Integer, db.ForeignKey('courses.id'))
     student_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    lesson_id = db.Column(db.Integer, db.ForeignKey('lesson_contents.id'), nullable=False)  # Foreign key to lesson
     title = db.Column(db.String(100))
     description = db.Column(db.String())
     assigned_at = db.Column(db.DateTime, default=datetime.utcnow)

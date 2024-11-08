@@ -24,20 +24,6 @@ class CourseSchema(Schema):
 
     lessons = fields.Nested(LessonSchema,many=True)
 
-class LessonContentSchema(Schema):
-    id = fields.Integer(dump_only=True)
-    lesson_id = fields.Integer()
-    content_type = fields.String()
-    content = fields.String()
-    week_start = fields.Date(dump_only=True, format="%Y-%m-%d")
-    week_end = fields.Date(dump_only=True, format="%Y-%m-%d")
-
-class EnrollmentSchema(Schema):
-    id = fields.Integer(dump_only=True)
-    user_id = fields.Integer()
-    course_id = fields.Integer()
-    enrolled_at = fields.Date(dump_only=True, format="%Y-%m-%d")
-
 class AssignmentSchema(Schema):
     id = fields.Integer(dump_only=True)
     course_id = fields.Integer(required=True)
@@ -46,6 +32,23 @@ class AssignmentSchema(Schema):
     description = fields.String()
     assigned_at = fields.Date(required=True, format="%Y-%m-%d")
     due_date = fields.Date(required=True, format="%Y-%m-%d")
+
+class LessonContentSchema(Schema):
+    id = fields.Integer(dump_only=True)
+    lesson_id = fields.Integer()
+    week_number = fields.Integer()
+    content_type = fields.String()
+    content = fields.String()
+    week_start = fields.Date(format="%Y-%m-%d")
+    week_end = fields.Date(format="%Y-%m-%d")
+
+    assignments = fields.Nested(AssignmentSchema, many=True)
+
+class EnrollmentSchema(Schema):
+    id = fields.Integer(dump_only=True)
+    user_id = fields.Integer()
+    course_id = fields.Integer()
+    enrolled_at = fields.Date(dump_only=True, format="%Y-%m-%d")
 
 class GradeSchema(Schema):
     id = fields.Integer(dump_only=True)
