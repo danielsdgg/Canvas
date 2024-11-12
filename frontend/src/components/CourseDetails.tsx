@@ -1,13 +1,25 @@
-// src/components/CourseDetails.tsx
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import SideNav from './SideNav';
+
+interface Assignment {
+  id: number;
+  title: string;
+  due_date: string;
+}
+
+interface LessonContent {
+  id: number;
+  content: string;
+}
 
 interface Lesson {
   id: number;
   title: string;
   description: string;
   order: number;
+  lesson_contents: LessonContent[];
+  assignments: Assignment[];
 }
 
 interface Course {
@@ -74,6 +86,32 @@ const CourseDetails: React.FC = () => {
                     </Link>
                     <p className="text-gray-600">{lesson.description}</p>
                     <p className="text-gray-600">Order: {lesson.order}</p>
+
+                    {/* Display lesson contents */}
+                    {lesson.lesson_contents.length > 0 && (
+                      <div className="mt-2">
+                        <h4 className="text-xl font-semibold">Lesson Contents</h4>
+                        <ul className="ml-6 space-y-2">
+                          {lesson.lesson_contents.map((content) => (
+                            <li key={content.id} className="text-gray-600">{content.content}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Display assignments */}
+                    {lesson.assignments.length > 0 && (
+                      <div className="mt-2">
+                        <h4 className="text-xl font-semibold">Assignments</h4>
+                        <ul className="ml-6 space-y-2">
+                          {lesson.assignments.map((assignment) => (
+                            <li key={assignment.id} className="text-gray-600">
+                              {assignment.title} - Due: {assignment.due_date}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </li>
                 ))}
               </ul>

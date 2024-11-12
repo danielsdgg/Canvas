@@ -1,4 +1,3 @@
-// src/components/CoursesList.tsx
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SideNav from './SideNav';
@@ -17,12 +16,12 @@ const CoursesList: React.FC = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch('/courses'); // adjust the endpoint if necessary
+        const response = await fetch('/courses'); // Adjust the endpoint if necessary
         if (!response.ok) {
           throw new Error('Failed to fetch courses');
         }
         const data = await response.json();
-        setCourses(data);
+        setCourses(data); // Assuming the API returns a list of courses
       } catch (error) {
         setError((error as Error).message);
       } finally {

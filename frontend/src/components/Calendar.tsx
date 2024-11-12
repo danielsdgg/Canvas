@@ -4,6 +4,9 @@ import SideNav from './SideNav';
 interface Event {
   date: number; // The day of the month
   title: string; // Title of the event
+  description: string; // Description of the event
+  time: string; // Time of the event
+  location: string; // Event location
 }
 
 const Calendar: React.FC = () => {
@@ -12,10 +15,10 @@ const Calendar: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const events: Event[] = [
-    { date: 5, title: 'Assignment Due' },
-    { date: 15, title: 'Project Presentation' },
-    { date: 20, title: 'Meeting with Team' },
-    { date: 27, title: 'Workshop' },
+    { date: 5, title: 'Assignment Due', description: 'Submit your final assignment for the course.', time: '5:00 PM', location: 'Online' },
+    { date: 15, title: 'Project Presentation', description: 'Present your final project to the class.', time: '10:00 AM', location: 'Room 204' },
+    { date: 20, title: 'Meeting with Team', description: 'Discuss project progress and next steps.', time: '2:00 PM', location: 'Room 305' },
+    { date: 27, title: 'Workshop', description: 'Attend a hands-on workshop on new technologies.', time: '9:00 AM', location: 'Conference Room A' },
   ];
 
   const monthName = currentDate.toLocaleString('default', { month: 'long' }) + ' ' + currentDate.getFullYear();
@@ -75,6 +78,25 @@ const Calendar: React.FC = () => {
           {renderDays()}
         </div>
 
+        <div className="mt-6">
+          {/* Event Details Section */}
+          {selectedEvent && (
+            <div className="bg-white shadow rounded-lg p-6">
+              <h3 className="text-xl font-semibold mb-4">{selectedEvent.title}</h3>
+              <p><strong>Date:</strong> {selectedEvent.date}</p>
+              <p><strong>Time:</strong> {selectedEvent.time}</p>
+              <p><strong>Location:</strong> {selectedEvent.location}</p>
+              <p><strong>Description:</strong> {selectedEvent.description}</p>
+              <button
+                onClick={() => setSelectedEvent(null)}
+                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              >
+                Close
+              </button>
+            </div>
+          )}
+        </div>
+
         {/* Event Details Modal */}
         {isModalOpen && selectedEvent && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20">
@@ -82,6 +104,7 @@ const Calendar: React.FC = () => {
               <h3 className="text-xl font-semibold mb-4">Event Details</h3>
               <p><strong>Date:</strong> {selectedEvent.date}</p>
               <p><strong>Event:</strong> {selectedEvent.title}</p>
+              <p><strong>Description:</strong> {selectedEvent.description}</p>
               <button
                 onClick={() => setIsModalOpen(false)}
                 className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"

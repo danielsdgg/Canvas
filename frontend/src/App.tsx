@@ -7,7 +7,7 @@ import Calendar from './components/Calendar';
 // import Details from './components/Details';
 import CourseDetails from './components/CourseDetails';
 import CoursesList from './components/CoursesList';
-import LessonDetails from './components/LessonDetails';
+// import LessonDetails from './components/LessonDetails';
 // import Login from './components/Auth/Login';
 // import Register from './components/Auth/Register';
 import CreateCourse from './components/CreateCourse';
@@ -48,7 +48,7 @@ function App() {
 
         {/* Optional: Add a fallback route for unmatched paths */}
         <Route path="*" element={<Navigate to="/courses" replace />} />
-            <Route path="/course/:courseId/lessons/:lessonId" element={<LessonDetails />} />
+            {/* <Route path="/course/:courseId/lessons/:lessonId" element={<LessonDetails />} /> */}
             {/* <Route path="*" element={<p className="text-center text-gray-500">404 - Page Not Found</p>} /> */}
           </Routes>
         </div>

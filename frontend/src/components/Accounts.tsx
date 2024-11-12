@@ -57,16 +57,16 @@ const Account: React.FC = () => {
         <h3 className="text-2xl font-semibold mb-4">Account Settings</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <button className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition duration-200">
-            Change Email
+            Edit Profile
           </button>
-          <button className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition duration-200">
-            Update Phone
+          <button className="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow hover:bg-red-700 transition duration-200">
+            Change Password
           </button>
         </div>
       </div>
 
       {/* Security Settings */}
-      <div className="bg-white p-6 rounded-lg shadow-md">
+      {/* <div className="bg-white p-6 rounded-lg shadow-md">
         <h3 className="text-2xl font-semibold mb-4">Security Settings</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <button className="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow hover:bg-red-700 transition duration-200">
@@ -74,7 +74,7 @@ const Account: React.FC = () => {
           </button>
 
         </div>
-      </div>
+      </div> */}
     </div>
     </>
 
