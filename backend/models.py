@@ -17,7 +17,7 @@ class User(db.Model, UserMixin):
     
     # Relationships
     enrollments = db.relationship('Enrollment', back_populates='user', cascade="all, delete")
-    assignments = db.relationship('Assignment', back_populates='student', cascade="all, delete")
+    assignments = db.relationship('Assignment', back_populates='user')  # Updated to use `back_populates`
     
     def set_password(self, password):
         self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
@@ -57,6 +57,8 @@ class Lesson(db.Model):
     
     # Relationships
     lesson_contents = db.relationship('LessonContent', back_populates='lesson', cascade="all, delete")
+    assignments = db.relationship('Assignment', back_populates='lesson', cascade="all, delete")  
+
     
     def __repr__(self):
         return f'<Lesson {self.title}>'
@@ -74,7 +76,7 @@ class LessonContent(db.Model):
     
     # Relationships
     lesson = db.relationship('Lesson', back_populates='lesson_contents')
-    assignments = db.relationship('Assignment', backref='lesson_content', lazy=True)
+    assignments = db.relationship('Assignment', back_populates='lesson_content')  # Updated to use `back_populates`
     
     def __repr__(self):
         return f'<LessonContent {self.content_type}>'
@@ -96,22 +98,25 @@ class Enrollment(db.Model):
 
 class Assignment(db.Model):
     __tablename__ = 'assignments'
-    
-    id = db.Column(db.Integer, primary_key=True)
-    course_id = db.Column(db.Integer, db.ForeignKey('courses.id'))
-    student_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    lesson_id = db.Column(db.Integer, db.ForeignKey('lesson_contents.id'), nullable=False)  # Foreign key to lesson
-    title = db.Column(db.String(100))
-    description = db.Column(db.String())
-    assigned_at = db.Column(db.DateTime, default=datetime.utcnow)
-    due_date = db.Column(db.DateTime)
-    
+    id = db.Column(db.Integer, primary_key=True) 
+    title = db.Column(db.String, nullable=False)
+    description = db.Column(db.String)
+    assigned_at = db.Column(db.Date, nullable=False)
+    due_date = db.Column(db.Date, nullable=False)
+    course_id = db.Column(db.Integer, db.ForeignKey('courses.id'), nullable=False)
+    lesson_id = db.Column(db.Integer, db.ForeignKey('lessons.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
+    lesson_content_id = db.Column(db.Integer, db.ForeignKey('lesson_contents.id'), nullable=True)  
+
+
     # Relationships
     course = db.relationship('Course', back_populates='assignments')
-    student = db.relationship('User', back_populates='assignments')
-    
+    user = db.relationship('User', back_populates='assignments') 
+    lesson = db.relationship('Lesson', back_populates='assignments')  # Relationship with Lesson
+    lesson_content = db.relationship('LessonContent', back_populates='assignments')
+
     def __repr__(self):
-        return f'<Assignment {self.title}>'
+        return f'<Assignment {self.title}>' 
 
 class Grade(db.Model):
     __tablename__ = 'grades'

@@ -1,4 +1,4 @@
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields, EXCLUDE
 
 class UserSchema(Schema):
     id = fields.Integer(dump_only=True)
@@ -8,26 +8,8 @@ class UserSchema(Schema):
     role = fields.String()
     created_at = fields.Date(dump_only=True, format="%Y-%m-%d")
 
-class LessonSchema(Schema):
-    id = fields.Integer(dump_only=True)
-    course_id = fields.Integer()
-    title = fields.String(required=True)
-    description = fields.String()
-    order = fields.Integer()
-
-class CourseSchema(Schema):
-    id = fields.Integer(dump_only=True)
-    instructor_id = fields.Integer()
-    title = fields.String(required=True)
-    description = fields.String()
-    created_at = fields.Date(dump_only=True, format="%Y-%m-%d")
-
-    lessons = fields.Nested(LessonSchema,many=True)
-
 class AssignmentSchema(Schema):
     id = fields.Integer(dump_only=True)
-    course_id = fields.Integer(required=True)
-    student_id = fields.Integer(required=True)
     title = fields.String(required=True)
     description = fields.String()
     assigned_at = fields.Date(required=True, format="%Y-%m-%d")
@@ -35,14 +17,29 @@ class AssignmentSchema(Schema):
 
 class LessonContentSchema(Schema):
     id = fields.Integer(dump_only=True)
-    lesson_id = fields.Integer()
     week_number = fields.Integer()
     content_type = fields.String()
     content = fields.String()
     week_start = fields.Date(format="%Y-%m-%d")
     week_end = fields.Date(format="%Y-%m-%d")
 
+class LessonSchema(Schema):
+    id = fields.Integer(dump_only=True)
+    title = fields.String(required=True)
+    description = fields.String()
+    order = fields.Integer()
+    lesson_contents = fields.Nested(LessonContentSchema, many=True)
     assignments = fields.Nested(AssignmentSchema, many=True)
+
+class CourseSchema(Schema):
+    id = fields.Integer(dump_only=True)
+    title = fields.String(required=True)
+    description = fields.String()
+    created_at = fields.Date(dump_only=True, format="%Y-%m-%d")
+    lessons = fields.Nested(LessonSchema, many=True)
+
+    class Meta:
+        unknown = EXCLUDE  # This will ignore unknown fields
 
 class EnrollmentSchema(Schema):
     id = fields.Integer(dump_only=True)

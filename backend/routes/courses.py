@@ -1,5 +1,5 @@
 from flask import jsonify, request, make_response, Blueprint
-from models import Course, db, Lesson
+from models import Course, db, Lesson, LessonContent, Assignment
 from schemas import CourseSchema
 from flask_cors import CORS
 
@@ -14,44 +14,105 @@ def get_all_courses():
     return make_response(jsonify(course_data), 200)
 
 # GET ONE COURSE
-@courses.route('/course/<int:id>', methods=['GET'])
-def course_item(id):
-    course = Course.query.filter_by(id=id).first()
+@courses.route('/course/<int:course_id>', methods=['GET'])
+def get_course(course_id):
+    course = Course.query.get(course_id)
     if not course:
         return make_response(jsonify({'message': 'Course not found'}), 404)
-    serialized_course = CourseSchema().dump(course)
-    return make_response(jsonify(serialized_course), 200)
+
+    # Fetch lessons along with lesson contents and assignments
+    lessons = []
+    for lesson in course.lessons:
+        lesson_data = {
+            'id': lesson.id,
+            'title': lesson.title,
+            'description': lesson.description,
+            'order': lesson.order,
+            'lesson_contents': [{'id': content.id, 'content': content.content} for content in lesson.lesson_contents],
+            'assignments': [{'id': assignment.id, 'title': assignment.title, 'due_date': assignment.due_date} for assignment in lesson.assignments]
+        }
+        lessons.append(lesson_data)
+    
+    course_data = {
+        'id': course.id,
+        'title': course.title,
+        'description': course.description,
+        'lessons': lessons
+    }
+    
+    return jsonify(course_data)
+
 
 # POST A COURSE WITH ITS MULTIPLE LESSONS
 @courses.route('/course', methods=['POST'])
 def create_course():
     data = request.get_json()
     lessons_data = data.pop('lessons', [])
+    
+    # Deserialize course data
     course_data = CourseSchema().load(data)
-
     new_course = Course(**course_data)
     db.session.add(new_course)
-    db.session.flush()  # flush to get the new course id
+    db.session.flush()  # Flush to get the new course id
 
-    # add lessons
+    # Add lessons and their nested contents and assignments
     for lesson_data in lessons_data:
+        lesson_contents_data = lesson_data.pop('lesson_contents', [])
+        assignments_data = lesson_data.pop('assignments', [])
+        
+        # Create lesson and flush to get lesson_id
         new_lesson = Lesson(course_id=new_course.id, **lesson_data)
         db.session.add(new_lesson)
+        db.session.flush()  # Now lesson_id is available
 
-    db.session.commit()  # commit after all lessons have been added
+        # Add lesson contents
+        for content_data in lesson_contents_data:
+            new_content = LessonContent(lesson_id=new_lesson.id, **content_data)
+            db.session.add(new_content)
+
+        # Add assignments using the flushed lesson_id
+        for assignment_data in assignments_data:
+            new_assignment = Assignment(course_id=new_course.id, lesson_id=new_lesson.id, **assignment_data)
+            db.session.add(new_assignment)
+
+    db.session.commit()  # Commit all data
+
     course_data = CourseSchema().dump(new_course)
     return make_response(jsonify(course_data), 201)
+
     
 # DELETE COURSE
-@courses.route('/course/<int:id>', methods=['DELETE'])
-def delete_course(id):
-    course = Course.query.get_or_404(id)
+@courses.route('/course/<int:course_id>', methods=['DELETE'])
+def delete_course(course_id):
+    # Fetch the course by ID
+    course = Course.query.get(course_id)
+    if not course:
+        return make_response(jsonify({'message': 'Course not found'}), 404)
 
-    # delete lessons associated with course first
-    Lesson.query.filter_by(course_id=course.id).delete()
+    try:
+        # Delete all the assignments for this course
+        for lesson in course.lessons:
+            for assignment in lesson.assignments:
+                db.session.delete(assignment)
+        
+        # Delete all the lesson contents for this course
+        for lesson in course.lessons:
+            for content in lesson.lesson_contents:
+                db.session.delete(content)
 
-    # delete the course
-    db.session.delete(course)
-    db.session.commit()
+        # Delete all the lessons for this course
+        for lesson in course.lessons:
+            db.session.delete(lesson)
 
-    return make_response(jsonify({"message": "Course deleted successfully"}), 200)
+        # Finally, delete the course
+        db.session.delete(course)
+
+        # Commit the changes
+        db.session.commit()
+
+        return make_response(jsonify({'message': 'Course and all related data deleted successfully'}), 200)
+    
+    except Exception as e:
+        # In case of any error, rollback the session and return an error message
+        db.session.rollback()
+        return make_response(jsonify({'message': str(e)}), 500)
