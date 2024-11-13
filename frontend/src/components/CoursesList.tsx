@@ -48,10 +48,7 @@ const CoursesList: React.FC = () => {
             >
               <h3 className="text-xl font-bold mb-2">{course.title}</h3>
               <p className="text-gray-700 mb-2">{course.description}</p>
-              <Link
-                to={`/course/${course.id}`}
-                className="text-blue-500 hover:underline font-semibold mt-4 inline-block"
-              >
+              <Link to={`/course/${course.id}`} className="text-blue-500 hover:underline font-semibold mt-4 inline-block">
                 View Details
               </Link>
             </div>

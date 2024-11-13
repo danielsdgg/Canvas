@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import SideNav from './SideNav';
 
+interface LessonContent {
+  week_number: number;
+  content_type: string;
+  content: string;
+  week_start: string;
+  week_end: string;
+}
+
 interface Assignment {
-  id: number;
   title: string;
+  description: string;
+  assigned_at: string;
   due_date: string;
 }
 
-interface LessonContent {
-  id: number;
-  content: string;
-}
-
 interface Lesson {
-  id: number;
   title: string;
   description: string;
   order: number;
@@ -23,106 +27,78 @@ interface Lesson {
 }
 
 interface Course {
-  id: number;
   title: string;
   description: string;
   lessons: Lesson[];
 }
 
 const CourseDetails: React.FC = () => {
-  const { courseId } = useParams<{ courseId: string }>();
-  const courseIdNumber = Number(courseId); // Ensure it's a number
+  const { id } = useParams<{ id: string }>();
   const [course, setCourse] = useState<Course | null>(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!courseId || isNaN(courseIdNumber)) {
-      setError('Invalid course ID.');
-      setLoading(false);
-      return;
-    }
-
-    const fetchCourse = async () => {
+    const fetchCourseData = async () => {
       try {
-        const response = await fetch(`/course/${courseIdNumber}`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch course details');
-        }
-        const data = await response.json();
-        setCourse({ ...data, lessons: data.lessons || [] });
+        const response = await axios.get(`/courses/${id}`);
+        setCourse(response.data);
       } catch (error) {
-        setError((error as Error).message);
-      } finally {
-        setLoading(false);
+        setError('Error fetching course data');
+        console.error(error);
       }
     };
 
-    fetchCourse();
-  }, [courseId, courseIdNumber]);
+    fetchCourseData();
+  }, [id]);
 
-  if (loading) return <div className="spinner">Loading...</div>;
-  if (error) return <p className="text-red-500">{error}</p>;
+  if (error) {
+    return <div className="text-red-500">{error}</div>;
+  }
+
+  if (!course) {
+    return <p className="text-center">Loading course details...</p>;
+  }
 
   return (
     <>
-      <SideNav />
-      <div className="p-6 bg-white rounded-lg shadow-lg">
-        {course ? (
-          <>
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">{course.title}</h2>
-            <p className="text-black mb-2">Description: {course.description}</p>
+    <SideNav/>
+    <div className="p-6 max-w-4xl mx-auto bg-white rounded-xl shadow-md space-y-4">
+      <h1 className="text-3xl font-bold text-center">{course.title}</h1>
+      <p className="text-lg text-gray-700 text-center mb-6">{course.description}</p>
 
-            <h3 className="text-2xl font-semibold text-gray-800 mb-4">Lessons</h3>
-            {course.lessons && course.lessons.length > 0 ? (
-              <ul className="space-y-4">
-                {course.lessons.map((lesson) => (
-                  <li key={lesson.id} className="p-4 border rounded-lg bg-gray-50">
-                    <Link
-                      to={`/course/${courseId}/lessons/${lesson.id}`}
-                      className="text-lg font-semibold text-blue-600 hover:underline"
-                    >
-                      {lesson.title}
-                    </Link>
-                    <p className="text-gray-600">{lesson.description}</p>
-                    <p className="text-gray-600">Order: {lesson.order}</p>
+      <h2 className="text-2xl font-semibold mb-4">Lessons</h2>
+      {course.lessons.map((lesson, index) => (
+        <div key={index} className="p-4 bg-gray-100 rounded-lg mb-4">
+          <h3 className="text-xl font-semibold">{lesson.title}</h3>
+          <p className="text-gray-700 mb-2">{lesson.description}</p>
+          <p className="text-sm text-gray-500">Order: {lesson.order}</p>
 
-                    {/* Display lesson contents */}
-                    {lesson.lesson_contents.length > 0 && (
-                      <div className="mt-2">
-                        <h4 className="text-xl font-semibold">Lesson Contents</h4>
-                        <ul className="ml-6 space-y-2">
-                          {lesson.lesson_contents.map((content) => (
-                            <li key={content.id} className="text-gray-600">{content.content}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
+          <h4 className="text-lg font-semibold mt-3">Lesson Contents</h4>
+          <ul className="list-disc list-inside">
+            {lesson.lesson_contents.map((content, idx) => (
+              <li key={idx} className="mt-1">
+                <strong>Week {content.week_number}:</strong> {content.content_type} - {content.content}
+                <br />
+                <em>Start: {content.week_start}, End: {content.week_end}</em>
+              </li>
+            ))}
+          </ul>
 
-                    {/* Display assignments */}
-                    {lesson.assignments.length > 0 && (
-                      <div className="mt-2">
-                        <h4 className="text-xl font-semibold">Assignments</h4>
-                        <ul className="ml-6 space-y-2">
-                          {lesson.assignments.map((assignment) => (
-                            <li key={assignment.id} className="text-gray-600">
-                              {assignment.title} - Due: {assignment.due_date}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No lessons available for this course.</p>
-            )}
-          </>
-        ) : (
-          <p>Course not found.</p>
-        )}
-      </div>
+          <h4 className="text-lg font-semibold mt-3">Assignments</h4>
+          <ul className="list-disc list-inside">
+            {lesson.assignments.map((assignment, idx) => (
+              <li key={idx} className="mt-1">
+                <strong>{assignment.title}:</strong> {assignment.description}
+                <br />
+                <em>Assigned: {assignment.assigned_at}</em>
+                <br />
+                <em>Due: {assignment.due_date}</em>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
     </>
   );
 };
