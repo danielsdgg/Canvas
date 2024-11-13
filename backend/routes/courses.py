@@ -1,85 +1,138 @@
-from flask import jsonify, request, make_response, Blueprint
+from flask import jsonify, request, make_response, Blueprint, abort
 from models import Course, db, Lesson, LessonContent, Assignment
 from schemas import CourseSchema
 from flask_cors import CORS
+from marshmallow import ValidationError
+
 
 courses = Blueprint('courses', __name__)
 CORS(courses)
 
+courses_schema = CourseSchema(many=True)
+
+
 # GET ALL COURSES
 @courses.route('/courses', methods=['GET'])
-def get_all_courses():
-    course_list = Course.query.all()
-    course_data = CourseSchema(many=True).dump(course_list)
-    return make_response(jsonify(course_data), 200)
+def get_courses():
+    courses = Course.query.all()
+    return jsonify([{
+        'id': course.id,
+        'title': course.title,
+        'description': course.description,
+    } for course in courses])
 
 # GET ONE COURSE
-@courses.route('/course/<int:course_id>', methods=['GET'])
+@courses.route('/courses/<int:course_id>', methods=['GET'])
 def get_course(course_id):
     course = Course.query.get(course_id)
     if not course:
-        return make_response(jsonify({'message': 'Course not found'}), 404)
+        return jsonify({'error': 'Course not found'}), 404
 
-    # Fetch lessons along with lesson contents and assignments
-    lessons = []
+    # Convert the course and its nested details into a JSON structure
+    course_data = {
+        'id': course.id,
+        'title': course.title,
+        'description': course.description,
+        'lessons': []
+    }
+
+    # Loop through lessons
     for lesson in course.lessons:
         lesson_data = {
             'id': lesson.id,
             'title': lesson.title,
             'description': lesson.description,
             'order': lesson.order,
-            'lesson_contents': [{'id': content.id, 'content': content.content} for content in lesson.lesson_contents],
-            'assignments': [{'id': assignment.id, 'title': assignment.title, 'due_date': assignment.due_date} for assignment in lesson.assignments]
+            'lesson_contents': [],
+            'assignments': []
         }
-        lessons.append(lesson_data)
-    
-    course_data = {
-        'id': course.id,
-        'title': course.title,
-        'description': course.description,
-        'lessons': lessons
-    }
-    
-    return jsonify(course_data)
 
+        # Loop through lesson contents
+        for content in lesson.lesson_contents:
+            lesson_data['lesson_contents'].append({
+                'id': content.id,
+                'week_number': content.week_number,
+                'content_type': content.content_type,
+                'content': content.content,
+                'week_start': content.week_start,
+                'week_end': content.week_end,
+            })
+
+        # Loop through assignments
+        for assignment in lesson.assignments:
+            lesson_data['assignments'].append({
+                'id': assignment.id,
+                'title': assignment.title,
+                'description': assignment.description,
+                'assigned_at': assignment.assigned_at,
+                'due_date': assignment.due_date,
+            })
+
+        course_data['lessons'].append(lesson_data)
+
+    return jsonify(course_data)
 
 # POST A COURSE WITH ITS MULTIPLE LESSONS
 @courses.route('/course', methods=['POST'])
 def create_course():
-    data = request.get_json()
-    lessons_data = data.pop('lessons', [])
-    
-    # Deserialize course data
-    course_data = CourseSchema().load(data)
-    new_course = Course(**course_data)
-    db.session.add(new_course)
-    db.session.flush()  # Flush to get the new course id
+    # Parse and validate the incoming JSON data
+    course_data = request.get_json()
+    schema = CourseSchema()
 
-    # Add lessons and their nested contents and assignments
-    for lesson_data in lessons_data:
-        lesson_contents_data = lesson_data.pop('lesson_contents', [])
-        assignments_data = lesson_data.pop('assignments', [])
+    try:
+        # Validate and deserialize input data to Course model-compatible dictionary
+        validated_data = schema.load(course_data)
+    except ValidationError as err:
+        return jsonify(err.messages), 400
+
+    # Create a new Course instance
+    course = Course(
+        title=validated_data['title'],
+        description=validated_data['description'],
+        instructor_id=validated_data.get('instructor_id')
+    )
+
+    # Process lessons, if any
+    for lesson_data in validated_data.get('lessons', []):
+        lesson = Lesson(
+            title=lesson_data['title'],
+            description=lesson_data['description'],
+            order=lesson_data.get('order'),
+            course=course
+        )
         
-        # Create lesson and flush to get lesson_id
-        new_lesson = Lesson(course_id=new_course.id, **lesson_data)
-        db.session.add(new_lesson)
-        db.session.flush()  # Now lesson_id is available
+        # Process lesson contents, if any
+        for content_data in lesson_data.get('lesson_contents', []):
+            lesson_content = LessonContent(
+                week_number=content_data.get('week_number'),
+                content_type=content_data.get('content_type'),
+                content=content_data.get('content'),
+                week_start=content_data.get('week_start'),
+                week_end=content_data.get('week_end'),
+                lesson=lesson
+            )
+            lesson.lesson_contents.append(lesson_content)
+        
+        # Process assignments, if any
+        for assignment_data in lesson_data.get('assignments', []):
+            assignment = Assignment(
+                title=assignment_data['title'],
+                description=assignment_data.get('description'),
+                assigned_at=assignment_data['assigned_at'],
+                due_date=assignment_data['due_date'],
+                lesson=lesson,
+                course=course
+            )
+            lesson.assignments.append(assignment)
+        
+        course.lessons.append(lesson)
 
-        # Add lesson contents
-        for content_data in lesson_contents_data:
-            new_content = LessonContent(lesson_id=new_lesson.id, **content_data)
-            db.session.add(new_content)
+    # Add the course to the database
+    db.session.add(course)
+    db.session.commit()
 
-        # Add assignments using the flushed lesson_id
-        for assignment_data in assignments_data:
-            new_assignment = Assignment(course_id=new_course.id, lesson_id=new_lesson.id, **assignment_data)
-            db.session.add(new_assignment)
-
-    db.session.commit()  # Commit all data
-
-    course_data = CourseSchema().dump(new_course)
-    return make_response(jsonify(course_data), 201)
-
+    # Serialize and return the created course data
+    return jsonify(schema.dump(course)), 201
     
 # DELETE COURSE
 @courses.route('/course/<int:course_id>', methods=['DELETE'])
