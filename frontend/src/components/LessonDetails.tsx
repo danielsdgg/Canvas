@@ -1,91 +1,91 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import SideNav from './SideNav';
 
-const LessonDetails = () => {
-  return (
-    <div>LessonDetails</div>
-  )
+interface LessonContent {
+  week_number: number;
+  content_type: string;
+  content: string;
+  week_start: string;
+  week_end: string;
 }
 
-export default LessonDetails
+interface Assignment {
+  title: string;
+  description: string;
+  assigned_at: string;
+  due_date: string;
+}
 
-// import React, { useEffect, useState } from 'react';
-// import { useParams } from 'react-router-dom';
+interface Lesson {
+  title: string;
+  description: string;
+  order: number;
+  lesson_contents: LessonContent[];
+  assignments: Assignment[];
+}
 
-// interface Assignment {
-//     id: number;
-//     title: string;
-//     description: string;
-//     assigned_at: string;  // Kept as string for consistent formatting with API responses
-//     due_date: string;
-// }
+const LessonDetails: React.FC = () => {
+  const { courseId, lessonId } = useParams<{ courseId: string, lessonId: string }>();
+  const [lesson, setLesson] = useState<Lesson | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-// interface LessonContent {
-//     week_number: number;
-//     content_type: string;
-//     content: string;
-//     week_start: string;
-//     week_end: string;
-// }
+  useEffect(() => {
+    const fetchLessonData = async () => {
+      try {
+        const response = await axios.get(`/courses/${courseId}/lessons/${lessonId}`);
+        setLesson(response.data);
+      } catch (error) {
+        setError('Error fetching lesson data');
+        console.error(error);
+      }
+    };
 
-// interface LessonDetailsResponse {
-//     lesson_content: LessonContent;
-//     assignments: Assignment[];
-// }
+    fetchLessonData();
+  }, [courseId, lessonId]);
 
-// const LessonDetails: React.FC = () => {
-//     const { lessonId } = useParams();
-//     const [lesson, setLesson] = useState<LessonContent | null>(null);
-//     const [assignments, setAssignments] = useState<Assignment[]>([]);
-//     const [loading, setLoading] = useState(true);
+  if (error) {
+    return <div className="text-red-500">{error}</div>;
+  }
 
-//     useEffect(() => {
-//         const fetchLesson = async () => {
-//             try {
-//                 const response = await fetch(`/lesson/${lessonId}`);
-//                 if (!response.ok) {
-//                     throw new Error('Network response was not ok');
-//                 }
-//                 const data: LessonDetailsResponse = await response.json();
-//                 console.log('Fetched data:', data);  // Log the response for debugging
-//                 setLesson(data.lesson_content);
-//                 setAssignments(data.assignments);
-//             } catch (error) {
-//                 console.error('Failed to fetch lesson:', error);
-//             } finally {
-//                 setLoading(false);
-//             }
-//         };
-    
-//         fetchLesson();
-//     }, [lessonId]);
-    
+  if (!lesson) {
+    return <p className="text-center">Loading lesson details...</p>;
+  }
 
-//     if (loading) return <p>Loading...</p>;
-//     if (!lesson) return <p>Lesson not found.</p>;
+  return (
+    <>
+      <SideNav />
+      <div className="p-6 max-w-4xl mx-auto bg-white rounded-xl shadow-md space-y-4">
+        <h1 className="text-3xl font-bold text-center">{lesson.title}</h1>
+        <p className="text-lg text-gray-700 text-center mb-6">{lesson.description}</p>
 
-//     return (
-//         <div>
-//             <h1>Week {lesson.week_number}</h1>
-//             <p>Type: {lesson.content_type}</p>
-//             <p>{lesson.content}</p>
-//             <p>Week Start: {new Date(lesson.week_start).toLocaleDateString()}</p>
-//             <p>Week End: {new Date(lesson.week_end).toLocaleDateString()}</p>
+        <h4 className="text-lg font-semibold mt-3">Lesson Contents</h4>
+        <ul className="list-disc list-inside">
+          {lesson.lesson_contents.map((content, idx) => (
+            <li key={idx} className="mt-1">
+              <strong>Week {content.week_number}:</strong> {content.content_type} - {content.content}
+              <br />
+              <em>Start: {content.week_start}, End: {content.week_end}</em>
+            </li>
+          ))}
+        </ul>
 
-//             <h2>Assignments</h2>
-//             {assignments.length > 0 ? (
-//                 <ul>
-//                     {assignments.map((assignment) => (
-//                         <li key={assignment.id}>
-//                             <strong>{assignment.title}</strong> - {assignment.description} 
-//                             (Due: {new Date(assignment.due_date).toLocaleDateString()})
-//                         </li>
-//                     ))}
-//                 </ul>
-//             ) : (
-//                 <p>No assignments for this lesson.</p>
-//             )}
-//         </div>
-//     );
-// };
+        <h4 className="text-lg font-semibold mt-3">Assignments</h4>
+        <ul className="list-disc list-inside">
+          {lesson.assignments.map((assignment, idx) => (
+            <li key={idx} className="mt-1">
+              <strong>{assignment.title}:</strong> {assignment.description}
+              <br />
+              <em>Assigned: {assignment.assigned_at}</em>
+              <br />
+              <em>Due: {assignment.due_date}</em>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
+  );
+};
 
-// export default LessonDetails;
+export default LessonDetails;

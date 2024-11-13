@@ -15,6 +15,7 @@ import Inbox from './components/Inbox';
 import History from './components/History';
 import Help from './components/Help';
 import Account from './components/Accounts';
+import LessonDetails from './components/LessonDetails';
 // import Auth from './components/Auth';
 // import Profile from './components/Profile';
 
@@ -44,7 +45,8 @@ function App() {
         <Route path="/courses" element={<CoursesList />} />
 
         {/* Route for course details page with dynamic courseId */}
-        <Route path="/course/:id" element={<CourseDetails />} />
+        <Route path="/course/:courseId" element={<CourseDetails />} />
+        <Route path="/course/:courseId/lesson/:lessonId" element={<LessonDetails />} />
 
         {/* Optional: Add a fallback route for unmatched paths */}
         {/* <Route path="*" element={<Navigate to="/courses" replace />} /> */}
