@@ -1,91 +1,96 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import SideNav from './SideNav';
+import { useParams } from 'react-router-dom';
 
 interface LessonContent {
-  week_number: number;
-  content_type: string;
-  content: string;
-  week_start: string;
-  week_end: string;
-}
-
-interface Assignment {
-  title: string;
-  description: string;
-  assigned_at: string;
-  due_date: string;
-}
-
-interface Lesson {
-  title: string;
-  description: string;
-  order: number;
-  lesson_contents: LessonContent[];
-  assignments: Assignment[];
+    id: number;
+    week_number: number;
+    day_number: number;  // This will indicate which day the content is for (1 = Monday, 5 = Friday)
+    content_type: string;
+    content: string;
+    week_start: string;
+    week_end: string;
 }
 
 const LessonDetails: React.FC = () => {
-  const { courseId, lessonId } = useParams<{ courseId: string, lessonId: string }>();
-  const [lesson, setLesson] = useState<Lesson | null>(null);
-  const [error, setError] = useState<string | null>(null);
+    const { courseId, lessonId } = useParams<{ courseId: string; lessonId: string }>();
+    const [lessonContents, setLessonContents] = useState<LessonContent[]>([]);
+    const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchLessonData = async () => {
-      try {
-        const response = await axios.get(`/courses/${courseId}/lessons/${lessonId}`);
-        setLesson(response.data);
-      } catch (error) {
-        setError('Error fetching lesson data');
-        console.error(error);
-      }
-    };
+    useEffect(() => {
+        if (!courseId || !lessonId) {
+            setError('Invalid parameters');
+            return;
+        }
 
-    fetchLessonData();
-  }, [courseId, lessonId]);
+        const fetchLessonContents = async () => {
+            try {
+                const response = await axios.get(
+                    `http://localhost:5000/courses/${courseId}/lessons/${lessonId}/contents`
+                );
+                setLessonContents(response.data);
+            } catch (err) {
+                setError('Failed to fetch lesson contents');
+                console.error(err);
+            }
+        };
 
-  if (error) {
-    return <div className="text-red-500">{error}</div>;
-  }
+        fetchLessonContents();
+    }, [courseId, lessonId]);
 
-  if (!lesson) {
-    return <p className="text-center">Loading lesson details...</p>;
-  }
+    // Group the content by week number and day
+    const groupedByWeek = lessonContents.reduce((acc, content) => {
+        const { week_number, day_number } = content;
+        if (!acc[week_number]) {
+            acc[week_number] = [];
+        }
+        acc[week_number].push(content);
+        return acc;
+    }, {} as Record<number, LessonContent[]>);
 
-  return (
-    <>
-      <SideNav />
-      <div className="p-6 max-w-4xl mx-auto bg-white rounded-xl shadow-md space-y-4">
-        <h1 className="text-3xl font-bold text-center">{lesson.title}</h1>
-        <p className="text-lg text-gray-700 text-center mb-6">{lesson.description}</p>
+    return (
+        <div className="container mx-auto p-6 bg-gray-50 rounded-lg shadow-lg">
+            <div className="text-center mb-6">
+                <h1 className="text-3xl font-bold text-gray-800">Lesson Details</h1>
+                {error && <p className="text-red-500 mt-2">{error}</p>}
+            </div>
 
-        <h4 className="text-lg font-semibold mt-3">Lesson Contents</h4>
-        <ul className="list-disc list-inside">
-          {lesson.lesson_contents.map((content, idx) => (
-            <li key={idx} className="mt-1">
-              <strong>Week {content.week_number}:</strong> {content.content_type} - {content.content}
-              <br />
-              <em>Start: {content.week_start}, End: {content.week_end}</em>
-            </li>
-          ))}
-        </ul>
-
-        <h4 className="text-lg font-semibold mt-3">Assignments</h4>
-        <ul className="list-disc list-inside">
-          {lesson.assignments.map((assignment, idx) => (
-            <li key={idx} className="mt-1">
-              <strong>{assignment.title}:</strong> {assignment.description}
-              <br />
-              <em>Assigned: {assignment.assigned_at}</em>
-              <br />
-              <em>Due: {assignment.due_date}</em>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </>
-  );
+            <div className="bg-white p-6 rounded-lg shadow-md space-y-4">
+                {Object.keys(groupedByWeek).length > 0 ? (
+                    Object.entries(groupedByWeek).map(([weekNumber, contents]) => (
+                        <div key={weekNumber} className="border-b pb-4 last:border-none">
+                            <h3 className="text-xl font-semibold text-gray-700">
+                                Week {weekNumber}
+                            </h3>
+                            <div className="space-y-4 mt-4">
+                                {contents.map((content) => (
+                                    <div key={content.id} className="bg-gray-100 p-4 rounded-md shadow-sm">
+                                        <h4 className="text-lg font-semibold text-gray-800">
+                                            Day {content.day_number}
+                                        </h4>
+                                        <div className="mt-2">
+                                            <p className="text-gray-600">
+                                                <strong className="font-semibold">Type:</strong> {content.content_type}
+                                            </p>
+                                            <p className="mt-2 text-gray-700">{content.content}</p>
+                                            <p className="mt-2 text-gray-600">
+                                                <strong className="font-semibold">Week Start:</strong> {content.week_start}
+                                            </p>
+                                            <p className="mt-2 text-gray-600">
+                                                <strong className="font-semibold">Week End:</strong> {content.week_end}
+                                            </p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p className="text-center text-gray-500">No lesson contents available.</p>
+                )}
+            </div>
+        </div>
+    );
 };
 
 export default LessonDetails;

@@ -3,11 +3,8 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import Calendar from './components/Calendar';
-// import Courses from './components/CoursesList';
-// import Details from './components/Details';
+
 import CourseDetails from './components/CourseDetails';
-import CoursesList from './components/CoursesList';
-// import LessonDetails from './components/LessonDetails';
 // import Login from './components/Auth/Login';
 // import Register from './components/Auth/Register';
 import CreateCourse from './components/CreateCourse';
@@ -16,6 +13,7 @@ import History from './components/History';
 import Help from './components/Help';
 import Account from './components/Accounts';
 import LessonDetails from './components/LessonDetails';
+import CoursesList from './components/CoursesList';
 // import Auth from './components/Auth';
 // import Profile from './components/Profile';
 
@@ -38,21 +36,10 @@ function App() {
             <Route path='/help' element={<Help/>} />
             <Route path="/create-course" element={<CreateCourse />} />
             <Route path='/calendar' element={<Calendar/>} />
-        {/* Redirect from root to courses list */}
-        {/* <Route path="/" element={<Navigate to="/courses" replace />} /> */}
-
-        {/* Route for the courses list */}
-        <Route path="/courses" element={<CoursesList />} />
-
-        {/* Route for course details page with dynamic courseId */}
-        <Route path="/course/:courseId" element={<CourseDetails />} />
-        <Route path="/course/:courseId/lesson/:lessonId" element={<LessonDetails />} />
-
-        {/* Optional: Add a fallback route for unmatched paths */}
-        {/* <Route path="*" element={<Navigate to="/courses" replace />} /> */}
-            {/* <Route path="/course/:courseId/lessons/:lessonId" element={<LessonDetails />} /> */}
-            {/* <Route path="*" element={<p className="text-center text-gray-500">404 - Page Not Found</p>} /> */}
-          </Routes>
+            <Route path="/courses" element={<CoursesList />} />
+            <Route path="/course/:courseId" element={<CourseDetails />} />
+            <Route path="/course/:courseId/lesson/:lessonId" element={<LessonDetails />} />
+            </Routes>
         </div>
       </div>
       </Router>
