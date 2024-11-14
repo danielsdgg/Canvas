@@ -69,6 +69,7 @@ class LessonContent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     lesson_id = db.Column(db.Integer, db.ForeignKey('lessons.id'))
     week_number = db.Column(db.Integer())
+    day_number = db.Column(db.Integer())
     content_type = db.Column(db.String())  # e.g., "Video", "Reading", "Exercise"
     content = db.Column(db.Text())  # Content text or file URL
     week_start = db.Column(db.Date())

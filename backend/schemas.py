@@ -18,6 +18,7 @@ class AssignmentSchema(Schema):
 class LessonContentSchema(Schema):
     id = fields.Integer(dump_only=True)
     week_number = fields.Integer()
+    day_number = fields.Integer()
     content_type = fields.String()
     content = fields.String()
     week_start = fields.Date(format="%Y-%m-%d")
