@@ -12,6 +12,7 @@ class AssignmentSchema(Schema):
     id = fields.Integer(dump_only=True)
     title = fields.String(required=True)
     description = fields.String()
+    week_number = fields.Integer()
     assigned_at = fields.Date(required=True, format="%Y-%m-%d")
     due_date = fields.Date(required=True, format="%Y-%m-%d")
 
@@ -21,8 +22,6 @@ class LessonContentSchema(Schema):
     day_number = fields.Integer()
     content_type = fields.String()
     content = fields.String()
-    week_start = fields.Date(format="%Y-%m-%d")
-    week_end = fields.Date(format="%Y-%m-%d")
 
 class LessonSchema(Schema):
     id = fields.Integer(dump_only=True)

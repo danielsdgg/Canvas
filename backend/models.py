@@ -40,7 +40,7 @@ class Course(db.Model):
     # Relationships
     lessons = db.relationship('Lesson', backref='course', lazy=True)
     enrollments = db.relationship('Enrollment', back_populates='course', cascade="all, delete")
-    assignments = db.relationship('Assignment', back_populates='course', cascade="all, delete")
+    assignments = db.relationship('Assignment', back_populates='course', lazy=True)
     instructor = db.relationship('User', backref='courses')
     
     def __repr__(self):
@@ -72,8 +72,6 @@ class LessonContent(db.Model):
     day_number = db.Column(db.Integer())
     content_type = db.Column(db.String())  # e.g., "Video", "Reading", "Exercise"
     content = db.Column(db.Text())  # Content text or file URL
-    week_start = db.Column(db.Date())
-    week_end = db.Column(db.Date())
     
     # Relationships
     lesson = db.relationship('Lesson', back_populates='lesson_contents')
@@ -102,6 +100,7 @@ class Assignment(db.Model):
     id = db.Column(db.Integer, primary_key=True) 
     title = db.Column(db.String, nullable=False)
     description = db.Column(db.String)
+    week_number = db.Column(db.Integer, nullable=False, default=1) 
     assigned_at = db.Column(db.Date, nullable=False)
     due_date = db.Column(db.Date, nullable=False)
     course_id = db.Column(db.Integer, db.ForeignKey('courses.id'), nullable=False)

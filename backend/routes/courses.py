@@ -52,8 +52,6 @@ def get_course(course_id):
                 'day_number': content.day_number,
                 'content_type': content.content_type,
                 'content': content.content,
-                'week_start': content.week_start,
-                'week_end': content.week_end,
             })
 
         # Loop through assignments
@@ -89,7 +87,7 @@ def create_course():
         instructor_id=validated_data.get('instructor_id')
     )
 
-    # Process lessons, if any
+    # Process lessons
     for lesson_data in validated_data.get('lessons', []):
         lesson = Lesson(
             title=lesson_data['title'],
@@ -97,43 +95,38 @@ def create_course():
             order=lesson_data.get('order'),
             course=course
         )
-        
-        # Process lesson contents, if any
-        for content_data in lesson_data.get('lesson_contents', []):
-            # Get the day_number from the incoming data
-            day_number = content_data.get('day_number')  
 
+        # Process lesson contents
+        for content_data in lesson_data.get('lesson_contents', []):
             lesson_content = LessonContent(
                 week_number=content_data.get('week_number'),
-                day_number=day_number, 
+                day_number=content_data.get('day_number'),
                 content_type=content_data.get('content_type'),
                 content=content_data.get('content'),
-                week_start=content_data.get('week_start'),
-                week_end=content_data.get('week_end'),
                 lesson=lesson
             )
             lesson.lesson_contents.append(lesson_content)
-        
-        # Process assignments, if any
-        for assignment_data in lesson_data.get('assignments', []):
-            assignment = Assignment(
-                title=assignment_data['title'],
-                description=assignment_data.get('description'),
-                assigned_at=assignment_data['assigned_at'],
-                due_date=assignment_data['due_date'],
-                lesson=lesson,
-                course=course
-            )
-            lesson.assignments.append(assignment)
-        
+
         course.lessons.append(lesson)
+
+    # Process weekly assignments
+    for assignment_data in validated_data.get('assignments', []):  # Top-level weekly assignments
+        assignment = Assignment(
+            title=assignment_data['title'],
+            description=assignment_data.get('description'),
+            assigned_at=assignment_data['assigned_at'],
+            due_date=assignment_data['due_date'],
+            week_number=assignment_data['week_number'],  # Specify week association
+            course=course
+        )
+        course.assignments.append(assignment)
 
     # Add the course to the database
     db.session.add(course)
     db.session.commit()
 
-    # Serialize and return the created course data
     return jsonify(schema.dump(course)), 201
+
 
 # EDIT COURSE
 @courses.route('/courses/<int:course_id>', methods=['PUT'])
@@ -179,10 +172,6 @@ def update_course(course_id):
                                         content.content_type = content_data['content_type']
                                     if 'content' in content_data:
                                         content.content = content_data['content']
-                                    if 'week_start' in content_data:
-                                        content.week_start = content_data['week_start']
-                                    if 'week_end' in content_data:
-                                        content.week_end = content_data['week_end']
                     
                     # Update assignments
                     if 'assignments' in lesson_data:
@@ -245,36 +234,77 @@ def delete_course(course_id):
     
 
 
-# GET LESSON CONTENTS FOR A SPECIFIC LESSON IN A COURSE
+# Route to fetch lesson contents and assignments
 @courses.route('/courses/<int:course_id>/lessons/<int:lesson_id>/contents', methods=['GET'])
 def get_lesson_contents(course_id, lesson_id):
-    # Fetch the course by ID
-    course = Course.query.get(course_id)
-    if not course:
-        return jsonify({"error": "Course not found"}), 404
+    try:
+        lesson = Lesson.query.filter_by(id=lesson_id, course_id=course_id).first()
+        if not lesson:
+            return jsonify({"message": "Lesson not found"}), 404
+        
+        lesson_contents = []
+        for content in lesson.lesson_contents:
+            content_data = {
+                'id': content.id,
+                'week_number': content.week_number,
+                'day_number': content.day_number,
+                'content_type': content.content_type,
+                'content': content.content,
+            }
+            # Include assignments for the lesson content
+            assignments = []
+            for assignment in content.lesson.assignments:
+                assignments.append({
+                    'id': assignment.id,
+                    'title': assignment.title,
+                    'description': assignment.description,
+                    'assigned_at': assignment.assigned_at,
+                    'due_date': assignment.due_date
+                })
+            content_data['assignments'] = assignments
+            lesson_contents.append(content_data)
 
-    # Fetch the lesson by ID for the given course
-    lesson = Lesson.query.filter_by(course_id=course_id, id=lesson_id).first()
-    if not lesson:
-        return jsonify({"error": "Lesson not found"}), 404
+        return jsonify(lesson_contents), 200
+    except Exception as e:
+        return jsonify({"message": str(e)}), 500
+    
+@courses.route('/lessons/<int:lesson_id>/contents/day/<int:day_number>', methods=['GET'])
+def get_content_by_day(lesson_id, day_number):
+    content = LessonContent.query.filter_by(lesson_id=lesson_id, day_number=day_number).first()
+    if not content:
+        return jsonify({"error": "Content not found"}), 404
+    return jsonify({
+        "id": content.id,
+        "week_number": content.week_number,
+        "day_number": content.day_number,
+        "content_type": content.content_type,
+        "content": content.content
+    }), 200
 
-    # Fetch the lesson contents for the specific lesson
-    lesson_contents = LessonContent.query.filter_by(lesson_id=lesson.id).all()
+@courses.route('/courses/<int:course_id>/lessons/<int:lesson_id>/contents/<int:day_number>', methods=['GET'])
+def get_day_contents(course_id, lesson_id, day_number):
+    try:
+        lesson = Lesson.query.filter_by(course_id=course_id, id=lesson_id).first_or_404()
+        day_contents = LessonContent.query.filter_by(lesson_id=lesson.id, day_number=day_number).all()
 
-    if not lesson_contents:
-        return jsonify({"message": "No contents found for this lesson"}), 404
+        if not day_contents:
+            return jsonify({"message": "No content found for this day."}), 404
 
-    # Return the lesson contents in the desired structure
-    contents_data = [{
-        'id': content.id,
-        'week_number': content.week_number,
-        'day_number': content.day_number,
-        'content_type': content.content_type,
-        'content': content.content,
-        'week_start': content.week_start,
-        'week_end': content.week_end,
-    } for content in lesson_contents]
+        # Serialize the contents
+        serialized_contents = [
+            {
+                "id": content.id,
+                "week_number": content.week_number,
+                "day_number": content.day_number,
+                "content_type": content.content_type,
+                "content": content.content
+            } for content in day_contents
+        ]
+        return jsonify(serialized_contents), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
-    return jsonify(contents_data)
+
+
 
 
