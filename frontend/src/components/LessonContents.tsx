@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 type LessonContent = {
-  content: string;
+  content1: string;
+  content2: string;
+  content3: string;
+  content4: string;
+  content5: string;
+  content6: string;
   content_type: string;
 };
 
@@ -49,7 +54,12 @@ const LessonContents: React.FC<LessonsProps> = ({ courseId, weekNumber }) => {
             <ul>
               {lesson.contents.map((content, contentIndex) => (
                 <li key={contentIndex}>
-                  <strong>{content.content_type}:</strong> {content.content}
+                  <strong>{content.content_type}:</strong> {content.content1}
+                  <strong>{content.content_type}:</strong> {content.content2}
+                  <strong>{content.content_type}:</strong> {content.content3}
+                  <strong>{content.content_type}:</strong> {content.content4}
+                  <strong>{content.content_type}:</strong> {content.content5}
+                  <strong>{content.content_type}:</strong> {content.content6}
                 </li>
               ))}
             </ul>

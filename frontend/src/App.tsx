@@ -14,6 +14,7 @@ import Help from './components/Help';
 import Account from './components/Accounts';
 import LessonDetails from './components/LessonDetails';
 import CoursesList from './components/CoursesList';
+import DayContentDetails from './components/DayContentDetails';
 // import Auth from './components/Auth';
 // import Profile from './components/Profile';
 
@@ -39,6 +40,7 @@ function App() {
             <Route path="/courses" element={<CoursesList />} />
             <Route path="/course/:courseId" element={<CourseDetails />} />
             <Route path="/course/:courseId/lesson/:lessonId" element={<LessonDetails />} />
+            <Route path="/courses/:courseId/lessons/:lessonId/contents/:dayNumber" element={<DayContentDetails />} />
             </Routes>
         </div>
       </div>
