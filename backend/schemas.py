@@ -21,13 +21,18 @@ class LessonContentSchema(Schema):
     week_number = fields.Integer()
     day_number = fields.Integer()
     content_type = fields.String()
-    content = fields.String()
+    content1 = fields.String()
+    content2 = fields.String()
+    content3 = fields.String()
+    content4 = fields.String()
+    content5 = fields.String()
+    content6 = fields.String()
 
 class LessonSchema(Schema):
     id = fields.Integer(dump_only=True)
     title = fields.String(required=True)
     description = fields.String()
-    order = fields.Integer()
+    # order = fields.Integer()
     lesson_contents = fields.Nested(LessonContentSchema, many=True)
     assignments = fields.Nested(AssignmentSchema, many=True)
 

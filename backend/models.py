@@ -53,7 +53,7 @@ class Lesson(db.Model):
     course_id = db.Column(db.Integer, db.ForeignKey('courses.id'))
     title = db.Column(db.String(100))
     description = db.Column(db.Text())
-    order = db.Column(db.Integer)  # Order of the lesson in the course
+    # order = db.Column(db.Integer)  # Order of the lesson in the course
     
     # Relationships
     lesson_contents = db.relationship('LessonContent', back_populates='lesson', cascade="all, delete")
@@ -71,11 +71,16 @@ class LessonContent(db.Model):
     week_number = db.Column(db.Integer())
     day_number = db.Column(db.Integer())
     content_type = db.Column(db.String())  # e.g., "Video", "Reading", "Exercise"
-    content = db.Column(db.Text())  # Content text or file URL
+    content1 = db.Column(db.Text()) # Content text or file URL
+    content2 = db.Column(db.Text()) # Content text or file URL
+    content3 = db.Column(db.Text()) # Content text or file URL
+    content4 = db.Column(db.Text()) # Content text or file URL
+    content5 = db.Column(db.Text()) # Content text or file URL
+    content6 = db.Column(db.Text()) # Content text or file URL
     
     # Relationships
     lesson = db.relationship('Lesson', back_populates='lesson_contents')
-    assignments = db.relationship('Assignment', back_populates='lesson_content')  # Updated to use `back_populates`
+    assignments = db.relationship('Assignment', backref='lesson_content_rel', lazy=True)
     
     def __repr__(self):
         return f'<LessonContent {self.content_type}>'
@@ -106,7 +111,7 @@ class Assignment(db.Model):
     course_id = db.Column(db.Integer, db.ForeignKey('courses.id'), nullable=False)
     lesson_id = db.Column(db.Integer, db.ForeignKey('lessons.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
-    lesson_content_id = db.Column(db.Integer, db.ForeignKey('lesson_contents.id'), nullable=True)  
+    lesson_content_id = db.Column(db.Integer, db.ForeignKey('lesson_contents.id'))
 
 
     # Relationships

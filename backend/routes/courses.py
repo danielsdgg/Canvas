@@ -39,7 +39,6 @@ def get_course(course_id):
             'id': lesson.id,
             'title': lesson.title,
             'description': lesson.description,
-            'order': lesson.order,
             'lesson_contents': [],
             'assignments': []
         }
@@ -51,7 +50,12 @@ def get_course(course_id):
                 'week_number': content.week_number,
                 'day_number': content.day_number,
                 'content_type': content.content_type,
-                'content': content.content,
+                'content1': content.content1,
+                'content2': content.content2,
+                'content3': content.content3,
+                'content4': content.content4,
+                'content5': content.content5,
+                'content6': content.content6,
             })
 
         # Loop through assignments
@@ -92,7 +96,6 @@ def create_course():
         lesson = Lesson(
             title=lesson_data['title'],
             description=lesson_data['description'],
-            order=lesson_data.get('order'),
             course=course
         )
 
@@ -102,7 +105,12 @@ def create_course():
                 week_number=content_data.get('week_number'),
                 day_number=content_data.get('day_number'),
                 content_type=content_data.get('content_type'),
-                content=content_data.get('content'),
+                content1=content_data.get('content1'),
+                content2=content_data.get('content2'),
+                content3=content_data.get('content3'),
+                content4=content_data.get('content4'),
+                content5=content_data.get('content5'),
+                content6=content_data.get('content6'),
                 lesson=lesson
             )
             lesson.lesson_contents.append(lesson_content)
@@ -154,8 +162,6 @@ def update_course(course_id):
                         lesson.title = lesson_data['title']
                     if 'description' in lesson_data:
                         lesson.description = lesson_data['description']
-                    if 'order' in lesson_data:
-                        lesson.order = lesson_data['order']
                     
                     # Update lesson contents
                     if 'lesson_contents' in lesson_data:
@@ -238,6 +244,7 @@ def delete_course(course_id):
 @courses.route('/courses/<int:course_id>/lessons/<int:lesson_id>/contents', methods=['GET'])
 def get_lesson_contents(course_id, lesson_id):
     try:
+        # Fetch the lesson and validate it exists
         lesson = Lesson.query.filter_by(id=lesson_id, course_id=course_id).first()
         if not lesson:
             return jsonify({"message": "Lesson not found"}), 404
@@ -249,11 +256,17 @@ def get_lesson_contents(course_id, lesson_id):
                 'week_number': content.week_number,
                 'day_number': content.day_number,
                 'content_type': content.content_type,
-                'content': content.content,
+                'content1': content.content1,
+                'content2': content.content2,
+                'content3': content.content3,
+                'content4': content.content4,
+                'content5': content.content5,
+                'content6': content.content6,
             }
-            # Include assignments for the lesson content
+
+            # Fetch assignments directly related to the content, if applicable
             assignments = []
-            for assignment in content.lesson.assignments:
+            for assignment in content.assignments:  # Ensure this relationship exists
                 assignments.append({
                     'id': assignment.id,
                     'title': assignment.title,
@@ -267,6 +280,7 @@ def get_lesson_contents(course_id, lesson_id):
         return jsonify(lesson_contents), 200
     except Exception as e:
         return jsonify({"message": str(e)}), 500
+
     
 @courses.route('/lessons/<int:lesson_id>/contents/day/<int:day_number>', methods=['GET'])
 def get_content_by_day(lesson_id, day_number):
@@ -278,7 +292,12 @@ def get_content_by_day(lesson_id, day_number):
         "week_number": content.week_number,
         "day_number": content.day_number,
         "content_type": content.content_type,
-        "content": content.content
+        "content1": content.content1,
+        "content2": content.content2,
+        "content3": content.content3,
+        "content4": content.content4,
+        "content5": content.content5,
+        "content6": content.content6
     }), 200
 
 @courses.route('/courses/<int:course_id>/lessons/<int:lesson_id>/contents/<int:day_number>', methods=['GET'])
@@ -297,7 +316,12 @@ def get_day_contents(course_id, lesson_id, day_number):
                 "week_number": content.week_number,
                 "day_number": content.day_number,
                 "content_type": content.content_type,
-                "content": content.content
+                "content1": content.content1,
+                "content2": content.content2,
+                "content3": content.content3,
+                "content4": content.content4,
+                "content5": content.content5,
+                "content6": content.content6
             } for content in day_contents
         ]
         return jsonify(serialized_contents), 200
