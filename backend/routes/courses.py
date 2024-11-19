@@ -1,8 +1,9 @@
 from flask import jsonify, request, make_response, Blueprint, abort
-from models import Course, db, Lesson, LessonContent, Assignment
+from models import Course, db, Lesson, LessonContent, Assignment, Detail
 from schemas import CourseSchema
 from flask_cors import CORS
 from marshmallow import ValidationError
+from sqlalchemy.exc import SQLAlchemyError
 
 
 courses = Blueprint('courses', __name__)
@@ -73,68 +74,75 @@ def get_course(course_id):
     return jsonify(course_data)
 
 # POST A COURSE WITH ITS MULTIPLE LESSONS
-@courses.route('/course', methods=['POST'])
+@courses.route('/create_course', methods=['POST'])
 def create_course():
-    course_data = request.get_json()
-    schema = CourseSchema()
-
     try:
-        # Validate and deserialize input data to Course model-compatible dictionary
-        validated_data = schema.load(course_data)
-    except ValidationError as err:
-        return jsonify(err.messages), 400
+        data = request.get_json()
 
-    # Create a new Course instance
-    course = Course(
-        title=validated_data['title'],
-        description=validated_data['description'],
-        instructor_id=validated_data.get('instructor_id')
-    )
-
-    # Process lessons
-    for lesson_data in validated_data.get('lessons', []):
-        lesson = Lesson(
-            title=lesson_data['title'],
-            description=lesson_data['description'],
-            course=course
+        # Create a new Course
+        course = Course(
+            title=data['title'],
+            description=data['description'],
+            instructor_id=data['instructor_id']
         )
+        db.session.add(course)
+        db.session.commit()  # Commit to get the course's ID
 
-        # Process lesson contents
-        for content_data in lesson_data.get('lesson_contents', []):
-            lesson_content = LessonContent(
-                week_number=content_data.get('week_number'),
-                day_number=content_data.get('day_number'),
-                content_type=content_data.get('content_type'),
-                content1=content_data.get('content1'),
-                content2=content_data.get('content2'),
-                content3=content_data.get('content3'),
-                content4=content_data.get('content4'),
-                content5=content_data.get('content5'),
-                content6=content_data.get('content6'),
-                lesson=lesson
+        # Create Lessons, LessonContents, Details, and Assignments
+        for lesson_data in data['lessons']:
+            lesson = Lesson(
+                title=lesson_data['title'],
+                description=lesson_data['description'],
+                course_id=course.id  # Link lesson to course
             )
-            lesson.lesson_contents.append(lesson_content)
+            db.session.add(lesson)
+            db.session.commit()
 
-        course.lessons.append(lesson)
+            # Create Lesson Contents
+            for content_data in lesson_data['lesson_contents']:
+                lesson_content = LessonContent(
+                    content_type=content_data['content_type'],
+                    content1=content_data.get('content1'),
+                    content2=content_data.get('content2'),
+                    content3=content_data.get('content3'),
+                    lesson_id=lesson.id  # Link content to lesson
+                )
+                db.session.add(lesson_content)
+                db.session.commit()
 
-    # Process weekly assignments
-    for assignment_data in validated_data.get('assignments', []):  # Top-level weekly assignments
-        assignment = Assignment(
-            title=assignment_data['title'],
-            description=assignment_data.get('description'),
-            assigned_at=assignment_data['assigned_at'],
-            due_date=assignment_data['due_date'],
-            week_number=assignment_data['week_number'],  # Specify week association
-            course=course
-        )
-        course.assignments.append(assignment)
+                # Create Detail for each Lesson Content
+                if 'detail' in content_data:
+                    detail = Detail(
+                        lesson_content_id=lesson_content.id,
+                        title=content_data['detail']['title'],
+                        paragraph1=content_data['detail'].get('paragraph1'),
+                        paragraph2=content_data['detail'].get('paragraph2'),
+                        heading1=content_data['detail'].get('heading1'),
+                        sentence1=content_data['detail'].get('sentence1')
+                    )
+                    db.session.add(detail)
+            
+            db.session.commit()  # Commit after all lesson content and details
 
-    # Add the course to the database
-    db.session.add(course)
-    db.session.commit()
+        # Create Assignments
+        for assignment_data in data['assignments']:
+            assignment = Assignment(
+                title=assignment_data['title'],
+                description=assignment_data['description'],
+                assigned_at=assignment_data['assigned_at'],
+                due_date=assignment_data['due_date'],
+                week_number=assignment_data['week_number'],
+                course_id=course.id  # Link assignment to course
+            )
+            db.session.add(assignment)
 
-    return jsonify(schema.dump(course)), 201
+        db.session.commit()  # Final commit to save everything
 
+        return jsonify({"message": "Course created successfully"}), 201
+
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 400
 
 # EDIT COURSE
 @courses.route('/courses/<int:course_id>', methods=['PUT'])
@@ -239,16 +247,22 @@ def delete_course(course_id):
         return make_response(jsonify({'message': str(e)}), 500)
     
 
-
 # Route to fetch lesson contents and assignments
+from sqlalchemy.orm import joinedload
+
 @courses.route('/courses/<int:course_id>/lessons/<int:lesson_id>/contents', methods=['GET'])
 def get_lesson_contents(course_id, lesson_id):
     try:
-        # Fetch the lesson and validate it exists
-        lesson = Lesson.query.filter_by(id=lesson_id, course_id=course_id).first()
+        # Fetch lesson with related contents, details, and assignments
+        lesson = Lesson.query.filter_by(id=lesson_id, course_id=course_id)\
+            .options(joinedload(Lesson.lesson_contents).joinedload(LessonContent.detail),
+                     joinedload(Lesson.lesson_contents).joinedload(LessonContent.assignments))\
+            .first()
+
         if not lesson:
             return jsonify({"message": "Lesson not found"}), 404
-        
+
+        # Build response data
         lesson_contents = []
         for content in lesson.lesson_contents:
             content_data = {
@@ -262,22 +276,28 @@ def get_lesson_contents(course_id, lesson_id):
                 'content4': content.content4,
                 'content5': content.content5,
                 'content6': content.content6,
+                'detail': {
+                    'id': content.detail.id,
+                    'title': content.detail.title,
+                    'paragraph1': content.detail.paragraph1,
+                    'paragraph2': content.detail.paragraph2,
+                    'heading1': content.detail.heading1,
+                    'sentence1': content.detail.sentence1
+                } if content.detail else None,
+                'assignments': [
+                    {
+                        'id': assignment.id,
+                        'title': assignment.title,
+                        'description': assignment.description,
+                        'assigned_at': assignment.assigned_at,
+                        'due_date': assignment.due_date
+                    } for assignment in content.assignments
+                ]
             }
-
-            # Fetch assignments directly related to the content, if applicable
-            assignments = []
-            for assignment in content.assignments:  # Ensure this relationship exists
-                assignments.append({
-                    'id': assignment.id,
-                    'title': assignment.title,
-                    'description': assignment.description,
-                    'assigned_at': assignment.assigned_at,
-                    'due_date': assignment.due_date
-                })
-            content_data['assignments'] = assignments
             lesson_contents.append(content_data)
 
         return jsonify(lesson_contents), 200
+
     except Exception as e:
         return jsonify({"message": str(e)}), 500
 

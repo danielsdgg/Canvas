@@ -16,6 +16,18 @@ class AssignmentSchema(Schema):
     assigned_at = fields.Date(required=True, format="%Y-%m-%d")
     due_date = fields.Date(required=True, format="%Y-%m-%d")
 
+class DetailSchema(Schema):
+    id = fields.Integer(dump_only=True)
+    lesson_content_id = fields.Integer(required=True)
+    title = fields.String()
+    paragraph1 = fields.String()
+    paragraph2 = fields.String()
+    heading1 = fields.String()
+    sentence1 = fields.String()
+
+    class Meta:
+        unknown = EXCLUDE 
+
 class LessonContentSchema(Schema):
     id = fields.Integer(dump_only=True)
     week_number = fields.Integer()
@@ -27,6 +39,9 @@ class LessonContentSchema(Schema):
     content4 = fields.String()
     content5 = fields.String()
     content6 = fields.String()
+
+    detail = fields.Nested(DetailSchema)  
+
 
 class LessonSchema(Schema):
     id = fields.Integer(dump_only=True)
@@ -44,7 +59,7 @@ class CourseSchema(Schema):
     lessons = fields.Nested(LessonSchema, many=True)
 
     class Meta:
-        unknown = EXCLUDE  # This will ignore unknown fields
+        unknown = EXCLUDE  
 
 class EnrollmentSchema(Schema):
     id = fields.Integer(dump_only=True)
