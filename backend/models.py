@@ -81,24 +81,8 @@ class LessonContent(db.Model):
     # Relationships
     lesson = db.relationship('Lesson', back_populates='lesson_contents')
     assignments = db.relationship('Assignment', backref='lesson_content_rel', lazy=True)
-    detail = db.relationship('Detail', backref='lesson_content', uselist=False, cascade="all, delete-orphan")
-
     def __repr__(self):
         return f'<LessonContent {self.content_type}>'
-    
-class Detail(db.Model):
-    __tablename__ = 'details'
-
-    id = db.Column(db.Integer, primary_key=True)
-    lesson_content_id = db.Column(db.Integer, db.ForeignKey('lesson_contents.id'), unique=True, index=True)
-    title = db.Column(db.String())
-    paragraph1 = db.Column(db.String())
-    paragraph2 = db.Column(db.String())
-    heading1 = db.Column(db.String())
-    sentence1 = db.Column(db.String())
-
-    def __repr__(self):
-        return f"<Detail id={self.id}, title='{self.title}', lesson_content_id={self.lesson_content_id}>"
 
 class Enrollment(db.Model):
     __tablename__ = 'enrollments'
