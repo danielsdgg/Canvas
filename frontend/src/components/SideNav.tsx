@@ -40,7 +40,7 @@ const SideNav: React.FC = () => {
           <FaTachometerAlt className="mr-3" /> Dashboard
         </Link>
         <Link to="/courses" className="flex items-center p-4 hover:bg-gray-700">
-          <FaBook className="mr-3" /> Courses
+        <FaBook className="mr-3" /> Courses
         </Link>
         <Link to="/calendar" className="flex items-center p-4 hover:bg-gray-700">
           <FaCalendarAlt className="mr-3" /> Calendar

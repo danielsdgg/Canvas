@@ -1,64 +1,51 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
-import SideNav from './SideNav';
+import React from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import SideNav from "./SideNav";
+import { courseDetails } from "../coursesData";
+import { FaArrowLeft } from "react-icons/fa";
 
-interface Lesson {
-  id: number;
-  title: string;
-  description: string;
-}
-
-interface Course {
-  title: string;
-  description: string;
-  lessons: Lesson[];
-}
 
 const CourseDetails: React.FC = () => {
   const { courseId } = useParams<{ courseId: string }>();
-  const [course, setCourse] = useState<Course | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate()
 
-  useEffect(() => {
-    const fetchCourseData = async () => {
-      try {
-        const response = await axios.get(`/courses/${courseId}`);
-        setCourse(response.data);
-      } catch (error) {
-        setError('Error fetching course data');
-        console.error(error);
-      }
-    };
-
-    fetchCourseData();
-  }, [courseId]);
-
-  if (error) {
-    return <div className="text-red-500">{error}</div>;
+  if (!courseId || !courseDetails[courseId]) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <p className="text-red-500 text-xl font-semibold">Course not found</p>
+      </div>
+    );
   }
 
-  if (!course) {
-    return <p className="text-center">Loading course details...</p>;
-  }
+  const course = courseDetails[courseId];
 
   return (
     <>
-    <SideNav/>
-    <div className="p-6 max-w-4xl mx-auto bg-white rounded-xl shadow-md">
-      <h2 className="text-3xl font-bold text-center mb-6">{course.title}</h2>
-      <p className="text-lg text-gray-700 text-center mb-6">{course.description}</p>
-      <h3 className="text-2xl font-semibold mb-4">Lessons</h3>
-      <ul className="list-disc list-inside space-y-2">
-        {course.lessons.map((lesson) => (
-          <li key={lesson.id}>
-            <Link to={`/course/${courseId}/lesson/${lesson.id}`} className="text-blue-500 hover:underline">
-              {lesson.title}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+      <SideNav />
+      <div className="p-8 bg-gray-50 min-h-screen">
+        {/* Back Button */}
+        <button onClick={() => navigate(-1)} className="flex items-center text-gray-700 hover:text-blue-500 mb-6">
+          <FaArrowLeft className="mr-2" />
+          Back to Course
+        </button>
+        <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
+          <h1 className="text-3xl font-bold text-gray-800 mb-4">{course.title}</h1>
+          <p className="text-gray-600 text-lg mb-6">{course.description}</p>
+
+          <div>
+            <h2 className="text-2xl font-semibold text-gray-700 mb-4">Lessons</h2>
+            <ul className="list-disc list-inside space-y-2">
+              {course.lessons.map((lesson) => (
+                <li key={lesson.id}>
+                  <Link to={`/courses/${courseId}/lessons/${lesson.id}`} className="text-blue-500 hover:underline">
+                    {lesson.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
