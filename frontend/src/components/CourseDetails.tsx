@@ -4,10 +4,9 @@ import SideNav from "./SideNav";
 import { courseDetails } from "../coursesData";
 import { FaArrowLeft } from "react-icons/fa";
 
-
 const CourseDetails: React.FC = () => {
   const { courseId } = useParams<{ courseId: string }>();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   if (!courseId || !courseDetails[courseId]) {
     return (
@@ -30,7 +29,11 @@ const CourseDetails: React.FC = () => {
         </button>
         <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
           <h1 className="text-3xl font-bold text-gray-800 mb-4">{course.title}</h1>
-          <p className="text-gray-600 text-lg mb-6">{course.description}</p>
+          <p className="text-gray-600 text-lg mb-2">{course.description}</p>
+          {/* Duration Field */}
+          <p className="text-gray-500 text-md font-medium mb-6">
+            <span className="font-semibold text-gray-700">Duration:</span> {course.duration}
+          </p>
 
           <div>
             <h2 className="text-2xl font-semibold text-gray-700 mb-4">Lessons</h2>

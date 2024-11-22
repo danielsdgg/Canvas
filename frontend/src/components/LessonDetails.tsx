@@ -1,50 +1,32 @@
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { lessonDetails, lessonContents } from '../coursesData'; // Importing the lesson details and content
-import SideNav from './SideNav';
+import React from "react";
+import { useParams } from "react-router-dom";
+import { lessonDetails, lessonContents } from "../coursesData"; // Adjust import path if necessary
 
 const LessonDetails: React.FC = () => {
   const { courseId, lessonId } = useParams<{ courseId: string; lessonId: string }>();
 
-  // Check if lessonId is valid before accessing the lesson details and content
-  if (!lessonId) {
-    return <p>Lesson not found.</p>;
+  // Ensure the lessonId exists in lessonDetails
+  if (!lessonId || !lessonDetails[lessonId]) {
+    return <div>Lesson not found</div>;
   }
 
-  const lessonDetail = lessonDetails[lessonId];
-  const lessonContent = lessonContents[lessonId];
-
-  // If lesson detail or lesson content is not found, show an error
-  if (!lessonDetail || !lessonContent) {
-    return <p>Lesson not found.</p>;
-  }
+  const lesson = lessonDetails[lessonId];
+  const contents = lessonContents[lessonId];
 
   return (
-    <>
-    <SideNav/>
-    <div className="p-6 bg-white rounded-lg shadow-md max-w-3xl mx-auto">
-      {/* Back Button */}
-      <div className="mb-4">
-        <Link to={`/courses/${courseId}`} className="text-blue-500 hover:text-blue-700">
-          &larr; Back to Course
-        </Link>
-      </div>
+    <div className="p-6 bg-white shadow-md rounded-md">
+      <h1 className="text-3xl font-bold mb-4">{lesson.title}</h1>
+      <p className="text-gray-700 mb-6">{lesson.content}</p>
 
-      {/* Lesson Title */}
-      <h1 className="text-3xl font-bold mb-4">{lessonDetail.title}</h1>
-
-      {/* Lesson Content */}
-      <div>
-        <h2 className="text-xl font-semibold text-gray-700 mb-3">Lesson Content</h2>
-        {lessonContent.map((contentItem: string, index: number) => (
-          <div key={index} className="mb-4">
-            <h3 className="text-lg font-medium">{contentItem}</h3>
-            <p className="text-gray-600">{lessonDetail.content}</p>
-          </div>
-        ))}
+      <div className="mt-4">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-3">Key Topics:</h2>
+        <ul className="list-disc list-inside text-gray-600 space-y-2">
+          {contents?.map((content, index) => (
+            <li key={index}>{content}</li>
+          ))}
+        </ul>
       </div>
     </div>
-    </>
   );
 };
 
