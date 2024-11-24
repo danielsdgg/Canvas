@@ -20,30 +20,32 @@ function App() {
 
   
   return (
-      <Router>
+    <Router>
       <div className="flex">
-        <div className="flex-grow p-4 md:ml-64">
+        {/* Sidebar */}
+        <div className="hidden md:block md:w-64 bg-gray-100"> {/* Adjust this if you have a Sidebar */}
+          {/* Sidebar contents */}
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-grow">
           <Routes>
-          {/* <Route path="/" element={<Auth />} /> */}
-            {/* <Route path="/" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} /> */}
-            <Route path='/' element={<Dashboard/>} />
+            {/* Add your routes here */}
+            <Route path="/" element={<Dashboard />} />
             <Route path="/courses" element={<CoursesPage />} />
-            <Route path='/inbox' element={<Inbox/>} />
-            <Route path='/accounts' element={<Account/>} />
-            <Route path='/history' element={<History/>} />
-            <Route path='/help' element={<Help/>} />
+            <Route path="/inbox" element={<Inbox />} />
+            <Route path="/accounts" element={<Account />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/help" element={<Help />} />
             <Route path="/create-course" element={<CreateCourse />} />
-            <Route path='/calendar' element={<Calendar/>} />
+            <Route path="/calendar" element={<Calendar />} />
             <Route path="/courses/:courseId" element={<CourseDetails />} />
             <Route path="/courses/:courseId/lessons/:lessonId" element={<LessonDetails />} />
             <Route path="/courses/:courseId/lessons/lesson7" element={<Lesson1 />} />
-
-            </Routes>
+          </Routes>
         </div>
       </div>
-      </Router>
+    </Router>
   );
 }
 

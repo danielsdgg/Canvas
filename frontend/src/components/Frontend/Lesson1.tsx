@@ -19,11 +19,43 @@ const Lesson1: React.FC = () => {
           Back to Course
         </button>
 
+        {/* Extended Overview */}
+        <header className="text-center mb-8">
+          <h1 className="text-4xl sm:text-4xl font-extrabold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500">
+            Beginning of Frontend Development Course
+          </h1>
+        </header>
+        <div className="max-w-full sm:max-w-5xl mx-auto bg-white shadow-xl rounded-lg p-4 sm:p-8 mb-12">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-gray-800 mb-6">
+            Becoming a Frontend Developer: The Roadmap
+          </h2>
+          <p className="text-sm sm:text-base text-gray-700 mb-6">
+            Frontend development is an exciting field where you bring digital designs to life on the web. A frontend developer ensures that websites are visually appealing, interactive, and user-friendly. You’ll work on crafting responsive interfaces, optimizing performance, and implementing modern web standards.
+          </p>
+          <p className="text-sm sm:text-base text-gray-700 mb-6">
+            In this lesson, you will begin by learning about three core technologies: **HTML, CSS, and Git**. These foundational tools are essential for creating, styling, and managing web projects. Over the next two weeks, you will:
+          </p>
+          <ul className="list-disc pl-6 text-sm sm:text-base text-gray-700 space-y-4 mb-6">
+            <li>
+              Understand the structure of a webpage and learn how to use **HTML** to build content.
+            </li>
+            <li>
+              Explore **CSS** to design visually appealing and responsive layouts.
+            </li>
+            <li>
+              Master **Git**, a powerful tool for version control, ensuring smooth collaboration and project management.
+            </li>
+          </ul>
+          <p className="text-sm sm:text-base text-gray-700">
+            By the end of this lesson, you’ll have the skills to create your first simple website and manage it like a professional developer.
+          </p>
+        </div>
+
         {/* Header */}
         <header className="text-center mb-8">
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500">
+          {/* <h1 className="text-2xl sm:text-4xl font-extrabold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500">
             Introduction to HTML
-          </h1>
+          </h1> */}
           <p className="text-sm sm:text-lg text-gray-800 mt-4">
             Learn the basics of HTML, the foundational markup language of the web.
           </p>
@@ -148,6 +180,118 @@ const Lesson1: React.FC = () => {
               </p>
             </div>
           </section>
+
+        {/* Git */}
+        {/* Header */}
+        <header className="text-center mb-8">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-500">
+            Git: A Comprehensive Guide
+          </h1>
+          <p className="text-sm sm:text-lg text-gray-800 mt-4">
+            Learn everything you need to know about Git, version control, and GitHub.
+          </p>
+        </header>
+
+        {/* Introduction */}
+        <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-4 sm:p-8 mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-6">Introduction to Git</h2>
+          <p className="text-sm sm:text-base text-gray-700 mb-6">
+            **Git** is a distributed version control system that allows developers to track changes in their code, collaborate on projects, and maintain the integrity of their codebase. It is an essential tool for every software developer.
+          </p>
+          <p className="text-sm sm:text-base text-gray-700">
+            With Git, you can:
+          </p>
+          <ul className="list-disc pl-6 text-sm sm:text-base text-gray-700 space-y-4 mb-6">
+            <li>Keep a history of your project's changes.</li>
+            <li>Collaborate with other developers seamlessly.</li>
+            <li>Experiment with new features using branching.</li>
+            <li>Revert to previous versions of your code if needed.</li>
+          </ul>
+        </div>
+
+        {/* Setting Up Git */}
+        <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-4 sm:p-8 mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-6">Setting Up Git</h2>
+          <p className="text-sm sm:text-base text-gray-700 mb-6">
+            To use Git on your computer, you'll need to install it first and configure it for your projects.
+          </p>
+          <h3 className="text-2xl font-semibold text-gray-700 mb-4">Installing Git</h3>
+          <ol className="list-decimal pl-6 text-sm sm:text-base text-gray-700 space-y-4 mb-6">
+            <li>Go to the official Git website: <a href="https://git-scm.com/" className="text-blue-600 hover:underline">git-scm.com</a>.</li>
+            <li>Download the Git installer for your operating system.</li>
+            <li>Run the installer and follow the prompts to complete the installation.</li>
+            <li>Verify the installation by running <code>git --version</code> in your terminal.</li>
+          </ol>
+
+          <h3 className="text-2xl font-semibold text-gray-700 mb-4">Configuring Git</h3>
+          <p className="text-sm sm:text-base text-gray-700 mb-4">
+            Once Git is installed, you need to configure your username and email address. These details are used to associate commits with your identity.
+          </p>
+          <pre className="bg-gray-100 p-4 sm:p-6 rounded-lg overflow-x-auto text-xs sm:text-sm text-blue-800">
+            <code>
+              {`# Set your name
+git config --global user.name "Your Name"
+
+# Set your email
+git config --global user.email "youremail@example.com"`}
+            </code>
+          </pre>
+        </div>
+
+        {/* Creating a GitHub Profile */}
+        <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-4 sm:p-8 mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-6">Creating a GitHub Profile</h2>
+          <p className="text-sm sm:text-base text-gray-700 mb-6">
+            GitHub is a platform that allows you to host and share Git repositories. Follow these steps to create an account:
+          </p>
+          <ol className="list-decimal pl-6 text-sm sm:text-base text-gray-700 space-y-4 mb-6">
+            <li>Visit <a href="https://github.com/" className="text-blue-600 hover:underline">github.com</a>.</li>
+            <li>Click on **Sign Up** and fill in your details (username, email, and password).</li>
+            <li>Verify your email address by clicking the confirmation link sent to your inbox.</li>
+            <li>Log in to your account and explore the GitHub dashboard.</li>
+          </ol>
+          <h3 className="text-2xl font-semibold text-gray-700 mb-4">Setting Up a Repository</h3>
+          <p className="text-sm sm:text-base text-gray-700 mb-4">
+            To start using GitHub, you need to create a repository (repo) where you’ll store your project files.
+          </p>
+          <pre className="bg-gray-100 p-4 sm:p-6 rounded-lg overflow-x-auto text-xs sm:text-sm text-blue-800">
+            <code>
+              {`# Create a new repository on GitHub
+# Follow the instructions to clone the repo locally
+git clone https://github.com/username/repository-name.git`}
+            </code>
+          </pre>
+        </div>
+
+        {/* Common Git Commands */}
+        <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-4 sm:p-8 mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-6">Common Git Commands</h2>
+          <ul className="list-disc pl-6 text-sm sm:text-base text-gray-700 space-y-4 mb-6">
+            <li>
+              **git init**: Initialize a new Git repository.
+            </li>
+            <li>
+              **git add**: Stage changes for commit.
+            </li>
+            <li>
+              **git commit -m "message"**: Commit changes with a message.
+            </li>
+            <li>
+              **git push**: Upload changes to a remote repository.
+            </li>
+            <li>
+              **git pull**: Fetch and merge changes from a remote repository.
+            </li>
+          </ul>
+        </div>
+
+        {/* Conclusion on git */}
+        <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-4 sm:p-8">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-6">Remarks</h2>
+          <p className="text-sm sm:text-base text-gray-700">
+            Git and GitHub are powerful tools that every developer must master. From tracking changes to collaborating with others, they play a crucial role in modern software development. Practice these commands and explore GitHub features to enhance your skills.
+          </p>
+        </div>
 
           {/* Conclusion */}
           <section className="mt-12 text-center">
