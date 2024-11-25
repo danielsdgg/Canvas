@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import SideNav from "../SideNav";
+import SideNav from '../SideNav';
 
 const Lesson1: React.FC = () => {
   const navigate = useNavigate();
@@ -9,7 +9,7 @@ const Lesson1: React.FC = () => {
   return (
     <>
       <SideNav />
-      <div className="p-4 sm:p-8 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 min-h-screen">
+      <div className="bg-gray-100 min-h-screen py-10">
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
@@ -18,288 +18,260 @@ const Lesson1: React.FC = () => {
           <FaArrowLeft className="mr-2" />
           Back to Course
         </button>
+        <div className="max-w-7xl mx-auto px-5">
+          <header className="text-center mb-10">
+            <h1 className="text-4xl font-bold text-blue-600 mb-2">
+              Introduction to Web Development (Frontend)
+            </h1>
+            <p className="text-lg text-gray-700">
+              A comprehensive guide to building stunning websites and user experiences.
+            </p>
+          </header>
 
-        {/* Extended Overview */}
-        <header className="text-center mb-8">
-          <h1 className="text-4xl sm:text-4xl font-extrabold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500">
-            Beginning of Frontend Development Course
-          </h1>
-        </header>
-        <div className="max-w-full sm:max-w-5xl mx-auto bg-white shadow-xl rounded-lg p-4 sm:p-8 mb-12">
-          <h2 className="text-3xl sm:text-4xl font-semibold text-gray-800 mb-6">
-            Becoming a Frontend Developer: The Roadmap
-          </h2>
-          <p className="text-sm sm:text-base text-gray-700 mb-6">
-            Frontend development is an exciting field where you bring digital designs to life on the web. A frontend developer ensures that websites are visually appealing, interactive, and user-friendly. You’ll work on crafting responsive interfaces, optimizing performance, and implementing modern web standards.
-          </p>
-          <p className="text-sm sm:text-base text-gray-700 mb-6">
-            In this lesson, you will begin by learning about three core technologies: **HTML, CSS, and Git**. These foundational tools are essential for creating, styling, and managing web projects. Over the next two weeks, you will:
-          </p>
-          <ul className="list-disc pl-6 text-sm sm:text-base text-gray-700 space-y-4 mb-6">
-            <li>
-              Understand the structure of a webpage and learn how to use **HTML** to build content.
-            </li>
-            <li>
-              Explore **CSS** to design visually appealing and responsive layouts.
-            </li>
-            <li>
-              Master **Git**, a powerful tool for version control, ensuring smooth collaboration and project management.
-            </li>
-          </ul>
-          <p className="text-sm sm:text-base text-gray-700">
-            By the end of this lesson, you’ll have the skills to create your first simple website and manage it like a professional developer.
-          </p>
-        </div>
+          {/* Welcome Section */}
+          <section className="bg-white shadow-lg rounded-lg p-8 mb-8">
+            <h2 className="text-3xl font-semibold text-gray-800 mb-4">
+              Welcome to Morgan Technical Training
+            </h2>
+            <p className="text-gray-700 leading-relaxed mb-4">
+              At Morgan Technical Training, we prioritize excellence and hands-on experience. This course is designed to empower you with the skills needed to excel in web development.
+            </p>
+            <p className="text-gray-700 mb-4">
+              Here are some key features of this Learning Management System (LMS), powered by Canvas:
+            </p>
+            <ul className="list-disc list-inside text-gray-700 space-y-2">
+              <li>Attendance is mandatory for all sessions unless otherwise excused.</li>
+              <li>Respect and professionalism are expected at all times.</li>
+              <li>Weekly assignments must be submitted on time.</li>
+            </ul>
 
-        {/* Header */}
-        <header className="text-center mb-8">
-          {/* <h1 className="text-2xl sm:text-4xl font-extrabold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500">
-            Introduction to HTML
-          </h1> */}
-          <p className="text-sm sm:text-lg text-gray-800 mt-4">
-            Learn the basics of HTML, the foundational markup language of the web.
-          </p>
-        </header>
-
-        {/* Content */}
-        <div className="max-w-full sm:max-w-4xl mx-auto bg-white shadow-xl rounded-lg p-4 sm:p-8">
-          <section className="mb-12">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-4">What is HTML?</h2>
-            <p className="text-sm sm:text-base text-gray-700">
-              HTML (Hypertext Markup Language) is the standard language for creating webpages. It provides the basic structure of web documents and is used to structure content such as text, images, links, and forms.
+            <p className="text-gray-700 leading-relaxed mt-6">
+              Our Learning Management System, Canvas, is your hub for all course-related activities:
+            </p>
+            <ul className="list-disc list-inside text-gray-700 space-y-2">
+              <li>Access lecture materials and resources.</li>
+              <li>Submit assignments and track your progress.</li>
+              <li>
+                Use the <strong>Inbox</strong> feature to communicate directly with instructors
+                and fellow students.
+              </li>
+            </ul>
+            <p className="text-gray-700 pt-2 leading-relaxed">
+              We believe that every learner deserves the best tools and guidance to succeed.
             </p>
           </section>
 
-          {/* HTML Structure */}
-          <section className="mb-12">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-4">Basic Structure of HTML</h2>
-            <p className="text-sm sm:text-base text-gray-700 mb-4">
-              Every HTML document follows a basic structure. This structure includes a doctype declaration, an HTML element, a head section, and a body section.
-            </p>
-            <pre className="bg-gray-100 p-4 sm:p-6 rounded-lg overflow-x-auto text-xs sm:text-sm text-blue-800">
-              <code>
-                {`<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Page Title</title>
-  </head>
-  <body>
-    <h1>Welcome to HTML!</h1>
-    <p>This is a simple HTML page.</p>
-  </body>
-</html>`}
-              </code>
-            </pre>
-            <p className="text-sm sm:text-base text-gray-700 mt-4">
-              In this structure:
-              <ul className="list-disc list-inside text-gray-600">
-                <li><strong>DOCTYPE</strong>: Declares the document type (HTML5 in this case).</li>
-                <li><strong>html</strong>: The root element of the document.</li>
-                <li><strong>head</strong>: Contains metadata about the page (title, character encoding, etc.).</li>
-                <li><strong>body</strong>: Contains the actual content of the webpage.</li>
-              </ul>
-            </p>
-          </section>
-
-          {/* Common HTML Tags */}
-          <section className="mb-12">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-4">Common HTML Tags</h2>
-            <p className="text-sm sm:text-base text-gray-700 mb-4">
-              HTML uses a variety of tags to structure content. Here are some common ones:
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="p-4 sm:p-6 bg-gradient-to-r from-green-100 to-green-200 rounded-lg shadow-md">
-                <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-2">Heading Tags</h3>
-                <pre className="bg-gray-200 p-4 rounded-lg overflow-x-auto text-xs sm:text-sm">
-                  <code>
-                    {`<h1>This is a heading level 1</h1>
-<h2>This is a heading level 2</h2>
-<h3>This is a heading level 3</h3>
-<h4>This is a heading level 4</h4>
-<h5>This is a heading level 5</h5>
-<h6>This is a heading level 6`}
-                  </code>
-                </pre>
-                <p className="mt-4 text-gray-700">
-                  Heading tags are used to create titles and subheadings in your document. <code>&lt;h1&gt;</code> is the highest level and <code>&lt;h6&gt;</code> is the lowest.
+          {/* Course Topics */}
+          <section className="bg-white shadow-lg rounded-lg p-8 mb-8">
+            <h2 className="text-3xl font-semibold text-gray-800 mb-4">
+              Topics Covered in This Course
+            </h2>
+            <div className="space-y-6">
+              {/* HTML */}
+              <div>
+                <h3 className="text-2xl font-medium text-blue-500 mb-2">1. HTML Basics</h3>
+                <p className="text-gray-700 leading-relaxed">
+                  Learn the foundational structure of the web. Topics include:
                 </p>
-              </div>
-              <div className="p-4 sm:p-6 bg-gradient-to-r from-blue-100 to-blue-200 rounded-lg shadow-md">
-                <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-2">Paragraph Tags</h3>
-                <pre className="bg-gray-200 p-4 rounded-lg overflow-x-auto text-xs sm:text-sm">
-                  <code>{`<p>This is a paragraph of text.</p>`}</code>
-                </pre>
-                <p className="mt-4 text-gray-700">
-                  The <code>&lt;p&gt;</code> tag is used for defining paragraphs in HTML.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Attributes */}
-          <section className="mb-12">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-4">HTML Attributes</h2>
-            <p className="text-sm sm:text-base text-gray-700">
-              HTML tags can have attributes that provide additional information. Attributes are added inside the opening tag.
-            </p>
-            <div className="p-4 sm:p-6 bg-gradient-to-r from-yellow-100 to-yellow-200 rounded-lg shadow-md">
-              <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">Example of a Link with Attributes</h3>
-              <pre className="bg-gray-200 p-4 rounded-lg overflow-x-auto text-xs sm:text-sm">
-                <code>{`<a href="https://www.example.com" target="_blank">Click here to visit Example</a>`}</code>
-              </pre>
-              <p className="mt-4 text-gray-700">
-                The <code>&lt;a&gt;</code> tag creates hyperlinks. In this example:
-                <ul className="list-disc list-inside text-gray-600">
-                  <li><strong>href</strong>: Specifies the URL of the page the link goes to.</li>
-                  <li><strong>target</strong>: Specifies where to open the linked document (in this case, a new tab).</li>
+                <ul className="list-disc list-inside text-gray-700 ml-6 space-y-1">
+                  <li>Tags and elements</li>
+                  <li>Semantic HTML</li>
+                  <li>Forms, tables, and media embedding</li>
                 </ul>
-              </p>
+              </div>
+
+              {/* CSS */}
+              <div>
+                <h3 className="text-2xl font-medium text-blue-500 mb-2">2. CSS for Styling</h3>
+                <p className="text-gray-700 leading-relaxed">
+                  Add visual appeal to your webpages. Topics include:
+                </p>
+                <ul className="list-disc list-inside text-gray-700 ml-6 space-y-1">
+                  <li>CSS selectors and properties</li>
+                  <li>Responsive design with Flexbox and Grid</li>
+                  <li>CSS animations and transitions</li>
+                </ul>
+              </div>
+
+              {/* JavaScript */}
+              <div>
+                <h3 className="text-2xl font-medium text-blue-500 mb-2">3. JavaScript Fundamentals</h3>
+                <p className="text-gray-700 leading-relaxed">
+                  Add interactivity and logic to your pages. Topics include:
+                </p>
+                <ul className="list-disc list-inside text-gray-700 ml-6 space-y-1">
+                  <li>Variables, loops, and conditionals</li>
+                  <li>DOM manipulation</li>
+                  <li>Event handling</li>
+                </ul>
+              </div>
+
+              {/* React */}
+              <div>
+                <h3 className="text-2xl font-medium text-blue-500 mb-2">4. Introduction to React</h3>
+                <p className="text-gray-700 leading-relaxed">
+                  Learn how to build reusable components and manage state. Topics include:
+                </p>
+                <ul className="list-disc list-inside text-gray-700 ml-6 space-y-1">
+                  <li>JSX syntax</li>
+                  <li>Props and state</li>
+                  <li>Component lifecycle</li>
+                </ul>
+              </div>
+
+              {/* Git */}
+              <div>
+                <h3 className="text-2xl font-medium text-blue-500 mb-2">5. Version Control with Git</h3>
+                <p className="text-gray-700 leading-relaxed">
+                  Git is an essential tool for version control and collaboration. In this module, you’ll learn:
+                </p>
+                <ul className="list-disc list-inside text-gray-700 ml-6 space-y-1">
+                  <li>How to install and configure Git</li>
+                  <li>Basic commands: `git init`, `git add`, `git commit`, and `git push`</li>
+                  <li>Working with branches for collaborative development</li>
+                  <li>Using GitHub to host and manage repositories</li>
+                </ul>
+              </div>
+
+              {/* CLI */}
+              <div>
+                <h3 className="text-2xl font-medium text-blue-500 mb-2">6. Command Line Interfaces (CLI)</h3>
+                <p className="text-gray-700 leading-relaxed">
+                  The CLI is a powerful tool for developers. You’ll learn:
+                </p>
+                <ul className="list-disc list-inside text-gray-700 ml-6 space-y-1">
+                  <li>Basic navigation commands like `cd`, `ls`, and `pwd`</li>
+                  <li>File and directory management commands</li>
+                  <li>Running scripts and programs via the terminal</li>
+                </ul>
+              </div>
+
+              {/* Visual Studio Code */}
+              <div>
+                <h3 className="text-2xl font-medium text-blue-500 mb-2">7. Setting Up Visual Studio Code</h3>
+                <p className="text-gray-700 leading-relaxed">
+                  Visual Studio Code (VS Code) is a versatile code editor. You’ll learn:
+                </p>
+                <ul className="list-disc list-inside text-gray-700 ml-6 space-y-1">
+                  <li>How to download and install VS Code</li>
+                  <li>Installing extensions for web development</li>
+                  <li>Using the integrated terminal and debugging tools</li>
+                </ul>
+              </div>
             </div>
           </section>
 
-          {/* Forms */}
-          <section className="mb-12">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-4">HTML Forms</h2>
-            <p className="text-sm sm:text-base text-gray-700">
-              Forms are used to collect user input. Below is an example of a simple HTML form:
+                    {/* Getting Started Section */}
+                    <section className="bg-white shadow-lg rounded-lg p-8 mb-8">
+            <h2 className="text-3xl font-semibold text-gray-800 mb-4">Getting Started</h2>
+            <p className="text-gray-700 leading-relaxed mb-4">
+              Setting up your development environment is crucial. Follow these steps:
             </p>
-            <div className="p-4 sm:p-6 bg-gradient-to-r from-teal-100 to-teal-200 rounded-lg shadow-md">
-              <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">Form Example</h3>
-              <pre className="bg-gray-200 p-4 rounded-lg overflow-x-auto text-xs sm:text-sm">
-                <code>{`<form action="/submit" method="POST">
-  <label for="name">Name:</label>
-  <input type="text" id="name" name="name" required />
-  <label for="email">Email:</label>
-  <input type="email" id="email" name="email" required />
-  <input type="submit" value="Submit" />
-</form>`}</code>
-              </pre>
-              <p className="mt-4 text-gray-700">
-                Forms allow users to input data. This example uses <code>&lt;input&gt;</code> fields to collect a name and email.
-              </p>
-            </div>
+            <ul className="list-disc list-inside text-gray-700 space-y-2">
+              <li>
+                <strong>Install Node.js:</strong> Download it from{" "}
+                <a
+                  href="https://nodejs.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 underline"
+                >
+                  nodejs.org
+                </a>.
+              </li>
+              <li>
+                <strong>Install Visual Studio Code:</strong> Get it from{" "}
+                <a
+                  href="https://code.visualstudio.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 underline"
+                >
+                  code.visualstudio.com
+                </a>.
+              </li>
+              <li>
+                <strong>Install React:</strong> Use the command <code>npx create-react-app my-app</code>.
+              </li>
+            </ul>
           </section>
 
-        {/* Git */}
-        {/* Header */}
-        <header className="text-center mb-8">
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-500">
-            Git: A Comprehensive Guide
-          </h1>
-          <p className="text-sm sm:text-lg text-gray-800 mt-4">
-            Learn everything you need to know about Git, version control, and GitHub.
-          </p>
-        </header>
+        {/* Hands on activities */}
+          <section className="bg-white shadow-lg rounded-lg p-8 mb-8">
+  <h2 className="text-3xl font-semibold text-gray-800 mb-4">
+    Hands-on Activities
+  </h2>
+  <p className="text-gray-700 leading-relaxed mb-6">
+    Practical application is key to mastering web development. Throughout this course, you'll engage in a series of hands-on activities designed to reinforce the concepts taught in each module. These activities will provide real-world experience and prepare you for industry challenges. Here's what you will accomplish:
+  </p>
 
-        {/* Introduction */}
-        <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-4 sm:p-8 mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-6">Introduction to Git</h2>
-          <p className="text-sm sm:text-base text-gray-700 mb-6">
-            **Git** is a distributed version control system that allows developers to track changes in their code, collaborate on projects, and maintain the integrity of their codebase. It is an essential tool for every software developer.
-          </p>
-          <p className="text-sm sm:text-base text-gray-700">
-            With Git, you can:
-          </p>
-          <ul className="list-disc pl-6 text-sm sm:text-base text-gray-700 space-y-4 mb-6">
-            <li>Keep a history of your project's changes.</li>
-            <li>Collaborate with other developers seamlessly.</li>
-            <li>Experiment with new features using branching.</li>
-            <li>Revert to previous versions of your code if needed.</li>
-          </ul>
-        </div>
+  <ul className="list-disc list-inside text-gray-700 space-y-4">
+    <li>
+      <h3 className="text-lg font-medium text-blue-600 mb-2">
+        Building a Portfolio Website
+      </h3>
+      <p className="leading-relaxed">
+        Create a fully responsive and visually appealing portfolio website that reflects your skills and creativity. This project will include:
+      </p>
+      <ul className="list-disc list-inside pl-5 mt-2 space-y-1">
+        <li>Using semantic HTML for structured content.</li>
+        <li>Applying CSS and modern frameworks (e.g., Tailwind CSS) for styling.</li>
+        <li>Integrating JavaScript for interactive components.</li>
+        <li>Hosting your portfolio on GitHub Pages or Netlify for public access.</li>
+        <li>Incorporating SEO best practices to improve visibility.</li>
+      </ul>
+    </li>
 
-        {/* Setting Up Git */}
-        <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-4 sm:p-8 mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-6">Setting Up Git</h2>
-          <p className="text-sm sm:text-base text-gray-700 mb-6">
-            To use Git on your computer, you'll need to install it first and configure it for your projects.
-          </p>
-          <h3 className="text-2xl font-semibold text-gray-700 mb-4">Installing Git</h3>
-          <ol className="list-decimal pl-6 text-sm sm:text-base text-gray-700 space-y-4 mb-6">
-            <li>Go to the official Git website: <a href="https://git-scm.com/" className="text-blue-600 hover:underline">git-scm.com</a>.</li>
-            <li>Download the Git installer for your operating system.</li>
-            <li>Run the installer and follow the prompts to complete the installation.</li>
-            <li>Verify the installation by running <code>git --version</code> in your terminal.</li>
-          </ol>
+    <li>
+      <h3 className="text-lg font-medium text-blue-600 mb-2">
+        Developing a Dynamic To-Do Application
+      </h3>
+      <p className="leading-relaxed">
+        Gain hands-on experience with React by creating a to-do app. This project will help you understand how to manage application state and build dynamic user interfaces. Key features include:
+      </p>
+      <ul className="list-disc list-inside pl-5 mt-2 space-y-1">
+        <li>Creating and managing components in React.</li>
+        <li>Utilizing hooks like `useState` and `useEffect` for state management.</li>
+        <li>Implementing CRUD (Create, Read, Update, Delete) operations.</li>
+        <li>Enhancing user experience with animations and error handling.</li>
+        <li>Styling the app for a professional, user-friendly design.</li>
+      </ul>
+    </li>
 
-          <h3 className="text-2xl font-semibold text-gray-700 mb-4">Configuring Git</h3>
-          <p className="text-sm sm:text-base text-gray-700 mb-4">
-            Once Git is installed, you need to configure your username and email address. These details are used to associate commits with your identity.
-          </p>
-          <pre className="bg-gray-100 p-4 sm:p-6 rounded-lg overflow-x-auto text-xs sm:text-sm text-blue-800">
-            <code>
-              {`# Set your name
-git config --global user.name "Your Name"
+    <li>
+      <h3 className="text-lg font-medium text-blue-600 mb-2">
+        Collaborating on GitHub with Classmates
+      </h3>
+      <p className="leading-relaxed">
+        Learn how to work effectively in a collaborative environment using Git and GitHub. This activity simulates real-world software development team dynamics and focuses on:
+      </p>
+      <ul className="list-disc list-inside pl-5 mt-2 space-y-1">
+        <li>Setting up a shared repository for team projects.</li>
+        <li>Creating and managing branches for feature development.</li>
+        <li>Submitting pull requests and participating in code reviews.</li>
+        <li>Resolving merge conflicts and maintaining clean commit histories.</li>
+        <li>Leveraging GitHub Actions to automate workflows, such as testing and deployment.</li>
+      </ul>
+    </li>
+  </ul>
 
-# Set your email
-git config --global user.email "youremail@example.com"`}
-            </code>
-          </pre>
-        </div>
+  <p className="text-gray-700 leading-relaxed mt-6">
+    These activities are designed not only to deepen your understanding of the concepts covered in class but also to equip you with a portfolio of real-world projects that showcase your skills to potential employers.
+  </p>
+</section>
 
-        {/* Creating a GitHub Profile */}
-        <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-4 sm:p-8 mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-6">Creating a GitHub Profile</h2>
-          <p className="text-sm sm:text-base text-gray-700 mb-6">
-            GitHub is a platform that allows you to host and share Git repositories. Follow these steps to create an account:
-          </p>
-          <ol className="list-decimal pl-6 text-sm sm:text-base text-gray-700 space-y-4 mb-6">
-            <li>Visit <a href="https://github.com/" className="text-blue-600 hover:underline">github.com</a>.</li>
-            <li>Click on **Sign Up** and fill in your details (username, email, and password).</li>
-            <li>Verify your email address by clicking the confirmation link sent to your inbox.</li>
-            <li>Log in to your account and explore the GitHub dashboard.</li>
-          </ol>
-          <h3 className="text-2xl font-semibold text-gray-700 mb-4">Setting Up a Repository</h3>
-          <p className="text-sm sm:text-base text-gray-700 mb-4">
-            To start using GitHub, you need to create a repository (repo) where you’ll store your project files.
-          </p>
-          <pre className="bg-gray-100 p-4 sm:p-6 rounded-lg overflow-x-auto text-xs sm:text-sm text-blue-800">
-            <code>
-              {`# Create a new repository on GitHub
-# Follow the instructions to clone the repo locally
-git clone https://github.com/username/repository-name.git`}
-            </code>
-          </pre>
-        </div>
-
-        {/* Common Git Commands */}
-        <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-4 sm:p-8 mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-6">Common Git Commands</h2>
-          <ul className="list-disc pl-6 text-sm sm:text-base text-gray-700 space-y-4 mb-6">
-            <li>
-              **git init**: Initialize a new Git repository.
-            </li>
-            <li>
-              **git add**: Stage changes for commit.
-            </li>
-            <li>
-              **git commit -m "message"**: Commit changes with a message.
-            </li>
-            <li>
-              **git push**: Upload changes to a remote repository.
-            </li>
-            <li>
-              **git pull**: Fetch and merge changes from a remote repository.
-            </li>
-          </ul>
-        </div>
-
-        {/* Conclusion on git */}
-        <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-4 sm:p-8">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-6">Remarks</h2>
-          <p className="text-sm sm:text-base text-gray-700">
-            Git and GitHub are powerful tools that every developer must master. From tracking changes to collaborating with others, they play a crucial role in modern software development. Practice these commands and explore GitHub features to enhance your skills.
-          </p>
-        </div>
 
           {/* Conclusion */}
-          <section className="mt-12 text-center">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-4">Conclusion</h2>
-            <p className="text-sm sm:text-lg text-gray-700">
-              HTML is the backbone of web development. By mastering its basic structure and common tags, you can start building web pages. As you advance, you will learn about more complex topics such as CSS and JavaScript integration.
+          <section className="bg-white shadow-lg rounded-lg p-8">
+            <h2 className="text-3xl font-semibold text-gray-800 mb-4">Conclusion</h2>
+            <p className="text-gray-700 leading-relaxed">
+              By the end of this course, you’ll have the skills and confidence to create modern websites and web apps. With practice, you can become a proficient web developer ready to tackle real-world challenges.
             </p>
           </section>
+
+          <footer className="text-center mt-10 text-gray-500">
+            <p>© 2024 Morgan Technical Training. All rights reserved.</p>
+          </footer>
         </div>
       </div>
     </>
