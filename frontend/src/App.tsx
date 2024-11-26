@@ -14,8 +14,9 @@ import LessonDetails from './components/LessonDetails';
 import CourseDetails from './components/CourseDetails';
 import CoursesPage from './components/CoursesPage';
 // import Profile from './components/Profile';
-import Lesson1 from './components/Frontend/Lesson1';
-import Lesson2 from './components/Frontend/Lesson2';
+import Lesson8 from './components/Frontend/Lesson8';
+import Lesson9 from './components/Frontend/Lesson9';
+import Lesson1 from './components/Data Science/Lesson1';
 
 function App() {
 
@@ -42,10 +43,14 @@ function App() {
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/courses/:courseId" element={<CourseDetails />} />
             <Route path="/courses/:courseId/lessons/:lessonId" element={<LessonDetails />} />
-            
+
             {/* frontend pages */}
-            <Route path="/courses/:courseId/lessons/lesson7" element={<Lesson1 />} />
-            <Route path="/courses/:courseId/lessons/lesson8" element={<Lesson2 />} />
+            <Route path="/courses/:courseId/lessons/lesson7" element={<Lesson8 />} />
+            <Route path="/courses/:courseId/lessons/lesson8" element={<Lesson9 />} />
+
+            {/* data science pages */}
+            <Route path="/courses/:courseId/lessons/lesson1" element={<Lesson1 />} />
+
           </Routes>
         </div>
       </div>
