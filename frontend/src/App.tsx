@@ -3,8 +3,6 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import Calendar from './components/Calendar';
-// import Login from './components/Auth/Login';
-// import Register from './components/Auth/Register';
 import CreateCourse from './components/CreateCourse';
 import Inbox from './components/Inbox';
 import History from './components/History';
@@ -13,9 +11,14 @@ import Account from './components/Accounts';
 import LessonDetails from './components/LessonDetails';
 import CourseDetails from './components/CourseDetails';
 import CoursesPage from './components/CoursesPage';
-// import Profile from './components/Profile';
+//   FRONTEND ROUTES
+import Lesson7 from './components/Frontend/Lesson7';
 import Lesson8 from './components/Frontend/Lesson8';
 import Lesson9 from './components/Frontend/Lesson9';
+import Lesson10 from './components/Frontend/Lesson10';
+import Lesson11 from './components/Frontend/Lesson11';
+
+//   DATA SCIENCE ROUTES
 import Lesson1 from './components/Data Science/Lesson1';
 
 function App() {
@@ -43,13 +46,16 @@ function App() {
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/courses/:courseId" element={<CourseDetails />} />
             <Route path="/courses/:courseId/lessons/:lessonId" element={<LessonDetails />} />
-
-            {/* frontend pages */}
-            <Route path="/courses/:courseId/lessons/lesson7" element={<Lesson8 />} />
-            <Route path="/courses/:courseId/lessons/lesson8" element={<Lesson9 />} />
-
             {/* data science pages */}
             <Route path="/courses/:courseId/lessons/lesson1" element={<Lesson1 />} />
+
+            {/* frontend pages */}
+            <Route path="/courses/:courseId/lessons/lesson7" element={<Lesson7 />} />
+            <Route path="/courses/:courseId/lessons/lesson8" element={<Lesson8 />} />
+            <Route path="/courses/:courseId/lessons/lesson9" element={<Lesson9/>} />
+            <Route path="/courses/:courseId/lessons/lesson10" element={<Lesson10/>} />
+            <Route path="/courses/:courseId/lessons/lesson11" element={<Lesson11/>} />
+
 
           </Routes>
         </div>
