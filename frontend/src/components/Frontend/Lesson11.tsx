@@ -18,7 +18,7 @@ const Lesson11 = () => {
           <FaArrowLeft className="mr-2" />
           Back to Course
         </button>
-        <h1 className="text-center text-4xl font-bold text-blue-900 mb-6">Lesson 11 - React Fundamentals</h1>
+        <h1 className="text-center text-4xl font-bold text-blue-900 mb-6">Lesson 5 - React Fundamentals</h1>
 
         {/* Intro Section */}
         <section className="mb-12">

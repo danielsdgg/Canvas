@@ -11,12 +11,14 @@ import Account from './components/Accounts';
 import LessonDetails from './components/LessonDetails';
 import CourseDetails from './components/CourseDetails';
 import CoursesPage from './components/CoursesPage';
+
 //   FRONTEND ROUTES
 import Lesson7 from './components/Frontend/Lesson7';
 import Lesson8 from './components/Frontend/Lesson8';
 import Lesson9 from './components/Frontend/Lesson9';
 import Lesson10 from './components/Frontend/Lesson10';
 import Lesson11 from './components/Frontend/Lesson11';
+import Lesson12 from './components/Frontend/Lesson12';
 
 //   DATA SCIENCE ROUTES
 import Lesson1 from './components/Data Science/Lesson1';
@@ -52,9 +54,10 @@ function App() {
             {/* frontend pages */}
             <Route path="/courses/:courseId/lessons/lesson7" element={<Lesson7 />} />
             <Route path="/courses/:courseId/lessons/lesson8" element={<Lesson8 />} />
-            <Route path="/courses/:courseId/lessons/lesson9" element={<Lesson9/>} />
+            <Route path="/courses/:courseId/lessons/lesson9" element={<Lesson9 />} />
             <Route path="/courses/:courseId/lessons/lesson10" element={<Lesson10/>} />
             <Route path="/courses/:courseId/lessons/lesson11" element={<Lesson11/>} />
+            <Route path="/courses/:courseId/lessons/lesson12" element={<Lesson12/>} />
 
 
           </Routes>
