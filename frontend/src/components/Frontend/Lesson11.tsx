@@ -9,7 +9,7 @@ const Lesson11 = () => {
   return (
     <>
       <SideNav />
-      <div className="container mx-auto p-6 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100">
+      <div className="mx-auto p-6 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 ml-14">
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
@@ -34,30 +34,92 @@ const Lesson11 = () => {
         <section className="mb-12">
           <h2 className="text-2xl font-semibold mb-4 text-green-600">Week 1: React Basics</h2>
 
-          {/* Day 1 */}
-          <div className="mb-8">
-            <h3 className="text-xl font-bold">Day 1: Installation and Introduction to React</h3>
-            <p className="text-gray-700 mb-4">
-              To start using React, you need to install Node.js, which includes npm (Node Package Manager). React applications are created using the `create-react-app` command, which sets up the project structure and dependencies for you.
-            </p>
-            <pre className="bg-gray-800 text-white p-4 rounded">
-              {`# Install Node.js (includes npm)
-npm -v  # Check npm version
-node -v  # Check Node version
+{/* Day 1 */}
+<div className="mb-8">
+  <h3 className="text-xl font-bold">Day 1: Installation and Introduction to React</h3>
+  <p className="text-gray-700 mb-4">
+    Welcome to your journey with React! On Day 1, we'll focus on setting up your development environment and understanding the basics of React. React is a JavaScript library for building user interfaces. It allows developers to create reusable components, making the development process more efficient and scalable.
+  </p>
+  <h4 className="text-lg font-semibold mb-2">Step 1: Installing Node.js</h4>
+  <p className="text-gray-700 mb-4">
+    To begin, you need to install Node.js, which comes bundled with npm (Node Package Manager). npm helps manage the libraries and dependencies required for React development. You can download Node.js from the official website at{' '}
+    <a href="https://nodejs.org/" target="_blank" className="text-blue-500 underline">
+      https://nodejs.org/
+    </a>.
+  </p>
+  <pre className="bg-gray-800 text-white p-4 rounded">
+    {`# Check if Node.js and npm are installed
+node -v   # Check Node.js version
+npm -v    # Check npm version
 
-# Create a new React app
+# If not installed, download and install from https://nodejs.org/
+`}
+  </pre>
+  <h4 className="text-lg font-semibold mb-2">Step 2: Setting Up a New React Application</h4>
+  <p className="text-gray-700 mb-4">
+    React applications are typically created using the <code>create-react-app</code> command, which automatically sets up the necessary files, dependencies, and project structure for you.
+  </p>
+  <pre className="bg-gray-800 text-white p-4 rounded">
+    {`# Create a new React application
 npx create-react-app my-react-app
 
-# Navigate to the project directory
+# Navigate into the project directory
 cd my-react-app
 
 # Start the development server
 npm start`}
-            </pre>
-            <p className="text-gray-700 mb-4">
-              After running `npm start`, open your browser and go to `http://localhost:3000` to see the default React app running.
-            </p>
-          </div>
+  </pre>
+  <p className="text-gray-700 mb-4">
+    After running <code>npm start</code>, your default web browser will automatically open at{' '}
+    <code>http://localhost:3000</code>, displaying the default React app.
+  </p>
+  <h4 className="text-lg font-semibold mb-2">Understanding the Project Structure</h4>
+  <p className="text-gray-700 mb-4">
+    Let’s take a look at the files created by <code>create-react-app</code>:
+  </p>
+  <ul className="list-disc list-inside text-gray-700 mb-4">
+    <li>
+      <code>src/</code>: Contains your application code, including components and styles. You'll be working here most of the time.
+    </li>
+    <li>
+      <code>public/</code>: Contains static assets like images and the <code>index.html</code> file.
+    </li>
+    <li>
+      <code>package.json</code>: Includes metadata about your project and its dependencies.
+    </li>
+  </ul>
+  <h4 className="text-lg font-semibold mb-2">Step 3: Editing Your First Component</h4>
+  <p className="text-gray-700 mb-4">
+    Open the <code>src/App.js</code> file. This is the main component rendered in your React app. Modify it to see how React's hot-reloading feature works.
+  </p>
+  <pre className="bg-gray-800 text-white p-4 rounded">
+    {`function App() {
+  return (
+    <div>
+      <h1>Welcome to My React App!</h1>
+      <p>This is your first React application. Customize it to get started.</p>
+    </div>
+  );
+}
+
+export default App;`}
+  </pre>
+  <p className="text-gray-700 mb-4">
+    Save the file, and you'll see the browser refresh automatically with your changes.
+  </p>
+  <h4 className="text-lg font-semibold mb-2">Tips for Success</h4>
+  <ul className="list-disc list-inside text-gray-700">
+    <li>
+      Use a code editor like <a href="https://code.visualstudio.com/" target="_blank" className="text-blue-500 underline">VS Code</a> for better productivity. Install useful extensions like ESLint and Prettier.
+    </li>
+    <li>Read the official React documentation at <a href="https://reactjs.org/docs/getting-started.html" target="_blank" className="text-blue-500 underline">https://reactjs.org/docs/getting-started.html</a>.</li>
+    <li>Experiment with modifying components and CSS to understand how React works.</li>
+  </ul>
+  <p className="text-gray-700 mt-4">
+    Congratulations on completing Day 1! You're now ready to dive deeper into React and start building dynamic user interfaces.
+  </p>
+</div>
+
 
           {/* Day 2 */}
           <div className="mb-8">

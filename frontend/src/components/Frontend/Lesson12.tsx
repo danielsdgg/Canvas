@@ -9,7 +9,7 @@ const Lesson12: React.FC = () => {
   return (
     <>
     <SideNav/>
-    <div className="p-6 bg-gradient-to-r from-blue-50 to-blue-100 min-h-screen">
+    <div className="p-6 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 min-h-screen mx-auto">
         {/* Back Button */}
         <button onClick={() => navigate(-1)}
         className="flex items-center text-gray-600 hover:text-blue-800 mb-6 transition-all duration-300 ease-in-out transform hover:scale-105">

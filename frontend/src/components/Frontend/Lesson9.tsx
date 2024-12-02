@@ -9,7 +9,7 @@ const Lesson9 = () => {
   return (
     <>
       <SideNav />
-      <div className="container mx-auto p-6 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100">
+      <div className="mx-auto p-6 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100">
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
