@@ -7,9 +7,9 @@ const Lesson11 = () => {
   const navigate = useNavigate();
 
   return (
-    <>
+    <div className='flex'>
       <SideNav />
-      <div className="mx-auto p-6 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 ml-14">
+      <div className="flex-1 p-6 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 md:ml-16">
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
@@ -43,7 +43,7 @@ const Lesson11 = () => {
   <h4 className="text-lg font-semibold mb-2">Step 1: Installing Node.js</h4>
   <p className="text-gray-700 mb-4">
     To begin, you need to install Node.js, which comes bundled with npm (Node Package Manager). npm helps manage the libraries and dependencies required for React development. You can download Node.js from the official website at{' '}
-    <a href="https://nodejs.org/" target="_blank" className="text-blue-500 underline">
+    <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
       https://nodejs.org/
     </a>.
   </p>
@@ -110,9 +110,9 @@ export default App;`}
   <h4 className="text-lg font-semibold mb-2">Tips for Success</h4>
   <ul className="list-disc list-inside text-gray-700">
     <li>
-      Use a code editor like <a href="https://code.visualstudio.com/" target="_blank" className="text-blue-500 underline">VS Code</a> for better productivity. Install useful extensions like ESLint and Prettier.
+      Use a code editor like <a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">VS Code</a> for better productivity. Install useful extensions like ESLint and Prettier.
     </li>
-    <li>Read the official React documentation at <a href="https://reactjs.org/docs/getting-started.html" target="_blank" className="text-blue-500 underline">https://reactjs.org/docs/getting-started.html</a>.</li>
+    <li>Read the official React documentation at <a href="https://reactjs.org/docs/getting-started.html" target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">https://reactjs.org/docs/getting-started.html</a>.</li>
     <li>Experiment with modifying components and CSS to understand how React works.</li>
   </ul>
   <p className="text-gray-700 mt-4">
@@ -371,7 +371,7 @@ export default App;`}
     </div>
         </section>
       </div>
-    </>
+    </div>
   );
 };
 
