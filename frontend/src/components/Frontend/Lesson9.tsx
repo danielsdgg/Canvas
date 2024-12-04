@@ -19,20 +19,110 @@ const Lesson9 = () => {
           Back to Course
         </button>
         <h1 className="text-center text-4xl font-bold text-blue-900 mb-2">Lesson 3 - CSS Fundamentals & Flexbox/Grid</h1>
-
+          
         {/* Intro Section */}
         <section className="mb-12">
-          <p className="text-gray-800 mb-4">
-            CSS (Cascading Style Sheets) is a cornerstone technology of the web, used to style and lay out web pages.
-            It allows developers to control the look and feel of a site, including colors, fonts, and layouts.
+          <p className="text-gray-800 mb-4 leading-relaxed">
+            CSS (Cascading Style Sheets) is a fundamental technology of the web, used to style and structure web pages.
+            It allows developers to define how HTML elements are displayed, including colors, fonts, spacing, and layouts.
+            By mastering CSS, you can create visually appealing and user-friendly websites.
           </p>
-          <p className="text-gray-800 mb-4">
-            Flexbox and Grid are powerful CSS layout systems that provide efficient ways to design responsive and structured web pages.
+          <p className="text-gray-800 mb-4 leading-relaxed">
+            Two of the most powerful layout techniques in CSS are **Flexbox** and **Grid**. Flexbox is designed for one-dimensional layouts and is perfect for aligning items horizontally or vertically. 
+            Grid, on the other hand, is a two-dimensional layout system that enables the creation of complex, responsive designs.
           </p>
-          <p className="text-gray-800">
-            Students are required to practice the concepts daily, share their work on GitHub, and submit links for evaluation.
+          <p className="text-gray-800 mb-4 leading-relaxed">
+            Tailwind CSS is a modern utility-first framework that extends CSS functionality. It simplifies styling by providing pre-defined utility classes, allowing developers to build custom designs directly in their HTML or JSX files.
+          </p>
+          <p className="text-gray-800 leading-relaxed">
+            Students are encouraged to:
+            <ul className="list-disc ml-6 mt-2">
+              <li>Practice daily by building small projects or replicating designs.</li>
+              <li>Share their progress on GitHub and submit links for evaluation.</li>
+              <li>Collaborate with peers to learn advanced concepts faster.</li>
+            </ul>
           </p>
         </section>
+          
+        {/* Getting Started Section */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-bold text-center text-blue-700 mb-6">Getting Started with CSS and Tailwind CSS</h2>
+          
+          {/* CSS Installation */}
+          <h3 className="text-xl font-bold text-gray-800 mb-4">1. Setting Up CSS</h3>
+          <p className="text-gray-800 mb-4 leading-relaxed">
+            To begin using CSS in your project, you need to link a CSS file in your HTML document. Here's how:
+          </p>
+          <pre className="bg-gray-800 text-white p-4 rounded mb-6">
+            {`<!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>My First CSS Page</title>
+          <link rel="stylesheet" href="styles.css">
+        </head>
+        <body>
+          <h1>Hello, World!</h1>
+        </body>
+        </html>`}
+          </pre>
+            
+          <p className="text-gray-800 mb-4 leading-relaxed">
+            Save your CSS rules in a <code>styles.css</code> file, and the above link will style your web page accordingly.
+          </p>
+            
+          {/* Tailwind CSS Installation */}
+          <h3 className="text-xl font-bold text-gray-800 mb-4">2. Setting Up Tailwind CSS</h3>
+          <p className="text-gray-800 mb-4 leading-relaxed">
+            To use Tailwind CSS, you need to install it in your project. Here’s a quick guide to set it up:
+          </p>
+            
+          {/* Installation Steps */}
+          <ol className="list-decimal ml-6 mb-4 leading-relaxed">
+            <li>Install Tailwind CSS via npm:</li>
+            <pre className="bg-gray-800 text-white p-4 rounded mb-4">
+              {`npm install -D tailwindcss
+        npx tailwindcss init`}
+            </pre>
+            <li>Configure your <code>tailwind.config.js</code> file to specify your content sources:</li>
+            <pre className="bg-gray-800 text-white p-4 rounded mb-4">
+              {`module.exports = {
+          content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
+          theme: {
+            extend: {},
+          },
+          plugins: [],
+        }`}
+            </pre>
+            <li>Add Tailwind directives to your CSS file:</li>
+            <pre className="bg-gray-800 text-white p-4 rounded mb-4">
+              {`@tailwind base;
+        @tailwind components;
+        @tailwind utilities;`}
+            </pre>
+            <li>Start your development server to see Tailwind in action:</li>
+            <pre className="bg-gray-800 text-white p-4 rounded mb-4">
+              {`npm run dev`}
+            </pre>
+          </ol>
+              
+          <p className="text-gray-800 mb-6 leading-relaxed">
+            Once set up, you can use Tailwind classes directly in your HTML or JSX to style elements quickly and effectively.
+          </p>
+              
+          {/* Example Outcome */}
+          <h3 className="text-xl font-bold text-gray-800 mb-4">Expected Outcome</h3>
+          <p className="text-gray-800 mb-4 leading-relaxed">
+            Here's an example of what you can achieve using Tailwind CSS:
+          </p>
+          <div className="bg-gray-100 p-4 rounded shadow-lg flex justify-center items-center text-gray-800">
+            <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+              Tailwind Styled Button
+            </button>
+          </div>
+        </section>
+
 
         {/* Week 1 */}
         <section className="mb-12">
