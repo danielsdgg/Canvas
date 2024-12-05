@@ -18,10 +18,11 @@ const Lesson8 = () => {
           <FaArrowLeft className="mr-2" />
           Back to Course
         </button>
+        <div className="max-w-7xl mx-auto px-5">
         <h1 className="text-center text-4xl font-bold text-blue-900 mb-2">Lesson 2 - HTML</h1>
 
         {/* Intro Section */}
-        <section className="mb-12">
+        <section className="shadow-lg rounded-lg p-8 mb-8">
           <p className="text-gray-700 mb-4">
             HTML (HyperText Markup Language) is the standard markup language used to create web pages. It structures the
             content on the web, allowing browsers to display text, images, links, and other multimedia elements.
@@ -580,6 +581,7 @@ const Lesson8 = () => {
 </div>
 
         </section>
+        </div>
       </div>
     </>
   );
