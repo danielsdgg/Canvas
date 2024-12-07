@@ -17,36 +17,6 @@ class AssignmentSchema(Schema):
     due_date = fields.Date(required=True, format="%Y-%m-%d")
 
 
-class LessonContentSchema(Schema):
-    id = fields.Integer(dump_only=True)
-    week_number = fields.Integer()
-    day_number = fields.Integer()
-    content_type = fields.String()
-    content1 = fields.String()
-    content2 = fields.String()
-    content3 = fields.String()
-    content4 = fields.String()
-    content5 = fields.String()
-    content6 = fields.String()
-
-class LessonSchema(Schema):
-    id = fields.Integer(dump_only=True)
-    title = fields.String(required=True)
-    description = fields.String()
-    # order = fields.Integer()
-    lesson_contents = fields.Nested(LessonContentSchema, many=True)
-    assignments = fields.Nested(AssignmentSchema, many=True)
-
-class CourseSchema(Schema):
-    id = fields.Integer(dump_only=True)
-    title = fields.String(required=True)
-    description = fields.String()
-    created_at = fields.Date(dump_only=True, format="%Y-%m-%d")
-    lessons = fields.Nested(LessonSchema, many=True)
-
-    class Meta:
-        unknown = EXCLUDE  
-
 class EnrollmentSchema(Schema):
     id = fields.Integer(dump_only=True)
     user_id = fields.Integer()
