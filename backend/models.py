@@ -1,8 +1,9 @@
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
-from flask_bcrypt import bcrypt
+from flask_bcrypt import Bcrypt
 
+bcrypt = Bcrypt()
 db = SQLAlchemy()
 
 class User(db.Model, UserMixin):
@@ -21,12 +22,10 @@ class User(db.Model, UserMixin):
     
     def set_password(self, password):
         self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
-    
+
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password_hash, password)
     
-    def __repr__(self):
-        return f'<User {self.username}>'
 
 class Enrollment(db.Model):
     __tablename__ = 'enrollments'
