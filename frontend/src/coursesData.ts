@@ -147,30 +147,5 @@ export interface Lesson {
     },
   };
   
-  export const lessonContents: Record<string, string[]> = {
-    // Data Science Lesson Contents
-    lesson1: ["What is Data Science?", "Applications of Data Science", "Career Paths in Data Science"],
-    lesson2: ["Installing Python", "Introduction to Jupyter Notebooks", "Pandas and NumPy Basics"],
-    lesson3: ["Handling Missing Data", "Data Standardization", "Data Transformation"],
-    lesson4: ["Creating Charts with Matplotlib", "Advanced Visualizations in Seaborn", "Interactive Dashboards"],
-    lesson5: ["Probability and Distributions", "Hypothesis Testing", "Regression Analysis"],
-    lesson6: ["Supervised Learning Basics", "Clustering with K-Means", "Decision Trees"],
-  
-    // Frontend Development Lesson Contents
-    lesson7: ["What is Web Development?", "Frontend vs Backend", "Setting Up Your First Website"],
-    lesson8: ["HTML Syntax", "Forms and Semantic HTML", "HTML5 Features"],
-    lesson9: ["CSS Selectors and Properties", "Flexbox Layout", "Grid Layout"],
-    lesson10: ["Variables and Functions", "DOM Manipulation", "Event Handling"],
-    lesson11: ["React Components", "State and Props", "Hooks in React"],
-    lesson12: ["Project Planning", "Creating Components", "Deploying a Portfolio"],
-  
-    // Backend Development Lesson Contents
-    lesson13: ["Backend Overview", "Key Technologies", "Setting up a Development Environment"],
-    lesson14: ["Installing Node.js", "Understanding Package Managers", "Creating Your First Express App"],
-    lesson15: ["Routing in Express", "Middleware in Node.js", "Error Handling"],
-    lesson16: ["Setting up MongoDB", "CRUD Operations", "Database Schema Design"],
-    lesson17: ["Introduction to JWT", "Session Management", "OAuth Integration"],
-    lesson18: ["Designing API Endpoints", "CRUD with REST APIs", "Versioning APIs"],
-    lesson19: ["Preparing for Deployment", "Using Heroku", "Setting up CI/CD Pipelines"],
-  };
+
   
