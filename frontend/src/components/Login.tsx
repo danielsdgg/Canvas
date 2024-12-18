@@ -1,21 +1,25 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
+import { AuthContext } from '../context/authContext';
+
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
-    try {
-      const response = await axios.post('/login', { email, password });
-      const { role } = response.data;
+  const {handleLogin} = useContext(AuthContext);
 
-      localStorage.setItem('userRole', role);
-      alert('Login successful');
-    } catch (error) {
-      alert('Login failed');
-    }
-  };
+  // const handleLogin = async () => {
+  //   try {
+  //     const response = await axios.post('/login', { email, password });
+  //     const { role } = response.data;
+
+  //     localStorage.setItem('userRole', role);
+  //     alert('Login successful');
+  //   } catch (error) {
+  //     alert('Login failed');
+  //   }
+  // };
 
   return (
     <div>
@@ -31,7 +35,7 @@ const Login: React.FC = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={handleLogin}>Login</button>
+      <button onClick={() => handleLogin(email, password)}>Login</button>
     </div>
   );
 };

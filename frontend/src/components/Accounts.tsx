@@ -1,24 +1,29 @@
 // src/components/Account.tsx
-import React from 'react';
+import React, { useContext } from 'react';
 import SideNav from './SideNav';
+import { AuthContext } from '../context/authContext';
 
-interface User {
-  name: string;
-  email: string;
-  phone: string;
-  role: string;
-  joinedDate: string;
-}
+// interface User {
+//   name: string;
+//   email: string;
+//   phone: string;
+//   role: string;
+//   joinedDate: string;
+// }
 
-const userData: User = {
-  name: 'John Doe',
-  email: 'johndoe@example.com',
-  phone: '+1 (555) 123-4567',
-  role: 'Student',
-  joinedDate: '2023-05-15',
-};
+// const userData: User = {
+//   name: 'John Doe',
+//   email: 'johndoe@example.com',
+//   phone: '+1 (555) 123-4567',
+//   role: 'Student',
+//   joinedDate: '2023-05-15',
+// };
 
 const Account: React.FC = () => {
+  
+  const {userData} = useContext(AuthContext)
+  // console.log(userData)
+
   return (
     <>
     <SideNav/>
@@ -31,23 +36,23 @@ const Account: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="text-gray-600 font-medium">Name</label>
-            <p className="text-gray-800">{userData.name}</p>
+            <p className="text-gray-800">{userData?.userDetails.username}</p>
           </div>
           <div>
             <label className="text-gray-600 font-medium">Email</label>
-            <p className="text-gray-800">{userData.email}</p>
+            <p className="text-gray-800">{userData?.userDetails.emailAddress}</p>
           </div>
           <div>
             <label className="text-gray-600 font-medium">Phone</label>
-            <p className="text-gray-800">{userData.phone}</p>
+            {/* <p className="text-gray-800">{userData.phone}</p> */}
           </div>
           <div>
             <label className="text-gray-600 font-medium">Role</label>
-            <p className="text-gray-800">{userData.role}</p>
+            {/* <p className="text-gray-800">{userData.role}</p> */}
           </div>
           <div>
             <label className="text-gray-600 font-medium">Joined Date</label>
-            <p className="text-gray-800">{userData.joinedDate}</p>
+            {/* <p className="text-gray-800">{userData.joinedDate}</p> */}
           </div>
         </div>
       </div>
