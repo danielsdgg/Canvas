@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FaBars, FaTimes, FaUser, FaTachometerAlt, FaBook, FaCalendarAlt, FaEnvelope, FaHistory, FaQuestionCircle } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/authContext';
 
 const SideNav: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
+
+  const {handleLogout} = useContext(AuthContext)
 
   const toggleMobileMenu = () => {
     setIsMobile(!isMobile);
@@ -29,14 +32,14 @@ const SideNav: React.FC = () => {
         } transition-transform duration-300 md:translate-x-0 md:flex md:flex-col`}
       >
         <div className="flex justify-center p-4">
-          <Link to="/" className="text-white">
+          <Link to="/dashboard" className="text-white">
             <img src="https://res.cloudinary.com/ddei3mzex/image/upload/v1729158010/crest_x1gutu.jpg" alt="Logo" className="h-10 w-auto" />
           </Link>
         </div>
         <Link to="/accounts" className="flex items-center p-4 hover:bg-gray-700">
           <FaUser className="mr-3" /> Account
         </Link>
-        <Link to="/" className="flex items-center p-4 hover:bg-gray-700">
+        <Link to="/dashboard" className="flex items-center p-4 hover:bg-gray-700">
           <FaTachometerAlt className="mr-3" /> Dashboard
         </Link>
         <Link to="/courses" className="flex items-center p-4 hover:bg-gray-700">
@@ -54,6 +57,9 @@ const SideNav: React.FC = () => {
         <Link to="/help" className="flex items-center p-4 hover:bg-gray-700">
           <FaQuestionCircle className="mr-3" /> Help
         </Link>
+        <button onClick={handleLogout}>Logout
+
+        </button>
       </nav>
       
       {/* Background overlay for mobile view */}
