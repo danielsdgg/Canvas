@@ -1,5 +1,5 @@
 import React from 'react';
-import SideNav from '../SideNav';
+import SideNav from '../../components/SideNav';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 
@@ -9,7 +9,7 @@ const Lesson8 = () => {
   return (
     <>
       <SideNav />
-      <div className="flex-1 p-6 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 md:ml-16">
+      <div className="flex-1 p-6 bg-gradient-to-r md:ml-16">
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
@@ -22,7 +22,7 @@ const Lesson8 = () => {
         <h1 className="text-center text-4xl font-bold text-blue-900 mb-2">Lesson 2 - HTML</h1>
 
         {/* Intro Section */}
-        <section className="shadow-lg rounded-lg p-8 mb-8">
+        <section className="shadow-lg rounded-lg p-8 mb-8 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100">
           <p className="text-gray-700 mb-4">
             HTML (HyperText Markup Language) is the standard markup language used to create web pages. It structures the
             content on the web, allowing browsers to display text, images, links, and other multimedia elements.
@@ -47,7 +47,7 @@ const Lesson8 = () => {
         </section>
 
         {/* Week 1 */}
-        <section className="mb-12">
+        <section className="mb-12 bg-gradient-to-r from-blue-100 via-green-100 to-blue-100">
           <h2 className="text-2xl font-semibold mb-4 text-center text-green-600">Week 1: Introduction to HTML</h2>
 
           <div className="mb-8">
@@ -417,7 +417,7 @@ const Lesson8 = () => {
       </section>
 
         {/* Week 2 Content */}
-        <section className="mb-12">
+        <section className="mb-12 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100">
           <h2 className="text-2xl font-semibold mb-4 text-center text-green-600">Week 2: Intermediate HTML Concepts</h2>
 
 {/* Day 1 */}
