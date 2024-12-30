@@ -28,6 +28,9 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 

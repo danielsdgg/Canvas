@@ -3,6 +3,7 @@ package com.canvas.springboot.services;
 import com.canvas.springboot.entities.Role;
 import com.canvas.springboot.entities.User;
 import com.canvas.springboot.models.requests.LoginRequest;
+import com.canvas.springboot.models.requests.PasswordRequest;
 import com.canvas.springboot.models.requests.RegisterRequest;
 import com.canvas.springboot.models.requests.UserRequest;
 import com.canvas.springboot.models.responses.LoginResponse;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -101,6 +103,7 @@ public class UserService implements UserDetailsService {
 
             user.setUsername(userrequest.getUsername());
             user.setEmailAddress(userrequest.getEmailAddress());
+            user.setPhoneNumber(userrequest.getPhoneNumber());
             user.setPassword(passwordEncoder.encode(userrequest.getPassword()));
             user.setCreatedAt(LocalDateTime.now());
             user.setUpdatedAt(LocalDateTime.now());
@@ -134,6 +137,10 @@ public class UserService implements UserDetailsService {
                     user.setEmailAddress(userRequest.getEmailAddress());
                 }
 
+                if (userRequest.getPhoneNumber() != null){
+                    user.setPhoneNumber(userRequest.getPhoneNumber());
+                }
+
                 user.setUpdatedAt(LocalDateTime.now());
 
             }
@@ -146,4 +153,26 @@ public class UserService implements UserDetailsService {
 
 
     }
+
+    public void changeUserPassword(Long userId, PasswordRequest passwordRequest) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        if (!passwordEncoder.matches(passwordRequest.getOldPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("Old password is incorrect");
+        }
+
+        user.setPassword(passwordEncoder.encode(passwordRequest.getNewPassword()));
+        userRepository.save(user);
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Student not found"));
+    }
+
 }
