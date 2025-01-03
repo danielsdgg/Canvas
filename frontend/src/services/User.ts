@@ -54,8 +54,12 @@ export const loginUser = async (emailAddress: string, password: string, navigate
     await storeData('userInfo', userdata);
     await storeData('userToken', userdata.token);
 
-    if (userdata.role === "CLIENT"){
+    if (userdata.role === "client"){
       navigate("/dashboard")
+    } else if (userdata.role === 'admin') {
+      navigate("/admin-dashboard")
+    } else if (userdata.role === 'superadmin') {
+      navigate("/superdashboard")
     }
 
     return userdata

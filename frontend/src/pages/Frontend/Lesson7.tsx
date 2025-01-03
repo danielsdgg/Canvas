@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from "react-icons/fa";
-import SideNav from '../SideNav';
+import SideNav from '../../components/SideNav';
 
-const Lesson1: React.FC = () => {
+const Lesson7: React.FC = () => {
   const navigate = useNavigate();
 
   return (
@@ -19,7 +19,7 @@ const Lesson1: React.FC = () => {
       <div className="max-w-7xl mx-auto px-5">
         <header className="text-center mb-10">
           <h1 className="text-4xl font-bold text-blue-900 mb-2">
-            Introduction to data Development (Frontend)
+            Introduction to Web Development (Frontend)
           </h1>
           <p className="text-lg text-gray-700">
             A comprehensive guide to building stunning websites and user experiences.
@@ -104,7 +104,7 @@ const Lesson1: React.FC = () => {
 
         {/* Course Topics */}
         <section className="bg-white shadow-lg rounded-lg p-8 mb-8">
-          <h2 className="text-3xl font-semibold text-gray-800 mb-4">
+          <h2 className="text-3xl font-semibold bg-gray-800 text-white py-4 px-6 rounded-t-lg">
             Topics Covered in This Course
           </h2>
           <div className="space-y-6">
@@ -198,7 +198,7 @@ const Lesson1: React.FC = () => {
 
         {/* Getting Started Section */}
         <section className="bg-white shadow-lg rounded-lg p-8 mb-8">
-          <h2 className="text-3xl font-semibold text-gray-800 mb-4">Getting Started</h2>
+          <h2 className="text-3xl font-semibold bg-gray-800 text-white py-4 px-6 rounded-t-lg">Getting Started</h2>
           <p className="text-gray-700 leading-relaxed mb-4">
             Setting up your development environment is crucial. Follow these steps:
           </p>
@@ -231,7 +231,7 @@ const Lesson1: React.FC = () => {
 
         {/* Hands on activities */}
         <section className="bg-white shadow-lg rounded-lg p-8 mb-8">
-          <h2 className="text-3xl font-semibold text-gray-800 mb-4">
+          <h2 className="text-3xl font-semibold bg-gray-800 text-white py-4 px-6 rounded-t-lg">
             Hands-on Activities
           </h2>
           <p className="text-gray-700 leading-relaxed mb-6">
@@ -296,7 +296,7 @@ const Lesson1: React.FC = () => {
 
         {/* Conclusion */}
         <section className="bg-white shadow-lg rounded-lg p-8">
-          <h2 className="text-3xl font-semibold text-gray-800 mb-4">Conclusion</h2>
+          <h2 className="text-3xl font-semibold bg-gray-800 text-white py-4 px-6 rounded-t-lg">Conclusion</h2>
           <p className="text-gray-700 leading-relaxed">
             By the end of this course, you’ll have the skills and confidence to create modern websites and web apps. With practice, you can become a proficient web developer ready to tackle real-world challenges.
           </p>
@@ -310,4 +310,4 @@ const Lesson1: React.FC = () => {
   );
 };
 
-export default Lesson1;
+export default Lesson7;

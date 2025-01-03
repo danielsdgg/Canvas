@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
-import SideNav from '../SideNav';
+import SideNav from '../../components/SideNav';
 
 const Lesson12: React.FC = () => {
     const navigate = useNavigate()

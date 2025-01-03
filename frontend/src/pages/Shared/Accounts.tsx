@@ -1,7 +1,7 @@
 // src/components/Account.tsx
 import React, { useContext } from 'react';
-import SideNav from './SideNav';
-import { AuthContext } from '../context/authContext';
+import SideNav from '../../components/SideNav';
+import { AuthContext } from '../../context/authContext';
 
 // interface User {
 //   name: string;
@@ -22,7 +22,7 @@ import { AuthContext } from '../context/authContext';
 const Account: React.FC = () => {
   
   const {userData} = useContext(AuthContext)
-  // console.log(userData)
+  console.log(userData)
 
   return (
     <>
@@ -48,7 +48,7 @@ const Account: React.FC = () => {
           </div>
           <div>
             <label className="text-gray-600 font-medium">Role</label>
-            {/* <p className="text-gray-800">{userData.role}</p> */}
+            <p className="text-gray-800">{userData?.role}</p>
           </div>
           <div>
             <label className="text-gray-600 font-medium">Joined Date</label>
