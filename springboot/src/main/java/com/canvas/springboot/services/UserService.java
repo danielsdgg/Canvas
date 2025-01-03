@@ -3,9 +3,11 @@ package com.canvas.springboot.services;
 import com.canvas.springboot.entities.Role;
 import com.canvas.springboot.entities.User;
 import com.canvas.springboot.models.requests.LoginRequest;
+import com.canvas.springboot.models.requests.PasswordRequest;
 import com.canvas.springboot.models.requests.RegisterRequest;
 import com.canvas.springboot.models.requests.UserRequest;
 import com.canvas.springboot.models.responses.LoginResponse;
+import com.canvas.springboot.models.responses.RoleUpdateResponse;
 import com.canvas.springboot.models.responses.UserResponse;
 import com.canvas.springboot.repositories.RoleRepository;
 import com.canvas.springboot.repositories.UserRepository;
@@ -26,6 +28,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -86,6 +89,8 @@ public class UserService implements UserDetailsService {
         userResponse.setId(user.getId());
         userResponse.setEmailAddress(user.getEmailAddress());
         userResponse.setUsername(user.getUsername());
+        userResponse.setPhoneNumber(user.getPhoneNumber());
+        userResponse.setCreatedAt(user.getCreatedAt());
 
         return userResponse;
 
@@ -101,6 +106,7 @@ public class UserService implements UserDetailsService {
 
             user.setUsername(userrequest.getUsername());
             user.setEmailAddress(userrequest.getEmailAddress());
+            user.setPhoneNumber(userrequest.getPhoneNumber());
             user.setPassword(passwordEncoder.encode(userrequest.getPassword()));
             user.setCreatedAt(LocalDateTime.now());
             user.setUpdatedAt(LocalDateTime.now());
@@ -134,6 +140,10 @@ public class UserService implements UserDetailsService {
                     user.setEmailAddress(userRequest.getEmailAddress());
                 }
 
+                if (userRequest.getPhoneNumber() != null){
+                    user.setPhoneNumber(userRequest.getPhoneNumber());
+                }
+
                 user.setUpdatedAt(LocalDateTime.now());
 
             }
@@ -146,4 +156,55 @@ public class UserService implements UserDetailsService {
 
 
     }
+
+    public RoleUpdateResponse updateUserRole(Long userId, Long roleId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Role role = roleRepository.findById(roleId)
+                .orElseThrow(() -> new RuntimeException("Role not found"));
+
+        user.setRole(role);
+        userRepository.save(user);
+
+        // Create and return the response
+        RoleUpdateResponse response = new RoleUpdateResponse();
+        response.setUserId(user.getId());
+        response.setRoleId(role.getId());
+        response.setRoleName(role.getRoleName());
+
+        return response;
+    }
+
+    public void changeUserPassword(PasswordRequest passwordRequest) {
+        User user = userRepository.findByEmailAddress(passwordRequest.getEmailAddress());
+
+        try{
+            if (!passwordEncoder.matches(passwordRequest.getOldPassword(), user.getPassword())) {
+                throw new IllegalArgumentException("Old password is incorrect");
+            }
+
+            user.setPassword(passwordEncoder.encode(passwordRequest.getNewPassword()));
+            userRepository.save(user);
+
+        }
+        catch (Exception e){
+           throw new RuntimeException(e.getMessage());
+        }
+
+    }
+
+    public List<UserResponse> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream().map(this::convertUserResponse).toList();
+
+
+    }
+
+    public UserResponse getUserById(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Student not found"));
+        return convertUserResponse(user);
+    }
+
 }

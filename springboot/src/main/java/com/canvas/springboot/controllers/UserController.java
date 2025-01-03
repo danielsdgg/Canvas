@@ -1,9 +1,13 @@
 package com.canvas.springboot.controllers;
 
+import com.canvas.springboot.entities.User;
 import com.canvas.springboot.models.requests.LoginRequest;
+import com.canvas.springboot.models.requests.PasswordRequest;
 import com.canvas.springboot.models.requests.RegisterRequest;
+import com.canvas.springboot.models.requests.RoleUpdateRequest;
 import com.canvas.springboot.models.requests.UserRequest;
 import com.canvas.springboot.models.responses.LoginResponse;
+import com.canvas.springboot.models.responses.RoleUpdateResponse;
 import com.canvas.springboot.models.responses.UserResponse;
 import com.canvas.springboot.services.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -12,9 +16,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Slf4j
 @RequestMapping(path = "api/v1/users")
+
 public class UserController {
     @Autowired
     private UserService userService;
@@ -35,10 +42,33 @@ public class UserController {
     public ResponseEntity<LoginResponse> authenticateUser(@RequestBody LoginRequest loginRequest) throws Exception {
         LoginResponse loginResponse = userService.loginUser(loginRequest);
         return new ResponseEntity<>(loginResponse, HttpStatus.OK);
-
-
     }
 
+    @PutMapping("/{userId}/role")
+    public ResponseEntity<RoleUpdateResponse> updateRole(
+            @PathVariable Long userId,
+            @RequestBody RoleUpdateRequest request) {
+        RoleUpdateResponse response = userService.updateUserRole(userId, request.getRoleId());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
+    @PutMapping("/change-password")
+    public ResponseEntity<String> changePassword(
+            @RequestBody PasswordRequest passwordRequest) {
+        userService.changeUserPassword(passwordRequest);
+        return ResponseEntity.ok("Password changed successfully");
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        List<UserResponse> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserResponse> getUserById(@PathVariable Long userId) {
+        UserResponse user = userService.getUserById(userId);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 
 }
