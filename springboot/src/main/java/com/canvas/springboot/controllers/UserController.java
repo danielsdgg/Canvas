@@ -4,8 +4,10 @@ import com.canvas.springboot.entities.User;
 import com.canvas.springboot.models.requests.LoginRequest;
 import com.canvas.springboot.models.requests.PasswordRequest;
 import com.canvas.springboot.models.requests.RegisterRequest;
+import com.canvas.springboot.models.requests.RoleUpdateRequest;
 import com.canvas.springboot.models.requests.UserRequest;
 import com.canvas.springboot.models.responses.LoginResponse;
+import com.canvas.springboot.models.responses.RoleUpdateResponse;
 import com.canvas.springboot.models.responses.UserResponse;
 import com.canvas.springboot.services.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -42,11 +44,18 @@ public class UserController {
         return new ResponseEntity<>(loginResponse, HttpStatus.OK);
     }
 
-    @PutMapping("/{userId}/change-password")
-    public ResponseEntity<String> changePassword(
+    @PutMapping("/{userId}/role")
+    public ResponseEntity<RoleUpdateResponse> updateRole(
             @PathVariable Long userId,
+            @RequestBody RoleUpdateRequest request) {
+        RoleUpdateResponse response = userService.updateUserRole(userId, request.getRoleId());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/change-password")
+    public ResponseEntity<String> changePassword(
             @RequestBody PasswordRequest passwordRequest) {
-        userService.changeUserPassword(userId, passwordRequest);
+        userService.changeUserPassword(passwordRequest);
         return ResponseEntity.ok("Password changed successfully");
     }
 

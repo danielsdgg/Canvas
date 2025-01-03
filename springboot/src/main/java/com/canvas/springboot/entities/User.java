@@ -8,7 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -39,7 +41,14 @@ public class User implements UserDetails {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
-    private Role role; // Single role
+    private Role role;
+
+    @ManyToMany(mappedBy = "users")
+    private Set<Courses> courses = new HashSet<>();
+
+    @ManyToMany(mappedBy = "assignedUsers")
+    private Set<Assignments> assignments = new HashSet<>();
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

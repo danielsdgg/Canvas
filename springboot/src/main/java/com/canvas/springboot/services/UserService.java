@@ -7,6 +7,7 @@ import com.canvas.springboot.models.requests.PasswordRequest;
 import com.canvas.springboot.models.requests.RegisterRequest;
 import com.canvas.springboot.models.requests.UserRequest;
 import com.canvas.springboot.models.responses.LoginResponse;
+import com.canvas.springboot.models.responses.RoleUpdateResponse;
 import com.canvas.springboot.models.responses.UserResponse;
 import com.canvas.springboot.repositories.RoleRepository;
 import com.canvas.springboot.repositories.UserRepository;
@@ -88,6 +89,8 @@ public class UserService implements UserDetailsService {
         userResponse.setId(user.getId());
         userResponse.setEmailAddress(user.getEmailAddress());
         userResponse.setUsername(user.getUsername());
+        userResponse.setPhoneNumber(user.getPhoneNumber());
+        userResponse.setCreatedAt(user.getCreatedAt());
 
         return userResponse;
 
@@ -154,16 +157,41 @@ public class UserService implements UserDetailsService {
 
     }
 
-    public void changeUserPassword(Long userId, PasswordRequest passwordRequest) {
+    public RoleUpdateResponse updateUserRole(Long userId, Long roleId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (!passwordEncoder.matches(passwordRequest.getOldPassword(), user.getPassword())) {
-            throw new IllegalArgumentException("Old password is incorrect");
+        Role role = roleRepository.findById(roleId)
+                .orElseThrow(() -> new RuntimeException("Role not found"));
+
+        user.setRole(role);
+        userRepository.save(user);
+
+        // Create and return the response
+        RoleUpdateResponse response = new RoleUpdateResponse();
+        response.setUserId(user.getId());
+        response.setRoleId(role.getId());
+        response.setRoleName(role.getRoleName());
+
+        return response;
+    }
+
+    public void changeUserPassword(PasswordRequest passwordRequest) {
+        User user = userRepository.findByEmailAddress(passwordRequest.getEmailAddress());
+
+        try{
+            if (!passwordEncoder.matches(passwordRequest.getOldPassword(), user.getPassword())) {
+                throw new IllegalArgumentException("Old password is incorrect");
+            }
+
+            user.setPassword(passwordEncoder.encode(passwordRequest.getNewPassword()));
+            userRepository.save(user);
+
+        }
+        catch (Exception e){
+           throw new RuntimeException(e.getMessage());
         }
 
-        user.setPassword(passwordEncoder.encode(passwordRequest.getNewPassword()));
-        userRepository.save(user);
     }
 
     public List<User> getAllUsers() {

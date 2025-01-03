@@ -8,6 +8,7 @@ import com.canvas.springboot.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,6 +23,7 @@ public class RoleService {
     @Autowired
     private UserRepository userRepository;
 
+    @Transactional
     public RoleResponse addRole(RoleRequest roleRequest){
         Optional<Role> role = roleRepository.findByRoleName(roleRequest.getRoleName());
 
@@ -41,6 +43,7 @@ public class RoleService {
 
     }
 
+    @Transactional
     public RoleResponse editRole(Long id, RoleRequest roleRequest){
         Optional<Role> existingRole = roleRepository.findById(id);
 
