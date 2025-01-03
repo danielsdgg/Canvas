@@ -194,13 +194,17 @@ public class UserService implements UserDetailsService {
 
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserResponse> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream().map(this::convertUserResponse).toList();
+
+
     }
 
-    public User getUserById(Long userId) {
-        return userRepository.findById(userId)
+    public UserResponse getUserById(Long userId) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Student not found"));
+        return convertUserResponse(user);
     }
 
 }

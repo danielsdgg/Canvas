@@ -131,7 +131,7 @@ public class CourseService {
         response.setEmailAddress(user.getEmailAddress());
         response.setUsername(user.getUsername());
         response.setPhoneNumber(user.getPhoneNumber());
-        response.setRole(user.getRole().getRoleName());
+//        response.setRole(user.getRole().getRoleName());
         response.setCreatedAt(user.getCreatedAt());
         return response;
     }

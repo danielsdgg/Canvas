@@ -107,7 +107,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW5lZG9lIiwicm9sZXMiOltdLCJleHAiOjE3MzU5NDAzNzcsImlhdCI6MTczNTkwNDM3N30.HX_kn9gp2ExlgW2cajVt3C8bDCkcyKXUUGQtLPTIDxw",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW5lZG9lIiwicm9sZXMiOltdLCJleHAiOjE3MzU5NDIzMTMsImlhdCI6MTczNTkwNjMxM30.FjvYe5M-KZncVo0vdQA6Jen50D1GvhXDb4Er5ACDOHY",
 									"type": "string"
 								}
 							]
@@ -188,7 +188,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"emailAddress\": \"janedoe@gmail.com\",\n   \"password\": \"password\"\n}\n",
+							"raw": "// {\n//    \"emailAddress\": \"janedoe@gmail.com\",\n//    \"password\": \"password\"\n// }\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -196,7 +196,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/courses/2/enroll/2",
+							"raw": "http://localhost:8080/api/v1/courses/3/enroll/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -206,7 +206,7 @@
 								"api",
 								"v1",
 								"courses",
-								"2",
+								"3",
 								"enroll",
 								"2"
 							]
@@ -302,7 +302,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"emailAddress\": \"janedoe@gmail.com\",\n   \"password\": \"securePassword123\"\n}\n",
+							"raw": "{\n   \"emailAddress\": \"jamesdoe@gmail.com\",\n   \"password\": \"securePassword123\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -338,7 +338,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"username\": \"johndoe\",\n  \"phoneNumber\": \"+1234567890\",\n  \"emailAddress\": \"johndoe@gmail.com\",\n  \"password\": \"securePassword123\",\n  \"roleId\": \"2\"\n}\n",
+							"raw": "{\n  \"username\": \"jamesdoe\",\n  \"phoneNumber\": \"+1234567890\",\n  \"emailAddress\": \"jamesdoe@gmail.com\",\n  \"password\": \"securePassword123\",\n  \"roleId\": \"2\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -416,6 +416,16 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM1OTQzNDMwLCJpYXQiOjE3MzU5MDc0MzB9.pf1olJQwfTqpWI8AUWHZjxGP33Jy_7iqRlsL8sBKnsk",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -484,6 +494,48 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Update Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM1OTQzNDMwLCJpYXQiOjE3MzU5MDc0MzB9.pf1olJQwfTqpWI8AUWHZjxGP33Jy_7iqRlsL8sBKnsk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"roleId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/4/role",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"4",
+								"role"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -507,7 +559,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"title\": \"Final Project\",\r\n  \"description\": \"Complete the final project on data analysis.\",\r\n  \"dueDate\": \"2025-01-15T23:59:59\"\r\n}\r\n",
+							"raw": "{\r\n  \"title\": \"Final Project 3\",\r\n  \"description\": \"Complete the final project on software Engineering.\",\r\n  \"dueDate\": \"2025-01-15T23:59:59\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -515,7 +567,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/assignments/2",
+							"raw": "http://localhost:8080/api/v1/assignments/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -525,7 +577,7 @@
 								"api",
 								"v1",
 								"assignments",
-								"2"
+								"3"
 							]
 						}
 					},
