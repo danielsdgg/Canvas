@@ -8,6 +8,7 @@ import com.canvas.springboot.models.requests.RoleUpdateRequest;
 import com.canvas.springboot.models.requests.UserRequest;
 import com.canvas.springboot.models.responses.LoginResponse;
 import com.canvas.springboot.models.responses.RoleUpdateResponse;
+import com.canvas.springboot.models.responses.UserDetailsResponse;
 import com.canvas.springboot.models.responses.UserResponse;
 import com.canvas.springboot.services.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -66,8 +67,8 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<UserResponse> getUserById(@PathVariable Long userId) {
-        UserResponse user = userService.getUserById(userId);
+    public ResponseEntity<UserDetailsResponse> getUserById(@PathVariable Long userId) {
+        UserDetailsResponse user = userService.getUserById(userId);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

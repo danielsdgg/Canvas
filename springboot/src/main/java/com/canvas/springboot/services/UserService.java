@@ -6,9 +6,7 @@ import com.canvas.springboot.models.requests.LoginRequest;
 import com.canvas.springboot.models.requests.PasswordRequest;
 import com.canvas.springboot.models.requests.RegisterRequest;
 import com.canvas.springboot.models.requests.UserRequest;
-import com.canvas.springboot.models.responses.LoginResponse;
-import com.canvas.springboot.models.responses.RoleUpdateResponse;
-import com.canvas.springboot.models.responses.UserResponse;
+import com.canvas.springboot.models.responses.*;
 import com.canvas.springboot.repositories.RoleRepository;
 import com.canvas.springboot.repositories.UserRepository;
 import com.canvas.springboot.security.JwtTokenUtil;
@@ -96,6 +94,58 @@ public class UserService implements UserDetailsService {
 
     }
 
+    private UserDetailsResponse convertUserDetails(User user) {
+        UserDetailsResponse userResponse = new UserDetailsResponse();
+
+        userResponse.setId(user.getId());
+        userResponse.setEmailAddress(user.getEmailAddress());
+        userResponse.setUsername(user.getUsername());
+        userResponse.setPhoneNumber(user.getPhoneNumber());
+        userResponse.setCreatedAt(user.getCreatedAt());
+
+        // Map courses and their assignments
+        List<CourseDetailsResponse> courseResponses = user.getCourses().stream()
+                .map(course -> {
+                    CourseDetailsResponse courseResponse = new CourseDetailsResponse();
+                    courseResponse.setId(course.getId());
+                    courseResponse.setCourseName(course.getCourseName());
+                    courseResponse.setDescription(course.getDescription());
+
+                    // Map assignments for this course
+                    List<AssignmentResponse> assignmentResponses = course.getAssignments().stream()
+                            .map(assignment -> {
+                                AssignmentResponse assignmentResponse = new AssignmentResponse();
+                                assignmentResponse.setId(assignment.getId());
+                                assignmentResponse.setTitle(assignment.getTitle());
+                                assignmentResponse.setDescription(assignment.getDescription());
+                                assignmentResponse.setDueDate(assignment.getDueDate());
+                                return assignmentResponse;
+                            }).toList();
+
+                    courseResponse.setAssignments(assignmentResponses);
+                    return courseResponse;
+                })
+                .toList();
+
+        userResponse.setCourses(courseResponses);
+
+        // Map assignments directly assigned to the user
+        List<AssignmentResponse> userAssignments = user.getAssignments().stream()
+                .map(assignment -> {
+                    AssignmentResponse assignmentResponse = new AssignmentResponse();
+                    assignmentResponse.setId(assignment.getId());
+                    assignmentResponse.setTitle(assignment.getTitle());
+                    assignmentResponse.setDescription(assignment.getDescription());
+                    assignmentResponse.setDueDate(assignment.getDueDate());
+                    return assignmentResponse;
+                }).toList();
+
+        userResponse.setAssignments(userAssignments);
+
+        return userResponse;
+    }
+
+
     @Transactional
     public UserResponse registerUser(RegisterRequest userrequest) {
 
@@ -180,10 +230,6 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findByEmailAddress(passwordRequest.getEmailAddress());
 
         try{
-            if (!passwordEncoder.matches(passwordRequest.getOldPassword(), user.getPassword())) {
-                throw new IllegalArgumentException("Old password is incorrect");
-            }
-
             user.setPassword(passwordEncoder.encode(passwordRequest.getNewPassword()));
             userRepository.save(user);
 
@@ -201,10 +247,10 @@ public class UserService implements UserDetailsService {
 
     }
 
-    public UserResponse getUserById(Long userId) {
+    public UserDetailsResponse getUserById(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Student not found"));
-        return convertUserResponse(user);
+        return convertUserDetails(user);
     }
 
 }

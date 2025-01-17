@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.canvas.springboot.utils.AssignmentMapper.mapToAssignmentResponse;
@@ -67,6 +68,8 @@ public class AssignmentService {
         assignment.setTitle(request.getTitle());
         assignment.setDescription(request.getDescription());
         assignment.setDueDate(request.getDueDate());
+        assignment.setCreatedAt(LocalDateTime.now());
+        assignment.setUpdatedAt(LocalDateTime.now());
         return assignment;
     }
 
