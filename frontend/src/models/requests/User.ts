@@ -5,3 +5,8 @@ export interface UserSignup{
     roleId:number    
 }
 
+export interface UserRequest{
+    username: "",
+    phoneNumber: "",
+    emailAddress: ""   
+}

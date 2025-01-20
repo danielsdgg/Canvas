@@ -1,7 +1,9 @@
 // src/components/Account.tsx
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import SideNav from '../../components/SideNav';
 import { AuthContext } from '../../context/authContext';
+import { getEachUser } from '../../services/User';
+import { UserDetailsResponse } from '../../models/responses/User';
 
 // interface User {
 //   name: string;
@@ -20,9 +22,24 @@ import { AuthContext } from '../../context/authContext';
 // };
 
 const Account: React.FC = () => {
+  const { userData, userToken } = useContext(AuthContext)
+  const [profile, setProfile] = useState<UserDetailsResponse | null>(null)
   
-  const {userData} = useContext(AuthContext)
-  console.log(userData)
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        if (userToken && userData?.userDetails?.id) {
+          const response = await getEachUser(userToken, userData.userDetails.id);
+          setProfile(response);
+        }
+      } catch (error) {
+        console.error("Failed to fetch user details:", error);
+      }
+    };
+    fetchUser();
+  }, [userData, userToken]);
+
+  // console.log(profile)
 
   return (
     <>
@@ -36,23 +53,23 @@ const Account: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="text-gray-600 font-medium">Name</label>
-            <p className="text-gray-800">{userData?.userDetails.username}</p>
+            <p className="text-gray-800">{profile?.username}</p>
           </div>
           <div>
             <label className="text-gray-600 font-medium">Email</label>
-            <p className="text-gray-800">{userData?.userDetails.emailAddress}</p>
+            <p className="text-gray-800">{profile?.emailAddress}</p>
           </div>
           <div>
             <label className="text-gray-600 font-medium">Phone</label>
-            {/* <p className="text-gray-800">{userData.phone}</p> */}
+            <p className="text-gray-800">{profile?.phoneNumber}</p>
           </div>
           <div>
             <label className="text-gray-600 font-medium">Role</label>
-            <p className="text-gray-800">{userData?.role}</p>
+            <p className="text-gray-800">{userData?.role === "CLIENT" ? "STUDENT" : "INSTRUCTOR"}</p>
           </div>
           <div>
             <label className="text-gray-600 font-medium">Joined Date</label>
-            {/* <p className="text-gray-800">{userData.joinedDate}</p> */}
+            <p className="text-gray-800">{profile?.createdAt ? new Date(profile.createdAt).toLocaleString() : "N/A"}</p>
           </div>
         </div>
       </div>

@@ -1,8 +1,7 @@
 import axiosInstance from "../api/api";
-import { UserSignup } from "../models/requests/User";
+import { UserRequest, UserSignup } from "../models/requests/User";
 import { storeData, removeData } from "../hooks/idbHelpers";
-import { UserResponse } from "../models/responses/User";
-
+import { UserDetailsResponse, UserResponse } from "../models/responses/User";
 
 export const registerUser = async (payload: UserSignup, navigate: (path: string) => void) => {
     const url = axiosInstance.getUri() + "/api/v1/users/signup"
@@ -54,11 +53,11 @@ export const loginUser = async (emailAddress: string, password: string, navigate
     await storeData('userInfo', userdata);
     await storeData('userToken', userdata.token);
 
-    if (userdata.role === "client"){
+    if (userdata.role.toLowerCase() === "client"){
       navigate("/dashboard")
-    } else if (userdata.role === 'admin') {
+    } else if (userdata.role.toLowerCase() === 'admin') {
       navigate("/admin-dashboard")
-    } else if (userdata.role === 'superadmin') {
+    } else if (userdata.role.toLowerCase() === 'superadmin') {
       navigate("/superdashboard")
     }
 
@@ -79,3 +78,59 @@ export const logoutUser = async (navigate: (path:string) => void) => {
   await removeData('userToken');
   navigate("/");
 };
+
+export const getEachUser = async (token: string | null, id: number | undefined): Promise<UserDetailsResponse | null> => {
+  if (!id) {
+    console.error('User ID is undefined. Cannot fetch user details.');
+    return null;
+  }
+
+  const url = axiosInstance.getUri() + `/api/v1/users/${id}`;
+
+  try {
+    const response = await fetch(url, {
+      headers: token
+        ? { 'Authorization': `Bearer ${token}` }
+        : undefined,
+    });
+
+    if (!response.ok) {
+      const errorMessage = `Error: ${response.status} - ${response.statusText}`;
+      throw new Error(errorMessage);
+    }
+
+    const user: UserDetailsResponse = await response.json();
+    return user;
+  } catch (error) {
+    console.error('Get user error:', error);
+    throw error; // Rethrow the error to let the caller handle it.
+  }
+};
+
+
+
+export const editUser = async (token: string | undefined, userRequest: UserRequest) => {
+  const url = axiosInstance.getUri() + "/api/v1/users";
+
+  try{
+    const response = await fetch(url, {
+        method:'PATCH',
+        headers: {"Content-Type": 'application/json',
+                  "Authorization":`Bearer ${token}`},
+        body: JSON.stringify(userRequest)
+    })
+    
+    if (!response.ok) {
+      const errorMessage = `Error: ${response.status} - ${response.statusText}`;
+      throw new Error(errorMessage);
+    }
+
+    const message = 'User edited successfully'+ response.json()
+    
+    console.log(message);
+
+  }
+  catch (error) {
+    console.error('User edit error:', error);
+  }
+}

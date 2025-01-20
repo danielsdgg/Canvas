@@ -11,8 +11,7 @@ import Superadmin from "./Superadmin";
 export default function AppRoutes(){
 
     const {userToken,userData} = useContext(AuthContext)
-    console.log(userData?.role)
-    if (userData?.role === 'client') (console.log('this is the client'))
+
 
     return(
         <>     
@@ -27,9 +26,9 @@ export default function AppRoutes(){
 
                 {/* Main Content */}
                 <div className="flex-grow">
-                {userData?.role === 'client' && <Clientroutes/>}
-                {userData?.role === 'admin' && <Adminroutes/>}
-                {userData?.role === 'superadmin' && <Superadmin/>}
+                {userData?.role.toLowerCase() === 'client' && <Clientroutes/>}
+                {userData?.role.toLowerCase() === 'admin' && <Adminroutes/>}
+                {userData?.role.toLowerCase() === 'superadmin' && <Superadmin/>}
                 </div>
             </div>
     
