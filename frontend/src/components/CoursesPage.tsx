@@ -6,7 +6,7 @@ const CoursesPage: React.FC = () => {
   return (
     <>
       <SideNav />
-      <div className="bg-gray-100 min-h-screen p-4 sm:pl-[250px] flex flex-col items-center sm:items-start">
+      <div className="bg-gray-100 min-h-screen p-4 sm:pl-[80px] flex flex-col items-center sm:items-start">
         {/* Page Header */}
         <div className="p-6 mb-8 w-full text-center sm:text-left sm:max-w-3xl">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
@@ -69,6 +69,25 @@ const CoursesPage: React.FC = () => {
               </Link>
             </div>
           </div>
+
+          {/* Course Card */}
+          <div className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+            <div className="p-6 text-center sm:text-left">
+              <h2 className="text-xl font-semibold text-gray-800 mb-2">
+                Cyber Security
+              </h2>
+              <p className="text-gray-600 mb-4">
+                Safeguard digital infrastructures with cutting-edge security strategies.
+              </p>
+              <Link
+                to="/courses/4"
+                className="text-blue-600 hover:underline font-medium"
+              >
+                View Course →
+              </Link>
+            </div>
+          </div>
+
         </div>
       </div>
     </>

@@ -86,6 +86,8 @@ export const getEachUser = async (token: string | null, id: number | undefined):
   }
 
   const url = axiosInstance.getUri() + `/api/v1/users/${id}`;
+  console.log("Fetching user details from URL:", url);
+  console.log("Authorization token:", token);
 
   try {
     const response = await fetch(url, {
@@ -103,10 +105,9 @@ export const getEachUser = async (token: string | null, id: number | undefined):
     return user;
   } catch (error) {
     console.error('Get user error:', error);
-    throw error; // Rethrow the error to let the caller handle it.
+    throw error;
   }
 };
-
 
 
 export const editUser = async (token: string | undefined, userRequest: UserRequest) => {

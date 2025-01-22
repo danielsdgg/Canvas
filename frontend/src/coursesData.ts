@@ -33,11 +33,11 @@ export interface Lesson {
       duration: "6 months",
       lessons: [
         { id: "lesson7", title: "Lesson 1 - Introduction to Web Development" },
-        { id: "lesson8", title: "Lesson 2 - HTML Basics and Advanced" },
-        { id: "lesson9", title: "Lesson 3 - CSS Fundamentals and Flexbox/Grid" },
+        { id: "lesson8", title: "Lesson 2 - HTML & CSS Basics" },
+        { id: "lesson9", title: "Lesson 3 - Website project with tailwindcss" },
         { id: "lesson10", title: "Lesson 4 - JavaScript Basics" },
         { id: "lesson11", title: "Lesson 5 - React.js for Building Interactive UIs" },
-        { id: "lesson12", title: "Lesson 6 - Frontend Project: Building a Portfolio Website" },
+        { id: "lesson12", title: "Lesson 6 - Final Project" },
       ],
     },
     {
@@ -55,12 +55,28 @@ export interface Lesson {
         { id: "lesson19", title: "Lesson 7 - Deploying Backend Applications" },
       ],
     },
+    {
+      id: 4,
+      title: "Cyber Security",
+      description: "Equip yourself with the skills to protect digital assets, secure systems, and counteract cyber threats.",
+      duration: "8 months",
+      lessons: [
+        { id: "lesson20", title: "Lesson 1 - Introduction to Cyber Security" },
+        { id: "lesson21", title: "Lesson 2 - Network Security Essentials" },
+        { id: "lesson22", title: "Lesson 3 - Ethical Hacking Basics" },
+        { id: "lesson23", title: "Lesson 4 - Cryptography and Data Protection" },
+        { id: "lesson24", title: "Lesson 5 - Malware Analysis and Prevention" },
+        { id: "lesson25", title: "Lesson 6 - Cybersecurity Incident Response" },
+        { id: "lesson26", title: "Lesson 7 - Penetration Testing and Vulnerability Assessment" },
+      ],
+    },
   ];
   
   export const courseDetails: Record<string, Course> = {
     "1": coursesList[0],
     "2": coursesList[1],
     "3": coursesList[2],
+    "4": coursesList[3]
   };
   
   export const lessonDetails: Record<string, { title: string; content: string }> = {
@@ -144,6 +160,36 @@ export interface Lesson {
     lesson19: {
       title: "Deploying Backend Applications",
       content: "Learn to deploy your backend applications on platforms like Heroku or AWS.",
+    },
+
+    // Cyber Security Lessons
+    lesson20: {
+      title: "Introduction to Cyber Security",
+      content: "Understand the fundamentals of cybersecurity, its importance, and career opportunities in the field.",
+    },
+    lesson21: {
+      title: "Network Security Essentials",
+      content: "Learn how to secure networks using firewalls, VPNs, and intrusion detection/prevention systems.",
+    },
+    lesson22: {
+      title: "Ethical Hacking Basics",
+      content: "Explore ethical hacking methodologies and how to identify vulnerabilities in systems ethically.",
+    },
+    lesson23: {
+      title: "Cryptography and Data Protection",
+      content: "Understand encryption techniques and how to protect sensitive data from unauthorized access.",
+    },
+    lesson24: {
+      title: "Malware Analysis and Prevention",
+      content: "Study various types of malware and strategies to detect, analyze, and prevent them.",
+    },
+    lesson25: {
+      title: "Cybersecurity Incident Response",
+      content: "Learn the steps for managing and responding to cybersecurity incidents effectively.",
+    },
+    lesson26: {
+      title: "Penetration Testing and Vulnerability Assessment",
+      content: "Gain hands-on experience with penetration testing tools and learn how to assess system vulnerabilities.",
     },
   };
   
