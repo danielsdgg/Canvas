@@ -65,8 +65,8 @@ const Account: React.FC = () => {
         url,
         {
           username: formValues.username,
-          email: formValues.email,
-          phone: formValues.phone,
+          emailAddress: formValues.email,
+          phoneNumber: formValues.phone,
         },
         {
           headers: {
