@@ -15,6 +15,7 @@ const Account: React.FC = () => {
     email: "",
     phone: "",
   });
+  const [isLoading, setIsLoading] = useState(true); // Loading state
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -27,9 +28,10 @@ const Account: React.FC = () => {
           console.error("User ID is missing.");
           return;
         }
-  
+
         console.log("Fetching details for user ID:", userData.userDetails.id);
-  
+
+        setIsLoading(true); // Start loading when fetching
         const response = await getEachUser(userToken, userData.userDetails.id);
         if (response) {
           setProfile(response);
@@ -41,12 +43,12 @@ const Account: React.FC = () => {
         }
       } catch (error) {
         console.error("Failed to fetch user details:", error);
+      } finally {
+        setIsLoading(false); // Stop loading once data is fetched
       }
     };
     fetchUser();
   }, [userData, userToken]);
-  
-  
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -91,7 +93,9 @@ const Account: React.FC = () => {
         {/* Personal Details */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-6">
           <h3 className="text-2xl font-semibold mb-4">Personal Details</h3>
-          {isEditing ? (
+          {isLoading ? ( // Render loading spinner or message
+            <p>Loading...</p>
+          ) : isEditing ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="text-gray-600 font-medium">Name</label>
@@ -166,12 +170,18 @@ const Account: React.FC = () => {
                     : "N/A"}
                 </p>
               </div>
-              <div className="col-span-2">
+              <div className="col-span-2 flex gap-4">
                 <button
                   onClick={() => setIsEditing(true)}
                   className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition duration-200"
                 >
                   Edit Profile
+                </button>
+                <button
+                  onClick={() => alert("Change password functionality")}
+                  className="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow hover:bg-red-700 transition duration-200"
+                >
+                  Change Password
                 </button>
               </div>
             </div>

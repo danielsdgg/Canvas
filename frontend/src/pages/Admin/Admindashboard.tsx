@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import SideNav from '../../components/SideNav'; // Ensure this component is implemented and styled appropriately
+import { useNavigate } from 'react-router-dom'; // Use 'useNavigate' in react-router-dom v6
+import { useAuth } from '../../context/authContext'; // Import the useAuth hook
+import SideNav from '../../components/SideNav';
 
 interface User {
   id: number;
@@ -11,37 +13,44 @@ interface User {
 
 const Admindashboard: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const navigate = useNavigate(); // Use navigate to redirect in react-router-dom v6
+  const { userToken } = useAuth(); // Use the useAuth hook to access the userToken
+
+  // If no token is found, redirect to login page
+  useEffect(() => {
+    if (!userToken) {
+      console.error('User token is missing.');
+      navigate('/login'); // Redirect to login page if no token
+    } else {
+      fetchUsers();
+    }
+  }, [userToken, navigate]);
 
   // Fetch all users
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch('http://localhost:8080/api/v1/users');
-        const data = await response.json();
-        if (Array.isArray(data)) {
-          setUsers(data);
-        } else {
-          console.error('Unexpected API response format:', data);
-        }
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchUsers();
-  }, []);
-
-  // Fetch individual user details
-  const fetchUserDetails = async (userId: number) => {
+  const fetchUsers = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/v1/users/${userId}`);
+      const response = await fetch('http://localhost:8080/api/v1/users', {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        console.error('Failed to fetch users. Status:', response.status);
+        return;
+      }
+
       const data = await response.json();
-      setSelectedUser(data);
+      if (Array.isArray(data)) {
+        setUsers(data);
+      } else {
+        console.error('Unexpected API response format:', data);
+      }
     } catch (error) {
-      console.error('Error fetching user details:', error);
+      console.error('Error fetching users:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -51,70 +60,43 @@ const Admindashboard: React.FC = () => {
 
   return (
     <>
-    <SideNav />
-    <div className="flex min-h-screen bg-gray-100">
-      {/* Side Navigation */}
-      
+      <SideNav />
+      <div className="flex min-h-screen bg-gray-100">
+        {/* Side Navigation */}
+        {/* Main Content */}
+        <div className="flex-1 p-5">
+          <header className="text-3xl font-bold text-blue-700 mb-5">Admin Dashboard</header>
 
-      {/* Main Content */}
-      <div className="flex-1 p-5">
-        <header className="text-3xl font-bold text-blue-700 mb-5">Admin Dashboard</header>
-
-        {/* Users List */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {users.map((user) => (
-            <div
-              key={user.id}
-              className="p-4 bg-white shadow-lg rounded-lg cursor-pointer hover:shadow-xl transition"
-              onClick={() => fetchUserDetails(user.id)}
-            >
-              <h3 className="text-xl font-semibold text-gray-800">{user.username}</h3>
-              <p className="text-gray-600">Email: {user.emailAddress}</p>
-              <p className="text-gray-600">
-                Phone: {user.phoneNumber ? user.phoneNumber : 'N/A'}
-              </p>
-              <p className="text-gray-600">
-                Joined: {new Date(user.createdAt).toLocaleDateString()}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        {/* User Details Section */}
-        {selectedUser && (
-          <div className="mt-10 p-6 bg-white shadow-lg rounded-lg">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">User Details</h2>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="text-gray-700">
-                  <strong>Username:</strong> {selectedUser.username}
-                </p>
-                <p className="text-gray-700">
-                  <strong>Email:</strong> {selectedUser.emailAddress}
-                </p>
-                <p className="text-gray-700">
-                  <strong>Phone:</strong> {selectedUser.phoneNumber || 'N/A'}
-                </p>
-              </div>
-              <div>
-                <p className="text-gray-700">
-                  <strong>Joined:</strong>{' '}
-                  {new Date(selectedUser.createdAt).toLocaleDateString()}
-                </p>
-              </div>
-            </div>
-            <div className="mt-5">
-              <button
-                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
-                onClick={() => setSelectedUser(null)}
-              >
-                Close Details
-              </button>
+          {/* Users List */}
+          <div className="bg-white shadow-lg rounded-lg p-4">
+            <h2 className="text-2xl font-bold mb-4 text-yellow-600">Users List</h2>
+            <div className="overflow-auto">
+              <table className="min-w-full text-left text-sm sm:text-base">
+                <thead>
+                  <tr className="bg-yellow-100">
+                    <th className="px-4 py-2 font-medium text-gray-700">Username</th>
+                    <th className="px-4 py-2 font-medium text-gray-700">Email</th>
+                    <th className="px-4 py-2 font-medium text-gray-700">Phone Number</th>
+                    <th className="px-4 py-2 font-medium text-gray-700">Joined</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map((user) => (
+                    <tr key={user.id} className="hover:bg-yellow-50">
+                      <td className="px-4 py-2">{user.username}</td>
+                      <td className="px-4 py-2">{user.emailAddress}</td>
+                      <td className="px-4 py-2">{user.phoneNumber ? user.phoneNumber : 'N/A'}</td>
+                      <td className="px-4 py-2">
+                        {new Date(user.createdAt).toLocaleDateString()}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
-        )}
+        </div>
       </div>
-    </div>
     </>
   );
 };
