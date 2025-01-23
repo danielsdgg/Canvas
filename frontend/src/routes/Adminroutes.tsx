@@ -19,6 +19,7 @@ import Lesson12 from "../pages/Frontend/Lesson12";
 
 //   DATA SCIENCE ROUTES
 import Lesson1 from "../pages/Data Science/Lesson1";
+import UserDetail from '../pages/Shared/UserDetail';
 
 const Adminroutes = () => {
   return (
@@ -33,6 +34,8 @@ const Adminroutes = () => {
             <Route path="/courses/:courseId" element={<CourseDetails />} />
             <Route path="/courses/:courseId/lessons/:lessonId" element={<LessonDetails />} />
             <Route path="/courses" element={<CoursesPage />} />
+            <Route path="/user/:userId" element={<UserDetail />} /> {/* User detail page route */}
+
 
             {/* data science pages */}
             <Route path="/courses/:courseId/lessons/lesson1" element={<Lesson1 />} />

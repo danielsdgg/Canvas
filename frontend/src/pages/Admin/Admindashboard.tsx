@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Use 'useNavigate' in react-router-dom v6
-import { useAuth } from '../../context/authContext'; // Import the useAuth hook
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Import Link to navigate
+import { useAuth } from '../../context/authContext';
 import SideNav from '../../components/SideNav';
 
 interface User {
@@ -14,20 +15,18 @@ interface User {
 const Admindashboard: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const navigate = useNavigate(); // Use navigate to redirect in react-router-dom v6
-  const { userToken } = useAuth(); // Use the useAuth hook to access the userToken
+  const navigate = useNavigate();
+  const { userToken } = useAuth();
 
-  // If no token is found, redirect to login page
   useEffect(() => {
     if (!userToken) {
       console.error('User token is missing.');
-      navigate('/login'); // Redirect to login page if no token
+      navigate('/login');
     } else {
       fetchUsers();
     }
   }, [userToken, navigate]);
 
-  // Fetch all users
   const fetchUsers = async () => {
     try {
       const response = await fetch('http://localhost:8080/api/v1/users', {
@@ -62,12 +61,8 @@ const Admindashboard: React.FC = () => {
     <>
       <SideNav />
       <div className="flex min-h-screen bg-gray-100">
-        {/* Side Navigation */}
-        {/* Main Content */}
         <div className="flex-1 p-5">
           <header className="text-3xl font-bold text-blue-700 mb-5">Admin Dashboard</header>
-
-          {/* Users List */}
           <div className="bg-white shadow-lg rounded-lg p-4">
             <h2 className="text-2xl font-bold mb-4 text-yellow-600">Users List</h2>
             <div className="overflow-auto">
@@ -83,12 +78,14 @@ const Admindashboard: React.FC = () => {
                 <tbody>
                   {users.map((user) => (
                     <tr key={user.id} className="hover:bg-yellow-50">
-                      <td className="px-4 py-2">{user.username}</td>
+                      <td className="px-4 py-2">
+                        <Link to={`/user/${user.id}`} className="text-blue-500 hover:text-blue-700">
+                          {user.username}
+                        </Link>
+                      </td>
                       <td className="px-4 py-2">{user.emailAddress}</td>
                       <td className="px-4 py-2">{user.phoneNumber ? user.phoneNumber : 'N/A'}</td>
-                      <td className="px-4 py-2">
-                        {new Date(user.createdAt).toLocaleDateString()}
-                      </td>
+                      <td className="px-4 py-2">{new Date(user.createdAt).toLocaleDateString()}</td>
                     </tr>
                   ))}
                 </tbody>
