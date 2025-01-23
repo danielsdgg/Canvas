@@ -1,137 +1,120 @@
-import React from 'react';
-import SideNav from '../../components/SideNav';
+import React, { useEffect, useState } from 'react';
+import SideNav from '../../components/SideNav'; // Ensure this component is implemented and styled appropriately
 
-const Admindashboard = () => {
-  const handleEnroll = (username: string) => {
-    console.log(`${username} has been enrolled.`);
+interface User {
+  id: number;
+  emailAddress: string;
+  username: string;
+  phoneNumber: string | null;
+  createdAt: string;
+}
+
+const Admindashboard: React.FC = () => {
+  const [users, setUsers] = useState<User[]>([]);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  // Fetch all users
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/v1/users');
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          setUsers(data);
+        } else {
+          console.error('Unexpected API response format:', data);
+        }
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUsers();
+  }, []);
+
+  // Fetch individual user details
+  const fetchUserDetails = async (userId: number) => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/v1/users/${userId}`);
+      const data = await response.json();
+      setSelectedUser(data);
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+    }
   };
 
-  const handleGrade = (student: string, grade: number) => {
-    console.log(`${student} has been graded: ${grade}`);
-  };
+  if (loading) {
+    return <p className="text-center text-lg text-gray-700">Loading users...</p>;
+  }
 
   return (
     <>
-      <SideNav />
-      <div className="min-h-screen flex justify-center items-center bg-gradient-to-r from-green-500 via-yellow-500 to-orange-500">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-4 max-w-5xl w-full">
-          {/* Students Not Enrolled Card */}
-          <div className="bg-white shadow-lg rounded-lg p-4">
-            <h2 className="text-2xl font-bold mb-4 text-yellow-600">Students Not Enrolled</h2>
-            <div className="overflow-auto">
-              <table className="min-w-full text-left text-sm sm:text-base">
-                <thead>
-                  <tr className="bg-yellow-100">
-                    <th className="px-4 py-2 font-medium text-gray-700">Username</th>
-                    <th className="px-4 py-2 font-medium text-gray-700">Status</th>
-                    <th className="px-4 py-2 font-medium text-gray-700">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="hover:bg-yellow-50">
-                    <td className="px-4 py-2">Student1</td>
-                    <td className="px-4 py-2">Not Enrolled</td>
-                    <td className="px-4 py-2">
-                      <button
-                        onClick={() => handleEnroll('Student1')}
-                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-                      >
-                        Enroll
-                      </button>
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-yellow-50">
-                    <td className="px-4 py-2">Student2</td>
-                    <td className="px-4 py-2">Not Enrolled</td>
-                    <td className="px-4 py-2">
-                      <button
-                        onClick={() => handleEnroll('Student2')}
-                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-                      >
-                        Enroll
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+    <SideNav />
+    <div className="flex min-h-screen bg-gray-100">
+      {/* Side Navigation */}
+      
 
-          {/* Class List Card */}
-          <div className="bg-white shadow-lg rounded-lg p-4">
-            <h2 className="text-2xl font-bold mb-4 text-green-600">Class List</h2>
-            <div className="overflow-auto">
-              <table className="min-w-full text-left text-sm sm:text-base">
-                <thead>
-                  <tr className="bg-green-100">
-                    <th className="px-4 py-2 font-medium text-gray-700">Username</th>
-                    <th className="px-4 py-2 font-medium text-gray-700">Email</th>
-                    <th className="px-4 py-2 font-medium text-gray-700">Course Assigned</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="hover:bg-green-50">
-                    <td className="px-4 py-2">Student3</td>
-                    <td className="px-4 py-2">student3@example.com</td>
-                    <td className="px-4 py-2">Course A</td>
-                  </tr>
-                  <tr className="hover:bg-green-50">
-                    <td className="px-4 py-2">Student4</td>
-                    <td className="px-4 py-2">student4@example.com</td>
-                    <td className="px-4 py-2">Course B</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+      {/* Main Content */}
+      <div className="flex-1 p-5">
+        <header className="text-3xl font-bold text-blue-700 mb-5">Admin Dashboard</header>
 
-          {/* Grading Assignments/Exams Card */}
-          <div className="bg-white shadow-lg rounded-lg p-4">
-            <h2 className="text-2xl font-bold mb-4 text-orange-600">Grade Assignments/Exams</h2>
-            <div className="overflow-auto">
-              <table className="min-w-full text-left text-sm sm:text-base">
-                <thead>
-                  <tr className="bg-orange-100">
-                    <th className="px-4 py-2 font-medium text-gray-700">Student</th>
-                    <th className="px-4 py-2 font-medium text-gray-700">Assignment</th>
-                    <th className="px-4 py-2 font-medium text-gray-700">Grade</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="hover:bg-orange-50">
-                    <td className="px-4 py-2">Student3</td>
-                    <td className="px-4 py-2">Tailwindcss Quiz 1</td>
-                    <td className="px-4 py-2">
-                      <input
-                        type="number"
-                        min="0"
-                        max="100"
-                        onChange={(e) => handleGrade('Student5', parseInt(e.target.value, 10))}
-                        className="border rounded px-2 py-1 w-20"
-                        placeholder="0-100"
-                      />
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-orange-50">
-                    <td className="px-4 py-2">Student4</td>
-                    <td className="px-4 py-2">HTML Project</td>
-                    <td className="px-4 py-2">
-                      <input
-                        type="number"
-                        min="0"
-                        max="100"
-                        onChange={(e) => handleGrade('Student6', parseInt(e.target.value, 10))}
-                        className="border rounded px-2 py-1 w-20"
-                        placeholder="0-100"
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+        {/* Users List */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {users.map((user) => (
+            <div
+              key={user.id}
+              className="p-4 bg-white shadow-lg rounded-lg cursor-pointer hover:shadow-xl transition"
+              onClick={() => fetchUserDetails(user.id)}
+            >
+              <h3 className="text-xl font-semibold text-gray-800">{user.username}</h3>
+              <p className="text-gray-600">Email: {user.emailAddress}</p>
+              <p className="text-gray-600">
+                Phone: {user.phoneNumber ? user.phoneNumber : 'N/A'}
+              </p>
+              <p className="text-gray-600">
+                Joined: {new Date(user.createdAt).toLocaleDateString()}
+              </p>
             </div>
-          </div>
+          ))}
         </div>
+
+        {/* User Details Section */}
+        {selectedUser && (
+          <div className="mt-10 p-6 bg-white shadow-lg rounded-lg">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">User Details</h2>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <p className="text-gray-700">
+                  <strong>Username:</strong> {selectedUser.username}
+                </p>
+                <p className="text-gray-700">
+                  <strong>Email:</strong> {selectedUser.emailAddress}
+                </p>
+                <p className="text-gray-700">
+                  <strong>Phone:</strong> {selectedUser.phoneNumber || 'N/A'}
+                </p>
+              </div>
+              <div>
+                <p className="text-gray-700">
+                  <strong>Joined:</strong>{' '}
+                  {new Date(selectedUser.createdAt).toLocaleDateString()}
+                </p>
+              </div>
+            </div>
+            <div className="mt-5">
+              <button
+                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                onClick={() => setSelectedUser(null)}
+              >
+                Close Details
+              </button>
+            </div>
+          </div>
+        )}
       </div>
+    </div>
     </>
   );
 };
