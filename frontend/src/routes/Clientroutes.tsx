@@ -29,8 +29,6 @@ const Clientroutes = () => {
                     <Route path="/courses/:courseId/lessons/:lessonId" element={<LessonDetails />} />
                     <Route path="/user/:userId" element={<UserDetail />} /> 
 
-
-
                 </Routes>
     </div>
   )
