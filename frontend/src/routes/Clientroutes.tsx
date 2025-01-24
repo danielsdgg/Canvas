@@ -10,6 +10,7 @@ import CoursesPage from "../components/CoursesPage";
 import CourseDetails from "../components/CourseDetails";
 import { Routes, Route } from 'react-router-dom';
 import UserDetail from '../pages/Shared/UserDetail';
+import Grade from '../components/Grade';
 
 
 
@@ -27,7 +28,8 @@ const Clientroutes = () => {
                     <Route path="/calendar" element={<Calendar />} />
                     <Route path="/courses/:courseId" element={<CourseDetails />} />
                     <Route path="/courses/:courseId/lessons/:lessonId" element={<LessonDetails />} />
-                    <Route path="/user/:userId" element={<UserDetail />} /> 
+                    <Route path="/user/:userId" element={<UserDetail />} />
+                    <Route path="*" element={<Grade />} /> 
 
                 </Routes>
     </div>
