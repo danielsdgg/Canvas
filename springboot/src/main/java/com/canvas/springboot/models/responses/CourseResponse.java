@@ -11,5 +11,6 @@ public class CourseResponse {
     private String courseName;
     private String description;
     private List<UserResponse> users;
+    private List<LessonResponse> lessons;
     private List<AssignmentResponse> assignments;
 }

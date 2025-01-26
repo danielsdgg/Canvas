@@ -107,7 +107,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3MTMxODM1LCJpYXQiOjE3MzcwOTU4MzV9.MghoQBHCNjKz6p0UFGuFpOlpNK8uJg5LuUUQsiLQwFM",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3OTEwNTkyLCJpYXQiOjE3Mzc4NzQ1OTJ9.czwnXK6SLTDwRq7GdtbyJY0VUhbsf5VcgJRLp5eqN6I",
 									"type": "string"
 								}
 							]
@@ -222,7 +222,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM1OTQzOTQ5LCJpYXQiOjE3MzU5MDc5NDl9.hWVqUxEZEYyYvymXxKiQmRIN8kJQTtgPK9WZKf4e00g",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3OTE1MDk0LCJpYXQiOjE3Mzc4NzkwOTR9.hWwnUJxiNkiFNUAaSgWB2uZPiR_WJqryYcfrHqtlYxY",
 									"type": "string"
 								}
 							]
@@ -235,7 +235,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/courses/4",
+							"raw": "http://localhost:8080/api/v1/courses/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -245,7 +245,7 @@
 								"api",
 								"v1",
 								"courses",
-								"4"
+								"3"
 							]
 						}
 					},
@@ -373,7 +373,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3MTMxODM1LCJpYXQiOjE3MzcwOTU4MzV9.MghoQBHCNjKz6p0UFGuFpOlpNK8uJg5LuUUQsiLQwFM",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3OTEwNDEzLCJpYXQiOjE3Mzc4NzQ0MTN9.upelJdTOcT0UC_URFaMAhfpqFpxJYqdNwP1B8PRZJTQ",
 									"type": "string"
 								}
 							]
@@ -421,7 +421,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3MTMyNTA1LCJpYXQiOjE3MzcwOTY1MDV9.ER7Lt-19Myn50_Y0SLNHRHRZv8Ydtv-qGVNjlB4SDzM",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3OTE1MDk0LCJpYXQiOjE3Mzc4NzkwOTR9.hWwnUJxiNkiFNUAaSgWB2uZPiR_WJqryYcfrHqtlYxY",
 									"type": "string"
 								}
 							]
@@ -659,6 +659,241 @@
 								"v1",
 								"assignments",
 								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Questions",
+			"item": [
+				{
+					"name": "Create Quiz",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3OTEwMDM5LCJpYXQiOjE3Mzc4NzQwMzl9.5w7Busg9QndNus-SB5OULkw6yd8Qw3Dr-Io5n2IxEmY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Java Basics Quiz\",\r\n    \"questions\": [\r\n        {\r\n            \"text\": \"What is the size of int in Java?\",\r\n            \"options\": [\"8 bits\", \"16 bits\", \"32 bits\", \"64 bits\"],\r\n            \"correctAnswer\": \"32 bits\"\r\n        },\r\n        {\r\n            \"text\": \"Which keyword is used to define a class in Java?\",\r\n            \"options\": [\"class\", \"struct\", \"function\", \"define\"],\r\n            \"correctAnswer\": \"class\"\r\n        }\r\n    ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/quiz",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"quiz"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Quiz By ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3OTA5NDMzLCJpYXQiOjE3Mzc4NzM0MzN9.Fahnr2kWJfzUZz2E_fgVnNRN2sVds3UXtd9thQk0Pdk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/quiz/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"quiz",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Submit Answers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3OTE4MTEwLCJpYXQiOjE3Mzc4ODIxMTB9.m-_okcFURghf7zmNvtpV7WxNMfyh2MRyBSdeeeBlDRI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 2,\r\n    \"quizId\": 7,\r\n    \"answers\": {\r\n        \"1\": \"32 bits\",\r\n        \"2\": \"class\"\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/submission",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"submission"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lessons",
+			"item": [
+				{
+					"name": "Add Lessons",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3OTEwNjkwLCJpYXQiOjE3Mzc4NzQ2OTB9.-Ddw7Yu0cGgasnjcxU8HRtRGan4YUNKV0HK2txoMznM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Spring Boot Basics\",\r\n    \"content\": \"This lesson introduces Spring Boot concepts.\",\r\n    \"courseId\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/lessons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"lessons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lesson",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3OTE1MDk0LCJpYXQiOjE3Mzc4NzkwOTR9.hWwnUJxiNkiFNUAaSgWB2uZPiR_WJqryYcfrHqtlYxY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/lessons/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"lessons",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Lesson",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3OTE1MDk0LCJpYXQiOjE3Mzc4NzkwOTR9.hWwnUJxiNkiFNUAaSgWB2uZPiR_WJqryYcfrHqtlYxY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Spring Boot Basics\",\r\n    \"content\": \"This lesson introduces Spring Boot concepts.\",\r\n    \"courseId\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/lessons/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"lessons",
+								"2"
 							]
 						}
 					},

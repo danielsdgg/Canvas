@@ -9,5 +9,6 @@ public class CourseDetailsResponse {
     private Long id;
     private String courseName;
     private String description;
+    private List<LessonResponse> lessons;
     private List<AssignmentResponse> assignments;
 }

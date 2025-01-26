@@ -9,6 +9,7 @@ import com.canvas.springboot.models.requests.UserRequest;
 import com.canvas.springboot.repositories.CourseRepository;
 import com.canvas.springboot.repositories.UserRepository;
 import com.canvas.springboot.utils.AssignmentMapper;
+import com.canvas.springboot.utils.LessonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -115,6 +116,15 @@ public class CourseService {
                     course.getUsers().stream().map(this::mapToUserResponse).toList()
             );
         }
+
+        if (course.getLessons() != null){
+            response.setLessons(
+                    course.getLessons().stream()
+                            .map(LessonMapper::mapToLessonResponse)
+                            .collect(Collectors.toList())
+            );
+        }
+
         if (course.getAssignments() != null) {
             response.setAssignments(
                     course.getAssignments().stream()

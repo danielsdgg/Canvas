@@ -88,6 +88,7 @@ public class UserService implements UserDetailsService {
         userResponse.setEmailAddress(user.getEmailAddress());
         userResponse.setUsername(user.getUsername());
         userResponse.setPhoneNumber(user.getPhoneNumber());
+        userResponse.setRole(user.getRole().getRoleName());
         userResponse.setCreatedAt(user.getCreatedAt());
 
         return userResponse;
@@ -101,6 +102,7 @@ public class UserService implements UserDetailsService {
         userResponse.setEmailAddress(user.getEmailAddress());
         userResponse.setUsername(user.getUsername());
         userResponse.setPhoneNumber(user.getPhoneNumber());
+        userResponse.setRole(user.getRole().getRoleName());
         userResponse.setCreatedAt(user.getCreatedAt());
 
         // Map courses and their assignments
@@ -110,6 +112,15 @@ public class UserService implements UserDetailsService {
                     courseResponse.setId(course.getId());
                     courseResponse.setCourseName(course.getCourseName());
                     courseResponse.setDescription(course.getDescription());
+                    
+                    List<LessonResponse> lessonResponses = course.getLessons().stream()
+                            .map(lesson -> {
+                                LessonResponse lessonResponse = new LessonResponse();
+                                lessonResponse.setId(lesson.getId());
+                                lessonResponse.setContent(lesson.getTitle());
+                                lessonResponse.setTitle(lesson.getTitle());
+                                return lessonResponse;
+                            }).toList();
 
                     // Map assignments for this course
                     List<AssignmentResponse> assignmentResponses = course.getAssignments().stream()
@@ -122,6 +133,7 @@ public class UserService implements UserDetailsService {
                                 return assignmentResponse;
                             }).toList();
 
+                    courseResponse.setLessons(lessonResponses);
                     courseResponse.setAssignments(assignmentResponses);
                     return courseResponse;
                 })
