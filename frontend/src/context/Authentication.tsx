@@ -85,7 +85,14 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isLoading, handleLogin, handleLogout, userToken, userData }}>
+    <AuthContext.Provider value={{ 
+      isLoading, 
+      handleLogin, 
+      handleLogout, 
+      userToken, 
+      userData, 
+      userRole: userData?.role || null // <-- Extract userRole from userData
+    }}>
       {children}
     </AuthContext.Provider>
   );

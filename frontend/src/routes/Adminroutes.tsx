@@ -9,6 +9,9 @@ import Account from "../pages/Shared/Accounts";
 import LessonDetails from "../components/LessonDetails";
 import CoursesPage from "../components/CoursesPage";
 import CourseDetails from "../components/CourseDetails";
+import UserDetail from '../pages/Shared/UserDetail';
+
+
 //   FRONTEND ROUTES
 import Lesson7 from "../pages/Frontend/Lesson7";
 import Lesson8 from "../pages/Frontend/Lesson8";
@@ -19,7 +22,6 @@ import Lesson12 from "../pages/Frontend/Lesson12";
 
 //   DATA SCIENCE ROUTES
 import Lesson1 from "../pages/Data Science/Lesson1";
-import UserDetail from '../pages/Shared/UserDetail';
 
 const Adminroutes = () => {
   return (

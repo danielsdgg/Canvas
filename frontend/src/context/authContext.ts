@@ -9,6 +9,8 @@ export interface AuthContextType {
     handleLogout: () => void;
     userToken: string | null;
     userData: UserResponse | null;
+    userRole: string | null;  // <-- Add this line if userRole is separate
+
 }
 
 // Create AuthContext with default values
@@ -18,6 +20,8 @@ export const AuthContext = createContext<AuthContextType>({
     handleLogout: () => {},
     userToken: null,
     userData: null,
+    userRole: null, // <-- Initialize it here
+
 });
 
 // Define AuthProviderProps interface for children

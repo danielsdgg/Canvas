@@ -6,8 +6,8 @@ import {
   FaTachometerAlt,
   FaBook,
   FaCalendarAlt,
-  FaEnvelope,
-  FaHistory,
+  // FaEnvelope,
+  // FaHistory,
   FaQuestionCircle,
   FaSignOutAlt,
 } from "react-icons/fa";
@@ -17,11 +17,14 @@ import { AuthContext } from "../context/authContext";
 
 const SideNav: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
-  const { handleLogout } = useContext(AuthContext);
+  const { handleLogout, userRole } = useContext(AuthContext);  // assuming userRole is available in context
 
   const toggleMobileMenu = () => {
     setIsMobile(!isMobile);
   };
+
+  // Define the dashboard route based on the user's role
+  const dashboardLink = userRole === "admin" ? "/admin-dashboard" : "/dashboard";
 
   return (
     <IconContext.Provider value={{ size: "1.5em" }}>
@@ -44,9 +47,7 @@ const SideNav: React.FC = () => {
 
       {/* Side Navigation for Desktop and Mobile */}
       <nav
-        className={`fixed top-0 left-0 h-screen w-64 bg-gray-800 text-white transform z-20 ${
-          isMobile ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 md:translate-x-0 md:flex md:flex-col`}
+        className={`fixed top-0 left-0 h-screen w-64 bg-gray-800 text-white transform z-20 ${isMobile ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 md:translate-x-0 md:flex md:flex-col`}
       >
         <div className="flex justify-center p-4">
           <Link to="/dashboard" className="text-white">
@@ -60,27 +61,21 @@ const SideNav: React.FC = () => {
         <Link to="/accounts" className="flex items-center p-4 hover:bg-gray-700">
           <FaUser className="mr-3" /> Account
         </Link>
-        <Link
-          to="/dashboard"
-          className="flex items-center p-4 hover:bg-gray-700"
-        >
+        <Link to={dashboardLink} className="flex items-center p-4 hover:bg-gray-700">
           <FaTachometerAlt className="mr-3" /> Dashboard
         </Link>
         <Link to="/courses" className="flex items-center p-4 hover:bg-gray-700">
           <FaBook className="mr-3" /> Courses
         </Link>
-        <Link
-          to="/calendar"
-          className="flex items-center p-4 hover:bg-gray-700"
-        >
+        <Link to="/calendar" className="flex items-center p-4 hover:bg-gray-700">
           <FaCalendarAlt className="mr-3" /> Calendar
         </Link>
-        <Link to="/inbox" className="flex items-center p-4 hover:bg-gray-700">
+        {/* <Link to="/inbox" className="flex items-center p-4 hover:bg-gray-700">
           <FaEnvelope className="mr-3" /> Inbox
         </Link>
         <Link to="/history" className="flex items-center p-4 hover:bg-gray-700">
           <FaHistory className="mr-3" /> History
-        </Link>
+        </Link> */}
         <Link to="/help" className="flex items-center p-4 hover:bg-gray-700">
           <FaQuestionCircle className="mr-3" /> Help
         </Link>

@@ -64,8 +64,7 @@ const CoursesPage: React.FC = () => {
         {!loading && !error && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-4xl">
             {courses.map((course) => (
-              <div
-                key={course.id}
+              <div key={course.id}
                 className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
               >
                 <div className="p-6 text-center sm:text-left">
