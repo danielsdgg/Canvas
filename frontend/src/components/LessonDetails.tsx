@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useAuth } from "../context/authContext";
 
 interface Lesson {
   id: number;
@@ -13,13 +14,20 @@ const LessonDetails: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const { userToken } = useAuth(); // Get userToken from AuthContext
+
   useEffect(() => {
     const fetchLesson = async () => {
       if (!lessonId) return;
 
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:8080/api/v1/lessons/${lessonId}`);
+        const response = await fetch(`/api/v1/lessons/${lessonId}`, {
+          headers: {
+            Authorization: `Bearer ${userToken}`, // Adding Authorization header
+          },
+        });
+
         if (!response.ok) {
           throw new Error("Failed to fetch lesson details");
         }
@@ -34,7 +42,7 @@ const LessonDetails: React.FC = () => {
     };
 
     fetchLesson();
-  }, [lessonId]);
+  }, [lessonId, userToken]); // Added userToken to dependency array
 
   if (loading) {
     return <div className="p-6 text-gray-700">Loading lesson details...</div>;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/authContext"; // Import the hook for context
 import SideNav from "./SideNav";
 
 interface Course {
@@ -9,6 +10,7 @@ interface Course {
 }
 
 const CoursesPage: React.FC = () => {
+  const { userToken } = useAuth(); // Corrected to access userToken from context
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -16,10 +18,16 @@ const CoursesPage: React.FC = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch("/api/v1/courses"); 
+        const response = await fetch("/api/v1/courses", {
+          headers: {
+            Authorization: `Bearer ${userToken}`, // Use the token from context in the headers
+          },
+        });
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
+
         const data = await response.json();
         setCourses(data);
       } catch (err: any) {
@@ -29,8 +37,13 @@ const CoursesPage: React.FC = () => {
       }
     };
 
-    fetchCourses();
-  }, []);
+    if (userToken) {
+      fetchCourses(); // Only fetch if userToken is available
+    } else {
+      setError("You are not logged in.");
+      setLoading(false);
+    }
+  }, [userToken]);
 
   return (
     <>
@@ -45,11 +58,7 @@ const CoursesPage: React.FC = () => {
 
         {/* Loading or Error Handling */}
         {loading && <p className="text-gray-600">Loading courses...</p>}
-        {error && (
-          <p className="text-red-600">
-            Error loading courses: {error}
-          </p>
-        )}
+        {error && <p className="text-red-600">Error loading courses: {error}</p>}
 
         {/* Courses Grid */}
         {!loading && !error && (
