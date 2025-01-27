@@ -31,10 +31,11 @@ const Adminroutes = () => {
             <Route path="/history" element={<History />} />
             <Route path="/help" element={<Help />} />
             <Route path="/calendar" element={<Calendar />} />
+            <Route path="/courses" element={<CoursesPage />} />
             <Route path="/courses/:courseId" element={<CourseDetails />} />
             <Route path="/courses/:courseId/lessons/:lessonId" element={<LessonDetails />} />
-            <Route path="/courses" element={<CoursesPage />} />
-            <Route path="/user/:userId" element={<UserDetail />} /> {/* User detail page route */}
+            <Route path="*" element={<div className="p-6 text-center">404: Page Not Found</div>}/>
+            <Route path="/user/:userId" element={<UserDetail />} /> 
 
 
             {/* data science pages */}

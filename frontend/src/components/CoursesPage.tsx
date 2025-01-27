@@ -1,8 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SideNav from "./SideNav";
 
+interface Course {
+  id: number;
+  courseName: string;
+  description: string;
+}
+
 const CoursesPage: React.FC = () => {
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await fetch("/api/v1/courses"); 
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setCourses(data);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
   return (
     <>
       <SideNav />
@@ -14,81 +43,38 @@ const CoursesPage: React.FC = () => {
           </h1>
         </div>
 
+        {/* Loading or Error Handling */}
+        {loading && <p className="text-gray-600">Loading courses...</p>}
+        {error && (
+          <p className="text-red-600">
+            Error loading courses: {error}
+          </p>
+        )}
+
         {/* Courses Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-4xl">
-          {/* Course Card */}
-          <div className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
-            <div className="p-6 text-center sm:text-left">
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">
-                Data Science
-              </h2>
-              <p className="text-gray-600 mb-4">
-                Learn to analyze and visualize data to make data-driven decisions.
-              </p>
-              <Link
-                to="/courses/1"
-                className="text-blue-600 hover:underline font-medium"
+        {!loading && !error && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-4xl">
+            {courses.map((course) => (
+              <div
+                key={course.id}
+                className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
               >
-                View Course →
-              </Link>
-            </div>
+                <div className="p-6 text-center sm:text-left">
+                  <h2 className="text-xl font-semibold text-gray-800 mb-2">
+                    {course.courseName}
+                  </h2>
+                  <p className="text-gray-600 mb-4">{course.description}</p>
+                  <Link
+                    to={`/courses/${course.id}`}
+                    className="text-blue-600 hover:underline font-medium"
+                  >
+                    View Course →
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
-
-          {/* Course Card */}
-          <div className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
-            <div className="p-6 text-center sm:text-left">
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">
-                Frontend Development
-              </h2>
-              <p className="text-gray-600 mb-4">
-                Master the art of creating stunning user interfaces with modern tools.
-              </p>
-              <Link
-                to="/courses/2"
-                className="text-blue-600 hover:underline font-medium"
-              >
-                View Course →
-              </Link>
-            </div>
-          </div>
-
-          {/* Course Card */}
-          <div className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
-            <div className="p-6 text-center sm:text-left">
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">
-                Backend Development
-              </h2>
-              <p className="text-gray-600 mb-4">
-                Build robust server-side applications and APIs with confidence.
-              </p>
-              <Link
-                to="/courses/3"
-                className="text-blue-600 hover:underline font-medium"
-              >
-                View Course →
-              </Link>
-            </div>
-          </div>
-
-          {/* Course Card */}
-          <div className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
-            <div className="p-6 text-center sm:text-left">
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">
-                Cyber Security
-              </h2>
-              <p className="text-gray-600 mb-4">
-                Safeguard digital infrastructures with cutting-edge security strategies.
-              </p>
-              <Link
-                to="/courses/4"
-                className="text-blue-600 hover:underline font-medium"
-              >
-                View Course →
-              </Link>
-            </div>
-          </div>
-
-        </div>
+        )}
       </div>
     </>
   );
