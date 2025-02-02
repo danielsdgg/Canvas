@@ -17,7 +17,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM1OTQzOTQ5LCJpYXQiOjE3MzU5MDc5NDl9.hWVqUxEZEYyYvymXxKiQmRIN8kJQTtgPK9WZKf4e00g",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZUBnbWFpbC5jb20iLCJyb2xlcyI6WyJjbGllbnQiXSwiZXhwIjoxNzM4NTQxMDE1LCJpYXQiOjE3Mzg1MDUwMTV9.VTdsNSC_EqpJuYvszVCf_4gR7CelLj2YqpaLsJXguBQ",
 									"type": "string"
 								}
 							]
@@ -170,7 +170,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW5lZG9lIiwicm9sZXMiOltdLCJleHAiOjE3MzU5MzczNDMsImlhdCI6MTczNTkwMTM0M30.XM4U274aM4bfmA-aagVFRI3l9Ipj7prE4qqZYXF74bs",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZUBnbWFpbC5jb20iLCJyb2xlcyI6WyJjbGllbnQiXSwiZXhwIjoxNzM4NTQxMDE1LCJpYXQiOjE3Mzg1MDUwMTV9.VTdsNSC_EqpJuYvszVCf_4gR7CelLj2YqpaLsJXguBQ",
 									"type": "string"
 								}
 							]
@@ -196,7 +196,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/courses/4/enroll/3",
+							"raw": "http://localhost:8080/api/v1/courses/1/enroll/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -206,7 +206,7 @@
 								"api",
 								"v1",
 								"courses",
-								"4",
+								"1",
 								"enroll",
 								"3"
 							]
@@ -302,7 +302,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"emailAddress\": \"jamesdoe@gmail.com\",\n   \"password\": \"password\"\n}\n",
+							"raw": "{\n   \"emailAddress\": \"jamesdoe@gmail.com\",\n   \"password\": \"securePassword123\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -338,7 +338,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"username\": \"jamesdoe\",\n  \"phoneNumber\": \"+1234567890\",\n  \"emailAddress\": \"jamesdoe@gmail.com\",\n  \"password\": \"securePassword123\",\n  \"roleId\": \"2\"\n}\n",
+							"raw": "{\n  \"firstName\": \"King\",\n  \"lastName\":\"Doe\",\n  \"phoneNumber\": \"+1234567890\",\n  \"emailAddress\": \"king@gmail.com\",\n  \"password\": \"securePassword123\",\n  \"roleId\": \"1\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -373,7 +373,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3OTEwNDEzLCJpYXQiOjE3Mzc4NzQ0MTN9.upelJdTOcT0UC_URFaMAhfpqFpxJYqdNwP1B8PRZJTQ",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZUBnbWFpbC5jb20iLCJyb2xlcyI6WyJjbGllbnQiXSwiZXhwIjoxNzM4NTI0NDUwLCJpYXQiOjE3Mzg0ODg0NTB9.NEcUqQLkMN7eN_DuvdzVz2Wy5afjD8iXBz8Gxmoo9dQ",
 									"type": "string"
 								}
 							]
@@ -421,7 +421,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3OTE1MDk0LCJpYXQiOjE3Mzc4NzkwOTR9.hWwnUJxiNkiFNUAaSgWB2uZPiR_WJqryYcfrHqtlYxY",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZUBnbWFpbC5jb20iLCJyb2xlcyI6WyJjbGllbnQiXSwiZXhwIjoxNzM4NTI0NDUwLCJpYXQiOjE3Mzg0ODg0NTB9.NEcUqQLkMN7eN_DuvdzVz2Wy5afjD8iXBz8Gxmoo9dQ",
 									"type": "string"
 								}
 							]
@@ -447,7 +447,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/users/2",
+							"raw": "http://localhost:8080/api/v1/users/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -457,7 +457,7 @@
 								"api",
 								"v1",
 								"users",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -577,6 +577,44 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Student's Class",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZUBnbWFpbC5jb20iLCJyb2xlcyI6WyJjbGllbnQiXSwiZXhwIjoxNzM4NTQxMDE1LCJpYXQiOjE3Mzg1MDUwMTV9.VTdsNSC_EqpJuYvszVCf_4gR7CelLj2YqpaLsJXguBQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/1?adminId=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"1"
+							],
+							"query": [
+								{
+									"key": "adminId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -591,7 +629,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3MTM1NTYyLCJpYXQiOjE3MzcwOTk1NjJ9.wYr1Og-zNF9IKydm2xWDxpm8DPmVxLMdvT7YwhgicNc",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZUBnbWFpbC5jb20iLCJyb2xlcyI6WyJjbGllbnQiXSwiZXhwIjoxNzM4NTQxNTE1LCJpYXQiOjE3Mzg1MDU1MTV9.RqFJVF5yznhx_q924oaBWx-Easq2Z3XuRt9cHMyx_mc",
 									"type": "string"
 								}
 							]
@@ -600,7 +638,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"assignmentId\":3,\r\n    \"userId\":2,\r\n    \"fileUrl\":\"https://github.com/danielsdgg/Canvas\"\r\n}",
+							"raw": "{\r\n    \"assignmentId\":1,\r\n    \"userId\":1,\r\n    \"fileUrl\":\"https://github.com/danielsdgg/Canvas\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -631,7 +669,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3MTM1NTYyLCJpYXQiOjE3MzcwOTk1NjJ9.wYr1Og-zNF9IKydm2xWDxpm8DPmVxLMdvT7YwhgicNc",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZUBnbWFpbC5jb20iLCJyb2xlcyI6WyJjbGllbnQiXSwiZXhwIjoxNzM4NTQxNTE1LCJpYXQiOjE3Mzg1MDU1MTV9.RqFJVF5yznhx_q924oaBWx-Easq2Z3XuRt9cHMyx_mc",
 									"type": "string"
 								}
 							]
@@ -640,7 +678,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"title\": \"Final Project 5\",\r\n  \"description\": \"Complete the final project on backend development.\",\r\n  \"dueDate\": \"2025-01-15T23:59:59\"\r\n}\r\n",
+							"raw": "{\r\n  \"title\": \"Final Project\",\r\n  \"description\": \"Complete the final project on Frontend development.\",\r\n  \"dueDate\": \"2025-01-15T23:59:59\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -648,7 +686,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/assignments/4",
+							"raw": "http://localhost:8080/api/v1/assignments/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -658,7 +696,81 @@
 								"api",
 								"v1",
 								"assignments",
-								"4"
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Grade Assignment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZUBnbWFpbC5jb20iLCJyb2xlcyI6WyJjbGllbnQiXSwiZXhwIjoxNzM4NTQxNTE1LCJpYXQiOjE3Mzg1MDU1MTV9.RqFJVF5yznhx_q924oaBWx-Easq2Z3XuRt9cHMyx_mc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"submissionId\": 1,\r\n  \"grade\": 85.5,\r\n  \"feedback\": \"Well done! Your analysis is thorough and well-structured.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/assignments/grade",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"assignments",
+								"grade"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Student Results",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZUBnbWFpbC5jb20iLCJyb2xlcyI6WyJjbGllbnQiXSwiZXhwIjoxNzM4NTQxNTE1LCJpYXQiOjE3Mzg1MDU1MTV9.RqFJVF5yznhx_q924oaBWx-Easq2Z3XuRt9cHMyx_mc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/assignments/results/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"assignments",
+								"results",
+								"1"
 							]
 						}
 					},
@@ -725,7 +837,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/quiz/1",
+							"raw": "http://localhost:8080/api/v1/quiz/7",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -735,7 +847,7 @@
 								"api",
 								"v1",
 								"quiz",
-								"1"
+								"7"
 							]
 						}
 					},
@@ -894,6 +1006,41 @@
 								"v1",
 								"lessons",
 								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Roles",
+			"item": [
+				{
+					"name": "Add Role",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"roleName\": \"CLIENT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/roles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"roles"
 							]
 						}
 					},
