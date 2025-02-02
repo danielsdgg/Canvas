@@ -14,7 +14,7 @@ public class Lessons {
 
     private String title;
 
-    private String content;
+//    private String content;
 
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)

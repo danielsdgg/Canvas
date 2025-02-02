@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -73,6 +74,14 @@ public class UserController {
         UserDetailsResponse user = userService.getUserById(userId, adminId);
         return ResponseEntity.ok(user);
     }
+
+    @PreAuthorize("hasRole('ADMIN')") // Only ADMIN can delete users
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
+        userService.deleteUserById(userId);
+        return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
+    }
+
 
 
 }

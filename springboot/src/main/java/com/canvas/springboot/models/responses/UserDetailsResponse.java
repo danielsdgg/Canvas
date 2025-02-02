@@ -9,6 +9,8 @@ import java.util.List;
 public class UserDetailsResponse {
     private Long id;
     private String emailAddress;
+    private String firstName;
+    private String lastName;
     private String username;
     private String phoneNumber;
     private String role;

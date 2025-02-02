@@ -30,7 +30,7 @@ public class RoleService {
         if (role.isEmpty()){
             Role addNewRole = new Role();
 
-            addNewRole.setRoleName(roleRequest.getRoleName().toLowerCase());
+            addNewRole.setRoleName(roleRequest.getRoleName().toUpperCase());
             addNewRole.setCreatedAt(LocalDateTime.now());
             addNewRole.setUpdatedAt(LocalDateTime.now());
 

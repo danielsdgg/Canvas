@@ -18,35 +18,31 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-//    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<RoleResponse> addRole(@RequestBody RoleRequest roleRequest) {
         RoleResponse roleResponse = roleService.addRole(roleRequest);
         return new ResponseEntity<>(roleResponse, HttpStatus.OK);
     }
 
-//    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<RoleResponse> editRole(@PathVariable(name = "id") Long id, @RequestBody RoleRequest roleRequest){
         RoleResponse roleResponse = roleService.editRole(id, roleRequest);
         return new ResponseEntity<>(roleResponse, HttpStatus.OK);
     }
 
-//    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<RoleResponse> getRole(@PathVariable Long id){
         RoleResponse roleResponse = roleService.getRoleById(id);
         return new ResponseEntity<>(roleResponse, HttpStatus.OK);
     }
 
-//    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<List<RoleResponse>> getRole() {
         List<RoleResponse> roleResponses = roleService.getRoles();
         return new ResponseEntity<>(roleResponses, HttpStatus.OK);
     }
-
-
-
-
 }
