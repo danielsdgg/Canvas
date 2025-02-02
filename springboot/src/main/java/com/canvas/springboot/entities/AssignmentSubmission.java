@@ -27,6 +27,12 @@ public class AssignmentSubmission {
     @Column(name = "file_url", nullable = false)
     private String fileUrl;
 
+    private Double grade;  // Add grade field
+
+    private String feedback;  // Optional feedback from the teacher
+
+    private boolean isGraded = false; // To track if graded
+
     @Column(name = "submitted_at", nullable = false)
     private LocalDateTime submittedAt;
 

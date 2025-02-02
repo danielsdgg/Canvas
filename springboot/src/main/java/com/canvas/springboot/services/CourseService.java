@@ -104,7 +104,7 @@ public class CourseService {
         return course;
     }
 
-    private CourseResponse mapToCourseResponse(Courses course) {
+    public CourseResponse mapToCourseResponse(Courses course) {
         CourseResponse response = new CourseResponse();
         response.setId(course.getId());
         response.setCourseName(course.getCourseName());
