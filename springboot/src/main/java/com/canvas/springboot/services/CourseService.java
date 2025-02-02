@@ -139,7 +139,6 @@ public class CourseService {
         UserResponse response = new UserResponse();
         response.setId(user.getId());
         response.setEmailAddress(user.getEmailAddress());
-        response.setUsername(user.getUsername());
         response.setPhoneNumber(user.getPhoneNumber());
 //        response.setRole(user.getRole().getRoleName());
         response.setCreatedAt(user.getCreatedAt());

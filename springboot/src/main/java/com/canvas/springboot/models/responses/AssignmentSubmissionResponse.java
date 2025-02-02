@@ -5,10 +5,10 @@ import lombok.Data;
 @Data
 public class AssignmentSubmissionResponse {
     private Long submissionId;
-    private Long assignmentId;
     private String assignmentTitle;
     private Long studentId;
-    private String studentName;
+    private String studentFirstName;
+    private String studentLastName;
     private String fileUrl;
     private Double grade;
     private String feedback;

@@ -40,7 +40,7 @@ public class LessonService {
 
         // Set the fields from the request
         lessons.setTitle(lessonRequest.getTitle());
-        lessons.setContent(lessonRequest.getContent());
+//        lessons.setContent(lessonRequest.getContent());
 
         // Fetch and set the associated course
         Courses course = courseRepository.findById(lessonRequest.getCourseId())
@@ -63,9 +63,9 @@ public class LessonService {
             lesson.setTitle(lessonRequest.getTitle());
         }
 
-        if (lessonRequest.getContent() != null) {
-            lesson.setContent(lessonRequest.getContent());
-        }
+//        if (lessonRequest.getContent() != null) {
+//            lesson.setContent(lessonRequest.getContent());
+//        }
 
         // Save the updated lesson
         lessonRepository.save(lesson);
@@ -76,7 +76,7 @@ public class LessonService {
         LessonResponse lessonResponse = new LessonResponse();
         lessonResponse.setId(lessons.getId());
         lessonResponse.setTitle(lessons.getTitle());
-        lessonResponse.setContent(lessons.getContent());
+//        lessonResponse.setContent(lessons.getContent());
         return lessonResponse;
     }
 

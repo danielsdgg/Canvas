@@ -67,10 +67,10 @@ public class AssignmentSubmissionService {
         return submissions.stream().map(submission -> {
             AssignmentSubmissionResponse response = new AssignmentSubmissionResponse();
             response.setSubmissionId(submission.getId());
-            response.setAssignmentId(submission.getAssignment().getId());
-            response.setAssignmentTitle(submission.getAssignment().getTitle()); // Assuming title exists
+            response.setAssignmentTitle(submission.getAssignment().getTitle());
             response.setStudentId(submission.getUser().getId());
-            response.setStudentName(submission.getUser().getFirstName()); // Assuming fullName exists
+            response.setStudentFirstName(submission.getUser().getFirstName());
+            response.setStudentLastName(submission.getUser().getLastName());
             response.setFileUrl(submission.getFileUrl());
             response.setGrade(submission.getGrade());
             response.setFeedback(submission.getFeedback());

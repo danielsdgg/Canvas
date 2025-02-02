@@ -90,7 +90,8 @@ public class UserService implements UserDetailsService {
 
         userResponse.setId(user.getId());
         userResponse.setEmailAddress(user.getEmailAddress());
-        userResponse.setUsername(user.getUsername());
+        userResponse.setFirstName(user.getFirstName());
+        userResponse.setLastName(user.getLastName());
         userResponse.setPhoneNumber(user.getPhoneNumber());
         userResponse.setRole(user.getRole().getRoleName());
         userResponse.setCreatedAt(user.getCreatedAt());
@@ -104,7 +105,8 @@ public class UserService implements UserDetailsService {
 
         userResponse.setId(user.getId());
         userResponse.setEmailAddress(user.getEmailAddress());
-        userResponse.setUsername(user.getUsername());
+        userResponse.setLastName(user.getLastName());
+        userResponse.setFirstName(user.getFirstName());
         userResponse.setPhoneNumber(user.getPhoneNumber());
         userResponse.setRole(user.getRole().getRoleName());
         userResponse.setCreatedAt(user.getCreatedAt());
@@ -121,7 +123,7 @@ public class UserService implements UserDetailsService {
                             .map(lesson -> {
                                 LessonResponse lessonResponse = new LessonResponse();
                                 lessonResponse.setId(lesson.getId());
-                                lessonResponse.setContent(lesson.getTitle());
+//                                lessonResponse.setContent(lesson.getTitle());
                                 lessonResponse.setTitle(lesson.getTitle());
                                 return lessonResponse;
                             }).toList();
@@ -172,6 +174,8 @@ public class UserService implements UserDetailsService {
 
             user.setEmailAddress(userrequest.getEmailAddress());
             user.setPhoneNumber(userrequest.getPhoneNumber());
+            user.setFirstName(userrequest.getFirstName());
+            user.setLastName(userrequest.getLastName());
             user.setPassword(passwordEncoder.encode(userrequest.getPassword()));
             user.setCreatedAt(LocalDateTime.now());
             user.setUpdatedAt(LocalDateTime.now());
@@ -299,23 +303,16 @@ public class UserService implements UserDetailsService {
         return convertUserDetails(user);
     }
 
-//    // Method to convert Course to CourseResponse
-//    private CourseResponse convertToCourseResponse(Course course) {
-//        CourseResponse response = new CourseResponse();
-//        response.setId(course.getId());
-//        response.setCourseName(course.getCourseName());
-//        response.setDescription(course.getDescription());
-//        response.setUsers(course.getUsers().stream().map(this::convertToUserResponse).collect(Collectors.toList()));
-//        response.setLessons(course.getLessons().stream().map(this::convertToLessonResponse).collect(Collectors.toList()));
-//        response.setAssignments(course.getAssignments().stream().map(this::convertToAssignmentResponse).collect(Collectors.toList()));
-//        return response;
-//    }
-
-
-
     public List<UserResponse> getUnenrolledStudents() {
         List<User> unenrolledStudents = userRepository.findUnenrolledStudents();
         return unenrolledStudents.stream().map(this::convertUserResponse).toList();
+    }
+
+    public void deleteUserById(Long userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new RuntimeException("User not found");
+        }
+        userRepository.deleteById(userId);
     }
 
 }
