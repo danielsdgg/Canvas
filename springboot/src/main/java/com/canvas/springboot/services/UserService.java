@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -38,6 +39,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private CourseService courseService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -50,13 +54,13 @@ public class UserService implements UserDetailsService {
     private AuthenticationManager authenticationManager;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmailAddress(email);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found with username: " + username);
+            throw new UsernameNotFoundException("User not found with email: " + email);
         }
 
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+        return new org.springframework.security.core.userdetails.User(user.getEmailAddress(), user.getPassword(),
                 new ArrayList<>());
     }
 
@@ -64,7 +68,7 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findByEmailAddress(loginRequest.getEmailAddress());
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(user.getUsername(), loginRequest.getPassword())
+                    new UsernamePasswordAuthenticationToken(user.getEmailAddress(), loginRequest.getPassword())
             );
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Incorrect username or password", e);
@@ -166,7 +170,6 @@ public class UserService implements UserDetailsService {
         if (findUserByEmail == null) {
             User user = new User();
 
-            user.setUsername(userrequest.getUsername());
             user.setEmailAddress(userrequest.getEmailAddress());
             user.setPhoneNumber(userrequest.getPhoneNumber());
             user.setPassword(passwordEncoder.encode(userrequest.getPassword()));
@@ -194,12 +197,17 @@ public class UserService implements UserDetailsService {
         if (getUserById.isPresent()) {
             User user = getUserById.get();
             if (userRequest != null) {
-                if (!Objects.equals(userRequest.getUsername(), "")){
-                    user.setUsername(userRequest.getUsername());
-                }
 
                 if (userRequest.getEmailAddress() != null){
                     user.setEmailAddress(userRequest.getEmailAddress());
+                }
+
+                if (userRequest.getFirstName()!= null){
+                    user.setFirstName(user.getFirstName());
+                }
+
+                if (userRequest.getLastName() != null){
+                    user.setLastName(user.getLastName());
                 }
 
                 if (userRequest.getPhoneNumber() != null){
@@ -255,14 +263,59 @@ public class UserService implements UserDetailsService {
     public List<UserResponse> getAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream().map(this::convertUserResponse).toList();
-
-
     }
 
-    public UserDetailsResponse getUserById(Long userId) {
+    public UserDetailsResponse getUserById(Long userId, Long adminId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Student not found"));
+
+
+        // If adminId is null, return the user details without access check
+        if (adminId == null) {
+            return convertUserDetails(user);
+        }
+
+        // Get admin's courses and convert them to CourseResponse
+        List<CourseResponse> adminCourses = userRepository.findById(adminId)
+                .orElseThrow(() -> new IllegalArgumentException("Admin not found"))
+                .getCourses()
+                .stream()
+                .map(courseService::mapToCourseResponse)  // Convert each Course to CourseResponse
+                .toList();
+
+        // Convert user's courses to CourseResponse for comparison
+        List<CourseResponse> userCourses = user.getCourses()
+                .stream()
+                .map(courseService::mapToCourseResponse)
+                .toList();
+
+        // Check if the student belongs to any of the admin's courses
+        boolean hasAccess = userCourses.stream().anyMatch(adminCourses::contains);
+
+        if (!hasAccess) {
+            throw new RuntimeException("Access denied. Admin is not authorized to view this student.");
+        }
+
         return convertUserDetails(user);
+    }
+
+//    // Method to convert Course to CourseResponse
+//    private CourseResponse convertToCourseResponse(Course course) {
+//        CourseResponse response = new CourseResponse();
+//        response.setId(course.getId());
+//        response.setCourseName(course.getCourseName());
+//        response.setDescription(course.getDescription());
+//        response.setUsers(course.getUsers().stream().map(this::convertToUserResponse).collect(Collectors.toList()));
+//        response.setLessons(course.getLessons().stream().map(this::convertToLessonResponse).collect(Collectors.toList()));
+//        response.setAssignments(course.getAssignments().stream().map(this::convertToAssignmentResponse).collect(Collectors.toList()));
+//        return response;
+//    }
+
+
+
+    public List<UserResponse> getUnenrolledStudents() {
+        List<User> unenrolledStudents = userRepository.findUnenrolledStudents();
+        return unenrolledStudents.stream().map(this::convertUserResponse).toList();
     }
 
 }
