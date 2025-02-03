@@ -1,7 +1,8 @@
 export interface UserResponse {
     userDetails:{
         id:number,
-        username: string;
+        firstName: string;
+        lastName: string;
         emailAddress: string;
     }
     token: string;
@@ -25,7 +26,8 @@ interface Course {
 export interface UserDetailsResponse {
     id: number;
     emailAddress: string;
-    username: string;
+    firstName: string;
+    lastName: string;  
     phoneNumber: string;
     createdAt: string; // ISO 8601 date string
     courses: Course[];

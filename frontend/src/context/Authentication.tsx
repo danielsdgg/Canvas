@@ -70,9 +70,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const navigateApp = (userData:UserResponse) => {
-    if (userData?.role === "client"){
+    if (userData?.role === "STUDENT"){
       navigate("/dashboard")
-    } else if (userData?.role === "admin"){
+    } else if (userData?.role === "ADMIN"){
       navigate('/admin-dashboard')
     } else if (userData?.role === 'superadmin'){
       navigate('/superdashboard')

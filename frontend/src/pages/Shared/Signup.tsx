@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 const SignUp: React.FC = () => {
   const [formData, setFormData] = useState({
-    username: "",
+    firstname: "",
+    lastname: "",
     emailAddress: "",
     password: "",
     roleId: 2, 
@@ -45,17 +46,28 @@ const SignUp: React.FC = () => {
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label
-              htmlFor="username"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Username
+            <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+              First Name
             </label>
             <input
-              id="username"
-              name="username"
+              id="firstName"
+              name="firstName"
               type="text"
-              value={formData.username}
+              value={formData.firstname}
+              onChange={handleChange}
+              placeholder="Your username"
+              className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+          </div>
+          <div>
+            <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
+              Last Name
+            </label>
+            <input
+              id="lastName"
+              name="lasstName"
+              type="text"
+              value={formData.lastname}
               onChange={handleChange}
               placeholder="Your username"
               className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"

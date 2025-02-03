@@ -1,12 +1,14 @@
 export interface UserSignup{
-    username: string,
+    firstname: string,
+    lastname: string;
     emailAddress: string,
     password:string,
     roleId:number    
 }
 
 export interface UserRequest{
-    username: "",
+    firstname: "",
+    lastname: "",
     phoneNumber: "",
     emailAddress: ""   
 }

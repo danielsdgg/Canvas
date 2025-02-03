@@ -4,7 +4,6 @@ import { useAuth } from '../../context/authContext';
 import SideNav from '../../components/SideNav';
 import { FaArrowLeft } from 'react-icons/fa';
 
-
 interface Submission {
   id: number;
   title: string;
@@ -13,11 +12,12 @@ interface Submission {
 
 interface User {
   id: number;
-  username: string;
+  firstName: string;
+  lastName: string;
   emailAddress: string;
   phoneNumber: string | null;
   createdAt: string;
-  submissions: Submission[]; // Ensure this is an array
+  submissions: Submission[];
 }
 
 const UserDetail: React.FC = () => {
@@ -52,56 +52,63 @@ const UserDetail: React.FC = () => {
     }
   }, [userId, userToken]);
 
-  // Ensure user and user.submissions are defined before trying to access them
   if (!user) {
     return <p className="text-center text-lg text-gray-700">Loading user details...</p>;
   }
 
   return (
     <>
-    <SideNav/>
-    {/* Back Button */}
-    <button onClick={() => navigate(-1)}
-    className="flex items-center text-gray-600 hover:text-blue-600 mb-6 transition-all duration-300 ease-in-out transform hover:scale-105">
-        <FaArrowLeft className="mr-2" />
-        Back to Users List
-    </button>
-    {/* user detail section */}
-    <div className="p-5 bg-gray-100">
-      <header className="text-3xl font-bold text-blue-700 mb-5">User Details</header>
+      <SideNav />
+      
+      <div className="p-6 bg-gradient-to-r from-blue-500 to-purple-600 min-h-screen">
+        <button 
+          onClick={() => navigate(-1)}
+          className="flex items-center text-white hover:text-yellow-300 mb-6 transition-all duration-300 ease-in-out transform hover:scale-110"
+        >
+          <FaArrowLeft className="mr-2" />
+          Back to Users List
+        </button>
+        
+        <div className="bg-white shadow-2xl rounded-xl p-8 max-w-3xl mx-auto">
+          <header className="text-4xl font-bold text-center text-blue-700 mb-6 border-b-4 border-blue-300 pb-3">
+            User Details
+          </header>
 
-      <div className="bg-white shadow-lg rounded-lg p-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">User: {user.username}</h2>
-        <p><strong>Email:</strong> {user.emailAddress}</p>
-        <p><strong>Phone:</strong> {user.phoneNumber || 'N/A'}</p>
-        <p><strong>Joined:</strong> {new Date(user.createdAt).toLocaleDateString()}</p>
+          <h2 className="text-2xl text-center font-extrabold text-gray-800 mb-6 uppercase bg-gray-200 p-3 rounded-md shadow-md">
+            {user.firstName} {user.lastName}
+          </h2>
 
-        <h3 className="text-xl font-bold text-gray-800 mt-5">Submissions</h3>
-        <table className="min-w-full text-left text-sm sm:text-base mt-3">
-          <thead>
-            <tr className="bg-yellow-100">
-              <th className="px-4 py-2 font-medium text-gray-700">Title</th>
-              <th className="px-4 py-2 font-medium text-gray-700">Grade</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* Check if submissions is an array and has items */}
-            {Array.isArray(user.submissions) && user.submissions.length > 0 ? (
-              user.submissions.map((submission) => (
-                <tr key={submission.id} className="hover:bg-yellow-50">
-                  <td className="px-4 py-2">{submission.title}</td>
-                  <td className="px-4 py-2">{submission.grade}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={2} className="px-4 py-2 text-center">No submissions available</td>
+          <div className="text-lg space-y-4">
+            <p><span className="font-semibold text-gray-900">Email:</span> {user.emailAddress}</p>
+            <p><span className="font-semibold text-gray-900">Phone:</span> {user.phoneNumber || 'N/A'}</p>
+            <p><span className="font-semibold text-gray-900">Joined:</span> {new Date(user.createdAt).toLocaleDateString()}</p>
+          </div>
+
+          <h3 className="text-xl font-bold text-gray-800 mt-6 bg-blue-200 p-3 rounded-md shadow-md">Submissions</h3>
+          <table className="w-full mt-3 bg-white shadow-md rounded-md overflow-hidden">
+            <thead>
+              <tr className="bg-yellow-400 text-gray-900 text-lg">
+                <th className="px-6 py-3">Title</th>
+                <th className="px-6 py-3">Grade</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {Array.isArray(user.submissions) && user.submissions.length > 0 ? (
+                user.submissions.map((submission) => (
+                  <tr key={submission.id} className="text-center hover:bg-yellow-100">
+                    <td className="px-6 py-4 border-b border-gray-300">{submission.title}</td>
+                    <td className="px-6 py-4 border-b border-gray-300 font-semibold text-green-600">{submission.grade}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={2} className="px-6 py-4 text-center text-gray-500">No submissions available</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
     </>
   );
 };
