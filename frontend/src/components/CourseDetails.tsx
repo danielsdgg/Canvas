@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import SideNav from "./SideNav";
 import { FaArrowLeft } from "react-icons/fa";
 import { useAuth } from "../context/authContext"; // Importing the useAuth hook
@@ -7,7 +7,7 @@ import { useAuth } from "../context/authContext"; // Importing the useAuth hook
 interface Lesson {
   id: number;
   title: string;
-  content: string;
+  // content: string; // Dynamically coding the content
 }
 
 interface Course {
@@ -24,7 +24,7 @@ const CourseDetails: React.FC = () => {
   const [error, setError] = useState<string | null>(null); 
   const navigate = useNavigate();
 
-  const { userToken } = useAuth(); // Get userToken from AuthContext
+  const { userToken } = useAuth(); 
 
   // Fetch course details
   useEffect(() => {
@@ -35,7 +35,7 @@ const CourseDetails: React.FC = () => {
         setLoading(true);
         const response = await fetch(`/api/v1/courses/${courseId}`, {
           headers: {
-            Authorization: `Bearer ${userToken}`, // Adding Authorization header
+            Authorization: `Bearer ${userToken}`, 
           },
         });
 
@@ -53,7 +53,7 @@ const CourseDetails: React.FC = () => {
     };
 
     fetchCourseDetails();
-  }, [courseId, userToken]); // Added userToken to dependency array
+  }, [courseId, userToken]); 
 
   // Fetch lesson details
   const fetchLessonDetails = async (lessonId: number) => {
@@ -61,7 +61,7 @@ const CourseDetails: React.FC = () => {
       setLoading(true);
       const response = await fetch(`/api/v1/lessons/${lessonId}`, {
         headers: {
-          Authorization: `Bearer ${userToken}`, // Adding Authorization header
+          Authorization: `Bearer ${userToken}`, 
         },
       });
 
@@ -69,7 +69,7 @@ const CourseDetails: React.FC = () => {
         throw new Error("Failed to fetch lesson details.");
       }
       const data: Lesson = await response.json();
-      setLessonDetails(data);
+      setLessonDetails(data);  // Store the lesson data dynamically
     } catch (error) {
       setError("Error fetching lesson details.");
       console.error("Error fetching lesson details:", error);
@@ -115,12 +115,13 @@ const CourseDetails: React.FC = () => {
                 <ul className="list-disc list-inside space-y-2">
                   {course.lessons.map((lesson) => (
                     <li key={lesson.id}>
-                      <button
+                      <Link
+              to={`/courses/${courseId}/lessons/${lesson.id}`}><button
                         onClick={() => fetchLessonDetails(lesson.id)}
                         className="text-blue-500 hover:underline"
                       >
                         {lesson.title}
-                      </button>
+                      </button> </Link>
                     </li>
                   ))}
                 </ul>
@@ -129,7 +130,8 @@ const CourseDetails: React.FC = () => {
               {lessonDetails && (
                 <div className="mt-6 p-4 bg-gray-100 rounded shadow">
                   <h3 className="text-xl font-semibold text-gray-700">{lessonDetails.title}</h3>
-                  <p className="text-gray-600 mt-2">{lessonDetails.content}</p>
+                  {/* Content will be dynamically loaded, so keeping this commented */}
+                  {/* <p className="text-gray-600 mt-2">{lessonDetails.content}</p> */}
                 </div>
               )}
             </>

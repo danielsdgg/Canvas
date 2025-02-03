@@ -5,7 +5,6 @@ import { useAuth } from "../context/authContext";
 interface Lesson {
   id: number;
   title: string;
-  content: string;
 }
 
 const LessonDetails: React.FC = () => {
@@ -24,7 +23,7 @@ const LessonDetails: React.FC = () => {
         setLoading(true);
         const response = await fetch(`/api/v1/lessons/${lessonId}`, {
           headers: {
-            Authorization: `Bearer ${userToken}`, // Adding Authorization header
+            Authorization: `Bearer ${userToken}`, 
           },
         });
 
@@ -42,7 +41,7 @@ const LessonDetails: React.FC = () => {
     };
 
     fetchLesson();
-  }, [lessonId, userToken]); // Added userToken to dependency array
+  }, [lessonId, userToken]); 
 
   if (loading) {
     return <div className="p-6 text-gray-700">Loading lesson details...</div>;
@@ -59,7 +58,6 @@ const LessonDetails: React.FC = () => {
   return (
     <div className="p-6 bg-white shadow-md rounded-md max-w-4xl mx-auto mt-10">
       <h1 className="text-3xl font-bold text-gray-800 mb-4">{lesson.title}</h1>
-      <p className="text-gray-700 text-lg">{lesson.content}</p>
     </div>
   );
 };

@@ -18,7 +18,7 @@ const CoursesPage: React.FC = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch("/api/v1/courses", {
+        const response = await fetch("/api/v1/courses/", {
           headers: {
             Authorization: `Bearer ${userToken}`, // Use the token from context in the headers
           },

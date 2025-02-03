@@ -93,7 +93,7 @@ const Account: React.FC = () => {
   <SideNav />
   <div className="p-6 bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen flex justify-center">
     <div className="max-w-4xl w-full bg-white p-8 rounded-xl shadow-lg">
-      <header className="text-4xl font-bold text-center text-blue-700 mb-6 border-b-4 border-blue-300 pb-3">Account Details</header>
+      <header className="text-4xl font-bold text-center text-blue-700 mb-6 border-b-4 border-blue-300 pb-3">Profile</header>
 
       {/* Personal Details */}
       <div className="bg-gray-50 p-6 rounded-lg shadow-md border border-gray-200">
