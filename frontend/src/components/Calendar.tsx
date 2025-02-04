@@ -67,11 +67,11 @@ const Calendar: React.FC = () => {
   return (
     <div className="flex flex-col md:flex-row">
       <SideNav />
-      <div className="flex-1 p-4 md:ml-64 h-screen overflow-y-auto">
+      <div className="flex-1 p-4 md:ml-4 h-screen overflow-y-auto">
         <h2 className="text-2xl font-bold text-center mb-4">{monthName}</h2>
         <div className="grid grid-cols-7 gap-1">
           {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, index) => (
-            <div key={index} className="font-semibold text-center bg-gray-200 p-2">
+            <div key={index} className="font-semibold text-center bg-blue-200 p-2">
               {day}
             </div>
           ))}

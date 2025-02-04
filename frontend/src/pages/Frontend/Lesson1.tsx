@@ -109,17 +109,17 @@ const Lesson1:React.FC = () => {
             {/* day 4 */}
             <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
               <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                <Link to="/fdl1day4">Day 4: Links & Images</Link>
+                <Link to="/fdl1day4">Day 4: Course Outline</Link>
               </h3>
-              <p className="text-gray-800 leading-relaxed">Learn about links and images in html</p>
+              <p className="text-gray-800 leading-relaxed">See the various topics and programming languages that you will learn in frontend development course.</p>
             </div>
 
             {/* day 5 */}
             <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
               <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                <Link to="/fdl1day5">Day 5: Lists & Tables</Link>
+                <Link to="/fdl1day5">Day 5: Students' handbook</Link>
               </h3>
-              <p className="text-gray-800 leading-relaxed">Get in-depth knowledge about lists and tables in html</p>
+              <p className="text-gray-800 leading-relaxed">Get in-depth knowledge about the role of students in our organization</p>
             </div>
                 {/* Add the rest of the days here */}
               </div>
@@ -130,10 +130,10 @@ const Lesson1:React.FC = () => {
                 {/* Example Content for Week 2 */}
                 <div className="bg-purple-50 shadow-lg rounded-lg p-6 md:p-8">
                   <h3 className="text-xl font-bold text-center text-purple-700 mb-4 underline">
-                    <Link to="/fdl1day6">Day 6: Semantic HTML</Link>
+                    <Link to="/fdl1day6">Day 6: Introduction to HTML</Link>
                   </h3>
                   <p className="text-gray-800 leading-relaxed">
-                    Learn the importance of semantic HTML for better structure, accessibility, and SEO.
+                    Take a deep dive into HTML and learn about its structure,syntax and also take a tour of the web.
                   </p>
                 </div>
                 {/* day 7 */}
