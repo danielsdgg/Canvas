@@ -97,7 +97,7 @@ const Day6:React.FC = () => {
   </ul>
 
   {/* HTML Forms */}
-  <h4 className="text-lg font-semibold mb-2">HTML Forms</h4>
+  <h4 className="text-lg font-semibold mb-2 text-center mt-8">HTML Forms</h4>
   <p className="text-gray-700 mb-4">
     Forms are used to collect user input. Here's an example:
   </p>
@@ -110,9 +110,78 @@ const Day6:React.FC = () => {
   <button type="submit">Submit</button>
 </form>`}
   </pre>
+  <div className="mb-8">
+  <p className="text-gray-700 mb-4">
+    The structure of an HTML document forms the foundation of any web page. It defines how the browser interprets and displays the content. Understanding these essential components is crucial for building well-structured web pages.
+  </p>
 
-  {/* HTML Best Practices */}
-  <h4 className="text-lg font-semibold mb-2">HTML Best Practices</h4>
+  <p className="text-gray-700 mb-4">
+    An HTML document follows a standard hierarchy and includes the following key elements:
+  </p>
+
+  <ul className="list-disc list-inside text-gray-700 mb-4">
+    <li>
+      <strong>&lt;!DOCTYPE html&gt;</strong>: Specifies the document type and version of HTML being used. For modern web pages, this declaration indicates HTML5.
+    </li>
+    <li>
+      <strong>&lt;html&gt;</strong>: The root element that wraps all the content of the page. It contains both metadata and visible elements.
+    </li>
+    <li>
+      <strong>&lt;head&gt;</strong>: The metadata container that includes information like the document title, character encoding, external stylesheets, and JavaScript files. This section does not display content directly on the page.
+    </li>
+    <li>
+      <strong>&lt;body&gt;</strong>: The main section that contains the visible content of the webpage, such as headings, paragraphs, images, and other elements.
+    </li>
+  </ul>
+
+  <p className="text-gray-700 mb-4">
+    Below is an example of a simple HTML document structure:
+  </p>
+
+  <pre className="bg-gray-800 text-white p-4 rounded mb-4">
+{`<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Structure Example</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to My Web Page</h1>
+    </header>
+    <main>
+      <p>This is a simple HTML document example showcasing its structure.</p>
+      <img src="example.jpg" alt="Example Image">
+    </main>
+    <footer>
+      <p>&copy; 2024 Your Name</p>
+    </footer>
+  </body>
+</html>`}
+  </pre>
+
+  <p className="text-gray-700 mb-4">
+    <strong>Additional Notes:</strong>
+  </p>
+  <ul className="list-disc list-inside text-gray-700">
+    <li>
+      Always include the <strong>&lt;!DOCTYPE html&gt;</strong> declaration at the beginning of your HTML document to ensure compatibility with modern web standards.
+    </li>
+    <li>
+      The <strong>&lt;meta charset="UTF-8"&gt;</strong> tag in the <strong>&lt;head&gt;</strong> ensures proper handling of special characters.
+    </li>
+    <li>
+      The <strong>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</strong> tag makes the page responsive on different devices.
+    </li>
+    <li>
+      Use semantic elements like <strong>&lt;header&gt;</strong>, <strong>&lt;main&gt;</strong>, and <strong>&lt;footer&gt;</strong> for better readability and accessibility.
+    </li>
+  </ul>
+</div>
+{/* HTML Best Practices */}
+<h4 className="text-lg font-semibold mb-2">HTML Best Practices</h4>
   <ul className="list-disc list-inside text-gray-700 mb-4">
     <li>Use semantic HTML tags (e.g., <code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>) to improve accessibility and SEO.</li>
     <li>Ensure all images include descriptive <code>alt</code> attributes.</li>
@@ -141,9 +210,6 @@ const Day6:React.FC = () => {
     By the end of Day 6, you should be familiar with the basic structure and elements of HTML, ready to start creating web pages. Spend some time experimenting and building simple projects to solidify your understanding.
   </p>
     </section>
-    <div className="mb-8">  
-  
-</div>
     </>
   )
 }

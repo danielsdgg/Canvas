@@ -139,30 +139,30 @@ const Lesson1:React.FC = () => {
                 {/* day 7 */}
                 <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                   <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                    <Link to="/fdl1day7">Day 7: Multimedia elements</Link>
+                    <Link to="/fdl1day7">Day 7: HTML tags,links and images</Link>
                   </h3>
                   <p className="text-gray-800 leading-relaxed">
-                    Learn about multimedia elements in html
+                    Learn about the common tags of html, how to add links and images to your web page.
                   </p>
                 </div>
 
                 {/* day 8 */}
                 <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                   <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                    <Link to="/fdl1day8">Day 8: Getting started with css</Link>
+                    <Link to="/fdl1day8">Day 8: Getting started with CSS,Semantic HTML </Link>
                   </h3>
                   <p className="text-gray-800 leading-relaxed">
-                    Introduction to CSS.
+                First look at CSS for stylings and Semantic html
                   </p>
                 </div>
 
                 {/* day 9 */}
                 <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                   <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                    <Link to="/fdl1day9">Day 9: Understanding the box model</Link>
+                    <Link to="/fdl1day9">Day 9: Multimedia Elements</Link>
                   </h3>
                   <p className="text-gray-800 leading-relaxed">
-                    Learn the box models in html.
+                    Learn how to insert media elements like audio and video to your web page.
                   </p>
                 </div>
 
@@ -175,8 +175,21 @@ const Lesson1:React.FC = () => {
                     Learn about flexbox & Grid.
                   </p>
                 </div>
-
               </div>
+            )}
+
+            {openWeek === 3 && (
+                <div className="space-y-6">
+                    {/* day 11 */}
+                    <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
+                        <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
+                            <Link to="/fdl1day11">Day 11: Introduction to TailwindCSS</Link>
+                        </h3>
+                        <p className="text-gray-800 leading-relaxed">
+                            Learn about Tailwind and create a simple webpage using TailwindCSS.
+                        </p>
+                    </div>
+                </div>
             )}
 
             {openWeek === 4 && (
