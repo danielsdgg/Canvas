@@ -64,16 +64,9 @@ const Lesson1:React.FC = () => {
                 openWeek === 3 ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700 hover:bg-blue-400 hover:text-white"
               }`}
             >
-              Week 3: TailwindCSS
+              Week 3: TailwindCSS & Final Project
             </div>
-            <div
-              onClick={() => toggleDropdown(4)}
-              className={`cursor-pointer px-4 py-2 rounded-md transition-all duration-300 text-center text-lg font-medium ${
-                openWeek === 4 ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700 hover:bg-blue-400 hover:text-white"
-              }`}
-            >
-              Week 4: Project
-            </div>
+            
           </div>
 
           {/* Week Content */}
@@ -189,22 +182,16 @@ const Lesson1:React.FC = () => {
                             Learn about Tailwind and create a simple webpage using TailwindCSS.
                         </p>
                     </div>
+                    {/* day 12 */}
+                    <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
+                        <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
+                            <Link to="/fdl1day12">Day 12: Lesson 1 Project</Link>
+                        </h3>
+                        <p className="text-gray-800 leading-relaxed">
+                            Its time to put all the skills & knowledge you've learnt to the test.
+                        </p>
+                    </div>
                 </div>
-            )}
-
-            {openWeek === 4 && (
-              <div className="space-y-6">
-                {/* Example Content for Week 3 */}
-                <div className="bg-pink-50 shadow-lg rounded-lg p-6 md:p-8">
-                  <h3 className="text-xl font-bold text-center text-pink-700 mb-4 underline">
-                    <Link to="/lesson2project">Project Week</Link>
-                  </h3>
-                  <p className="text-gray-800 leading-relaxed">
-                    A comprehensive recap of all topics covered so far. Assignments include website creation, styling, and
-                    basic operations.
-                  </p>
-                </div>
-              </div>
             )}
           </div>
         </div>
