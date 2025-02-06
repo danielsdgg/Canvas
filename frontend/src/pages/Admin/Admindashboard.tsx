@@ -95,6 +95,39 @@ const Admindashboard: React.FC = () => {
               </table>
             </div>
           </div>
+          {/* class list */}
+          <div className="bg-white shadow-lg rounded-lg mt-16 p-4">
+            <h2 className="text-2xl font-bold mb-4 text-yellow-600">Class List</h2>
+            <div className="overflow-auto">
+              <table className="min-w-full text-left text-sm sm:text-base">
+                <thead>
+                  <tr className="bg-yellow-100">
+                    <th className="px-4 py-2 font-medium text-gray-700">First Name</th>
+                    <th className="px-4 py-2 font-medium text-gray-700">Last Name</th>
+                    <th className="px-4 py-2 font-medium text-gray-700">Email</th>
+                    <th className="px-4 py-2 font-medium text-gray-700">Phone Number</th>
+                    <th className="px-4 py-2 font-medium text-gray-700">Joined</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map((user) => (
+                    <tr key={user.id} className="hover:bg-yellow-50">
+                      <td className="px-4 py-2">
+                        <Link to={`/user/${user.id}`} className="text-blue-500 hover:text-blue-700">
+                          {user.firstName}
+                        </Link>
+                      </td>
+                      <td className="px-4 py-2">{user.lastName}</td>
+                      <td className="px-4 py-2">{user.emailAddress}</td>
+                      <td className="px-4 py-2">{user.phoneNumber ? user.phoneNumber : 'N/A'}</td>
+                      <td className="px-4 py-2">{new Date(user.createdAt).toLocaleDateString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
         </div>
       </div>
     </>
