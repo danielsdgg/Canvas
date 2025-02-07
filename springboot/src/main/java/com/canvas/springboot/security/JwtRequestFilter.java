@@ -71,8 +71,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                             .collect(Collectors.toList());
                 }
 
-                System.out.println("✅ Authenticated User: " + userDetails.getUsername());
-                System.out.println("✅ Extracted Authorities from JWT: " + authorities);
+//                System.out.println("✅ Authenticated User: " + userDetails.getUsername());
+//                System.out.println("✅ Extracted Authorities from JWT: " + authorities);
 
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, authorities);
