@@ -11,6 +11,8 @@ import com.canvas.springboot.repositories.UserRepository;
 import com.canvas.springboot.utils.AssignmentMapper;
 import com.canvas.springboot.utils.LessonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +34,9 @@ public class CourseService {
     private AssignmentService assignmentService;
 
     public List<CourseResponse> getAllCourses() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("🔍 User Authenticated: " + authentication.getName());
+        System.out.println("🔍 User Authorities: " + authentication.getAuthorities());
         List<Courses> courses = courseRepository.findAll();
         return courses.stream().map(this::mapToCourseResponse).toList();
     }
