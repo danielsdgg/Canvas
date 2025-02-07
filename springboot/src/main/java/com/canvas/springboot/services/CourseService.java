@@ -141,13 +141,15 @@ public class CourseService {
     }
 
     private UserResponse mapToUserResponse(User user) {
-        UserResponse response = new UserResponse();
-        response.setId(user.getId());
-        response.setEmailAddress(user.getEmailAddress());
-        response.setPhoneNumber(user.getPhoneNumber());
-//        response.setRole(user.getRole().getRoleName());
-        response.setCreatedAt(user.getCreatedAt());
-        return response;
+        UserResponse userResponse = new UserResponse();
+        userResponse.setId(user.getId());
+        userResponse.setEmailAddress(user.getEmailAddress());
+        userResponse.setLastName(user.getLastName());
+        userResponse.setFirstName(user.getFirstName());
+        userResponse.setPhoneNumber(user.getPhoneNumber());
+        userResponse.setRole(user.getRole().getRoleName());
+        userResponse.setCreatedAt(user.getCreatedAt());
+        return userResponse;
     }
 
     private Courses getCourseByIdEntity(Long id) {
