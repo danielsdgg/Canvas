@@ -184,7 +184,7 @@ const Lesson1:React.FC = () => {
                     </div>
                     {/* day 12 */}
                     <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
-                        <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
+                        <h3 className="text-xl font-bold text-center text-red-700 mb-4 underline">
                             <Link to="/fdl1day12">Day 12: Lesson 1 Project</Link>
                         </h3>
                         <p className="text-gray-800 leading-relaxed">

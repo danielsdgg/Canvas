@@ -2,6 +2,8 @@ import React, { useState } from "react";
 // import { AuthContext } from "../context/authContext";
 import { registerUser } from "../../services/User";
 import { useNavigate } from "react-router-dom";
+import Logo from '../../assets/morgan.jpg';
+
 
 const SignUp: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -33,7 +35,7 @@ const SignUp: React.FC = () => {
       {/* Header Section */}
       <div className="text-center mb-6">
         <img
-          src="https://res.cloudinary.com/ddei3mzex/image/upload/v1729158010/crest_x1gutu.jpg"
+          src={Logo}
           alt="Organization Logo"
           className="mx-auto w-32 h-32"
         />

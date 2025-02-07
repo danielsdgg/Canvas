@@ -78,34 +78,34 @@ const Lesson2:React.FC = () => {
                         {/* Day 2 */}
                         <div className="bg-indigo-50 shadow-lg rounded-lg p-6 md:p-8">
                           <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                            <Link to="/fdl1day2">Day 2: Getting started</Link>
+                            <Link to="/fdl2day2">Day 2: Operators, Conditions & Workflows</Link>
                           </h3>
                           <p className="text-gray-800 leading-relaxed">
-                            Set up your development environment and get ready to begin your frontend journey.
+                            Get more insight on javascript operations
                           </p>
                         </div>
                          {/* Day 3 */}
                     <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                       <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                        <Link to="/fdl1day3">Day 3: Command Line Interfaces</Link>
+                        <Link to="/fdl2day3">Day 3: Functions & Scope</Link>
                       </h3>
-                      <p className="text-gray-800 leading-relaxed">Learn the basics and fundamentals of CLIs.</p>
+                      <p className="text-gray-800 leading-relaxed">Learn how to create a function & how it operates.</p>
                     </div>
         
                     {/* day 4 */}
                     <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                       <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                        <Link to="/fdl1day4">Day 4: Course Outline</Link>
+                        <Link to="/fdl2day4">Day 4: Loops & Iteration</Link>
                       </h3>
-                      <p className="text-gray-800 leading-relaxed">See the various topics and programming languages that you will learn in frontend development course.</p>
+                      <p className="text-gray-800 leading-relaxed">See about loops & iterations</p>
                     </div>
         
                     {/* day 5 */}
                     <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                       <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                        <Link to="/fdl1day5">Day 5: Students' handbook</Link>
+                        <Link to="/fdl2day5">Day 5: Arrays & objects</Link>
                       </h3>
-                      <p className="text-gray-800 leading-relaxed">Get in-depth knowledge about the role of students in our organization</p>
+                      <p className="text-gray-800 leading-relaxed">Learn about arrays & objects</p>
                     </div>
                         {/* Add the rest of the days here */}
                       </div>
@@ -116,16 +116,16 @@ const Lesson2:React.FC = () => {
                         {/* Example Content for Week 2 */}
                         <div className="bg-purple-50 shadow-lg rounded-lg p-6 md:p-8">
                           <h3 className="text-xl font-bold text-center text-purple-700 mb-4 underline">
-                            <Link to="/fdl1day6">Day 6: Introduction to HTML</Link>
+                            <Link to="/fdl2day6">Day 6: The Document Object Model(DOM)</Link>
                           </h3>
                           <p className="text-gray-800 leading-relaxed">
-                            Take a deep dive into HTML and learn about its structure,syntax and also take a tour of the web.
+                            What is DOM?
                           </p>
                         </div>
                         {/* day 7 */}
                         <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                           <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                            <Link to="/fdl1day7">Day 7: HTML tags,links and images</Link>
+                            <Link to="/fdl2day7">Day 7: Events & Event Listeners</Link>
                           </h3>
                           <p className="text-gray-800 leading-relaxed">
                             Learn about the common tags of html, how to add links and images to your web page.
@@ -135,30 +135,31 @@ const Lesson2:React.FC = () => {
                         {/* day 8 */}
                         <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                           <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                            <Link to="/fdl1day8">Day 8: Getting started with CSS,Semantic HTML </Link>
+                            <Link to="/fdl2day8">Day 8: Working with forms & user input </Link>
                           </h3>
                           <p className="text-gray-800 leading-relaxed">
-                        First look at CSS for stylings and Semantic html
+                        First look at forms
                           </p>
                         </div>
         
                         {/* day 9 */}
                         <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                           <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                            <Link to="/fdl1day9">Day 9: Multimedia Elements</Link>
+                            <Link to="/fdl2day9">Day 9: Introduction to Asynchronous JavaScript (Promises & Fetch API)</Link>
                           </h3>
                           <p className="text-gray-800 leading-relaxed">
-                            Learn how to insert media elements like audio and video to your web page.
+                            Learn how to fetch data from an API.
                           </p>
                         </div>
         
                         {/* day 10 */}
                         <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                           <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                            <Link to="/fdl1day10">Day 10: Flexbox & Grid</Link>
+                            <Link to="/fdl2day10">Day 10: Introduction to ES6+ Features & JavaScript Best Practices
+                            </Link>
                           </h3>
                           <p className="text-gray-800 leading-relaxed">
-                            Learn about flexbox & Grid.
+                            ES6 & best practices on javascript
                           </p>
                         </div>
                       </div>
@@ -168,20 +169,11 @@ const Lesson2:React.FC = () => {
                         <div className="space-y-6">
                             {/* day 11 */}
                             <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
-                                <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                                    <Link to="/fdl1day11">Day 11: Introduction to TailwindCSS</Link>
+                                <h3 className="text-xl font-bold text-center text-red-700 mb-4 underline">
+                                    <Link to="/fdl2day11">Project Week</Link>
                                 </h3>
                                 <p className="text-gray-800 leading-relaxed">
-                                    Learn about Tailwind and create a simple webpage using TailwindCSS.
-                                </p>
-                            </div>
-                            {/* day 12 */}
-                            <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
-                                <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                                    <Link to="/fdl1day12">Day 12: Lesson 1 Project</Link>
-                                </h3>
-                                <p className="text-gray-800 leading-relaxed">
-                                    Its time to put all the skills & knowledge you've learnt to the test.
+                                    Put to the test all you've learnt.
                                 </p>
                             </div>
                         </div>

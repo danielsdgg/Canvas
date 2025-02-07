@@ -63,7 +63,7 @@ const Admindashboard: React.FC = () => {
       <SideNav />
       <div className="flex min-h-screen bg-gray-100">
         <div className="flex-1 p-5">
-          <header className="text-3xl font-bold text-blue-700 mb-5">Admin Dashboard</header>
+          <header className="text-3xl text-center font-bold text-blue-700 mb-5">ADMIN DASHBOARD</header>
           <div className="bg-white shadow-lg rounded-lg p-4">
             <h2 className="text-2xl font-bold mb-4 text-yellow-600">Users List</h2>
             <div className="overflow-auto">

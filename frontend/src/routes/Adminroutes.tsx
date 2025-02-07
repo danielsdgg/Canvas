@@ -32,6 +32,11 @@ import Day9 from '../pages/Frontend/Lesson1-pages/Day9';
 import Day10 from '../pages/Frontend/Lesson1-pages/Day10';
 import Day11 from '../pages/Frontend/Lesson1-pages/Day11';
 import Day12 from '../pages/Frontend/Lesson1-pages/Day12';
+import Dayy1 from '../pages/Frontend/Lesson2-pages/Dayy1';
+import Dayy2 from '../pages/Frontend/Lesson2-pages/Dayy2';
+import Dayy3 from '../pages/Frontend/Lesson2-pages/Dayy3';
+import Dayy4 from '../pages/Frontend/Lesson2-pages/Dayy4';
+import Dayy5 from '../pages/Frontend/Lesson2-pages/Dayy5';
 
 // lesson2 - days
 
@@ -78,6 +83,12 @@ const Adminroutes = () => {
             <Route path='/fdl1day10' element={<Day10/>} />
             <Route path='/fdl1day11' element={<Day11/>} />
             <Route path='/fdl1day12' element={<Day12/>} />
+            {/* lesson 2 */}
+            <Route path='/fdl2day1' element={<Dayy1/>} />
+            <Route path='/fdl2day2' element={<Dayy2/>} />
+            <Route path='/fdl2day3' element={<Dayy3/>} />
+            <Route path='/fdl2day4' element={<Dayy4/>} />
+            <Route path='/fdl2day5' element={<Dayy5/>} />
         </Routes>
     </div>
   )
