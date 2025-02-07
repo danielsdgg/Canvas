@@ -11,7 +11,6 @@ public class UserDetailsResponse {
     private String emailAddress;
     private String firstName;
     private String lastName;
-    private String username;
     private String phoneNumber;
     private String role;
     private LocalDateTime createdAt;

@@ -1,6 +1,7 @@
 package com.canvas.springboot.security;
 
 import com.canvas.springboot.services.UserService;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -8,12 +9,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -49,19 +55,31 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
-            UserDetails  userDetails = this.userService.loadUserByUsername(email);
+            UserDetails userDetails = this.userService.loadUserByUsername(email);
 
             if (jwtUtil.validateToken(jwt, userDetails.getUsername())) {
+                Claims claims = jwtUtil.extractAllClaims(jwt);
+                Object rolesObject = claims.get("roles");
+
+                List<GrantedAuthority> authorities = new ArrayList<>();
+                if (rolesObject instanceof List<?>) {
+                    authorities = ((List<?>) rolesObject).stream()
+                            .filter(role -> role instanceof String)
+                            .map(role -> (String) role)
+                            .map(role -> role.startsWith("ROLE_") ? role : "ROLE_" + role)
+                            .map(SimpleGrantedAuthority::new)
+                            .collect(Collectors.toList());
+                }
+
+                System.out.println("✅ Authenticated User: " + userDetails.getUsername());
+                System.out.println("✅ Extracted Authorities from JWT: " + authorities);
 
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
+                        userDetails, null, authorities);
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
         chain.doFilter(request, response);
     }
-
-
 }
