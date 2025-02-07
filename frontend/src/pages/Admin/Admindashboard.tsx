@@ -12,6 +12,7 @@ interface User {
   phoneNumber: string | null;
   createdAt: string;
   role: string;
+  courses: any[];
 }
 
 const Admindashboard: React.FC = () => {
@@ -91,6 +92,16 @@ const Admindashboard: React.FC = () => {
                       <td className="px-4 py-2">{user.emailAddress}</td>
                       <td className="px-4 py-2">{user.phoneNumber ? user.phoneNumber : 'N/A'}</td>
                       <td className="px-4 py-2">{new Date(user.createdAt).toLocaleDateString()}</td>
+                      {user?.courses?.length > 0 ? (
+  user.courses.map((course, index) => (
+    <td key={course.id ?? index} className="px-4 py-2">
+      {course.courseName || "Not enrolled"}
+    </td>
+  ))
+) : (
+  <td className="px-4 py-2 italic">Not enrolled</td>
+)}
+
                     </tr>
                   ))}
                 </tbody>
