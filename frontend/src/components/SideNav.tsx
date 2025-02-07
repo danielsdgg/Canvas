@@ -24,7 +24,7 @@ const SideNav: React.FC = () => {
   };
 
   // Define the dashboard route based on the user's role
-  const dashboardLink = userRole === "admin" ? "/admin-dashboard" : "/dashboard";
+  const dashboardLink = userRole === "ADMIN" ? "/admin-dashboard" : "/dashboard";
 
   return (
     <IconContext.Provider value={{ size: "1.5em" }}>

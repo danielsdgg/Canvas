@@ -11,6 +11,7 @@ interface User {
   lastName: string;
   phoneNumber: string | null;
   createdAt: string;
+  role: string;
 }
 
 const Admindashboard: React.FC = () => {
@@ -75,10 +76,11 @@ const Admindashboard: React.FC = () => {
                     <th className="px-4 py-2 font-medium text-gray-700">Email</th>
                     <th className="px-4 py-2 font-medium text-gray-700">Phone Number</th>
                     <th className="px-4 py-2 font-medium text-gray-700">Joined</th>
+                    <th className="px-4 py-2 font-medium text-gray-700">Course Enrolled</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((user) => (
+                  {users.filter(user=>user.role==='STUDENT').map((user) => (
                     <tr key={user.id} className="hover:bg-yellow-50">
                       <td className="px-4 py-2">
                         <Link to={`/user/${user.id}`} className="text-blue-500 hover:text-blue-700">

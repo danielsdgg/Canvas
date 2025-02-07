@@ -1,38 +1,85 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../context/Authentication';
 import Logo from '../../assets/morgan.jpg';
+import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../api/api';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showResetModal, setShowResetModal] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
-  const [newPassword, setNewPassword] = useState('');
+  const [newpassword, setNewPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
+
   
   const { handleLogin } = useContext(AuthContext);
 
   const handlePasswordReset = async () => {
+    const url = axiosInstance.getUri() + "/api/v1/users/change-password";
+    console.log(resetEmail, newpassword);
+    const passwordRequest = {
+        emailAddress: resetEmail,
+        newPassword: newpassword
+    };
+    console.log(passwordRequest);
+    setIsLoading(true);
+    
     try {
-      const response = await fetch('/api/v1/users/change-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ emailAddress: resetEmail, newPassword }),
-      });
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(passwordRequest),
+        });
 
-      if (response.ok) {
-        setMessage('Password changed successfully');
+        const contentType = response.headers.get("content-type");
+        
+        if (!response.ok) {
+            let errorMessage = "Failed to change password";
+            
+            // Check if response is JSON
+            if (contentType && contentType.includes("application/json")) {
+                const errorData = await response.json();
+                errorMessage = errorData.message || errorMessage;
+            } else {
+                const errorText = await response.text();
+                errorMessage = errorText || errorMessage;
+            }
+
+            throw new Error(errorMessage);
+        }
+
+        // Check if the response is JSON before parsing
+        let data;
+        if (contentType && contentType.includes("application/json")) {
+            data = await response.json();
+        } else {
+            data = { message: await response.text() };
+        }
+
+        setSuccessMessage('Password changed successfully');
         setTimeout(() => {
-          setMessage('');
-          setShowResetModal(false); // Hide modal and return to login
+            setSuccessMessage('');
+            setShowResetModal(false); // Close modal
+            navigate('/login'); // Redirect to login
         }, 3000);
-      } else {
-        setMessage('Failed to change password');
-      }
-    } catch (error) {
-      setMessage('Error occurred');
+      } catch (error) {
+        console.error('Password reset error:', error);
+        
+        // Ensure error is an instance of Error before accessing message
+        if (error instanceof Error) {
+            setMessage(error.message);
+        } else {
+            setMessage('An unknown error occurred');
+        }
     }
   };
+
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
@@ -86,11 +133,12 @@ const Login: React.FC = () => {
             <h2 className="text-lg font-semibold mb-4">Reset Password</h2>
             <input type="email" placeholder="Enter your email" value={resetEmail} onChange={(e) => setResetEmail(e.target.value)}
               className="w-full p-2 mb-3 border border-gray-300 rounded-lg" />
-            <input type="password" placeholder="Enter new password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)}
+            <input type="password" placeholder="Enter new password" value={newpassword} onChange={(e) => setNewPassword(e.target.value)}
               className="w-full p-2 mb-3 border border-gray-300 rounded-lg" />
-            <button onClick={handlePasswordReset} className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
-              Change Password
-            </button>
+           <button onClick={handlePasswordReset} className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
+    Change Password
+</button>
+
             <button onClick={() => setShowResetModal(false)} className="w-full mt-2 text-gray-700 hover:underline">
               Cancel
             </button>
