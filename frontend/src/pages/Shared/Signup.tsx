@@ -7,9 +7,10 @@ import Logo from '../../assets/morgan.jpg';
 
 const SignUp: React.FC = () => {
   const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
+    firstName: "",
+    lastName: "",
     emailAddress: "",
+    phoneNumber: "",
     password: "",
     roleId: 2, 
   });
@@ -55,9 +56,9 @@ const SignUp: React.FC = () => {
               id="firstName"
               name="firstName"
               type="text"
-              value={formData.firstname}
+              value={formData.firstName}
               onChange={handleChange}
-              placeholder="Your username"
+              placeholder="Your firstname"
               className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
           </div>
@@ -67,11 +68,11 @@ const SignUp: React.FC = () => {
             </label>
             <input
               id="lastName"
-              name="lasstName"
+              name="lastName"
               type="text"
-              value={formData.lastname}
+              value={formData.lastName}
               onChange={handleChange}
-              placeholder="Your username"
+              placeholder="Your lastname"
               className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
           </div>
@@ -88,7 +89,24 @@ const SignUp: React.FC = () => {
               type="email"
               value={formData.emailAddress}
               onChange={handleChange}
-              placeholder="you@example.com"
+              placeholder="you@gmail.com"
+              className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="phoneNumber"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Phone No:
+            </label>
+            <input
+              id="phoneNumber"
+              name="phoneNumber"
+              type="tel"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+              placeholder="+257123456789"
               className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
           </div>

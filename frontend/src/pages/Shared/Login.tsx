@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../context/Authentication';
-import Logo from '../../assets/morgan.jpg';
+import Logo from '../../assets/new_logo.jpg';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../api/api';
 

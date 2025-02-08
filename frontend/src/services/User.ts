@@ -53,11 +53,11 @@ export const loginUser = async (emailAddress: string, password: string, navigate
     await storeData('userInfo', userdata);
     await storeData('userToken', userdata.token);
 
-    if (userdata.role.toLowerCase() === "client"){
+    if (userdata.role === "STUDENT"){
       navigate("/dashboard")
-    } else if (userdata.role.toLowerCase() === 'admin') {
+    } else if (userdata.role === 'ADMIN') {
       navigate("/admin-dashboard")
-    } else if (userdata.role.toLowerCase() === 'superadmin') {
+    } else if (userdata.role === 'superadmin') {
       navigate("/superdashboard")
     }
 

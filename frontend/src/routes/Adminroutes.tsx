@@ -32,13 +32,13 @@ import Day9 from '../pages/Frontend/Lesson1-pages/Day9';
 import Day10 from '../pages/Frontend/Lesson1-pages/Day10';
 import Day11 from '../pages/Frontend/Lesson1-pages/Day11';
 import Day12 from '../pages/Frontend/Lesson1-pages/Day12';
+// lesson 2 - days
 import Dayy1 from '../pages/Frontend/Lesson2-pages/Dayy1';
 import Dayy2 from '../pages/Frontend/Lesson2-pages/Dayy2';
 import Dayy3 from '../pages/Frontend/Lesson2-pages/Dayy3';
 import Dayy4 from '../pages/Frontend/Lesson2-pages/Dayy4';
 import Dayy5 from '../pages/Frontend/Lesson2-pages/Dayy5';
 
-// lesson2 - days
 
 //   DATA SCIENCE ROUTES
 
