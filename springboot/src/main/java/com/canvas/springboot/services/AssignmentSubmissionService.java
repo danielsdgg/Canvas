@@ -5,6 +5,7 @@ import com.canvas.springboot.entities.Assignments;
 import com.canvas.springboot.entities.User;
 import com.canvas.springboot.models.requests.AssignmentSubmissionRequest;
 import com.canvas.springboot.models.requests.GradeSubmissionRequest;
+import com.canvas.springboot.models.responses.AssignmentResponse;
 import com.canvas.springboot.models.responses.AssignmentSubmissionResponse;
 import com.canvas.springboot.repositories.AssignmentSubmissionRepository;
 import com.canvas.springboot.repositories.AssignmentRepository;
@@ -43,6 +44,24 @@ public class AssignmentSubmissionService {
         submission.setFileUrl(request.getFileUrl());
 
         submissionRepository.save(submission);
+    }
+
+    public AssignmentSubmissionResponse getSubmission(Long id){
+        AssignmentSubmission submission = submissionRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Submission not found"));
+
+        return convertSubmissionResponse(submission);
+
+    }
+
+    private AssignmentSubmissionResponse convertSubmissionResponse(AssignmentSubmission submission) {
+        AssignmentSubmissionResponse assignmentSubmissionResponse = new AssignmentSubmissionResponse();
+
+        assignmentSubmissionResponse.setSubmissionId(submission.getId());
+        assignmentSubmissionResponse.setFileUrl(submission.getFileUrl());
+        assignmentSubmissionResponse.setAssignmentTitle(submission.getAssignment().getTitle());
+
+        return assignmentSubmissionResponse;
     }
 
     @Transactional
