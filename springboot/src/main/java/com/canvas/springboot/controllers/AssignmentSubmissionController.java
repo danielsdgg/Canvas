@@ -37,6 +37,12 @@ public class AssignmentSubmissionController {
         return ResponseEntity.ok(results);
     }
 
+    @GetMapping("/submissions/{id}")
+    public ResponseEntity<AssignmentSubmissionResponse> getSubmission(@PathVariable Long id){
+        AssignmentSubmissionResponse assignmentSubmissionResponse = assignmentService.getSubmission(id);
+        return new ResponseEntity<>(assignmentSubmissionResponse, HttpStatus.OK);
+    }
+
 
 
 }
