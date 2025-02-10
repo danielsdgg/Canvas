@@ -59,8 +59,8 @@ public class UserService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found with email: " + email);
         }
-        System.out.println("Loaded User: " + user.getEmailAddress() + ", Role: " + user.getRole().getRoleName());
-        System.out.println("Authorities: " + user.getAuthorities());
+//        System.out.println("Loaded User: " + user.getEmailAddress() + ", Role: " + user.getRole().getRoleName());
+//        System.out.println("Authorities: " + user.getAuthorities());
 
         return new org.springframework.security.core.userdetails.User(user.getEmailAddress(), user.getPassword(),
                 new ArrayList<>());

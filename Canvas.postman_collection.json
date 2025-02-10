@@ -17,7 +17,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZUBnbWFpbC5jb20iLCJyb2xlcyI6WyJjbGllbnQiXSwiZXhwIjoxNzM4NTQxMDE1LCJpYXQiOjE3Mzg1MDUwMTV9.VTdsNSC_EqpJuYvszVCf_4gR7CelLj2YqpaLsJXguBQ",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraW5nbHlAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiZXhwIjoxNzM4OTY5MTU5LCJpYXQiOjE3Mzg5MzMxNTl9.sHMX3e6YO77ZrrmqL86Cob89KKwX4D_YcUimH_7jaZY",
 									"type": "string"
 								}
 							]
@@ -34,7 +34,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/courses",
+							"raw": "http://localhost:8080/api/v1/courses/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -43,7 +43,8 @@
 							"path": [
 								"api",
 								"v1",
-								"courses"
+								"courses",
+								""
 							]
 						}
 					},
@@ -107,7 +108,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3OTEwNTkyLCJpYXQiOjE3Mzc4NzQ1OTJ9.czwnXK6SLTDwRq7GdtbyJY0VUhbsf5VcgJRLp5eqN6I",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImV4cCI6MTczODk2OTEwNywiaWF0IjoxNzM4OTMzMTA3fQ.M4cUWAxeV0ABHJuXRyagyldBZzlT8KVUzJGh9m0rMJ8",
 									"type": "string"
 								}
 							]
@@ -115,7 +116,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/courses",
+							"raw": "http://localhost:8080/api/v1/courses/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -124,7 +125,8 @@
 							"path": [
 								"api",
 								"v1",
-								"courses"
+								"courses",
+								""
 							]
 						}
 					},
@@ -222,7 +224,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3OTE1MDk0LCJpYXQiOjE3Mzc4NzkwOTR9.hWwnUJxiNkiFNUAaSgWB2uZPiR_WJqryYcfrHqtlYxY",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraW5nbHlAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiZXhwIjoxNzM4OTY5MTU5LCJpYXQiOjE3Mzg5MzMxNTl9.sHMX3e6YO77ZrrmqL86Cob89KKwX4D_YcUimH_7jaZY",
 									"type": "string"
 								}
 							]
@@ -235,7 +237,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/courses/3",
+							"raw": "http://localhost:8080/api/v1/courses/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -245,7 +247,7 @@
 								"api",
 								"v1",
 								"courses",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -266,7 +268,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"emailAddress\": \"jamesdoe@gmail.com\",\r\n    \"newPassword\":\"password\"\r\n}",
+							"raw": "{\r\n    \"emailAddress\": \"admin@gmail.com\",\r\n    \"newPassword\":\"securePassword123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -302,7 +304,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"emailAddress\": \"jamesdoe@gmail.com\",\n   \"password\": \"securePassword123\"\n}\n",
+							"raw": "{\n   \"emailAddress\": \"kingly@gmail.com\",\n   \"password\": \"securePassword123\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -338,7 +340,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"firstName\": \"King\",\n  \"lastName\":\"Doe\",\n  \"phoneNumber\": \"+1234567890\",\n  \"emailAddress\": \"king@gmail.com\",\n  \"password\": \"securePassword123\",\n  \"roleId\": \"1\"\n}\n",
+							"raw": "{\n  \"firstName\": \"Admin\",\n  \"lastName\":\"Doe\",\n  \"phoneNumber\": \"+1234567890\",\n  \"emailAddress\": \"admin@gmail.com\",\n  \"password\": \"securePassword123\",\n  \"roleId\": \"2\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -373,7 +375,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZUBnbWFpbC5jb20iLCJyb2xlcyI6WyJjbGllbnQiXSwiZXhwIjoxNzM4NTI0NDUwLCJpYXQiOjE3Mzg0ODg0NTB9.NEcUqQLkMN7eN_DuvdzVz2Wy5afjD8iXBz8Gxmoo9dQ",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraW5nbHlAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiZXhwIjoxNzM4OTU4NzA3LCJpYXQiOjE3Mzg5MjI3MDd9.xhNu4OHh8EBM6G59AxsK9524J53wfHsvQY2U8nuMiw0",
 									"type": "string"
 								}
 							]
@@ -669,7 +671,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZUBnbWFpbC5jb20iLCJyb2xlcyI6WyJjbGllbnQiXSwiZXhwIjoxNzM4NTQxNTE1LCJpYXQiOjE3Mzg1MDU1MTV9.RqFJVF5yznhx_q924oaBWx-Easq2Z3XuRt9cHMyx_mc",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraW5nbHlAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiZXhwIjoxNzM5MTY0ODM0LCJpYXQiOjE3MzkxMjg4MzR9.8SHS8cRhNwY82K7enyYCuCSoUEP-FqRaM3bsIudLesY",
 									"type": "string"
 								}
 							]
@@ -770,6 +772,38 @@
 								"v1",
 								"assignments",
 								"results",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Assignment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraW5nbHlAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiZXhwIjoxNzM5MTY0ODM0LCJpYXQiOjE3MzkxMjg4MzR9.8SHS8cRhNwY82K7enyYCuCSoUEP-FqRaM3bsIudLesY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/assignments/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"assignments",
 								"1"
 							]
 						}
@@ -1023,7 +1057,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"roleName\": \"CLIENT\"\r\n}",
+							"raw": "{\r\n    \"roleName\": \"admin\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

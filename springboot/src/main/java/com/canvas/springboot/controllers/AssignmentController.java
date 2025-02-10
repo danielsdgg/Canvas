@@ -37,4 +37,11 @@ public class AssignmentController {
         assignmentService.assignUserToAssignment(assignmentId, userId);
         return ResponseEntity.ok("User assigned to assignment successfully");
     }
+
+    @GetMapping("/{assignmentId}")
+    public ResponseEntity<AssignmentResponse> getAssignmentsById(@PathVariable Long assignmentId) {
+        AssignmentResponse assignment = assignmentService.getAssignmentById(assignmentId);
+        return new ResponseEntity<>(assignment, HttpStatus.OK);
+    }
+
 }
