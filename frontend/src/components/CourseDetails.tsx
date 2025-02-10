@@ -28,9 +28,7 @@ interface Course {
   users: User[];
 }
 
-const CourseDetails: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  
+const CourseDetails: React.FC = () => {  
   const { courseId } = useParams<{ courseId: string }>();
   const [course, setCourse] = useState<Course | null>(null);
   const [lessonDetails, setLessonDetails] = useState<Lesson | null>(null);
