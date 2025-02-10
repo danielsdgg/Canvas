@@ -52,6 +52,14 @@ public class AssignmentService {
                 .toList();
     }
 
+    public AssignmentResponse getAssignmentById(Long assignmentId){
+        Assignments assignment = assignmentRepository.findById(assignmentId)
+                .orElseThrow(() -> new RuntimeException("Assignment not found"));
+
+        return mapToAssignmentResponse(assignment);
+
+    }
+
 
     public void assignUserToAssignment(Long assignmentId, Long userId) {
         Assignments assignment = assignmentRepository.findById(assignmentId)
