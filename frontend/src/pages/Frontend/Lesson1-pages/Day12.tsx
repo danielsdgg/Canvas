@@ -1,9 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
+import { useAuth } from '../../../context/authContext';
 
 const Day12:React.FC = () => {
     const navigate = useNavigate();
+    const { userData, userToken } = useAuth();
+        
+          // State for file upload
+          const [submitted, setSubmitted] = useState(false);
+        
+          const [form, setForm] = useState({
+            assignmentId: 4,
+            userId: userData?.userDetails.id, // Ensuring a valid initial state
+            fileUrl: "",
+          });
+        
+          // Handle file selection
+          const handleFileChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+            const name = e.target.name;
+            const value = e.target.value;
+            setForm(prev => ({
+                ...prev,
+                [name]: value
+            }));
+        };
+        
+        const handleSubmit = async (e: React.FormEvent) => {
+            e.preventDefault();
+          
+            console.log("Form Data:", form);
+            // console.log("User Token:", userToken);
+          
+            if (!userToken) {
+              alert("Authentication error. Please log in again.");
+              return;
+            }
+          
+            try {
+              const response = await fetch("http://localhost:8080/api/v1/assignments/submit", {
+                method: "POST",
+                headers: { 
+                  'Authorization': `Bearer ${userToken}`,
+                  'Content-Type': 'application/json' 
+                },
+                body: JSON.stringify(form),
+              });
+          
+              if (response.ok) {
+                setSubmitted(true);
+                alert("Assignment submitted successfully!");
+              } else {
+                const errorData = await response.json();
+                alert(`Error: ${errorData.message}`);
+              }
+            } catch (error) {
+              console.error("Error submitting assignment:", error);
+              alert("Failed to submit. Please try again later.");
+            }
+          };
   return (
     <>
     <section className="bg-white shadow-lg rounded-lg p-8 mb-8">
@@ -38,13 +93,24 @@ const Day12:React.FC = () => {
 </section>`}
         </pre>
 
-        <h3 className="text-xl font-bold text-gray-800 mb-4">Practical Exercise</h3>
+    <form onSubmit={handleSubmit} className='mt-6'>
+    <h3 className="text-xl font-bold text-gray-800 mb-4">Practical Exercise</h3>
         <p className="text-gray-800 mb-4 leading-relaxed">Your task is to replicate the above example and expand it by adding a features section, a contact form, and a footer.</p>
 
         <h3 className="text-xl font-bold text-gray-800 mb-4">Submit Your Work</h3>
         <p className="text-gray-800 mb-4 leading-relaxed">Once you complete the project, submit your GitHub repository URL below:</p>
-        <input type="text" className="w-full p-2 border rounded mb-4" placeholder="Enter your GitHub repository URL" />
+        <textarea
+                    name='fileURL'
+                    value={form.fileUrl}
+                    className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Enter your GitHub repository URL"
+                    onChange={handleFileChange}
+                />
         <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Submit</button>
+    </form>
+        {submitted && (
+                <p className="mt-4 text-green-600 font-medium">Thank you! Your assignment has been submitted successfully.</p>
+            )}
     </section>
     </>
   )

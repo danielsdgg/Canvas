@@ -9,7 +9,6 @@ const Day7: React.FC = () => {
   const { userData, userToken } = useAuth();
 
   // State for file upload
-  const [file, setFile] = useState<File | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
   const [form, setForm] = useState({
@@ -32,25 +31,12 @@ const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   
     console.log("Form Data:", form);
-    console.log("User Token:", userToken);
+    // console.log("User Token:", userToken);
   
     if (!userToken) {
       alert("Authentication error. Please log in again.");
       return;
     }
-  
-    // Check if token is expired
-    // try {
-    //   const decoded: any = jwtDecode(userToken);
-    //   if (decoded.exp * 1000 < Date.now()) {
-    //     alert("Session expired. Please log in again.");
-    //     return;
-    //   }
-    // } catch (error) {
-    //   console.error("Invalid token:", error);
-    //   alert("Authentication error. Please log in again.");
-    //   return;
-    // }
   
     try {
       const response = await fetch("http://localhost:8080/api/v1/assignments/submit", {
@@ -224,7 +210,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                     <li>An image with alternative text.</li>
                 </ul>
                 <p className="text-gray-700 leading-relaxed">
-                    Below is a template for you to follow. Modify it and submit your version.
+                    Below is a template for you to follow. Modify it and create a github repo for this work and submit your repo-link to complete the exercise.
                 </p>
                 <pre className="bg-gray-800 text-white p-4 rounded-md text-sm overflow-auto">
 {`<!DOCTYPE html>
@@ -249,9 +235,9 @@ const handleSubmit = async (e: React.FormEvent) => {
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <textarea
                         name = 'fileUrl'
-                        className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         rows={6}
-                        placeholder="Paste your HTML solution here..."
+                        placeholder="Paste your github link"
                         value={form.fileUrl}
                         onChange={handleFileChange}
                     />

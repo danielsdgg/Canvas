@@ -1,9 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
+import { useAuth } from '../../../context/authContext';
 
 const Day11: React.FC = () => {
     const navigate = useNavigate();
+    const { userData, userToken } = useAuth();
+        
+          // State for file upload
+          const [submitted, setSubmitted] = useState(false);
+        
+          const [form, setForm] = useState({
+            assignmentId: 3,
+            userId: userData?.userDetails.id, // Ensuring a valid initial state
+            fileUrl: "",
+          });
+        
+          // Handle file selection
+          const handleFileChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+            const name = e.target.name;
+            const value = e.target.value;
+            setForm(prev => ({
+                ...prev,
+                [name]: value
+            }));
+        };
+        
+        const handleSubmit = async (e: React.FormEvent) => {
+            e.preventDefault();
+          
+            console.log("Form Data:", form);
+            // console.log("User Token:", userToken);
+          
+            if (!userToken) {
+              alert("Authentication error. Please log in again.");
+              return;
+            }
+          
+            try {
+              const response = await fetch("http://localhost:8080/api/v1/assignments/submit", {
+                method: "POST",
+                headers: { 
+                  'Authorization': `Bearer ${userToken}`,
+                  'Content-Type': 'application/json' 
+                },
+                body: JSON.stringify(form),
+              });
+          
+              if (response.ok) {
+                setSubmitted(true);
+                alert("Assignment submitted successfully!");
+              } else {
+                const errorData = await response.json();
+                alert(`Error: ${errorData.message}`);
+              }
+            } catch (error) {
+              console.error("Error submitting assignment:", error);
+              alert("Failed to submit. Please try again later.");
+            }
+          };
     return (
         <>
             <section className="bg-white shadow-lg rounded-lg p-8 mb-8">
@@ -138,11 +193,20 @@ npx tailwindcss init`}
         </p>
         
         {/* GitHub Submission Input */}
-        <div className="mt-6">
+        <form onSubmit={handleSubmit} className="mt-6">
           <label className="block text-gray-800 font-semibold mb-2" htmlFor="github-link">Submit Your GitHub Repository Link:</label>
-          <input id="github-link" type="url" placeholder="https://github.com/your-repo" className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-          <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Submit</button>
-        </div>
+          <textarea
+                    name='fileURL'
+                    value={form.fileUrl}
+                    className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Enter your GitHub repository URL"
+                    onChange={handleFileChange}
+                />
+          <button type='submit' className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Submit</button>
+        </form>
+        {submitted && (
+                <p className="mt-4 text-green-600 font-medium">Thank you! Your assignment has been submitted successfully.</p>
+            )}
             </section>
         </>
     );
