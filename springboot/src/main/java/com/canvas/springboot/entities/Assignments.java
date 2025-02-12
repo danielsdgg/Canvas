@@ -24,9 +24,6 @@ public class Assignments {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "due_date")
-    private LocalDateTime dueDate;
-
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
