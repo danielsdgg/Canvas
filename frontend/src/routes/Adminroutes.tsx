@@ -38,6 +38,11 @@ import Dayy2 from '../pages/Frontend/Lesson2-pages/Dayy2';
 import Dayy3 from '../pages/Frontend/Lesson2-pages/Dayy3';
 import Dayy4 from '../pages/Frontend/Lesson2-pages/Dayy4';
 import Dayy5 from '../pages/Frontend/Lesson2-pages/Dayy5';
+import Dayy6 from '../pages/Frontend/Lesson2-pages/Dayy6';
+import Dayy7 from '../pages/Frontend/Lesson2-pages/Dayy7';
+import Dayy8 from '../pages/Frontend/Lesson2-pages/Dayy8';
+import Dayy9 from '../pages/Frontend/Lesson2-pages/Dayy9';
+import Dayy10 from '../pages/Frontend/Lesson2-pages/Dayy10';
 
 
 //   DATA SCIENCE ROUTES
@@ -89,6 +94,11 @@ const Adminroutes = () => {
             <Route path='/fdl2day3' element={<Dayy3/>} />
             <Route path='/fdl2day4' element={<Dayy4/>} />
             <Route path='/fdl2day5' element={<Dayy5/>} />
+            <Route path='/fdl2day6' element={<Dayy6/>} />
+            <Route path='/fdl2day7' element={<Dayy7/>} />
+            <Route path='/fdl2day8' element={<Dayy8/>} />
+            <Route path='/fdl2day9' element={<Dayy9/>} />
+            <Route path='/fdl2day10' element={<Dayy10/>} />
         </Routes>
     </div>
   )

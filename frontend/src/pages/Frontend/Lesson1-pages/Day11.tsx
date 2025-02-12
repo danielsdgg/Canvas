@@ -196,13 +196,19 @@ npx tailwindcss init`}
         <form onSubmit={handleSubmit} className="mt-6">
           <label className="block text-gray-800 font-semibold mb-2" htmlFor="github-link">Submit Your GitHub Repository Link:</label>
           <textarea
-                    name='fileURL'
-                    value={form.fileUrl}
-                    className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter your GitHub repository URL"
-                    onChange={handleFileChange}
-                />
-          <button type='submit' className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Submit</button>
+                        name = 'fileUrl'
+                        className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        rows={6}
+                        placeholder="Paste your github link"
+                        value={form.fileUrl}
+                        onChange={handleFileChange}
+                    />
+                    <button 
+                        type="submit"
+                        className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-all"
+                    >
+                        Submit Exercise
+                    </button>
         </form>
         {submitted && (
                 <p className="mt-4 text-green-600 font-medium">Thank you! Your assignment has been submitted successfully.</p>
