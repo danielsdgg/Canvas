@@ -299,10 +299,9 @@ document.getElementById("parentDiv").addEventListener("click", function(event) {
   <p className="mt-4 text-gray-900 font-semibold">Press any key to trigger an alert!</p>
 </div>
 
-{/* practical exercise */}
 {/* Practical Exercise */}
 <section className="mb-6 bg-gray-100 p-6 rounded-lg shadow-md">
-  <h2 className="text-xl text-center uppercase font-semibold text-gray-700">🚀 Practical Exercise: JavaScript Event Listeners</h2>
+  <h2 className="text-xl text-center uppercase bg-blue-200 py-2 font-semibold text-gray-700">🚀 Practical Exercise: JavaScript Event Listeners</h2>
   
   <p className="text-gray-600 mt-2">
     In this exercise, you will learn how to make web elements respond to user interactions using the <code>addEventListener()</code> method. Follow the guide below to complete the challenge.
@@ -435,7 +434,7 @@ addParagraphButton.addEventListener("click", function() {
 
 {/* Conclusion */}
 <section className="mb-6 bg-gray-100 p-6 rounded-lg shadow-md">
-  <h2 className="text-xl text-center uppercase font-semibold text-gray-700">🎯 Conclusion</h2>
+  <h2 className="text-xl text-center uppercase font-semibold bg-blue-200 py-2 text-gray-700">🎯 Conclusion</h2>
 
   <p className="text-gray-600 mt-2">
     Mastering JavaScript events and event listeners is a crucial skill for creating **interactive and dynamic web applications**. Events allow web pages to respond to user actions, enhancing the overall user experience.
