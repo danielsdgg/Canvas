@@ -7,9 +7,11 @@ import com.canvas.springboot.models.requests.AssignmentSubmissionRequest;
 import com.canvas.springboot.models.requests.GradeSubmissionRequest;
 import com.canvas.springboot.models.responses.AssignmentResponse;
 import com.canvas.springboot.models.responses.AssignmentSubmissionResponse;
+import com.canvas.springboot.models.responses.GradeSubmissionResponse;
 import com.canvas.springboot.repositories.AssignmentSubmissionRepository;
 import com.canvas.springboot.repositories.AssignmentRepository;
 import com.canvas.springboot.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,20 +21,17 @@ import java.util.stream.Collectors;
 @Service
 public class AssignmentSubmissionService {
 
-    private final AssignmentSubmissionRepository submissionRepository;
-    private final AssignmentRepository assignmentRepository;
-    private final UserRepository userRepository;
+    @Autowired
+    private AssignmentSubmissionRepository submissionRepository;
 
-    public AssignmentSubmissionService(AssignmentSubmissionRepository submissionRepository,
-                                       AssignmentRepository assignmentRepository,
-                                       UserRepository userRepository) {
-        this.submissionRepository = submissionRepository;
-        this.assignmentRepository = assignmentRepository;
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    private AssignmentRepository assignmentRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Transactional
-    public void submitAssignment(AssignmentSubmissionRequest request) {
+    public AssignmentSubmissionResponse submitAssignment(AssignmentSubmissionRequest request) {
         Assignments assignment = assignmentRepository.findById(request.getAssignmentId())
                 .orElseThrow(() -> new IllegalArgumentException("Assignment not found"));
         User user = userRepository.findById(request.getUserId())
@@ -42,9 +41,13 @@ public class AssignmentSubmissionService {
         submission.setAssignment(assignment);
         submission.setUser(user);
         submission.setFileUrl(request.getFileUrl());
+        submission.setGraded(false); // Ensure default value for grading
 
-        submissionRepository.save(submission);
+        submission = submissionRepository.save(submission); // Save and ensure JPA manages the entity
+
+        return convertSubmissionResponse(submission);
     }
+
 
     public AssignmentSubmissionResponse getSubmission(Long id){
         AssignmentSubmission submission = submissionRepository.findById(id)
@@ -54,15 +57,47 @@ public class AssignmentSubmissionService {
 
     }
 
+    public List<AssignmentSubmissionResponse> getAllSubmissions(){
+        List<AssignmentSubmission> assignmentSubmissionResponses = submissionRepository.findAll();
+        return assignmentSubmissionResponses.stream().map(this::convertSubmissionResponse).toList();
+    }
+
     private AssignmentSubmissionResponse convertSubmissionResponse(AssignmentSubmission submission) {
         AssignmentSubmissionResponse assignmentSubmissionResponse = new AssignmentSubmissionResponse();
 
         assignmentSubmissionResponse.setSubmissionId(submission.getId());
         assignmentSubmissionResponse.setFileUrl(submission.getFileUrl());
         assignmentSubmissionResponse.setAssignmentTitle(submission.getAssignment().getTitle());
-
+        assignmentSubmissionResponse.setFeedback(submission.getFeedback());
+        assignmentSubmissionResponse.setGrade(submission.getGrade());
+        assignmentSubmissionResponse.setStudentFirstName(submission.getUser().getFirstName());
+        assignmentSubmissionResponse.setStudentLastName(submission.getUser().getLastName());
+        assignmentSubmissionResponse.setStudentId(submission.getUser().getId());
+        assignmentSubmissionResponse.setSubmittedAt(submission.getSubmittedAt());
+        assignmentSubmissionResponse.setGraded(submission.isGraded());
         return assignmentSubmissionResponse;
     }
+
+    private GradeSubmissionResponse convertGradeResponse(AssignmentSubmission assignmentSubmission){
+        GradeSubmissionResponse gradeSubmissionResponse = new GradeSubmissionResponse();
+
+        gradeSubmissionResponse.setGrade(assignmentSubmission.getGrade());
+        gradeSubmissionResponse.setSubmissionId(assignmentSubmission.getId());
+        gradeSubmissionResponse.setFeedback(assignmentSubmission.getFeedback());
+        gradeSubmissionResponse.setSubmittedAt(assignmentSubmission.getSubmittedAt());
+        gradeSubmissionResponse.setStudentFirstName(assignmentSubmission.getUser().getFirstName());
+        gradeSubmissionResponse.setStudentLastName(assignmentSubmission.getUser().getLastName());
+        gradeSubmissionResponse.setStudentId(assignmentSubmission.getUser().getId());
+
+        return gradeSubmissionResponse;
+    }
+
+    public List<GradeSubmissionResponse> getAllStudentGrades() {
+        List<AssignmentSubmission> gradedSubmissions = submissionRepository.findByIsGradedTrue();
+
+        return gradedSubmissions.stream().map(this::convertGradeResponse).toList();
+    }
+
 
     @Transactional
     public void gradeSubmission(GradeSubmissionRequest request) {
