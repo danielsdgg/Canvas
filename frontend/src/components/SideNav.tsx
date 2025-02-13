@@ -7,7 +7,7 @@ import {
   FaBook,
   FaCalendarAlt,
   // FaEnvelope,
-  // FaHistory,
+  FaHistory,
   FaQuestionCircle,
   FaSignOutAlt,
 } from "react-icons/fa";
@@ -72,10 +72,10 @@ const SideNav: React.FC = () => {
         </Link>
         {/* <Link to="/inbox" className="flex items-center p-4 hover:bg-gray-700">
           <FaEnvelope className="mr-3" /> Inbox
-        </Link>
+        </Link> */}
         <Link to="/history" className="flex items-center p-4 hover:bg-gray-700">
           <FaHistory className="mr-3" /> History
-        </Link> */}
+        </Link>
         <Link to="/help" className="flex items-center p-4 hover:bg-gray-700">
           <FaQuestionCircle className="mr-3" /> Help
         </Link>

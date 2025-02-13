@@ -5,9 +5,11 @@ import SideNav from '../../components/SideNav';
 import { FaArrowLeft } from 'react-icons/fa';
 
 interface Submission {
-  id: number;
-  title: string;
-  grade: string;
+  submissionId: number;
+  assignmentTitle: string;
+  grade: number | null;
+  feedback: string | null;
+  graded: boolean;
 }
 
 interface User {
@@ -17,14 +19,15 @@ interface User {
   emailAddress: string;
   phoneNumber: string | null;
   createdAt: string;
-  submissions: Submission[];
 }
 
 const UserDetail: React.FC = () => {
   const { userId } = useParams<{ userId: string }>();
   const [user, setUser] = useState<User | null>(null);
+  const [submissions, setSubmissions] = useState<Submission[]>([]);
   const { userToken } = useAuth();
   const navigate = useNavigate();
+  const [grading, setGrading] = useState<{ [key: number]: { grade: number; feedback: string } }>({});
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -47,10 +50,68 @@ const UserDetail: React.FC = () => {
       }
     };
 
+    const fetchSubmissions = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/api/v1/assignments/submissions/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        });
+
+        if (!response.ok) {
+          console.error('Failed to fetch submissions. Status:', response.status);
+          return;
+        }
+
+        const data = await response.json();
+        setSubmissions(data);
+      } catch (error) {
+        console.error('Error fetching submissions:', error);
+      }
+    };
+
     if (userId) {
       fetchUserDetails();
+      fetchSubmissions();
     }
   }, [userId, userToken]);
+
+  const handleGradeChange = (submissionId: number, field: 'grade' | 'feedback', value: any) => {
+    setGrading((prev) => ({
+      ...prev,
+      [submissionId]: {
+        ...prev[submissionId],
+        [field]: value,
+      },
+    }));
+  };
+
+  const submitGrade = async (submissionId: number) => {
+    const { grade, feedback } = grading[submissionId] || {};
+    if (grade === undefined || feedback === undefined) return;
+
+    try {
+      const response = await fetch('http://localhost:8080/api/v1/assignments/grade', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+        body: JSON.stringify({ submissionId, grade, feedback }),
+      });
+
+      if (!response.ok) {
+        console.error('Failed to grade submission:', response.status);
+        return;
+      }
+
+      setSubmissions((prev) =>
+        prev.map((sub) => (sub.submissionId === submissionId ? { ...sub, grade, feedback, graded: true } : sub))
+      );
+    } catch (error) {
+      console.error('Error submitting grade:', error);
+    }
+  };
 
   if (!user) {
     return <p className="text-center text-lg text-gray-700">Loading user details...</p>;
@@ -59,7 +120,6 @@ const UserDetail: React.FC = () => {
   return (
     <>
       <SideNav />
-      
       <div className="p-6 bg-gradient-to-r from-blue-500 to-purple-600 min-h-screen">
         <button 
           onClick={() => navigate(-1)}
@@ -78,34 +138,53 @@ const UserDetail: React.FC = () => {
             {user.firstName} {user.lastName}
           </h2>
 
-          <div className="text-lg space-y-4">
-            <p><span className="font-semibold text-gray-900">Email:</span> {user.emailAddress}</p>
-            <p><span className="font-semibold text-gray-900">Phone:</span> {user.phoneNumber || 'N/A'}</p>
-            <p><span className="font-semibold text-gray-900">Joined:</span> {new Date(user.createdAt).toLocaleDateString()}</p>
-          </div>
-
           <h3 className="text-xl font-bold text-gray-800 mt-6 bg-blue-200 p-3 rounded-md shadow-md">Submissions</h3>
           <table className="w-full mt-3 bg-white shadow-md rounded-md overflow-hidden">
             <thead>
               <tr className="bg-yellow-400 text-gray-900 text-lg">
                 <th className="px-6 py-3">Title</th>
                 <th className="px-6 py-3">Grade</th>
+                <th className="px-6 py-3">Feedback</th>
+                <th className="px-6 py-3">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {Array.isArray(user.submissions) && user.submissions.length > 0 ? (
-                user.submissions.map((submission) => (
-                  <tr key={submission.id} className="text-center hover:bg-yellow-100">
-                    <td className="px-6 py-4 border-b border-gray-300">{submission.title}</td>
-                    <td className="px-6 py-4 border-b border-gray-300 font-semibold text-green-600">{submission.grade}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={2} className="px-6 py-4 text-center text-gray-500">No submissions available</td>
-                </tr>
-              )}
-            </tbody>
+  {submissions.length > 0 ? (
+    submissions.map((submission) => (
+      <tr key={submission.submissionId} className="text-center hover:bg-yellow-100">
+        <td className="px-6 py-4 border-b border-gray-300">{submission.assignmentTitle}</td>
+        <td className="px-6 py-4 border-b border-gray-300 font-semibold text-green-600">
+          {submission.graded ? submission.grade : (
+            <input
+              type="number"
+              onChange={(e) => handleGradeChange(submission.submissionId, 'grade', parseInt(e.target.value))}
+              className="border rounded p-1"
+            />
+          )}
+        </td>
+        <td className="px-6 py-4 border-b border-gray-300">
+          {submission.graded ? submission.feedback : (
+            <input
+              type="text"
+              onChange={(e) => handleGradeChange(submission.submissionId, 'feedback', e.target.value)}
+              className="border rounded p-1"
+            />
+          )}
+        </td>
+        <td className="px-6 py-4 border-b border-gray-300">
+          {!submission.graded && (
+            <button onClick={() => submitGrade(submission.submissionId)} className="bg-green-500 text-white px-3 py-1 rounded">Grade</button>
+          )}
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan={4} className="px-6 py-4 text-center text-gray-500">No submissions available yet</td>
+    </tr>
+  )}
+</tbody>
+
           </table>
         </div>
       </div>

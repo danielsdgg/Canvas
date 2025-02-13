@@ -2,7 +2,7 @@ import React from 'react'
 import Dashboard from "../components/Dashboard";
 import Calendar from "../components/Calendar";
 // import Inbox from "../components/Inbox";
-// import History from "../components/History";
+import History from "../components/History";
 import Help from "../components/Help";
 import Account from "../pages/Shared/Accounts";
 import LessonDetails from "../components/LessonDetails";
@@ -51,7 +51,7 @@ const Clientroutes = () => {
                     <Route path="/courses" element={<EnrolledCoursesPage />} />
                     {/* <Route path="/inbox" element={<Inbox />} /> */}
                     <Route path="/accounts" element={<Account />} />
-                    {/* <Route path="/history" element={<History />} /> */}
+                    <Route path="/history" element={<History />} />
                     <Route path="/help" element={<Help />} />
                     <Route path="/calendar" element={<Calendar />} />
                     <Route path="/courses/:courseId" element={<CourseDetails />} />
