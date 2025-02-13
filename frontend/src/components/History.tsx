@@ -9,6 +9,7 @@ interface Submission {
   assignmentTitle: string;
   grade: number | null;
   feedback: string | null;
+  submittedAt: string;
   graded: boolean;
 }
 
@@ -46,50 +47,66 @@ const History: React.FC = () => {
 
   return (
     <>
-      <SideNav />
-      <div className="p-6 bg-gradient-to-r from-green-500 to-blue-600 min-h-screen">
-        {/* Back Button */}
-        <button onClick={() => navigate(-1)} className="flex items-center text-gray-600 hover:text-blue-600 mb-6 transition-all duration-300 ease-in-out transform hover:scale-105">
-          <FaArrowLeft className="mr-2" />
-          Back
-        </button>
-        <div className="bg-white shadow-2xl rounded-xl p-8 max-w-3xl mx-auto">
-          <header className="text-4xl font-bold text-center text-green-700 mb-6 border-b-4 border-green-300 pb-3">
-            History
-          </header>
+  <SideNav />
+  <div className="p-8 bg-gradient-to-b from-blue-50 to-blue-100 min-h-screen">
+    {/* Back Button */}
+    <button 
+      onClick={() => navigate(-1)} 
+      className="flex items-center text-gray-700 hover:text-blue-700 mb-6 transition-transform transform hover:scale-105"
+    >
+      <FaArrowLeft className="mr-2 text-lg" />
+      <span className="font-semibold">Back</span>
+    </button>
 
-          <h3 className="text-xl font-bold text-gray-800 mt-6 bg-green-200 p-3 rounded-md shadow-md">Submissions & Grades</h3>
-          <table className="w-full mt-3 bg-white shadow-md rounded-md overflow-hidden">
-            <thead>
-              <tr className="bg-blue-400 text-white text-lg">
-                <th className="px-6 py-3">Title</th>
-                <th className="px-6 py-3">Grade</th>
-                <th className="px-6 py-3">Feedback</th>
-              </tr>
-            </thead>
-            <tbody>
-              {submissions.length > 0 ? (
-                submissions.map((submission) => (
-                  <tr key={submission.submissionId} className="text-center hover:bg-blue-100">
-                    <td className="px-6 py-4 border-b border-gray-300">{submission.assignmentTitle}</td>
-                    <td className="px-6 py-4 border-b border-gray-300 font-semibold text-green-600">
-                      {submission.graded ? submission.grade : 'Not Graded'}
-                    </td>
-                    <td className="px-6 py-4 border-b border-gray-300 text-gray-700">
-                      {submission.graded ? submission.feedback : 'No Feedback'}
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={3} className="px-6 py-4 text-center text-gray-500">No submissions available yet</td>
+    {/* Card Container */}
+    <div className="bg-white shadow-lg rounded-lg p-10 max-w-4xl mx-auto">
+      {/* Title */}
+      <header className="text-3xl font-extrabold text-center text-blue-700 mb-6 border-b-2 border-blue-300 pb-3">
+        Submission History
+      </header>
+
+      {/* Submissions Section */}
+      <h3 className="text-lg font-semibold text-gray-900 mb-4 bg-blue-100 p-3 rounded-lg shadow-sm">
+        Submissions & Grades
+      </h3>
+
+      {/* Table */}
+      <div className="overflow-x-auto">
+        <table className="w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+          <thead>
+            <tr className="bg-blue-600 text-white text-sm uppercase">
+              <th className="px-5 py-3 text-left">Date Submitted</th>
+              <th className="px-5 py-3 text-left">Assignment Title</th>
+              <th className="px-5 py-3 text-center">Grade</th>
+              <th className="px-5 py-3 text-center">Feedback</th>
+            </tr>
+          </thead>
+          <tbody>
+            {submissions.length > 0 ? (
+              submissions.map((submission, index) => (
+                <tr key={submission.submissionId} className={`text-gray-800 ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
+                  <td className="px-5 py-4 border-b border-gray-200">{submission.submittedAt}</td>
+                  <td className="px-5 py-4 border-b border-gray-200">{submission.assignmentTitle}</td>
+                  <td className="px-5 py-4 border-b border-gray-200 text-center font-semibold text-green-600">
+                    {submission.graded ? submission.grade : <span className="text-red-500">Not Graded</span>}
+                  </td>
+                  <td className="px-5 py-4 border-b border-gray-200 text-center text-gray-700">
+                    {submission.graded ? submission.feedback : <span className="text-gray-500">No Feedback</span>}
+                  </td>
                 </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={4} className="px-6 py-4 text-center text-gray-500">No submissions available yet</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
-    </>
+    </div>
+  </div>
+</>
+
   );
 };
 

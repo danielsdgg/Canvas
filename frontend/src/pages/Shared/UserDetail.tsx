@@ -7,6 +7,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 interface Submission {
   submissionId: number;
   assignmentTitle: string;
+  fileUrl: string;
   grade: number | null;
   feedback: string | null;
   graded: boolean;
@@ -28,6 +29,7 @@ const UserDetail: React.FC = () => {
   const { userToken } = useAuth();
   const navigate = useNavigate();
   const [grading, setGrading] = useState<{ [key: number]: { grade: number; feedback: string } }>({});
+  const [editing, setEditing] = useState<{ [key: number]: boolean }>({});
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -108,6 +110,7 @@ const UserDetail: React.FC = () => {
       setSubmissions((prev) =>
         prev.map((sub) => (sub.submissionId === submissionId ? { ...sub, grade, feedback, graded: true } : sub))
       );
+      setEditing((prev) => ({ ...prev, [submissionId]: false }));
     } catch (error) {
       console.error('Error submitting grade:', error);
     }
@@ -142,6 +145,7 @@ const UserDetail: React.FC = () => {
           <table className="w-full mt-3 bg-white shadow-md rounded-md overflow-hidden">
             <thead>
               <tr className="bg-yellow-400 text-gray-900 text-lg">
+                <th className="px-6 py-3">File-URL</th>
                 <th className="px-6 py-3">Title</th>
                 <th className="px-6 py-3">Grade</th>
                 <th className="px-6 py-3">Feedback</th>
@@ -149,42 +153,39 @@ const UserDetail: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-  {submissions.length > 0 ? (
-    submissions.map((submission) => (
-      <tr key={submission.submissionId} className="text-center hover:bg-yellow-100">
-        <td className="px-6 py-4 border-b border-gray-300">{submission.assignmentTitle}</td>
-        <td className="px-6 py-4 border-b border-gray-300 font-semibold text-green-600">
-          {submission.graded ? submission.grade : (
-            <input
-              type="number"
-              onChange={(e) => handleGradeChange(submission.submissionId, 'grade', parseInt(e.target.value))}
-              className="border rounded p-1"
-            />
-          )}
-        </td>
-        <td className="px-6 py-4 border-b border-gray-300">
-          {submission.graded ? submission.feedback : (
-            <input
-              type="text"
-              onChange={(e) => handleGradeChange(submission.submissionId, 'feedback', e.target.value)}
-              className="border rounded p-1"
-            />
-          )}
-        </td>
-        <td className="px-6 py-4 border-b border-gray-300">
-          {!submission.graded && (
-            <button onClick={() => submitGrade(submission.submissionId)} className="bg-green-500 text-white px-3 py-1 rounded">Grade</button>
-          )}
-        </td>
-      </tr>
-    ))
+              {submissions.map((submission) => (
+                <tr key={submission.submissionId} className="text-center hover:bg-yellow-100">
+                  <td className="px-6 py-4 border-b border-gray-300">{submission.fileUrl}</td>
+                  <td className="px-6 py-4 border-b border-gray-300">{submission.assignmentTitle}</td>
+                  <td className="px-6 py-4 border-b border-gray-300">
+  {editing[submission.submissionId] ? (
+    <input
+      type="number"
+      value={grading[submission.submissionId]?.grade ?? submission.grade ?? ''}
+      onChange={(e) => handleGradeChange(submission.submissionId, 'grade', parseInt(e.target.value))}
+      className="border rounded p-1"
+    />
   ) : (
-    <tr>
-      <td colSpan={4} className="px-6 py-4 text-center text-gray-500">No submissions available yet</td>
-    </tr>
+    <span onClick={() => setEditing({ ...editing, [submission.submissionId]: true })} className="cursor-pointer">
+      {submission.grade !== null ? submission.grade : 'Not graded'}
+    </span>
   )}
-</tbody>
+</td>
 
+                  <td className="px-6 py-4 border-b border-gray-300">
+                    <input
+                      type="text"
+                      defaultValue={submission.feedback || ''}
+                      onChange={(e) => handleGradeChange(submission.submissionId, 'feedback', e.target.value)}
+                      className="border rounded p-1"
+                    />
+                  </td>
+                  <td className="px-6 py-4 border-b border-gray-300">
+                    <button onClick={() => submitGrade(submission.submissionId)} className="bg-green-500 text-white px-3 py-1 rounded">Save</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       </div>
