@@ -137,7 +137,6 @@ public class UserService implements UserDetailsService {
                                 assignmentResponse.setId(assignment.getId());
                                 assignmentResponse.setTitle(assignment.getTitle());
                                 assignmentResponse.setDescription(assignment.getDescription());
-                                assignmentResponse.setDueDate(assignment.getDueDate());
                                 return assignmentResponse;
                             }).toList();
 
@@ -156,7 +155,6 @@ public class UserService implements UserDetailsService {
                     assignmentResponse.setId(assignment.getId());
                     assignmentResponse.setTitle(assignment.getTitle());
                     assignmentResponse.setDescription(assignment.getDescription());
-                    assignmentResponse.setDueDate(assignment.getDueDate());
                     return assignmentResponse;
                 }).toList();
 

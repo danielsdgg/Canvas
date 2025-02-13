@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface AssignmentSubmissionRepository extends JpaRepository<AssignmentSubmission, Long> {
     List<AssignmentSubmission> findByUserIdAndIsGradedTrue(Long userId);
+    List<AssignmentSubmission> findByIsGradedTrue();
 }

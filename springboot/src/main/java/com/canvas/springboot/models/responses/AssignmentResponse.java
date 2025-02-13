@@ -9,5 +9,4 @@ public class AssignmentResponse {
     private Long id;
     private String title;
     private String description;
-    private LocalDateTime dueDate;
 }
