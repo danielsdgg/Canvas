@@ -75,7 +75,6 @@ public class AssignmentService {
         Assignments assignment = new Assignments();
         assignment.setTitle(request.getTitle());
         assignment.setDescription(request.getDescription());
-        assignment.setDueDate(request.getDueDate());
         assignment.setCreatedAt(LocalDateTime.now());
         assignment.setUpdatedAt(LocalDateTime.now());
         return assignment;

@@ -10,7 +10,6 @@ public class AssignmentMapper {
         response.setId(assignment.getId());
         response.setTitle(assignment.getTitle());
         response.setDescription(assignment.getDescription());
-        response.setDueDate(assignment.getDueDate());
         return response;
     }
 }

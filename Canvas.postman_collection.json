@@ -423,7 +423,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZUBnbWFpbC5jb20iLCJyb2xlcyI6WyJjbGllbnQiXSwiZXhwIjoxNzM4NTI0NDUwLCJpYXQiOjE3Mzg0ODg0NTB9.NEcUqQLkMN7eN_DuvdzVz2Wy5afjD8iXBz8Gxmoo9dQ",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraW5nbHlAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiZXhwIjoxNzM5MjU0MjYxLCJpYXQiOjE3MzkyMTgyNjF9.KIHHPYm4GrmaanocOa7fyrzIawQif7f5RKzW4otpe1M",
 									"type": "string"
 								}
 							]
@@ -631,7 +631,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZUBnbWFpbC5jb20iLCJyb2xlcyI6WyJjbGllbnQiXSwiZXhwIjoxNzM4NTQxNTE1LCJpYXQiOjE3Mzg1MDU1MTV9.RqFJVF5yznhx_q924oaBWx-Easq2Z3XuRt9cHMyx_mc",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraW5nbHlAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiZXhwIjoxNzM5NDI2NTUzLCJpYXQiOjE3MzkzOTA1NTN9.lAjhZTlMRPEeA4ybU5CwxL5c1XSpZq5Df8hJAGufPGY",
 									"type": "string"
 								}
 							]
@@ -640,7 +640,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"assignmentId\":1,\r\n    \"userId\":1,\r\n    \"fileUrl\":\"https://github.com/danielsdgg/Canvas\"\r\n}",
+							"raw": "{\r\n    \"assignmentId\":2,\r\n    \"userId\":1,\r\n    \"fileUrl\":\"https://github.com/danielsdgg/Canvas\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -648,7 +648,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/assignments/submit",
+							"raw": "http://localhost:8080/api/v1/assignments/submit",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -656,6 +656,7 @@
 							"port": "8080",
 							"path": [
 								"api",
+								"v1",
 								"assignments",
 								"submit"
 							]
@@ -671,7 +672,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraW5nbHlAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiZXhwIjoxNzM5MTY0ODM0LCJpYXQiOjE3MzkxMjg4MzR9.8SHS8cRhNwY82K7enyYCuCSoUEP-FqRaM3bsIudLesY",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraW5nbHlAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiZXhwIjoxNzM5MjU0MjYxLCJpYXQiOjE3MzkyMTgyNjF9.KIHHPYm4GrmaanocOa7fyrzIawQif7f5RKzW4otpe1M",
 									"type": "string"
 								}
 							]
@@ -680,7 +681,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"title\": \"Final Project\",\r\n  \"description\": \"Complete the final project on Frontend development.\",\r\n  \"dueDate\": \"2025-01-15T23:59:59\"\r\n}\r\n",
+							"raw": "{\r\n  \"title\": \"Final Project\",\r\n  \"description\": \"Complete the final project on Frontend development.\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -712,7 +713,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZUBnbWFpbC5jb20iLCJyb2xlcyI6WyJjbGllbnQiXSwiZXhwIjoxNzM4NTQxNTE1LCJpYXQiOjE3Mzg1MDU1MTV9.RqFJVF5yznhx_q924oaBWx-Easq2Z3XuRt9cHMyx_mc",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraW5nbHlAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiZXhwIjoxNzM5NDI2NTUzLCJpYXQiOjE3MzkzOTA1NTN9.lAjhZTlMRPEeA4ybU5CwxL5c1XSpZq5Df8hJAGufPGY",
 									"type": "string"
 								}
 							]
@@ -753,7 +754,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZUBnbWFpbC5jb20iLCJyb2xlcyI6WyJjbGllbnQiXSwiZXhwIjoxNzM4NTQxNTE1LCJpYXQiOjE3Mzg1MDU1MTV9.RqFJVF5yznhx_q924oaBWx-Easq2Z3XuRt9cHMyx_mc",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraW5nbHlAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiZXhwIjoxNzM5NDI2NTUzLCJpYXQiOjE3MzkzOTA1NTN9.lAjhZTlMRPEeA4ybU5CwxL5c1XSpZq5Df8hJAGufPGY",
 									"type": "string"
 								}
 							]
@@ -805,6 +806,103 @@
 								"v1",
 								"assignments",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Submission",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraW5nbHlAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiZXhwIjoxNzM5NDI2NTUzLCJpYXQiOjE3MzkzOTA1NTN9.lAjhZTlMRPEeA4ybU5CwxL5c1XSpZq5Df8hJAGufPGY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/assignments/submissions/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"assignments",
+								"submissions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Submissions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraW5nbHlAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiZXhwIjoxNzM5NDI2NTUzLCJpYXQiOjE3MzkzOTA1NTN9.lAjhZTlMRPEeA4ybU5CwxL5c1XSpZq5Df8hJAGufPGY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/assignments/submissions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"assignments",
+								"submissions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Grades",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraW5nbHlAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiZXhwIjoxNzM5NDI2NTUzLCJpYXQiOjE3MzkzOTA1NTN9.lAjhZTlMRPEeA4ybU5CwxL5c1XSpZq5Df8hJAGufPGY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/assignments/grades",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"assignments",
+								"grades"
 							]
 						}
 					},
