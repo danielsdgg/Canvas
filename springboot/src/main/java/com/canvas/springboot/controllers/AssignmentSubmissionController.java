@@ -53,6 +53,7 @@ public class AssignmentSubmissionController {
         return new ResponseEntity<>(getSubmissions, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/submissions")
     public ResponseEntity<List<AssignmentSubmissionResponse>> fetchSubmissions(){
         List<AssignmentSubmissionResponse> assignmentSubmissionResponses = assignmentService.getAllSubmissions();
