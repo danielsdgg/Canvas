@@ -49,13 +49,18 @@ public class AssignmentSubmissionService {
     }
 
 
-    public AssignmentSubmissionResponse getSubmission(Long id){
-        AssignmentSubmission submission = submissionRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Submission not found"));
+    public List<AssignmentSubmissionResponse> getSubmissionsByUserId(Long userId) {
+        List<AssignmentSubmission> submissions = submissionRepository.findByUserId(userId);
 
-        return convertSubmissionResponse(submission);
+        if (submissions.isEmpty()) {
+            throw new IllegalArgumentException("No submissions found for this user");
+        }
 
+        return submissions.stream()
+                .map(this::convertSubmissionResponse)
+                .collect(Collectors.toList());
     }
+
 
     public List<AssignmentSubmissionResponse> getAllSubmissions(){
         List<AssignmentSubmission> assignmentSubmissionResponses = submissionRepository.findAll();

@@ -9,6 +9,7 @@ import com.canvas.springboot.services.AssignmentSubmissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class AssignmentSubmissionController {
         return ResponseEntity.ok("Assignment graded successfully");
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/grades")
     public ResponseEntity<List<GradeSubmissionResponse>> getAllGrades() {
         List<GradeSubmissionResponse> assignmentSubmissionResponseList = assignmentService.getAllStudentGrades();
@@ -45,10 +47,10 @@ public class AssignmentSubmissionController {
         return ResponseEntity.ok(results);
     }
 
-    @GetMapping("/submissions/{id}")
-    public ResponseEntity<AssignmentSubmissionResponse> getSubmission(@PathVariable Long id){
-        AssignmentSubmissionResponse assignmentSubmissionResponse = assignmentService.getSubmission(id);
-        return new ResponseEntity<>(assignmentSubmissionResponse, HttpStatus.OK);
+    @GetMapping("/submissions/{userId}")
+    public ResponseEntity<List<AssignmentSubmissionResponse>> getSubmissionsByUserId(@PathVariable Long userId) {
+        List<AssignmentSubmissionResponse> getSubmissions = assignmentService.getSubmissionsByUserId(userId);
+        return new ResponseEntity<>(getSubmissions, HttpStatus.OK);
     }
 
     @GetMapping("/submissions")
