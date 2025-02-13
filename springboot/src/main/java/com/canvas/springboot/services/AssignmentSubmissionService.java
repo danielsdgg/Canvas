@@ -109,9 +109,9 @@ public class AssignmentSubmissionService {
         AssignmentSubmission submission = submissionRepository.findById(request.getSubmissionId())
                 .orElseThrow(() -> new IllegalArgumentException("Submission not found"));
 
-        if (submission.isGraded()) {
-            throw new RuntimeException("Assignment already graded");
-        }
+//        if (submission.isGraded()) {
+//            throw new RuntimeException("Assignment already graded");
+//        }
 
         submission.setGrade(request.getGrade());
         submission.setFeedback(request.getFeedback());
@@ -133,6 +133,7 @@ public class AssignmentSubmissionService {
             response.setFileUrl(submission.getFileUrl());
             response.setGrade(submission.getGrade());
             response.setFeedback(submission.getFeedback());
+            response.setSubmittedAt(submission.getSubmittedAt());
             response.setGraded(submission.isGraded());
             return response;
         }).collect(Collectors.toList());
