@@ -1,18 +1,64 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
+import { useAuth } from '../../../context/authContext';
 
 const Dayy4: React.FC = () => {
   const navigate = useNavigate();
-  const [githubLink, setGithubLink] = useState('');
-
-  const handleSubmit = () => {
-    if (githubLink) {
-      alert(`GitHub Link Submitted: ${githubLink}`);
-    } else {
-      alert('Please enter a valid GitHub link.');
-    }
-  };
+  const { userData, userToken } = useAuth();
+          
+            // State for file upload
+            const [submitted, setSubmitted] = useState(false);
+          
+            const [form, setForm] = useState({
+              assignmentId: 5,
+              userId: userData?.userDetails.id, // Ensuring a valid initial state
+              fileUrl: "",
+            });
+          
+            // Handle file selection
+            const handleFileChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+              const name = e.target.name;
+              const value = e.target.value;
+              setForm(prev => ({
+                  ...prev,
+                  [name]: value
+              }));
+          };
+          
+          const handleSubmit = async (e: React.FormEvent) => {
+              e.preventDefault();
+            
+              console.log("Form Data:", form);
+              // console.log("User Token:", userToken);
+            
+              if (!userToken) {
+                alert("Authentication error. Please log in again.");
+                return;
+              }
+            
+              try {
+                const response = await fetch("http://localhost:8080/api/v1/assignments/submit", {
+                  method: "POST",
+                  headers: { 
+                    'Authorization': `Bearer ${userToken}`,
+                    'Content-Type': 'application/json' 
+                  },
+                  body: JSON.stringify(form),
+                });
+            
+                if (response.ok) {
+                  setSubmitted(true);
+                  alert("Assignment submitted successfully!");
+                } else {
+                  const errorData = await response.json();
+                  alert(`Error: ${errorData.message}`);
+                }
+              } catch (error) {
+                console.error("Error submitting assignment:", error);
+                alert("Failed to submit. Please try again later.");
+              }
+            };
 
   return (
     <>
@@ -113,19 +159,26 @@ console.log(evenNumbers);`}
 
         {/* GitHub Submission */}
         <div className="mt-4">
-          <input
-            type="text"
-            className="border p-2 w-full rounded"
-            placeholder="Paste your GitHub link here"
-            value={githubLink}
-            onChange={(e) => setGithubLink(e.target.value)}
-          />
-          <button
-            className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
-            onClick={handleSubmit}
-          >
-            Submit
-          </button>
+        <form onSubmit={handleSubmit} className="mt-6">
+          <label className="block text-gray-800 font-semibold mb-2" htmlFor="github-link">Submit Your GitHub Repository Link:</label>
+          <textarea
+                        name = 'fileUrl'
+                        className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        rows={6}
+                        placeholder="Paste your github link"
+                        value={form.fileUrl}
+                        onChange={handleFileChange}
+                    />
+                    <button 
+                        type="submit"
+                        className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-all"
+                    >
+                        Submit Exercise
+                    </button>
+        </form>
+        {submitted && (
+                <p className="mt-4 text-green-600 font-medium">Your exercise has been submitted successfully.</p>
+            )}
         </div>
       </section>
     </>

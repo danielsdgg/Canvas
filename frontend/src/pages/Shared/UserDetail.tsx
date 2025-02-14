@@ -155,7 +155,11 @@ const UserDetail: React.FC = () => {
             <tbody>
               {submissions.map((submission) => (
                 <tr key={submission.submissionId} className="text-center hover:bg-yellow-100">
-                  <td className="px-6 py-4 border-b border-gray-300">{submission.fileUrl}</td>
+                  <td className="px-6 py-4 border-b border-gray-300">
+                    <a href={submission.fileUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                      View Submission
+                    </a>
+                  </td>
                   <td className="px-6 py-4 border-b border-gray-300">{submission.assignmentTitle}</td>
                   <td className="px-6 py-4 border-b border-gray-300">
   {editing[submission.submissionId] ? (

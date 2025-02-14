@@ -1,9 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../context/authContext';
 
 const Dayy9: React.FC = () => {
   const navigate = useNavigate();
+  const { userData, userToken } = useAuth();
+        
+          // State for file upload
+          const [submitted, setSubmitted] = useState(false);
+        
+          const [form, setForm] = useState({
+            assignmentId: 7,
+            userId: userData?.userDetails.id, // Ensuring a valid initial state
+            fileUrl: "",
+          });
+        
+          // Handle file selection
+          const handleFileChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+            const name = e.target.name;
+            const value = e.target.value;
+            setForm(prev => ({
+                ...prev,
+                [name]: value
+            }));
+        };
+        
+        const handleSubmit = async (e: React.FormEvent) => {
+            e.preventDefault();
+          
+            console.log("Form Data:", form);
+            // console.log("User Token:", userToken);
+          
+            if (!userToken) {
+              alert("Authentication error. Please log in again.");
+              return;
+            }
+          
+            try {
+              const response = await fetch("http://localhost:8080/api/v1/assignments/submit", {
+                method: "POST",
+                headers: { 
+                  'Authorization': `Bearer ${userToken}`,
+                  'Content-Type': 'application/json' 
+                },
+                body: JSON.stringify(form),
+              });
+          
+              if (response.ok) {
+                setSubmitted(true);
+                alert("Assignment submitted successfully!");
+              } else {
+                const errorData = await response.json();
+                alert(`Error: ${errorData.message}`);
+              }
+            } catch (error) {
+              console.error("Error submitting assignment:", error);
+              alert("Failed to submit. Please try again later.");
+            }
+          };
   
   return (
     <>
@@ -251,6 +306,26 @@ deleteUser(1);`}
     <li>✅ Error messages are displayed when necessary.</li>
   </ul>
 </section>
+<form onSubmit={handleSubmit} className="mt-5 space-y-4">
+<p className="mt-2">Create a github repository for your work and submit your GitHub link below after completing the task.</p>
+                    <textarea
+                        name = 'fileUrl'
+                        className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        rows={6}
+                        placeholder="Paste your github link"
+                        value={form.fileUrl}
+                        onChange={handleFileChange}
+                    />
+                    <button 
+                        type="submit"
+                        className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-all"
+                    >
+                        Submit Exercise
+                    </button>
+                </form>
+                {submitted && (
+                    <p className="text-green-600 font-medium">Your exercise has been submitted successfully!</p>
+                )}
 
 
         {/* Resources for Further Study */}

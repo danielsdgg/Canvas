@@ -15,9 +15,9 @@ import UserDetail from '../pages/Shared/UserDetail';
 //   FRONTEND ROUTES
 import Lesson1 from '../pages/Frontend/Lesson1';
 import Lesson2 from '../pages/Frontend/Lesson2';
+import Lesson3 from '../pages/Frontend/Lesson3';
 
-import Lesson9 from "../pages/Frontend/Lesson9";
-import Lesson10 from "../pages/Frontend/Lesson10";
+
 
 // lesson1 - days
 import Day1 from '../pages/Frontend/Lesson1-pages/Day1';
@@ -43,6 +43,8 @@ import Dayy7 from '../pages/Frontend/Lesson2-pages/Dayy7';
 import Dayy8 from '../pages/Frontend/Lesson2-pages/Dayy8';
 import Dayy9 from '../pages/Frontend/Lesson2-pages/Dayy9';
 import Dayy10 from '../pages/Frontend/Lesson2-pages/Dayy10';
+import Dayy11 from '../pages/Frontend/Lesson2-pages/Dayy11';
+import Dayy12 from '../pages/Frontend/Lesson2-pages/Dayy12';
 
 
 //   DATA SCIENCE ROUTES
@@ -71,8 +73,8 @@ const Adminroutes = () => {
             {/* frontend lessons */}
             <Route path="/courses/:courseId/lessons/1" element={<Lesson1 />} />
             <Route path="/courses/:courseId/lessons/2" element={<Lesson2 />} />
-            <Route path="/courses/:courseId/lessons/3" element={<Lesson9 />} />
-            <Route path="/courses/:courseId/lessons/4" element={<Lesson10/>} />
+            <Route path="/courses/:courseId/lessons/3" element={<Lesson3 />} />
+
             
             {/* frontend pages here */}
             {/* lesson 1 */}
@@ -99,6 +101,9 @@ const Adminroutes = () => {
             <Route path='/fdl2day8' element={<Dayy8/>} />
             <Route path='/fdl2day9' element={<Dayy9/>} />
             <Route path='/fdl2day10' element={<Dayy10/>} />
+            <Route path='/fdl2day11' element={<Dayy11/>} />
+            <Route path='/fdl2day12' element={<Dayy12/>} />
+
         </Routes>
     </div>
   )

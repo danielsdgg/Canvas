@@ -117,7 +117,7 @@ const Dayy8 = () => {
             Take a look at the form below and design something like that. Make sure it displays an alert with the user's name after submitting
           </p>
           {/* Form Section */}
-        <form onSubmit={handleSubmit} className="p-6 rounded-lg shadow-md">
+        <form onSubmit={handleSubmit} className="p-6 rounded-lg shadow-md bg-green-400 mt-4">
         <h2 className="text-xl text-center underline py-2 font-semibold text-gray-700">Contacts' Form</h2>
           <div className="mb-4">
             <label className="block text-gray-700 font-semibold mb-2">Name:</label>

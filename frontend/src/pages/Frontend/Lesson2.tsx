@@ -169,8 +169,16 @@ const Lesson2:React.FC = () => {
                         <div className="space-y-6">
                             {/* day 11 */}
                             <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
+                                <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
+                                    <Link to="/fdl2day11">Day 11: Object Oriented JavaScript & Context</Link>
+                                </h3>
+                                <p className="text-gray-800 leading-relaxed">
+                                    Introduction to Context & object orientation in  javascript
+                                </p>
+                            </div>
+                            <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                                 <h3 className="text-xl font-bold text-center text-red-700 mb-4 underline">
-                                    <Link to="/fdl2day11">Project Week</Link>
+                                    <Link to="/fdl2day12">Project Week</Link>
                                 </h3>
                                 <p className="text-gray-800 leading-relaxed">
                                     Put to the test all you've learnt.
