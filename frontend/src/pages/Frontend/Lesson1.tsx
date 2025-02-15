@@ -41,10 +41,10 @@ const Lesson1:React.FC = () => {
 
         {/* Weeks Section */}
         <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 md:p-8">
-          <div className="flex justify-around mb-6">
+          <div className="flex justify-around mb-6 gap-6">
             <div
               onClick={() => toggleDropdown(1)}
-              className={`cursor-pointer px-4 py-2 rounded-md transition-all duration-300 text-center text-lg font-medium ${
+              className={`cursor-pointer px-4 py-2 rounded-md transition-all duration-300 text-center text-lg font-medium mb-6 ${
                 openWeek === 1 ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700 hover:bg-blue-400 hover:text-white"
               }`}
             >
@@ -52,7 +52,7 @@ const Lesson1:React.FC = () => {
             </div>
             <div
               onClick={() => toggleDropdown(2)}
-              className={`cursor-pointer px-4 py-2 rounded-md transition-all duration-300 text-center text-lg font-medium ${
+              className={`cursor-pointer px-4 py-2 rounded-md transition-all duration-300 text-center text-lg font-medium mb-6 ${
                 openWeek === 2 ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700 hover:bg-blue-400 hover:text-white"
               }`}
             >
@@ -60,7 +60,7 @@ const Lesson1:React.FC = () => {
             </div>
             <div
               onClick={() => toggleDropdown(3)}
-              className={`cursor-pointer px-4 py-2 rounded-md transition-all duration-300 text-center text-lg font-medium ${
+              className={`cursor-pointer px-4 py-2 rounded-md transition-all duration-300 text-center text-lg font-medium mb-6 ${
                 openWeek === 3 ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700 hover:bg-blue-400 hover:text-white"
               }`}
             >
