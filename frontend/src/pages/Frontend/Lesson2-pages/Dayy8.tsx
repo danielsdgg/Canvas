@@ -188,17 +188,17 @@ const Dayy8 = () => {
   <h3 className="text-lg font-semibold text-gray-700 mt-4">🔹 Official Documentation</h3>
   <ul className="list-disc ml-6 text-gray-700">
     <li>
-      📌 <a href="https://developer.mozilla.org/en-US/docs/Learn/Forms" target="_blank" className="text-blue-600 hover:underline">
+      📌 <a href="https://developer.mozilla.org/en-US/docs/Learn/Forms" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
         MDN Web Docs: Forms Guide
       </a> - Comprehensive guide on HTML forms and input types.
     </li>
     <li>
-      📌 <a href="https://react.dev/reference/react-dom/components/input" target="_blank" className="text-blue-600 hover:underline">
+      📌 <a href="https://react.dev/reference/react-dom/components/input" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
         React Docs: Handling Forms
       </a> - Official documentation on handling forms in React.
     </li>
     <li>
-      📌 <a href="https://developer.mozilla.org/en-US/docs/Web/API/FormData" target="_blank" className="text-blue-600 hover:underline">
+      📌 <a href="https://developer.mozilla.org/en-US/docs/Web/API/FormData" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
         MDN Web Docs: FormData API
       </a> - Learn how to work with FormData for form submissions.
     </li>
@@ -207,17 +207,17 @@ const Dayy8 = () => {
   <h3 className="text-lg font-semibold text-gray-700 mt-4">🔹 Articles & Tutorials</h3>
   <ul className="list-disc ml-6 text-gray-700">
     <li>
-      📌 <a href="https://www.freecodecamp.org/news/form-validation-in-javascript/" target="_blank" className="text-blue-600 hover:underline">
+      📌 <a href="https://www.freecodecamp.org/news/form-validation-in-javascript/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
         JavaScript Form Validation Guide (FreeCodeCamp)
       </a> - Learn how to validate user input properly.
     </li>
     <li>
-      📌 <a href="https://blog.logrocket.com/handling-forms-react-tutorial-examples/" target="_blank" className="text-blue-600 hover:underline">
+      📌 <a href="https://blog.logrocket.com/handling-forms-react-tutorial-examples/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
         Handling Forms in React (LogRocket)
       </a> - A practical guide to controlled and uncontrolled forms in React.
     </li>
     <li>
-      📌 <a href="https://www.smashingmagazine.com/2023/01/best-practices-forms-accessibility/" target="_blank" className="text-blue-600 hover:underline">
+      📌 <a href="https://www.smashingmagazine.com/2023/01/best-practices-forms-accessibility/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
         Best Practices for Accessible Forms (Smashing Magazine)
       </a> - Learn how to make your forms accessible to all users.
     </li>
@@ -226,12 +226,12 @@ const Dayy8 = () => {
   <h3 className="text-lg font-semibold text-gray-700 mt-4">🔹 Interactive Courses</h3>
   <ul className="list-disc ml-6 text-gray-700">
     <li>
-      🎓 <a href="https://www.codecademy.com/learn/learn-html" target="_blank" className="text-blue-600 hover:underline">
+      🎓 <a href="https://www.codecademy.com/learn/learn-html" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
         Codecademy: Learn HTML
       </a> - Covers forms and input elements in interactive lessons.
     </li>
     <li>
-      🎓 <a href="https://www.udemy.com/course/react-the-complete-guide-incl-redux/" target="_blank" className="text-blue-600 hover:underline">
+      🎓 <a href="https://www.udemy.com/course/react-the-complete-guide-incl-redux/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
         Udemy: React - The Complete Guide
       </a> - A detailed course on React, including form handling.
     </li>

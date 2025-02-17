@@ -43,6 +43,13 @@ import Dayy9 from '../pages/Frontend/Lesson2-pages/Dayy9';
 import Dayy10 from '../pages/Frontend/Lesson2-pages/Dayy10';
 import Dayy11 from '../pages/Frontend/Lesson2-pages/Dayy11';
 import Dayy12 from '../pages/Frontend/Lesson2-pages/Dayy12';
+// lesson 3
+import Date1 from '../pages/Frontend/Lesson3-pages/Date1';
+import Date2 from '../pages/Frontend/Lesson3-pages/Date2';
+import Date3 from '../pages/Frontend/Lesson3-pages/Date3';
+import Date4 from '../pages/Frontend/Lesson3-pages/Date4';
+import Date5 from '../pages/Frontend/Lesson3-pages/Date5';
+import Date6 from '../pages/Frontend/Lesson3-pages/Date6';
 
 
 
@@ -96,6 +103,13 @@ const Clientroutes = () => {
             <Route path='/fdl2day10' element={<Dayy10/>} />
             <Route path='/fdl2day11' element={<Dayy11/>} />
             <Route path='/fdl2day12' element={<Dayy12/>} />
+            {/* lesson 3 */}
+            <Route path='/fdl3day1' element={<Date1/>} />
+            <Route path='/fdl3day2' element={<Date2/>} />
+            <Route path='/fdl3day3' element={<Date3/>} />
+            <Route path='/fdl3day4' element={<Date4/>} />
+            <Route path='/fdl3day5' element={<Date5/>} />
+            <Route path='/fdl3day6' element={<Date6/>} />
 
                 </Routes>
     </div>

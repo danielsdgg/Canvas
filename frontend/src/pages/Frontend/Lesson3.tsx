@@ -136,40 +136,40 @@ const Lesson3:React.FC = () => {
                 {/* day 7 */}
                 <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                   <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                    <Link to="/fdl3day7">Day 7: Fetching API Data</Link>
-                  </h3>
-                  <p className="text-gray-800 leading-relaxed">
-                    Learn about making API requests using fetch/Axios and handling responses
-                  </p>
-                </div>
-
-                {/* day 8 */}
-                <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
-                  <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                    <Link to="/fdl3day8">Day 8: Advanced React Hooks </Link>
-                  </h3>
-                  <p className="text-gray-800 leading-relaxed">
-                   Deep dive into other react hooks like useReducer, useRef, and custom hooks                
-                  </p>
-                </div>
-
-                {/* day 9 */}
-                <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
-                  <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                    <Link to="/fdl3day9">Day 9: Global State Management (Context API)</Link>
+                    <Link to="/fdl3day7">Day 7: Global State Management (Context API)</Link>
                   </h3>
                   <p className="text-gray-800 leading-relaxed">
                     Learn about managing global state efficiently with React Context API
                   </p>
                 </div>
 
-                {/* day 10 */}
+                {/* day 8 */}
                 <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                   <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                    <Link to="/fdl3day10">Day 10: Error Handling & Debugging</Link>
+                    <Link to="/fdl3day8">Day 8: Error Handling & Debugging </Link>
                   </h3>
                   <p className="text-gray-800 leading-relaxed">
                     Learn about Debugging React apps and handling errors effectively
+                  </p>
+                </div>
+
+                {/* day 9 */}
+                <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
+                  <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
+                    <Link to="/fdl3day9">Day 9 React with TypeScript & Deploying</Link>
+                  </h3>
+                  <p className="text-gray-800 leading-relaxed">
+                  Learn how to use TypeScript for type safety in React projects and deploy them to production on netlify
+                  </p>
+                </div>
+
+                {/* day 10 */}
+                <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
+                  <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
+                    <Link to="/fdl3day10"></Link>
+                  </h3>
+                  <p className="text-gray-800 leading-relaxed">
+                    
                   </p>
                 </div>
               </div>
@@ -180,19 +180,19 @@ const Lesson3:React.FC = () => {
                     {/* day 11 */}
                     <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                         <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                            <Link to="/fdl3day11">Day 11: Performance Optimization</Link>
+                            <Link to="/fdl3day11"> </Link>
                         </h3>
                         <p className="text-gray-800 leading-relaxed">
-                            Learn how to optimize React performance with memoization techniques
+                            
                         </p>
                     </div>
                     {/* day 12 */}
                     <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                         <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                            <Link to="/fdl3day12">Day 12: React with TypeScript</Link>
+                            <Link to="/fdl3day12"></Link>
                         </h3>
                         <p className="text-gray-800 leading-relaxed">
-                            Learn how to use TypeScript for type safety in React projects
+                            
                         </p>
                     </div>
                     {/* day 13 */}
