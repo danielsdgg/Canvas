@@ -67,13 +67,15 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<UserDetailsResponse> getUserById(
-            @PathVariable Long userId,
-            @RequestParam(required = false) Long adminId) {  // Get adminId as a request parameter
-        UserDetailsResponse user = userService.getUserById(userId, adminId);
-        return ResponseEntity.ok(user);
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/students")
+    public ResponseEntity<List<UserResponse>> getStudentsByCourseAndAdmin(
+            @RequestParam Long adminId,
+            @RequestParam Long courseId) {
+        List<UserResponse> students = userService.getStudentsByCourseAndAdmin(adminId, courseId);
+        return ResponseEntity.ok(students);
     }
+
 
     @PreAuthorize("hasRole('ADMIN')") // Only ADMIN can delete users
     @DeleteMapping("/{userId}")
