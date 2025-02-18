@@ -118,6 +118,8 @@ public class UserService implements UserDetailsService {
         userResponse.setRole(user.getRole().getRoleName());
         userResponse.setCreatedAt(user.getCreatedAt());
 
+        userResponse.setManagedBy(user.getManagedBy() != null ? user.getManagedBy().getFirstName() : null);
+
         // Map courses and their assignments
         List<CourseDetailsResponse> courseResponses = user.getCourses().stream()
                 .map(course -> {
@@ -275,7 +277,7 @@ public class UserService implements UserDetailsService {
     }
 
     public List<UserResponse> getStudentsByCourseAndAdmin(Long adminId, Long courseId) {
-        // Check if admin exists
+        // Ensure the admin exists
         User admin = userRepository.findById(adminId)
                 .orElseThrow(() -> new IllegalArgumentException("Admin not found"));
 
@@ -284,16 +286,17 @@ public class UserService implements UserDetailsService {
                 .anyMatch(course -> course.getId().equals(courseId));
 
         if (!managesCourse) {
-            throw new RuntimeException("Access denied. Admin does not manage this course.");
+            throw new RuntimeException("Access denied. Admin can only view students from their own courses.");
         }
 
-        // Fetch students enrolled in the course (excluding admins)
+        // Fetch the course
         Courses course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new IllegalArgumentException("Course not found"));
 
+        // Ensure this admin manages specific students in this course
         List<UserResponse> students = course.getUsers()
                 .stream()
-                .filter(user -> "STUDENT".equalsIgnoreCase(user.getRole().getRoleName())) // Only students
+                .filter(user -> "CLIENT".equalsIgnoreCase(user.getRole().getRoleName()) && Objects.equals(user.getManagedBy(), admin)) // Only students assigned to this admin
                 .map(user -> {
                     UserResponse response = new UserResponse();
                     response.setId(user.getId());
@@ -307,8 +310,21 @@ public class UserService implements UserDetailsService {
                 })
                 .toList();
 
-
         return students;
+    }
+
+
+    @Transactional
+    public void assignStudentToAdmin(Long adminId, Long studentId) {
+        User admin = userRepository.findById(adminId)
+                .orElseThrow(() -> new IllegalArgumentException("Admin not found"));
+
+        User student = userRepository.findById(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("Student not found"));
+
+        // Assign student to the admin
+        student.setManagedBy(admin);
+        userRepository.save(student);
     }
 
 
@@ -360,4 +376,18 @@ public class UserService implements UserDetailsService {
         userRepository.deleteById(userId);
     }
 
+    public UserDetailsResponse getEachUserById(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Student not found"));
+
+
+
+        // Convert user's courses to CourseResponse for comparison
+        List<CourseResponse> userCourses = user.getCourses()
+                .stream()
+                .map(courseService::mapToCourseResponse)
+                .toList();
+
+        return convertUserDetails(user);
+    }
 }
