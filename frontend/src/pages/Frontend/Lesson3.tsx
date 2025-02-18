@@ -58,7 +58,7 @@ const Lesson3:React.FC = () => {
                 openWeek === 2 ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700 hover:bg-blue-400 hover:text-white"
               }`}
             >
-              Week 2: Logical topics
+              Week 2: Advanced React
             </div>
             <div
               onClick={() => toggleDropdown(3)}
@@ -66,7 +66,7 @@ const Lesson3:React.FC = () => {
                 openWeek === 3 ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700 hover:bg-blue-400 hover:text-white"
               }`}
             >
-              Week 3: Advanced React
+              Week 3: Project
             </div>
 
           </div>
@@ -156,20 +156,20 @@ const Lesson3:React.FC = () => {
                 {/* day 9 */}
                 <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                   <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                    <Link to="/fdl3day9">Day 9 React with TypeScript & Deploying</Link>
+                    <Link to="/fdl3day9">Day 9 React with TypeScript</Link>
                   </h3>
                   <p className="text-gray-800 leading-relaxed">
-                  Learn how to use TypeScript for type safety in React projects and deploy them to production on netlify
+                  Learn how to use TypeScript for type safety in React projects
                   </p>
                 </div>
 
                 {/* day 10 */}
                 <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                   <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                    <Link to="/fdl3day10"></Link>
-                  </h3>
+                    <Link to="/fdl3day10">Deployment of React apps</Link>
+                  </h3> 
                   <p className="text-gray-800 leading-relaxed">
-                    
+                    Learn how to deploy your React app to production on platforms like Netlify                    
                   </p>
                 </div>
               </div>
@@ -179,40 +179,14 @@ const Lesson3:React.FC = () => {
                 <div className="space-y-6">
                     {/* day 11 */}
                     <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
-                        <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                            <Link to="/fdl3day11"> </Link>
-                        </h3>
-                        <p className="text-gray-800 leading-relaxed">
-                            
-                        </p>
-                    </div>
-                    {/* day 12 */}
-                    <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
-                        <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                            <Link to="/fdl3day12"></Link>
-                        </h3>
-                        <p className="text-gray-800 leading-relaxed">
-                            
-                        </p>
-                    </div>
-                    {/* day 13 */}
-                    <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
-                        <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                            <Link to="/fdl3day13">Day 13: Building & Deploying React Apps</Link>
-                        </h3>
-                        <p className="text-gray-800 leading-relaxed">
-                            Deploying React projects on Netlify
-                        </p>
-                    </div>
-                    {/* day 14 */}
-                    <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                         <h3 className="text-xl font-bold text-center text-red-700 mb-4 underline">
-                            <Link to="/fdl3day14">Day 14: Lesson 3 Project</Link>
+                            <Link to="/fdl3day11">Day 11: Lesson 3 Project</Link>
                         </h3>
                         <p className="text-gray-800 leading-relaxed">
                             Its time to put all the skills & knowledge you've learnt to the test and build something great using react
                         </p>
                     </div>
+                    
                 </div>
             )}
           </div>
