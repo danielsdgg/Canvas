@@ -1,5 +1,6 @@
 package com.canvas.springboot.services;
 
+import com.canvas.springboot.entities.Courses;
 import com.canvas.springboot.entities.Role;
 import com.canvas.springboot.entities.User;
 import com.canvas.springboot.models.requests.LoginRequest;
@@ -7,6 +8,7 @@ import com.canvas.springboot.models.requests.PasswordRequest;
 import com.canvas.springboot.models.requests.RegisterRequest;
 import com.canvas.springboot.models.requests.UserRequest;
 import com.canvas.springboot.models.responses.*;
+import com.canvas.springboot.repositories.CourseRepository;
 import com.canvas.springboot.repositories.RoleRepository;
 import com.canvas.springboot.repositories.UserRepository;
 import com.canvas.springboot.security.JwtTokenUtil;
@@ -39,6 +41,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private CourseRepository courseRepository;
 
     @Autowired
     private CourseService courseService;
@@ -268,6 +273,46 @@ public class UserService implements UserDetailsService {
         List<User> users = userRepository.findAll();
         return users.stream().map(this::convertUserDetails).toList();
     }
+
+    public List<UserResponse> getStudentsByCourseAndAdmin(Long adminId, Long courseId) {
+        // Check if admin exists
+        User admin = userRepository.findById(adminId)
+                .orElseThrow(() -> new IllegalArgumentException("Admin not found"));
+
+        // Ensure the admin manages the course
+        boolean managesCourse = admin.getCourses().stream()
+                .anyMatch(course -> course.getId().equals(courseId));
+
+        if (!managesCourse) {
+            throw new RuntimeException("Access denied. Admin does not manage this course.");
+        }
+
+        // Fetch students enrolled in the course (excluding admins)
+        Courses course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new IllegalArgumentException("Course not found"));
+
+        List<UserResponse> students = course.getUsers()
+                .stream()
+                .filter(user -> "STUDENT".equalsIgnoreCase(user.getRole().getRoleName())) // Only students
+                .map(user -> {
+                    UserResponse response = new UserResponse();
+                    response.setId(user.getId());
+                    response.setEmailAddress(user.getEmailAddress());
+                    response.setFirstName(user.getFirstName());
+                    response.setLastName(user.getLastName());
+                    response.setPhoneNumber(user.getPhoneNumber());
+                    response.setRole(user.getRole().getRoleName());
+                    response.setCreatedAt(user.getCreatedAt());
+                    return response;
+                })
+                .toList();
+
+
+        return students;
+    }
+
+
+
 
     public UserDetailsResponse getUserById(Long userId, Long adminId) {
         User user = userRepository.findById(userId)
