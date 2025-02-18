@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,21 +33,32 @@ public class AssignmentSubmissionService {
 
     @Transactional
     public AssignmentSubmissionResponse submitAssignment(AssignmentSubmissionRequest request) {
+        // Fetch the assignment and user
         Assignments assignment = assignmentRepository.findById(request.getAssignmentId())
                 .orElseThrow(() -> new IllegalArgumentException("Assignment not found"));
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
+        // Check if the user has already submitted the assignment
+        Optional<AssignmentSubmission> existingSubmission = submissionRepository
+                .findByAssignmentAndUser(assignment, user);
+
+        if (existingSubmission.isPresent()) {
+            throw new RuntimeException("Assignment already submitted.");
+        }
+
+        // Proceed with submission
         AssignmentSubmission submission = new AssignmentSubmission();
         submission.setAssignment(assignment);
         submission.setUser(user);
         submission.setFileUrl(request.getFileUrl());
         submission.setGraded(false); // Ensure default value for grading
 
-        submission = submissionRepository.save(submission); // Save and ensure JPA manages the entity
+        submission = submissionRepository.save(submission); // Save the new submission
 
         return convertSubmissionResponse(submission);
     }
+
 
 
     public List<AssignmentSubmissionResponse> getSubmissionsByUserId(Long userId) {
