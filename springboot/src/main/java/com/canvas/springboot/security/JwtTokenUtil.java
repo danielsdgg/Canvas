@@ -21,7 +21,6 @@ public class JwtTokenUtil {
         claims.put("roles", user.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList()));
-//        System.out.println("Generated Roles in JWT: " + claims.get("roles"));
 
         return createToken(claims, user.getEmailAddress());
     }
@@ -50,8 +49,6 @@ public class JwtTokenUtil {
                 .setSigningKey(SIGNING_KEY_BYTES)
                 .parseClaimsJws(token)
                 .getBody();
-
-//        System.out.println("Extracted claims: " + claims);
         return claims;
     }
 
