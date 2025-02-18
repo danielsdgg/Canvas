@@ -54,6 +54,14 @@ public class User implements UserDetails {
     @ManyToMany(mappedBy = "assignedUsers")
     private Set<Assignments> assignments = new HashSet<>();
 
+    // New field to track which admin manages a student
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "managed_by")
+    private User managedBy; // Admin who manages this student
+
+    @OneToMany(mappedBy = "managedBy")
+    private Set<User> managedStudents = new HashSet<>(); // Students managed by this admin
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         String roleName = role.getRoleName();
@@ -63,9 +71,8 @@ public class User implements UserDetails {
         return List.of(new SimpleGrantedAuthority(roleName));
     }
 
-
     @Override
-    public String getUsername() { // Replacing getEmailAddress()
+    public String getUsername() {
         return this.emailAddress;
     }
 

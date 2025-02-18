@@ -1,11 +1,7 @@
 package com.canvas.springboot.controllers;
 
 import com.canvas.springboot.entities.User;
-import com.canvas.springboot.models.requests.LoginRequest;
-import com.canvas.springboot.models.requests.PasswordRequest;
-import com.canvas.springboot.models.requests.RegisterRequest;
-import com.canvas.springboot.models.requests.RoleUpdateRequest;
-import com.canvas.springboot.models.requests.UserRequest;
+import com.canvas.springboot.models.requests.*;
 import com.canvas.springboot.models.responses.LoginResponse;
 import com.canvas.springboot.models.responses.RoleUpdateResponse;
 import com.canvas.springboot.models.responses.UserDetailsResponse;
@@ -67,13 +63,34 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @GetMapping("/{userId}")
+//    public ResponseEntity<UserDetailsResponse> getUserById(
+//            @PathVariable Long userId,
+//            @RequestParam(required = false) Long adminId) {
+//
+//        UserDetailsResponse userDetails = userService.getUserById(userId, adminId);
+//        return ResponseEntity.ok(userDetails);
+//    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserDetailsResponse> getUserById(@PathVariable Long userId) {
+        UserDetailsResponse userDetails = userService.getEachUserById(userId);
+        return ResponseEntity.ok(userDetails);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/students")
     public ResponseEntity<List<UserResponse>> getStudentsByCourseAndAdmin(
             @RequestParam Long adminId,
             @RequestParam Long courseId) {
         List<UserResponse> students = userService.getStudentsByCourseAndAdmin(adminId, courseId);
         return ResponseEntity.ok(students);
+    }
+
+    @PostMapping("/assign-student")
+    public ResponseEntity<String> assignStudentToAdmin(@RequestBody AssignStudentRequest request) {
+        userService.assignStudentToAdmin(request.getAdminId(), request.getStudentId());
+        return ResponseEntity.ok("Student assigned to admin successfully.");
     }
 
 

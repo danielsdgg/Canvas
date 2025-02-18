@@ -14,6 +14,7 @@ public class UserDetailsResponse {
     private String phoneNumber;
     private String role;
     private LocalDateTime createdAt;
+    private String managedBy;
     private List<CourseDetailsResponse> courses;
     private List<AssignmentResponse> assignments;
 }
