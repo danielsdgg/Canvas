@@ -306,6 +306,8 @@ public class UserService implements UserDetailsService {
                     return response;
                 })
                 .toList();
+        students.forEach(student ->
+                System.out.println("Student mapped: " + student.getId() + " " + student.getEmailAddress()));
 
 
         return students;

@@ -50,6 +50,10 @@ import Date3 from '../pages/Frontend/Lesson3-pages/Date3';
 import Date4 from '../pages/Frontend/Lesson3-pages/Date4';
 import Date5 from '../pages/Frontend/Lesson3-pages/Date5';
 import Date6 from '../pages/Frontend/Lesson3-pages/Date6';
+import Date7 from '../pages/Frontend/Lesson3-pages/Date7';
+import Date8 from '../pages/Frontend/Lesson3-pages/Date8';
+import Date9 from '../pages/Frontend/Lesson3-pages/Date9';
+import Date10 from '../pages/Frontend/Lesson3-pages/Date10';
 
 
 //   DATA SCIENCE ROUTES
@@ -115,6 +119,10 @@ const Adminroutes = () => {
             <Route path='/fdl3day4' element={<Date4/>} />
             <Route path='/fdl3day5' element={<Date5/>} />
             <Route path='/fdl3day6' element={<Date6/>} />
+            <Route path='/fdl3day7' element={<Date7/>} />
+            <Route path='/fdl3day8' element={<Date8/>} />
+            <Route path='/fdl3day9' element={<Date9/>} />
+            <Route path='/fdl3day10' element={<Date10/>} />
 
         </Routes>
     </div>

@@ -32,7 +32,7 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
+    <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center py-4">
       {/* Header Section */}
       <div className="text-center mb-6">
         <img
@@ -172,7 +172,7 @@ const SignUp: React.FC = () => {
       </div>
 
       {/* Footer Links */}
-      <div className="mt-6 text-center text-sm text-gray-600">
+      {/* <div className="mt-6 text-center text-sm text-gray-600">
         <p>
           <a href="/privacy" className="hover:underline">
             Privacy Policy
@@ -182,7 +182,7 @@ const SignUp: React.FC = () => {
             Terms of Service
           </a>
         </p>
-      </div>
+      </div> */}
     </div>
   );
 };

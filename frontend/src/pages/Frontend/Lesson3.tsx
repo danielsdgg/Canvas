@@ -156,7 +156,7 @@ const Lesson3:React.FC = () => {
                 {/* day 9 */}
                 <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                   <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                    <Link to="/fdl3day9">Day 9 React with TypeScript</Link>
+                    <Link to="/fdl3day9">Day 9: React with TypeScript</Link>
                   </h3>
                   <p className="text-gray-800 leading-relaxed">
                   Learn how to use TypeScript for type safety in React projects
@@ -166,7 +166,7 @@ const Lesson3:React.FC = () => {
                 {/* day 10 */}
                 <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                   <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                    <Link to="/fdl3day10">Deployment of React apps</Link>
+                    <Link to="/fdl3day10">Day 10: Deployment of React apps</Link>
                   </h3> 
                   <p className="text-gray-800 leading-relaxed">
                     Learn how to deploy your React app to production on platforms like Netlify                    
