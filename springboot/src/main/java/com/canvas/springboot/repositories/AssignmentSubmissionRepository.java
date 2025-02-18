@@ -1,12 +1,16 @@
 package com.canvas.springboot.repositories;
 
 import com.canvas.springboot.entities.AssignmentSubmission;
+import com.canvas.springboot.entities.Assignments;
+import com.canvas.springboot.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AssignmentSubmissionRepository extends JpaRepository<AssignmentSubmission, Long> {
     List<AssignmentSubmission> findByUserIdAndIsGradedTrue(Long userId);
     List<AssignmentSubmission> findByIsGradedTrue();
     List<AssignmentSubmission> findByUserId(Long userId);
+    Optional<AssignmentSubmission> findByAssignmentAndUser(Assignments assignment, User user);
 }
