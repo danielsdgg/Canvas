@@ -11,6 +11,7 @@ interface User {
   phoneNumber: string | null;
   createdAt: string;
   role: string;
+  managedBy: string | null;
   courses: any[];
 }
 
@@ -42,7 +43,7 @@ const Admindashboard: React.FC = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/v1/users', {
+      const response = await fetch('/api/v1/users', {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
@@ -91,7 +92,7 @@ const Admindashboard: React.FC = () => {
   const enrollStudent = async () => {
     if (!selectedUser || !selectedCourse) return;
     try {
-      const response = await fetch(`http://localhost:8080/api/v1/courses/${selectedCourse}/enroll/${selectedUser}`, {
+      const response = await fetch(`/api/v1/courses/${selectedCourse}/enroll/${selectedUser}`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${userToken}`,
@@ -132,6 +133,7 @@ const Admindashboard: React.FC = () => {
                     <th className="px-4 py-2">Phone Number</th>
                     <th className="px-4 py-2">Joined</th>
                     <th className="px-4 py-2">Course Enrolled</th>
+                    <th className="px-4 py-2">Instructor</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -157,6 +159,7 @@ const Admindashboard: React.FC = () => {
                           </>
                         )}
                       </td>
+                      <td className="px-4 py-2">{user.managedBy}</td>
                     </tr>
                   ))}
                 </tbody>

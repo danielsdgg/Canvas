@@ -296,7 +296,7 @@ public class UserService implements UserDetailsService {
         // Ensure this admin manages specific students in this course
         List<UserResponse> students = course.getUsers()
                 .stream()
-                .filter(user -> "CLIENT".equalsIgnoreCase(user.getRole().getRoleName()) && Objects.equals(user.getManagedBy(), admin)) // Only students assigned to this admin
+                .filter(user -> "STUDENT".equalsIgnoreCase(user.getRole().getRoleName()) && Objects.equals(user.getManagedBy(), admin)) // Only students assigned to this admin
                 .map(user -> {
                     UserResponse response = new UserResponse();
                     response.setId(user.getId());
