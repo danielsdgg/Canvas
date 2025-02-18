@@ -64,8 +64,6 @@ public class UserService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found with email: " + email);
         }
-//        System.out.println("Loaded User: " + user.getEmailAddress() + ", Role: " + user.getRole().getRoleName());
-//        System.out.println("Authorities: " + user.getAuthorities());
 
         return new org.springframework.security.core.userdetails.User(user.getEmailAddress(), user.getPassword(),
                 new ArrayList<>());
@@ -132,7 +130,6 @@ public class UserService implements UserDetailsService {
                             .map(lesson -> {
                                 LessonResponse lessonResponse = new LessonResponse();
                                 lessonResponse.setId(lesson.getId());
-//                                lessonResponse.setContent(lesson.getTitle());
                                 lessonResponse.setTitle(lesson.getTitle());
                                 return lessonResponse;
                             }).toList();

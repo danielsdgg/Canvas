@@ -26,6 +26,15 @@ public class AssignmentController {
         return new ResponseEntity<>(createdAssignment, HttpStatus.CREATED);
     }
 
+    @PutMapping("/{assignmentId}")
+    public ResponseEntity<AssignmentResponse> updateAssignment(
+            @PathVariable Long assignmentId,
+            @RequestBody AssignmentRequest assignmentRequest) {
+
+        AssignmentResponse updatedAssignment = assignmentService.updateAssignment(assignmentId, assignmentRequest);
+        return ResponseEntity.ok(updatedAssignment);
+    }
+
     @GetMapping("/course/{courseId}")
     public ResponseEntity<List<AssignmentResponse>> getAssignmentsByCourse(@PathVariable Long courseId) {
         List<AssignmentResponse> assignments = assignmentService.getAssignmentsByCourse(courseId);

@@ -42,6 +42,22 @@ public class AssignmentService {
         return mapToAssignmentResponse(savedAssignment);
     }
 
+    @Transactional
+    public AssignmentResponse updateAssignment(Long assignmentId, AssignmentRequest assignmentRequest) {
+        // Fetch the existing assignment
+        Assignments assignment = assignmentRepository.findById(assignmentId)
+                .orElseThrow(() -> new RuntimeException("Assignment not found"));
+
+        // Update assignment details
+        assignment.setTitle(assignmentRequest.getTitle());
+        assignment.setDescription(assignmentRequest.getDescription());
+
+        // Save the updated assignment
+        Assignments updatedAssignment = assignmentRepository.save(assignment);
+        return mapToAssignmentResponse(updatedAssignment);
+    }
+
+
 
     public List<AssignmentResponse> getAssignmentsByCourse(Long courseId) {
         Courses course = courseRepository.findById(courseId)
