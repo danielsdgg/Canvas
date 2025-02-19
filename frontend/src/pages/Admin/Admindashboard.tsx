@@ -52,48 +52,60 @@ const Admindashboard: React.FC = () => {
 
   return (
     <>
-      <SideNav />
-      <div className="flex min-h-screen bg-gray-100">
-        <div className="flex-1 p-5">
-          <header className="text-3xl text-center font-bold text-blue-700 mb-5">ADMIN DASHBOARD</header>
-          <div className="bg-white shadow-lg rounded-lg p-4">
-            <h2 className="text-2xl font-bold mb-4 text-red-600">Students Class List</h2>
-            <div className="overflow-auto">
-              <table className="min-w-full text-left text-sm sm:text-base">
-                <thead>
-                  <tr className="bg-blue-600 text-white">
-                    <th className="px-4 py-2">First Name</th>
-                    <th className="px-4 py-2">Last Name</th>
-                    <th className="px-4 py-2">Email</th>
-                    <th className="px-4 py-2">Phone Number</th>
-                    <th className="px-4 py-2">Joined</th>
-                    <th className="px-4 py-2">Role</th>
+  <SideNav />
+  <div className="flex min-h-screen bg-gradient-to-r from-gray-900 to-gray-800 text-gray-100">
+    <div className="flex-1 p-6">
+      <header className="text-4xl text-center font-extrabold text-white mb-8 tracking-wide">
+        ADMIN DASHBOARD
+      </header>
 
-                  </tr>
-                </thead>
-                <tbody>
-                  {students.map(student => (
-                    <tr key={student.id} className="hover:bg-blue-200">
-                      <td className="px-4 py-2">
-                        <NavLink to={`/user/${student.id}`} className="text-blue-500 hover:text-blue-700">
-                          {student.firstName}
-                        </NavLink>
-                      </td>
-                      <td className="px-4 py-2">{student.lastName}</td>
-                      <td className="px-4 py-2">{student.emailAddress}</td>
-                      <td className="px-4 py-2">{student.phoneNumber || 'N/A'}</td>
-                      <td className="px-4 py-2">{new Date(student.createdAt).toLocaleDateString()}</td>
-                      <td className="px-4 py-2">{student.role}</td>
+      {/* Glassmorphism Card */}
+      <div className="bg-white/10 backdrop-blur-lg shadow-2xl rounded-xl p-6 border border-white/20">
+        <h2 className="text-2xl font-bold mb-6 text-yellow-400 uppercase">
+          Students Class List
+        </h2>
 
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm sm:text-base border-collapse border border-gray-600">
+            <thead>
+              <tr className="bg-yellow-500 text-gray-900 uppercase">
+                <th className="px-4 py-3 border border-gray-600">First Name</th>
+                <th className="px-4 py-3 border border-gray-600">Last Name</th>
+                <th className="px-4 py-3 border border-gray-600">Email</th>
+                <th className="px-4 py-3 border border-gray-600">Phone</th>
+                <th className="px-4 py-3 border border-gray-600">Joined</th>
+                <th className="px-4 py-3 border border-gray-600">Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              {students.map((student) => (
+                <tr
+                  key={student.id}
+                  className="border border-gray-600 hover:bg-yellow-500/30 transition duration-300"
+                >
+                  <td className="px-4 py-3 text-center">
+                    <NavLink
+                      to={`/user/${student.id}`}
+                      className="text-yellow-300 hover:text-yellow-500 font-semibold transition"
+                    >
+                      {student.firstName}
+                    </NavLink>
+                  </td>
+                  <td className="px-4 py-3 text-center">{student.lastName}</td>
+                  <td className="px-4 py-3 text-center">{student.emailAddress}</td>
+                  <td className="px-4 py-3 text-center">{student.phoneNumber || "N/A"}</td>
+                  <td className="px-4 py-3 text-center">{new Date(student.createdAt).toLocaleDateString()}</td>
+                  <td className="px-4 py-3 text-center">{student.role}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
-    </>
+    </div>
+  </div>
+</>
+
   );
 };
 
