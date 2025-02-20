@@ -24,4 +24,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByManagedBy(User admin); // Fetch students assigned to an admin
 
+    @Query("SELECT u FROM User u JOIN u.courses c WHERE u.role.roleName = 'STUDENT' AND u.managedBy.id = :adminId AND c.id IN :courseIds")
+    List<User> findStudentsByAdminAndCourses(@Param("adminId") Long adminId, @Param("courseIds") List<Long> courseIds);
+
+
 }

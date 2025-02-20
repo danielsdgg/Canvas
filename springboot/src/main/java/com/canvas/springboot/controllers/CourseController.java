@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/v1/courses/")
+@RequestMapping(path = "/api/v1/courses")
 public class CourseController {
 
     @Autowired
@@ -29,7 +29,7 @@ public class CourseController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CourseResponse> getCourseById(@PathVariable Long id) {
         CourseResponse courseResponse = courseService.getCourseById(id);
         return new ResponseEntity<>(courseResponse, HttpStatus.OK);
@@ -43,20 +43,20 @@ public class CourseController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<CourseResponse> updateCourse(@PathVariable Long id, @RequestBody CourseRequest updatedCourse) {
         CourseResponse courseResponse = courseService.updateCourse(id, updatedCourse);
         return new ResponseEntity<>(courseResponse, HttpStatus.OK);
     }
 
     @PreAuthorize("has('ADMIN')")
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void deleteCourse(@PathVariable Long id) {
         courseService.deleteCourse(id);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PostMapping("{courseId}/enroll/{userId}")
+    @PostMapping("/{courseId}/enroll/{userId}")
     public void enrollUserInCourse(@PathVariable Long courseId, @PathVariable Long userId) {
         courseService.enrollUserInCourse(courseId, userId);
     }
