@@ -172,7 +172,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImV4cCI6MTczOTkzNTA5NywiaWF0IjoxNzM5ODk5MDk3fQ.GEokRQnvDO5oFzWl34CAmgERrohI0rpL7k_GWtTPvTU",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImV4cCI6MTc0MDA5NzEyMCwiaWF0IjoxNzQwMDYxMTIwfQ.a53NCIjqx61CSka6shvqG0C1N0cGVwIlI-FAafTOGm0",
 									"type": "string"
 								}
 							]
@@ -198,7 +198,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/courses/2/enroll/9",
+							"raw": "http://localhost:8080/api/v1/courses/1/enroll/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -208,9 +208,9 @@
 								"api",
 								"v1",
 								"courses",
-								"2",
+								"1",
 								"enroll",
-								"9"
+								"4"
 							]
 						}
 					},
@@ -423,7 +423,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImV4cCI6MTczOTkzMjUwOCwiaWF0IjoxNzM5ODk2NTA4fQ._RBDfOm31IQJpkIveo2r97BWIaDzn88G0gfngqRej3U",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImV4cCI6MTc0MDA5NzEyMCwiaWF0IjoxNzQwMDYxMTIwfQ.a53NCIjqx61CSka6shvqG0C1N0cGVwIlI-FAafTOGm0",
 									"type": "string"
 								}
 							]
@@ -449,7 +449,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/users/7",
+							"raw": "http://localhost:8080/api/v1/users/8",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -459,7 +459,7 @@
 								"api",
 								"v1",
 								"users",
-								"7"
+								"8"
 							]
 						}
 					},
@@ -581,14 +581,14 @@
 					"response": []
 				},
 				{
-					"name": "Student's Class",
+					"name": "Students Class",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImV4cCI6MTczOTkzMzQ0NCwiaWF0IjoxNzM5ODk3NDQ0fQ.yu_DO7y40DIIjhzQZhyPsqBuE6379UKAvWrWtGBN7l4",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImV4cCI6MTc0MDA5NzEyMCwiaWF0IjoxNzQwMDYxMTIwfQ.a53NCIjqx61CSka6shvqG0C1N0cGVwIlI-FAafTOGm0",
 									"type": "string"
 								}
 							]
@@ -596,7 +596,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/users/students?adminId=8&courseId=2",
+							"raw": "http://localhost:8080/api/v1/users/students?adminId=8&courseId=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -615,7 +615,7 @@
 								},
 								{
 									"key": "courseId",
-									"value": "2"
+									"value": "1"
 								}
 							]
 						}
@@ -630,7 +630,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImV4cCI6MTczOTkzNTA5NywiaWF0IjoxNzM5ODk5MDk3fQ.GEokRQnvDO5oFzWl34CAmgERrohI0rpL7k_GWtTPvTU",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImV4cCI6MTc0MDA5NzEyMCwiaWF0IjoxNzQwMDYxMTIwfQ.a53NCIjqx61CSka6shvqG0C1N0cGVwIlI-FAafTOGm0",
 									"type": "string"
 								}
 							]
@@ -639,7 +639,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"adminId\":8,\r\n    \"studentId\":7\r\n}",
+							"raw": "{\r\n    \"adminId\":8,\r\n    \"studentId\":5\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -662,6 +662,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -676,7 +684,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraW5nbHlAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiZXhwIjoxNzM5NDI2NTUzLCJpYXQiOjE3MzkzOTA1NTN9.lAjhZTlMRPEeA4ybU5CwxL5c1XSpZq5Df8hJAGufPGY",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImV4cCI6MTczOTkzOTcxNSwiaWF0IjoxNzM5OTAzNzE1fQ.8uCszZu70xGgneWh5mNVgAJVD5uCGxZHXhpyuqHwE-E",
 									"type": "string"
 								}
 							]
@@ -685,7 +693,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"assignmentId\":2,\r\n    \"userId\":1,\r\n    \"fileUrl\":\"https://github.com/danielsdgg/Cac\"\r\n}",
+							"raw": "{\r\n    \"assignmentId\":1,\r\n    \"userId\":1,\r\n    \"fileUrl\":\"https://github.com/danielsdgg/Cac\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -832,7 +840,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraW5nbHlAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiZXhwIjoxNzM5MTY0ODM0LCJpYXQiOjE3MzkxMjg4MzR9.8SHS8cRhNwY82K7enyYCuCSoUEP-FqRaM3bsIudLesY",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImV4cCI6MTczOTkzNTA5NywiaWF0IjoxNzM5ODk5MDk3fQ.GEokRQnvDO5oFzWl34CAmgERrohI0rpL7k_GWtTPvTU",
 									"type": "string"
 								}
 							]
@@ -948,6 +956,47 @@
 								"v1",
 								"assignments",
 								"grades"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Assignment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImV4cCI6MTczOTkzNTA5NywiaWF0IjoxNzM5ODk5MDk3fQ.GEokRQnvDO5oFzWl34CAmgERrohI0rpL7k_GWtTPvTU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Final Projects\",\r\n    \"description\": \"Complete the final project on Frontend development.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/assignments/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"assignments",
+								"1"
 							]
 						}
 					},
@@ -1218,6 +1267,110 @@
 								"api",
 								"v1",
 								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImV4cCI6MTc0MDA5NzEyMCwiaWF0IjoxNzQwMDYxMTIwfQ.a53NCIjqx61CSka6shvqG0C1N0cGVwIlI-FAafTOGm0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"roleName\": \"STUDENT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/roles/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"roles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Roles",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImV4cCI6MTc0MDA5NzEyMCwiaWF0IjoxNzQwMDYxMTIwfQ.a53NCIjqx61CSka6shvqG0C1N0cGVwIlI-FAafTOGm0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/roles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Each Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImV4cCI6MTc0MDA5NzEyMCwiaWF0IjoxNzQwMDYxMTIwfQ.a53NCIjqx61CSka6shvqG0C1N0cGVwIlI-FAafTOGm0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/roles/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"roles",
+								"1"
 							]
 						}
 					},

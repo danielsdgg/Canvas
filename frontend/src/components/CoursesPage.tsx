@@ -24,7 +24,7 @@ const CoursesPage: React.FC = () => {
           return;
         }
 
-        const response = await fetch("/api/v1/courses/", {
+        const response = await fetch("/api/v1/courses", {
           headers: { Authorization: `Bearer ${userToken}` },
         });
 
