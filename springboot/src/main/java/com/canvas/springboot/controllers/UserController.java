@@ -87,6 +87,15 @@ public class UserController {
         return ResponseEntity.ok(students);
     }
 
+    @GetMapping("/student-class")
+    public ResponseEntity<List<UserResponse>> getStudentsByAdminAndCourses(
+            @RequestParam Long adminId,
+            @RequestParam List<Long> courseIds) {
+        List<UserResponse> students = userService.getStudentsByAdminAndCourses(adminId, courseIds);
+        return ResponseEntity.ok(students);
+    }
+
+
     @PostMapping("/assign-student")
     public ResponseEntity<String> assignStudentToAdmin(@RequestBody AssignStudentRequest request) {
         userService.assignStudentToAdmin(request.getAdminId(), request.getStudentId());

@@ -46,7 +46,7 @@
             http.csrf(AbstractHttpConfigurer::disable)
                     .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                             .requestMatchers("/api/v1/users/signup", "/api/v1/users/login","/api/v1/users/change-password").permitAll()
-                            .requestMatchers("/api/v1/courses/**", "/api/v1/roles/**").hasRole("ADMIN")
+                            .requestMatchers("/api/v1/courses","/api/v1/courses/**","/api/v1/roles", "/api/v1/roles/**").hasRole("ADMIN")
                             .anyRequest().authenticated())
                     .exceptionHandling(exceptionHandling -> exceptionHandling
                             .authenticationEntryPoint(unauthorizedHandler)

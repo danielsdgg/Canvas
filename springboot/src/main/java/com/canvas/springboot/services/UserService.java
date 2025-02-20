@@ -306,11 +306,32 @@ public class UserService implements UserDetailsService {
                     return response;
                 })
                 .toList();
-        students.forEach(student ->
-                System.out.println("Student mapped: " + student.getId() + " " + student.getEmailAddress()));
 
         return students;
     }
+
+
+    public List<UserResponse> getStudentsByAdminAndCourses(Long adminId, List<Long> courseIds) {
+        if (!userRepository.existsById(adminId)) {
+            throw new IllegalArgumentException("Admin not found");
+        }
+
+        List<User> students = userRepository.findStudentsByAdminAndCourses(adminId, courseIds);
+
+        return students.stream().map(user -> {
+            UserResponse response = new UserResponse();
+            response.setId(user.getId());
+            response.setEmailAddress(user.getEmailAddress());
+            response.setFirstName(user.getFirstName());
+            response.setLastName(user.getLastName());
+            response.setPhoneNumber(user.getPhoneNumber());
+            response.setRole(user.getRole().getRoleName());
+            response.setCreatedAt(user.getCreatedAt());
+            return response;
+        }).toList();
+    }
+
+
 
 
     @Transactional
