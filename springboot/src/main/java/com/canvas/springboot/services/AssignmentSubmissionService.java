@@ -121,10 +121,6 @@ public class AssignmentSubmissionService {
         AssignmentSubmission submission = submissionRepository.findById(request.getSubmissionId())
                 .orElseThrow(() -> new IllegalArgumentException("Submission not found"));
 
-//        if (submission.isGraded()) {
-//            throw new RuntimeException("Assignment already graded");
-//        }
-
         submission.setGrade(request.getGrade());
         submission.setFeedback(request.getFeedback());
         submission.setGraded(true);
