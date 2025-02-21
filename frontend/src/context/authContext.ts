@@ -1,32 +1,32 @@
-import { createContext, ReactNode, useContext } from 'react'; // Ensure necessary imports
+import { createContext, ReactNode, useContext } from 'react'; 
 import { UserResponse } from '../models/responses/User';
 
 
 // Define AuthContextType interface
 export interface AuthContextType {
     isLoading: boolean;
-    handleLogin: (email: string, password: string) => void;
+    handleLogin: (email: string, password: string) => Promise<boolean>; 
     handleLogout: () => void;
     userToken: string | null;
     userData: UserResponse | null;
-    userRole: string | null;  // <-- Add this line if userRole is separate
+    userRole: string | null;  
 
 }
 
 // Create AuthContext with default values
 export const AuthContext = createContext<AuthContextType>({
     isLoading: false,
-    handleLogin: () => {},
+    handleLogin: async () => false,
     handleLogout: () => {},
     userToken: null,
     userData: null,
-    userRole: null, // <-- Initialize it here
+    userRole: null, 
 
 });
 
 // Define AuthProviderProps interface for children
 export interface AuthProviderProps {
-    children: ReactNode; // Ensure ReactNode is imported
+    children: ReactNode; 
 }
 
 export const useAuth = () => {

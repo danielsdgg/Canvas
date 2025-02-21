@@ -14,19 +14,22 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
  
 
-  const handleLogin = async (emailAddress: string, password: string) => { 
+  const handleLogin = async (emailAddress: string, password: string): Promise<boolean> => { 
     setIsLoading(true);
     try {
         const userdata = await loginUser(emailAddress, password, navigate);
 
-        // Set user data only if userdata is not undefined
-        setUserData(userdata ?? null); // If userdata is undefined, set it as null
+        if (!userdata) {
+            return false; 
+        }
 
-        // Set user token only if userdata?.token is not undefined
-        setUserToken(userdata?.token ?? null); // If token is undefined, set it as null
-
+        setUserData(userdata);
+        setUserToken(userdata.token ?? null);
+        
+        return true; 
     } catch (error) {
         console.error('Login error:', error);
+        return false; 
     } finally {
         setIsLoading(false);
     }
