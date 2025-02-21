@@ -34,7 +34,7 @@ const EnrolledCoursesPage: React.FC = () => {
     useEffect(() => {
         const fetchEnrolledCourses = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/api/v1/users/${userId}`, {
+                const response = await fetch(`/api/v1/users/${userId}`, {
                     headers: { Authorization: `Bearer ${userToken}` },
                 });
                 if (!response.ok) throw new Error('Failed to fetch courses');
