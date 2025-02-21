@@ -306,12 +306,9 @@ public class UserService implements UserDetailsService {
                     return response;
                 })
                 .toList();
-        students.forEach(student ->
-                System.out.println("Student mapped: " + student.getId() + " " + student.getEmailAddress()));
 
         return students;
     }
-
 
     @Transactional
     public void assignStudentToAdmin(Long adminId, Long studentId) {
@@ -328,46 +325,6 @@ public class UserService implements UserDetailsService {
 
 
 
-
-    public UserDetailsResponse getUserById(Long userId, Long adminId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("Student not found"));
-
-
-        // If adminId is null, return the user details without access check
-        if (adminId == null) {
-            return convertUserDetails(user);
-        }
-
-        // Get admin's courses and convert them to CourseResponse
-        List<CourseResponse> adminCourses = userRepository.findById(adminId)
-                .orElseThrow(() -> new IllegalArgumentException("Admin not found"))
-                .getCourses()
-                .stream()
-                .map(courseService::mapToCourseResponse)  // Convert each Course to CourseResponse
-                .toList();
-
-        // Convert user's courses to CourseResponse for comparison
-        List<CourseResponse> userCourses = user.getCourses()
-                .stream()
-                .map(courseService::mapToCourseResponse)
-                .toList();
-
-        // Check if the student belongs to any of the admin's courses
-        boolean hasAccess = userCourses.stream().anyMatch(adminCourses::contains);
-
-        if (!hasAccess) {
-            throw new RuntimeException("Access denied. Admin is not authorized to view this student.");
-        }
-
-        return convertUserDetails(user);
-    }
-
-    public List<UserResponse> getUnenrolledStudents() {
-        List<User> unenrolledStudents = userRepository.findUnenrolledStudents();
-        return unenrolledStudents.stream().map(this::convertUserResponse).toList();
-    }
-
     public void deleteUserById(Long userId) {
         if (!userRepository.existsById(userId)) {
             throw new RuntimeException("User not found");
@@ -378,14 +335,6 @@ public class UserService implements UserDetailsService {
     public UserDetailsResponse getEachUserById(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Student not found"));
-
-
-
-        // Convert user's courses to CourseResponse for comparison
-        List<CourseResponse> userCourses = user.getCourses()
-                .stream()
-                .map(courseService::mapToCourseResponse)
-                .toList();
 
         return convertUserDetails(user);
     }

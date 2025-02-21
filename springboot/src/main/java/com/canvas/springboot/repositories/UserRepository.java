@@ -14,14 +14,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmailAddress(String emailAddress);
 
-    Optional<User> findUserByEmailAddress(String emailAddress);
-
-    @Query("SELECT u FROM User u WHERE u.id NOT IN (SELECT uc.id FROM User uc JOIN uc.courses c)")
-    List<User> findUnenrolledStudents();
-
-    @Query("SELECT u FROM User u JOIN u.courses c WHERE c.id = :courseId")
-    List<User> findStudentsByCourse(@Param("courseId") Long courseId);
-
-    List<User> findByManagedBy(User admin); // Fetch students assigned to an admin
-
 }

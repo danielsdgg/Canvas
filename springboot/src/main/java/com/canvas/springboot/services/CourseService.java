@@ -34,9 +34,6 @@ public class CourseService {
     private AssignmentService assignmentService;
 
     public List<CourseResponse> getAllCourses() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("🔍 User Authenticated: " + authentication.getName());
-        System.out.println("🔍 User Authorities: " + authentication.getAuthorities());
         List<Courses> courses = courseRepository.findAll();
         return courses.stream().map(this::mapToCourseResponse).toList();
     }

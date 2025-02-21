@@ -63,15 +63,6 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-//    @GetMapping("/{userId}")
-//    public ResponseEntity<UserDetailsResponse> getUserById(
-//            @PathVariable Long userId,
-//            @RequestParam(required = false) Long adminId) {
-//
-//        UserDetailsResponse userDetails = userService.getUserById(userId, adminId);
-//        return ResponseEntity.ok(userDetails);
-//    }
-
     @GetMapping("/{userId}")
     public ResponseEntity<UserDetailsResponse> getUserById(@PathVariable Long userId) {
         UserDetailsResponse userDetails = userService.getEachUserById(userId);
@@ -100,7 +91,5 @@ public class UserController {
         userService.deleteUserById(userId);
         return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
     }
-
-
 
 }
