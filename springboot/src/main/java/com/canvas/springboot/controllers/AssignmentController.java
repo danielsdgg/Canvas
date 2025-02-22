@@ -13,7 +13,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1/assignments")
-public class AssignmentController {
+public class
+
+AssignmentController {
 
    @Autowired
    private AssignmentService assignmentService;

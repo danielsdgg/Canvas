@@ -16,13 +16,12 @@ interface Submission {
 const History: React.FC = () => {
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const { userToken, userData } = useAuth();
-  const userId = userData?.userDetails.id;
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchSubmissions = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/v1/assignments/submissions/${userId}`, {
+        const response = await fetch(`http://localhost:8080/api/v1/assignments/submission/${userData?.userDetails.emailAddress}`, {
           headers: {
             Authorization: `Bearer ${userToken}`,
           },
@@ -40,10 +39,10 @@ const History: React.FC = () => {
       }
     };
 
-    if (userId) {
+    if (userData) {
       fetchSubmissions();
     }
-  }, [userId, userToken]);
+  }, [userData, userToken]);
 
   return (
     <>
