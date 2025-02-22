@@ -2,6 +2,7 @@ package com.canvas.springboot.security;
 
 import com.canvas.springboot.entities.User;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.cglib.core.internal.Function;
@@ -70,5 +71,25 @@ public class JwtTokenUtil {
     public Long extractUserId(String token) {
         Claims claims = extractAllClaims(token);
         return claims.get("id", Long.class); // Extract the "id" claim
+    }
+
+    public String generateRefreshToken(User user) {
+        return Jwts.builder()
+                .setSubject(user.getUsername())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000)) // 7 days
+                .signWith(SignatureAlgorithm.HS256, SIGNING_KEY_BYTES)
+                .compact();
+    }
+
+    public boolean validateRefreshToken(String token) {
+        try {
+            Jwts.parser()
+                    .setSigningKey(SIGNING_KEY_BYTES)
+                    .parseClaimsJws(token);
+            return true;
+        } catch (JwtException | IllegalArgumentException e) {
+            return false;
+        }
     }
 }

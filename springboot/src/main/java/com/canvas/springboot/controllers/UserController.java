@@ -1,6 +1,7 @@
 package com.canvas.springboot.controllers;
 
 import com.canvas.springboot.entities.User;
+import com.canvas.springboot.exceptions.UnauthorizedException;
 import com.canvas.springboot.models.requests.*;
 import com.canvas.springboot.models.responses.LoginResponse;
 import com.canvas.springboot.models.responses.RoleUpdateResponse;
@@ -15,6 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Slf4j
@@ -108,6 +110,17 @@ public class UserController {
             @RequestParam boolean isActive) {
         String response = userService.updateUserStatus(userId, isActive);
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<?> refreshAccessToken(@RequestBody Map<String, String> request) {
+        try {
+            String refreshToken = request.get("refreshToken");
+            Map<String, Object> response = userService.refreshAccessToken(refreshToken);
+            return ResponseEntity.ok(response);
+        } catch (UnauthorizedException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        }
     }
 
 
