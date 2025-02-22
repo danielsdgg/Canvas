@@ -15,7 +15,6 @@ const Login: React.FC = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
 
-  
   const { handleLogin } = useContext(AuthContext);
 
   const handlePasswordReset = async () => {
@@ -42,7 +41,6 @@ const Login: React.FC = () => {
         if (!response.ok) {
             let errorMessage = "Failed to change password";
             
-            // Check if response is JSON
             if (contentType && contentType.includes("application/json")) {
                 const errorData = await response.json();
                 errorMessage = errorData.message || errorMessage;
@@ -54,7 +52,6 @@ const Login: React.FC = () => {
             throw new Error(errorMessage);
         }
 
-        // Check if the response is JSON before parsing
         let data;
         if (contentType && contentType.includes("application/json")) {
             data = await response.json();
@@ -65,13 +62,12 @@ const Login: React.FC = () => {
         setSuccessMessage('Password changed successfully');
         setTimeout(() => {
             setSuccessMessage('');
-            setShowResetModal(false); // Close modal
-            navigate('/login'); // Redirect to login
+            setShowResetModal(false);
+            navigate('/login');
         }, 3000);
       } catch (error) {
         console.error('Password reset error:', error);
         
-        // Ensure error is an instance of Error before accessing message
         if (error instanceof Error) {
             setMessage(error.message);
         } else {
@@ -80,10 +76,17 @@ const Login: React.FC = () => {
     }
   };
 
+  const handleLoginClick = async () => {
+    const success = await handleLogin(email, password);
+    if (success) {
+      setMessage('Successfully logged in!');
+    } else {
+      setMessage('Invalid email or password. Please try again.');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
-      {/* Header Section */}
       <div className="text-center mb-6">
         <img src={Logo} alt="Organization Logo" className="mx-auto w-32 h-32" />
         <h1 className="text-xl font-light italic mt-4 text-gray-800">
@@ -91,7 +94,6 @@ const Login: React.FC = () => {
         </h1>
       </div>
       
-      {/* Login Form */}
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
         <form className="space-y-6">
           <div>
@@ -108,11 +110,12 @@ const Login: React.FC = () => {
             <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password" className="w-full mt-1 p-3 border border-gray-300 rounded-lg" />
           </div>
-          <button type="button" onClick={() => handleLogin(email, password)}
+          <button type="button" onClick={handleLoginClick}
             className="w-full py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600">
             Login
           </button>
         </form>
+        {message && <p className="text-center mt-3 text-red-500">{message}</p>}
         
         <div className="mt-6 text-sm text-gray-600 text-center">
           <p>
@@ -126,7 +129,6 @@ const Login: React.FC = () => {
         </div>
       </div>
 
-      {/* Password Reset Modal */}
       {showResetModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
@@ -135,10 +137,9 @@ const Login: React.FC = () => {
               className="w-full p-2 mb-3 border border-gray-300 rounded-lg" />
             <input type="password" placeholder="Enter new password" value={newpassword} onChange={(e) => setNewPassword(e.target.value)}
               className="w-full p-2 mb-3 border border-gray-300 rounded-lg" />
-           <button onClick={handlePasswordReset} className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
-    Change Password
-</button>
-
+            <button onClick={handlePasswordReset} className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
+              Change Password
+            </button>
             <button onClick={() => setShowResetModal(false)} className="w-full mt-2 text-gray-700 hover:underline">
               Cancel
             </button>

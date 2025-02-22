@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../context/authContext';
 import SideNav from '../../components/SideNav';
-import { Course } from '../../coursesData';
 import StudentListCard from '../../components/StudentListCard';
 
 export interface Student {
@@ -21,12 +19,10 @@ export interface Courses{
 }
 
 const Admindashboard: React.FC = () => {
-  const [students, setStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const { userToken, userData } = useAuth();
+  const { userToken } = useAuth();
   const [courses, setCourses] =useState<Courses[]>([])
-  const courseId = 2;
 
   useEffect(() => {
     fetchCourses();

@@ -1,4 +1,3 @@
-import { Course } from "../coursesData";
 import { Courses, Student } from "../pages/Admin/Admindashboard";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
