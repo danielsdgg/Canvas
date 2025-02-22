@@ -3,6 +3,7 @@ package com.canvas.springboot.services;
 import com.canvas.springboot.entities.Courses;
 import com.canvas.springboot.entities.Role;
 import com.canvas.springboot.entities.User;
+import com.canvas.springboot.exceptions.UnauthorizedException;
 import com.canvas.springboot.models.requests.LoginRequest;
 import com.canvas.springboot.models.requests.PasswordRequest;
 import com.canvas.springboot.models.requests.RegisterRequest;
@@ -27,10 +28,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -89,10 +87,12 @@ public class UserService implements UserDetailsService {
         }
 
         final String token = jwtUtil.generateToken(user);
+        final String refreshToken = jwtUtil.generateRefreshToken(user);
 
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setUserDetails(convertUserResponse(user));
         loginResponse.setToken(token);
+        loginResponse.setRefreshToken(refreshToken);
 
         return loginResponse;
     }
@@ -389,4 +389,26 @@ public class UserService implements UserDetailsService {
 
         return convertUserDetails(user);
     }
+
+    public Map<String, Object> refreshAccessToken(String refreshToken) {
+        if (refreshToken == null || !jwtUtil.validateRefreshToken(refreshToken)) {
+            throw new UnauthorizedException("Invalid refresh token");
+        }
+
+        String emailAddress = jwtUtil.extractEmail(refreshToken); //
+        User user = userRepository.findByEmailAddress(emailAddress);
+
+        if (user == null) {
+            throw new UnauthorizedException("User not found or invalid refresh token");
+        }
+
+        String newAccessToken = jwtUtil.generateToken(user);
+        String newRefreshToken = jwtUtil.generateRefreshToken(user);
+
+        return Map.of(
+                "token", newAccessToken,
+                "refreshToken", newRefreshToken
+        );
+    }
+
 }
