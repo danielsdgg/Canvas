@@ -28,13 +28,13 @@ interface Course {
 const EnrolledCoursesPage: React.FC = () => {
     const [courses, setCourses] = useState<Course[]>([]);
     const { userToken, userData } = useAuth(); 
-    const userId = userData?.userDetails.id; 
+    const userId = userData?.userDetails.emailAddress; 
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchEnrolledCourses = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/api/v1/users/${userId}`, {
+                const response = await fetch("/api/v1/users/profile", {
                     headers: { Authorization: `Bearer ${userToken}` },
                 });
                 if (!response.ok) throw new Error('Failed to fetch courses');

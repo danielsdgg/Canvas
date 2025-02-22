@@ -4,9 +4,10 @@ export interface UserResponse {
         firstName: string;
         lastName: string;
         emailAddress: string;
+        role: string;
     }
     token: string;
-    role: string;
+    
   }
 
   interface Assignment {

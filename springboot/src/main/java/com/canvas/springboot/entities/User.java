@@ -38,6 +38,9 @@ public class User implements UserDetails {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(nullable = false)
+    private Boolean isActive = true; // Use Boolean instead of boolean
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 

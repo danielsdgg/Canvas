@@ -64,13 +64,22 @@ public class UserService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found with email: " + email);
         }
+        if (!user.getIsActive()) {
+            throw new UsernameNotFoundException("User account is inactive");
+        }
 
         return new org.springframework.security.core.userdetails.User(user.getEmailAddress(), user.getPassword(),
                 new ArrayList<>());
     }
 
+
     public LoginResponse loginUser(LoginRequest loginRequest) throws Exception {
         User user = userRepository.findByEmailAddress(loginRequest.getEmailAddress());
+
+        if (user == null || !user.getIsActive()) {
+            throw new BadCredentialsException("Your account has been deactivated.");
+        }
+
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(user.getEmailAddress(), loginRequest.getPassword())
@@ -84,16 +93,15 @@ public class UserService implements UserDetailsService {
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setUserDetails(convertUserResponse(user));
         loginResponse.setToken(token);
-        loginResponse.setRole(user.getRole() != null ? user.getRole().getRoleName() : "No role assigned");
 
         return loginResponse;
     }
 
 
+
     private UserResponse convertUserResponse(User user) {
         UserResponse userResponse = new UserResponse();
 
-        userResponse.setId(user.getId());
         userResponse.setEmailAddress(user.getEmailAddress());
         userResponse.setFirstName(user.getFirstName());
         userResponse.setLastName(user.getLastName());
@@ -200,40 +208,37 @@ public class UserService implements UserDetailsService {
 
 
     @Transactional
-    public UserResponse editUser(Long id, UserRequest userRequest){
-        Optional<User> getUserById = userRepository.findById(id);
-        if (getUserById.isPresent()) {
-            User user = getUserById.get();
-            if (userRequest != null) {
+    public UserResponse editUser(String authorizationHeader, UserRequest userRequest){
+        String token = authorizationHeader.substring(7);
+        Long id = jwtUtil.extractUserId(token);
 
-                if (userRequest.getEmailAddress() != null){
-                    user.setEmailAddress(userRequest.getEmailAddress());
-                }
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Could not find the user"));
 
-                if (userRequest.getFirstName()!= null){
-                    user.setFirstName(user.getFirstName());
-                }
+        if (!user.getIsActive()) {
+            throw new RuntimeException("User account is inactive. Cannot perform this action.");
+        }
 
-                if (userRequest.getLastName() != null){
-                    user.setLastName(user.getLastName());
-                }
-
-                if (userRequest.getPhoneNumber() != null){
-                    user.setPhoneNumber(userRequest.getPhoneNumber());
-                }
-
-                user.setUpdatedAt(LocalDateTime.now());
-
+        if (userRequest != null) {
+            if (userRequest.getEmailAddress() != null){
+                user.setEmailAddress(userRequest.getEmailAddress());
             }
-            userRepository.save(user);
-            return convertUserResponse(user);
-        }
-        else {
-            throw new RuntimeException("Could not find the user");
+            if (userRequest.getFirstName()!= null){
+                user.setFirstName(userRequest.getFirstName());
+            }
+            if (userRequest.getLastName() != null){
+                user.setLastName(userRequest.getLastName());
+            }
+            if (userRequest.getPhoneNumber() != null){
+                user.setPhoneNumber(userRequest.getPhoneNumber());
+            }
+            user.setUpdatedAt(LocalDateTime.now());
         }
 
-
+        userRepository.save(user);
+        return convertUserResponse(user);
     }
+
 
     public RoleUpdateResponse updateUserRole(Long userId, Long roleId) {
         User user = userRepository.findById(userId)
@@ -241,6 +246,10 @@ public class UserService implements UserDetailsService {
 
         Role role = roleRepository.findById(roleId)
                 .orElseThrow(() -> new RuntimeException("Role not found"));
+
+        if (!user.getIsActive()) {
+            throw new RuntimeException("Inactive user cannot have their role updated.");
+        }
 
         user.setRole(role);
         userRepository.save(user);
@@ -257,6 +266,10 @@ public class UserService implements UserDetailsService {
     public void changeUserPassword(PasswordRequest passwordRequest) {
         User user = userRepository.findByEmailAddress(passwordRequest.getEmailAddress());
 
+        if (!user.getIsActive()) {
+            throw new RuntimeException("User account is inactive. Cannot change password.");
+        }
+
         try{
             user.setPassword(passwordEncoder.encode(passwordRequest.getNewPassword()));
             userRepository.save(user);
@@ -269,11 +282,17 @@ public class UserService implements UserDetailsService {
     }
 
     public List<UserDetailsResponse> getAllUsers() {
-        List<User> users = userRepository.findAll();
+        List<User> users = userRepository.findAll()
+                .stream()
+                .filter(User::getIsActive) // Only active users
+                .toList();
         return users.stream().map(this::convertUserDetails).toList();
     }
 
-    public List<UserResponse> getStudentsByCourseAndAdmin(Long adminId, Long courseId) {
+
+    public List<UserResponse> getStudentsByCourseAndAdmin(String authorizationHeader, Long courseId) {
+        String token = authorizationHeader.substring(7);
+        Long adminId = jwtUtil.extractUserId(token);
         // Ensure the admin exists
         User admin = userRepository.findById(adminId)
                 .orElseThrow(() -> new IllegalArgumentException("Admin not found"));
@@ -296,7 +315,6 @@ public class UserService implements UserDetailsService {
                 .filter(user -> "STUDENT".equalsIgnoreCase(user.getRole().getRoleName()) && Objects.equals(user.getManagedBy(), admin)) // Only students assigned to this admin
                 .map(user -> {
                     UserResponse response = new UserResponse();
-                    response.setId(user.getId());
                     response.setEmailAddress(user.getEmailAddress());
                     response.setFirstName(user.getFirstName());
                     response.setLastName(user.getLastName());
@@ -311,30 +329,63 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public void assignStudentToAdmin(Long adminId, Long studentId) {
+    public void assignStudentToAdmin(String authorizationHeader,  Long studentId) {
+        String token = authorizationHeader.substring(7);
+
+        Long adminId = jwtUtil.extractUserId(token);
+
         User admin = userRepository.findById(adminId)
                 .orElseThrow(() -> new IllegalArgumentException("Admin not found"));
 
         User student = userRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalArgumentException("Student not found"));
 
+        if (!student.getIsActive()) {
+            throw new RuntimeException("Cannot assign an inactive student to an admin.");
+        }
+
         // Assign student to the admin
         student.setManagedBy(admin);
         userRepository.save(student);
     }
 
-
-
     public void deleteUserById(Long userId) {
-        if (!userRepository.existsById(userId)) {
-            throw new RuntimeException("User not found");
-        }
-        userRepository.deleteById(userId);
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setIsActive(false); // Mark as inactive instead of deleting
+        userRepository.save(user);
     }
 
-    public UserDetailsResponse getEachUserById(Long userId) {
+    public UserDetailsResponse getUserProfile(String authorizationHeader) {
+        String token = authorizationHeader.substring(7);
+        Long userId = jwtUtil.extractUserId(token);
+
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("Student not found"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!user.getIsActive()) {
+            throw new RuntimeException("User account is inactive.");
+        }
+
+        return convertUserDetails(user);
+    }
+
+    @Transactional
+    public String updateUserStatus(Long userId, boolean isActive) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setIsActive(isActive);
+        userRepository.save(user);
+
+        return "User status updated successfully: " + (isActive ? "Active" : "Inactive");
+    }
+
+
+    public UserDetailsResponse getUserbyEmailAddress(String emailAddress) {
+        User user = userRepository.findByEmailAddress(emailAddress);
 
         return convertUserDetails(user);
     }

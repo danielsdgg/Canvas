@@ -24,9 +24,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UserResponse> editUser(@PathVariable Long id, @RequestBody UserRequest userRequest){
-        UserResponse userResponse = userService.editUser(id, userRequest);
+    @PutMapping
+    public ResponseEntity<UserResponse> editUser(@RequestHeader("Authorization") String authorizationHeader, @RequestBody UserRequest userRequest){
+        UserResponse userResponse = userService.editUser(authorizationHeader, userRequest);
         return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 
@@ -63,24 +63,33 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<UserDetailsResponse> getUserById(@PathVariable Long userId) {
-        UserDetailsResponse userDetails = userService.getEachUserById(userId);
+    @GetMapping("/profile")
+    public ResponseEntity<UserDetailsResponse> getUserById(@RequestHeader("Authorization") String authorizationHeader) {
+        UserDetailsResponse userDetails = userService.getUserProfile(authorizationHeader);
+        return ResponseEntity.ok(userDetails);
+    }
+
+    @GetMapping("/{emailAddress}")
+    public ResponseEntity<UserDetailsResponse> getUserByEmail(@PathVariable String emailAddress) {
+        UserDetailsResponse userDetails = userService.getUserbyEmailAddress(emailAddress);
         return ResponseEntity.ok(userDetails);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/students")
     public ResponseEntity<List<UserResponse>> getStudentsByCourseAndAdmin(
-            @RequestParam Long adminId,
+            @RequestHeader("Authorization") String authorizationHeader,
             @RequestParam Long courseId) {
-        List<UserResponse> students = userService.getStudentsByCourseAndAdmin(adminId, courseId);
+        List<UserResponse> students = userService.getStudentsByCourseAndAdmin(authorizationHeader, courseId);
         return ResponseEntity.ok(students);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/assign-student")
-    public ResponseEntity<String> assignStudentToAdmin(@RequestBody AssignStudentRequest request) {
-        userService.assignStudentToAdmin(request.getAdminId(), request.getStudentId());
+    public ResponseEntity<String> assignStudentToAdmin(
+            @RequestHeader("Authorization") String authorizationHeader,
+            @RequestBody AssignStudentRequest request) {
+        userService.assignStudentToAdmin(authorizationHeader, request.getStudentId());
         return ResponseEntity.ok("Student assigned to admin successfully.");
     }
 
@@ -91,5 +100,15 @@ public class UserController {
         userService.deleteUserById(userId);
         return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
     }
+
+
+    @PutMapping("/{userId}/status")
+    public ResponseEntity<String> updateUserStatus(
+            @PathVariable Long userId,
+            @RequestParam boolean isActive) {
+        String response = userService.updateUserStatus(userId, isActive);
+        return ResponseEntity.ok(response);
+    }
+
 
 }

@@ -7,6 +7,5 @@ import lombok.Setter;
 @Setter
 public class AssignmentSubmissionRequest {
     private Long assignmentId;
-    private Long userId;
     private String fileUrl;
 }

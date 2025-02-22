@@ -26,9 +26,9 @@ export default function AppRoutes(){
 
                 {/* Main Content */}
                 <div className="flex-grow">
-                {userData?.role.toLowerCase() === 'student' && <Clientroutes/>}
-                {userData?.role.toLowerCase() === 'admin' && <Adminroutes/>}
-                {userData?.role.toLowerCase() === 'superadmin' && <Superadmin/>}
+                {userData?.userDetails.role.toLowerCase() === 'student' && <Clientroutes/>}
+                {userData?.userDetails.role.toLowerCase() === 'admin' && <Adminroutes/>}
+                {userData?.userDetails.role.toLowerCase() === 'superadmin' && <Superadmin/>}
                 </div>
             </div>
     

@@ -54,7 +54,7 @@ const Admindashboard: React.FC = () => {
   };
 
   const displayStudentList = courses?.map(course => {
-    return <StudentListCard key={course.id}courseName={course.courseName} id ={course.id}/>
+    return <StudentListCard key={course.id} courseName={course.courseName} id ={course.id}/>
   })
 
   if (loading) {

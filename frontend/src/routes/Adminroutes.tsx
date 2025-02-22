@@ -74,7 +74,7 @@ const Adminroutes = () => {
             <Route path="/courses/:courseId" element={<CourseDetails />} />
             <Route path="/courses/:courseId/lessons/:lessonId" element={<LessonPage />} />
             <Route path="*" element={<div className="p-6 text-center">404: Page Not Found</div>}/>
-            <Route path="/user/:userId" element={<UserDetail />} /> 
+            <Route path="/user/:emailAddress" element={<UserDetail />} /> 
 
 
             {/* data science pages */}

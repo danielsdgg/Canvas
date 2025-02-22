@@ -17,7 +17,7 @@ export default function StudentListCard({id, courseName}: Courses){
 
     const fetchStudents = async () => {
         try {
-          const response = await fetch(`/api/v1/users/students?adminId=${userData?.userDetails.id}&courseId=${id}`, {
+          const response = await fetch(`/api/v1/users/students?courseId=${id}`, {
             headers: {
               Authorization: `Bearer ${userToken}`,
             },
@@ -61,7 +61,7 @@ export default function StudentListCard({id, courseName}: Courses){
                         >
                           <td className="px-4 py-3 text-center">
                             <NavLink
-                              to={`/user/${student.id}`}
+                              to={`/user/${student.emailAddress}`}
                               className="text-yellow-300 hover:text-yellow-500 font-semibold transition"
                             >
                               {student.firstName}
