@@ -93,7 +93,7 @@ const UserDetail: React.FC = () => {
     if (grade === undefined || feedback === undefined) return;
 
     try {
-      const response = await fetch('http://localhost:8080/api/v1/assignments/grade', {
+      const response = await fetch('/api/v1/assignments/grade', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
