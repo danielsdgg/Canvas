@@ -139,7 +139,6 @@ public class CourseService {
 
     private UserResponse mapToUserResponse(User user) {
         UserResponse userResponse = new UserResponse();
-        userResponse.setId(user.getId());
         userResponse.setEmailAddress(user.getEmailAddress());
         userResponse.setLastName(user.getLastName());
         userResponse.setFirstName(user.getFirstName());

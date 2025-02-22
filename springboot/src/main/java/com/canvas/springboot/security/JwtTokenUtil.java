@@ -22,6 +22,7 @@ public class JwtTokenUtil {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList()));
 
+        claims.put("id", user.getId());
         return createToken(claims, user.getEmailAddress());
     }
 
@@ -64,5 +65,10 @@ public class JwtTokenUtil {
 
     private Date getExpirationDateFromToken(String token) {
         return extractAllClaims(token).getExpiration();
+    }
+
+    public Long extractUserId(String token) {
+        Claims claims = extractAllClaims(token);
+        return claims.get("id", Long.class); // Extract the "id" claim
     }
 }

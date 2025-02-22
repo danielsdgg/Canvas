@@ -11,6 +11,7 @@ import com.canvas.springboot.models.responses.GradeSubmissionResponse;
 import com.canvas.springboot.repositories.AssignmentSubmissionRepository;
 import com.canvas.springboot.repositories.AssignmentRepository;
 import com.canvas.springboot.repositories.UserRepository;
+import com.canvas.springboot.security.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,12 +32,19 @@ public class AssignmentSubmissionService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
     @Transactional
-    public AssignmentSubmissionResponse submitAssignment(AssignmentSubmissionRequest request) {
+    public AssignmentSubmissionResponse submitAssignment(String authorizationHeader, AssignmentSubmissionRequest request) {
         // Fetch the assignment and user
+        String token = authorizationHeader.substring(7);
+        Long adminId = jwtTokenUtil.extractUserId(token);
+
         Assignments assignment = assignmentRepository.findById(request.getAssignmentId())
                 .orElseThrow(() -> new IllegalArgumentException("Assignment not found"));
-        User user = userRepository.findById(request.getUserId())
+
+        User user = userRepository.findById(adminId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         // Check if the user has already submitted the assignment
@@ -61,8 +69,9 @@ public class AssignmentSubmissionService {
 
 
 
-    public List<AssignmentSubmissionResponse> getSubmissionsByUserId(Long userId) {
-        List<AssignmentSubmission> submissions = submissionRepository.findByUserId(userId);
+    public List<AssignmentSubmissionResponse> getSubmissionsByUserEmailAddress(String emailAddress) {
+
+        List<AssignmentSubmission> submissions = submissionRepository.findByUserEmailAddress(emailAddress);
 
         if (submissions.isEmpty()) {
             throw new IllegalArgumentException("No submissions found for this user");

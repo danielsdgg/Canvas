@@ -53,11 +53,11 @@ export const loginUser = async (emailAddress: string, password: string, navigate
     await storeData('userInfo', userdata);
     await storeData('userToken', userdata.token);
 
-    if (userdata.role === "STUDENT"){
+    if (userdata.userDetails.role === "STUDENT"){
       navigate("/dashboard")
-    } else if (userdata.role === 'ADMIN') {
+    } else if (userdata.userDetails.role === 'ADMIN') {
       navigate("/admin-dashboard")
-    } else if (userdata.role === 'superadmin') {
+    } else if (userdata.userDetails.role === 'superadmin') {
       navigate("/superdashboard")
     }
 
@@ -79,13 +79,8 @@ export const logoutUser = async (navigate: (path:string) => void) => {
   navigate("/");
 };
 
-export const getEachUser = async (token: string | null, id: number | undefined): Promise<UserDetailsResponse | null> => {
-  if (!id) {
-    console.error('User ID is undefined. Cannot fetch user details.');
-    return null;
-  }
-
-  const url = axiosInstance.getUri() + `/api/v1/users/${id}`;
+export const getEachUser = async (token: string | null): Promise<UserDetailsResponse | null> => {
+  const url = axiosInstance.getUri() + "/api/v1/users/profile";
   console.log("Fetching user details from URL:", url);
   console.log("Authorization token:", token);
 

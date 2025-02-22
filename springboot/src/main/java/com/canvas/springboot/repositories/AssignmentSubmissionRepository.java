@@ -13,6 +13,7 @@ import java.util.Optional;
 public interface AssignmentSubmissionRepository extends JpaRepository<AssignmentSubmission, Long> {
     List<AssignmentSubmission> findByUserIdAndIsGradedTrue(Long userId);
     List<AssignmentSubmission> findByIsGradedTrue();
-    List<AssignmentSubmission> findByUserId(Long userId);
+//    List<AssignmentSubmission> findByUserId(Long userId);
+    List<AssignmentSubmission> findByUserEmailAddress(String emailAddress);
     Optional<AssignmentSubmission> findByAssignmentAndUser(Assignments assignment, User user);
 }

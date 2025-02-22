@@ -73,11 +73,11 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const navigateApp = (userData:UserResponse) => {
-    if (userData?.role === "STUDENT"){
+    if (userData?.userDetails.role === "STUDENT"){
       navigate("/dashboard")
-    } else if (userData?.role === "ADMIN"){
+    } else if (userData?.userDetails.role === "ADMIN"){
       navigate('/admin-dashboard')
-    } else if (userData?.role === 'superadmin'){
+    } else if (userData?.userDetails.role === 'superadmin'){
       navigate('/superdashboard')
     }
   }
@@ -94,7 +94,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       handleLogout, 
       userToken, 
       userData, 
-      userRole: userData?.role || null // <-- Extract userRole from userData
+      userRole: userData?.userDetails.role || null // <-- Extract userRole from userData
     }}>
       {children}
     </AuthContext.Provider>

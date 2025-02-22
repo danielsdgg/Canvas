@@ -22,8 +22,10 @@ public class AssignmentSubmissionController {
    private AssignmentSubmissionService assignmentService;
 
     @PostMapping("/submit")
-    public ResponseEntity<String> submitAssignment(@RequestBody AssignmentSubmissionRequest request) {
-        assignmentService.submitAssignment(request);
+    public ResponseEntity<String> submitAssignment(
+            @RequestHeader("Authorization") String authorizationHeader,
+            @RequestBody AssignmentSubmissionRequest request) {
+        assignmentService.submitAssignment(authorizationHeader, request);
         return ResponseEntity.status(HttpStatus.CREATED).body("Assignment submitted successfully");
     }
 
@@ -47,9 +49,10 @@ public class AssignmentSubmissionController {
         return ResponseEntity.ok(results);
     }
 
-    @GetMapping("/submissions/{userId}")
-    public ResponseEntity<List<AssignmentSubmissionResponse>> getSubmissionsByUserId(@PathVariable Long userId) {
-        List<AssignmentSubmissionResponse> getSubmissions = assignmentService.getSubmissionsByUserId(userId);
+    @GetMapping("/submission/{emailAddress}")
+    public ResponseEntity<List<AssignmentSubmissionResponse>> getSubmissionsByUserId(
+            @PathVariable String emailAddress) {
+        List<AssignmentSubmissionResponse> getSubmissions = assignmentService.getSubmissionsByUserEmailAddress(emailAddress);
         return new ResponseEntity<>(getSubmissions, HttpStatus.OK);
     }
 
@@ -59,7 +62,5 @@ public class AssignmentSubmissionController {
         List<AssignmentSubmissionResponse> assignmentSubmissionResponses = assignmentService.getAllSubmissions();
         return new ResponseEntity<>(assignmentSubmissionResponses, HttpStatus.OK);
     }
-
-
 
 }

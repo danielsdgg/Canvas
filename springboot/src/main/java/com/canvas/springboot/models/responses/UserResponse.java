@@ -7,7 +7,6 @@ import java.util.List;
 
 @Data
 public class UserResponse {
-    private Long id;
     private String emailAddress;
     private String firstName;
     private String lastName;

@@ -23,7 +23,7 @@ interface User {
 }
 
 const UserDetail: React.FC = () => {
-  const { userId } = useParams<{ userId: string }>();
+  const { emailAddress } = useParams<{ emailAddress: string }>();
   const [user, setUser] = useState<User | null>(null);
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const { userToken } = useAuth();
@@ -34,7 +34,7 @@ const UserDetail: React.FC = () => {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await fetch(`/api/v1/users/${userId}`, {
+        const response = await fetch(`http://localhost:8080/api/v1/users/${emailAddress}`, {
           headers: {
             Authorization: `Bearer ${userToken}`,
           },
@@ -54,7 +54,7 @@ const UserDetail: React.FC = () => {
 
     const fetchSubmissions = async () => {
       try {
-        const response = await fetch(`/api/v1/assignments/submissions/${userId}`, {
+        const response = await fetch(`http://localhost:8080/api/v1/assignments/submission/${emailAddress}`, {
           headers: {
             Authorization: `Bearer ${userToken}`,
           },
@@ -72,11 +72,11 @@ const UserDetail: React.FC = () => {
       }
     };
 
-    if (userId) {
+    if (emailAddress) {
       fetchUserDetails();
       fetchSubmissions();
     }
-  }, [userId, userToken]);
+  }, [emailAddress, userToken]);
 
   const handleGradeChange = (submissionId: number, field: 'grade' | 'feedback', value: any) => {
     setGrading((prev) => ({

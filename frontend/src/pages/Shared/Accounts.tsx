@@ -25,15 +25,9 @@ const Account: React.FC = () => {
           console.error("User token is missing.");
           return;
         }
-        if (!userData?.userDetails?.id) {
-          console.error("User ID is missing.");
-          return;
-        }
-
-        console.log("Fetching details for user ID:", userData.userDetails.id);
 
         setIsLoading(true); // Start loading when fetching
-        const response = await getEachUser(userToken, userData.userDetails.id);
+        const response = await getEachUser(userToken);
         if (response) {
           setProfile(response);
           setFormValues({
@@ -64,7 +58,7 @@ const Account: React.FC = () => {
     if (!userData?.userDetails?.id || !userToken) return;
     try {
       const userId = userData.userDetails.id; // The ID of the user
-      const url = `/api/v1/users/${userId}`;
+      const url = `/api/v1/users`;
       const response = await axios.put(
         url,
         {
@@ -177,7 +171,7 @@ const Account: React.FC = () => {
             </div>
             <div>
               <label className="text-gray-700 font-medium">Role</label>
-              <p className="text-gray-900 font-semibold">{userData?.role}</p>
+              <p className="text-gray-900 font-semibold">{userData?.userDetails.role}</p>
             </div>
             <div>
               <label className="text-gray-700 font-medium">Joined Date</label>
