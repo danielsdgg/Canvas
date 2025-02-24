@@ -133,7 +133,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (!userToken) return;
     const interval = setInterval(() => {
       refreshAccessToken();
-    }, 10 * 60 * 1000); // 10 minutes
+    }, 30 * 60 * 1000); // 30 minutes
 
     return () => clearInterval(interval);
   }, [userToken]);

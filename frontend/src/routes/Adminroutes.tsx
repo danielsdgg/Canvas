@@ -12,7 +12,7 @@ import CourseDetails from "../components/CourseDetails";
 import UserDetail from '../pages/Shared/UserDetail';
 
 
-//   FRONTEND ROUTES
+//   Frontend lessons
 import Lesson1 from '../pages/Frontend/Lesson1';
 import Lesson2 from '../pages/Frontend/Lesson2';
 import Lesson3 from '../pages/Frontend/Lesson3';
@@ -55,6 +55,10 @@ import Date8 from '../pages/Frontend/Lesson3-pages/Date8';
 import Date9 from '../pages/Frontend/Lesson3-pages/Date9';
 import Date10 from '../pages/Frontend/Lesson3-pages/Date10';
 
+// backend lessons
+import Leson1 from '../pages/Backend/Leson1';
+import Leson2 from '../pages/Backend/Leson2';
+
 
 //   DATA SCIENCE ROUTES
 
@@ -77,7 +81,9 @@ const Adminroutes = () => {
             <Route path="/user/:emailAddress" element={<UserDetail />} /> 
 
 
-            {/* data science pages */}
+            {/* backend lessons*/}
+            <Route path="/courses/:courseId/lessons/5" element={<Leson1 />} />
+            <Route path="/courses/:courseId/lessons/6" element={<Leson2 />} />
 
             {/* frontend lessons */}
             <Route path="/courses/:courseId/lessons/1" element={<Lesson1 />} />

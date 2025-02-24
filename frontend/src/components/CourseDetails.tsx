@@ -156,7 +156,7 @@ const CourseDetails: React.FC = () => {
             <p className="text-red-500 text-xl font-semibold">Course not found</p>
           )}
         </div>
-        <header className="mt-16 text-xl text-center">Students enrolled to this course</header>
+        {/* <header className="mt-16 text-xl text-center">Students enrolled to this course</header>
         <table className="min-w-full text-left text-sm sm:text-base mt-16">
                         <thead>
                           <tr className="bg-yellow-100">
@@ -185,7 +185,7 @@ const CourseDetails: React.FC = () => {
                             </tr>
                           ))}
                         </tbody>
-                      </table>
+                      </table> */}
       </div>
     </>
   );

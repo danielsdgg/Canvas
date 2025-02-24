@@ -55,6 +55,11 @@ import Date8 from '../pages/Frontend/Lesson3-pages/Date8';
 import Date9 from '../pages/Frontend/Lesson3-pages/Date9';
 import Date10 from '../pages/Frontend/Lesson3-pages/Date10';
 
+// backend lessons
+// backend lessons
+import Leson1 from '../pages/Backend/Leson1';
+import Leson2 from '../pages/Backend/Leson2';
+
 
 
 const Clientroutes = () => {
@@ -74,10 +79,15 @@ const Clientroutes = () => {
                     <Route path="/user/:userId" element={<UserDetail />} />
                     <Route path="*" element={<Grade />} /> 
 
+
+                    {/* backend lessons*/}
+                    <Route path="/courses/:courseId/lessons/5" element={<Leson1 />} />
+                    <Route path="/courses/:courseId/lessons/6" element={<Leson2 />} />
+
                      {/* frontend lessons */}
-            <Route path="/courses/:courseId/lessons/1" element={<Lesson1 />} />
-            <Route path="/courses/:courseId/lessons/2" element={<Lesson2 />} />
-            <Route path="/courses/:courseId/lessons/3" element={<Lesson3 />} />
+                     <Route path="/courses/:courseId/lessons/1" element={<Lesson1 />} />
+                     <Route path="/courses/:courseId/lessons/2" element={<Lesson2 />} />
+                     <Route path="/courses/:courseId/lessons/3" element={<Lesson3 />} />
             
             
             {/* frontend pages here */}

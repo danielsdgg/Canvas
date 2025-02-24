@@ -11,7 +11,6 @@ import { Route,Routes } from 'react-router-dom'
 import Superdashboard from '../pages/Superadmin/Superdashboard'
 //   FRONTEND ROUTES
 
-import Lesson11 from "../pages/Frontend/Lesson11";
 import Lesson12 from "../pages/Frontend/Lesson12";
 
 //   DATA SCIENCE ROUTES
@@ -33,7 +32,6 @@ const Superadmin = () => {
 
             {/* frontend pages */}
 
-            <Route path="/courses/:courseId/lessons/lesson11" element={<Lesson11/>} />
             <Route path="/courses/:courseId/lessons/lesson12" element={<Lesson12/>} />
         </Routes>
     </div>
