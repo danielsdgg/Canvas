@@ -15,13 +15,13 @@ interface Submission {
 const Grade: React.FC = () => {
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const { userToken, userData } = useAuth();
-  const userId = userData?.userDetails.id;
+  const emailAddress = userData?.userDetails.emailAddress;
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchSubmissions = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/v1/assignments/submissions/${userId}`, {
+        const response = await fetch(`http://localhost:8080/api/v1/assignments/submission/${emailAddress}`, {
           headers: {
             Authorization: `Bearer ${userToken}`,
           },
@@ -39,10 +39,10 @@ const Grade: React.FC = () => {
       }
     };
 
-    if (userId) {
+    if (emailAddress) {
       fetchSubmissions();
     }
-  }, [userId, userToken]);
+  }, [emailAddress, userToken]);
 
   return (
     <>

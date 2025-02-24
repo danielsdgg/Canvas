@@ -7,6 +7,7 @@ export interface UserResponse {
         role: string;
     }
     token: string;
+    refreshToken: string;
     
   }
 
