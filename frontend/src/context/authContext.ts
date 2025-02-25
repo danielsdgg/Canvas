@@ -5,22 +5,24 @@ import { UserResponse } from '../models/responses/User';
 // Define AuthContextType interface
 export interface AuthContextType {
     isLoading: boolean;
-    handleLogin: (email: string, password: string) => Promise<boolean>; 
+    handleLogin: (email: string, password: string) => Promise<{ success: boolean; message?: string }>;
     handleLogout: () => void;
     userToken: string | null;
     userData: UserResponse | null;
-    userRole: string | null;  
+    userRole: string | null;
+
 
 }
 
 // Create AuthContext with default values
 export const AuthContext = createContext<AuthContextType>({
     isLoading: false,
-    handleLogin: async () => false,
+    handleLogin: async () => ({ success: false, message: 'Default login function' }),
     handleLogout: () => {},
     userToken: null,
     userData: null,
     userRole: null, 
+
 
 });
 

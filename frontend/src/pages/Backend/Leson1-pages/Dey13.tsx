@@ -201,6 +201,14 @@ def is_valid_email(email):
           This project provides a hands-on way to practice **Python fundamentals**, **OOP**, **inheritance**, **regex**, and **SQLAlchemy**.
           Completing this will solidify your understanding of databases and Python programming concepts.
         </p>
+
+        {/* Words of Encouragement */}
+      <section className="mb-6 text-center">
+        <h2 className="text-2xl font-semibold mb-2 mt-5">You're nearly there!</h2>
+        <p className="italic">
+          Congratulations..! You have learnt the python basics and fundamentals,, this is a good foundation. Now you are ready to learn Flask - A python framework and use it to build incredible programs. See you in the next lesson 🚀
+        </p>
+      </section>
       </section>
     </>
   );

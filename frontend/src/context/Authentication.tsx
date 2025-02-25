@@ -4,6 +4,7 @@ import { getData, storeData, removeData } from '../hooks/idbHelpers';
 import { AuthContext, AuthProviderProps } from './authContext';
 import { UserResponse } from '../models/responses/User';
 import { loginUser, logoutUser } from '../services/User';
+import Alert from '../components/Alert';
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const navigate = useNavigate();
@@ -11,30 +12,31 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [userToken, setUserToken] = useState<string | null>(null);
   const [userData, setUserData] = useState<UserResponse | null>(null);
 
-  const handleLogin = async (emailAddress: string, password: string): Promise<boolean> => {
+  const handleLogin = async (emailAddress: string, password: string): Promise<{ success: boolean; message?: string }> => {
     setIsLoading(true);
     try {
       const userdata = await loginUser(emailAddress, password, navigate);
-      if (!userdata) return false;
-
-      await storeData('userToken', userdata.token);
-      await storeData('userInfo', userdata);
-      await storeData('refreshToken', userdata.refreshToken);
-
-      console.log(userdata.refreshToken, userdata.token);
-
+      if (!userdata) {
+        return { success: false, message: "Invalid credentials" };
+      }
+  
+      await storeData("userToken", userdata.token);
+      await storeData("userInfo", userdata);
+      await storeData("refreshToken", userdata.refreshToken);
+  
       setUserData(userdata);
       setUserToken(userdata.token ?? null);
       
       navigateApp(userdata);
-      return true;
+      return { success: true };
     } catch (error) {
-      console.error('Login error:', error);
-      return false;
+      console.error("Login error:", error);
+      return { success: false, message: "Login failed. Please try again." };
     } finally {
       setIsLoading(false);
     }
   };
+  
 
   const handleLogout = async () => {
     try {
@@ -115,9 +117,11 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         // Store the new tokens locally
         await storeData('userToken', token);
         await storeData('refreshToken', refreshToken);
+        console.log(token, refreshToken);
   
         // Update the state with the new token
         setUserToken(token);
+        console.log(userToken);
       } else {
         throw new Error('Failed to refresh token.');
       }
@@ -133,7 +137,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (!userToken) return;
     const interval = setInterval(() => {
       refreshAccessToken();
-    }, 20 * 60 * 1000); // 20 minutes
+    }, 25 * 60 * 1000); // 25 minutes
 
     return () => clearInterval(interval);
   }, [userToken]);
@@ -151,6 +155,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         userToken,
         userData,
         userRole: userData?.userDetails?.role || null,
+
       }}
     >
       {children}

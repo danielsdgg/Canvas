@@ -54,15 +54,11 @@ export default function StudentListCard({id, courseName}: Courses){
                     </thead>
                     <tbody>
                       {students.map((student) => (
-                        <tr
-                          key={student.id}
-                          className="border border-gray-600 hover:bg-yellow-500/30 transition duration-300"
-                        >
+                        <tr key={student.id || student.emailAddress} // ✅ Fixed key issue
+                        className="border border-gray-600 hover:bg-yellow-500/30 transition duration-300">
                           <td className="px-4 py-3 text-center">
-                            <NavLink
-                              to={`/user/${student.emailAddress}`}
-                              className="text-yellow-300 hover:text-yellow-500 font-semibold transition"
-                            >
+                            <NavLink to={`/user/${student.emailAddress}`}
+                            className="text-yellow-300 hover:text-yellow-500 font-semibold transition">
                               {student.firstName}
                             </NavLink>
                           </td>
@@ -72,8 +68,8 @@ export default function StudentListCard({id, courseName}: Courses){
                           <td className="px-4 py-3 text-center">{new Date(student.createdAt).toLocaleDateString()}</td>
                           <td className="px-4 py-3 text-center">{student.role}</td>
                         </tr>
-                      ))}
-                    </tbody>
+                        ))}
+                      </tbody>
                   </table>
                 </div>
               </div>

@@ -3,19 +3,35 @@ import { AuthContext } from '../../context/Authentication';
 import Logo from '../../assets/new_logo.jpg';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../api/api';
+import Alert from '../../components/Alert';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const [showResetModal, setShowResetModal] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
   const [newpassword, setNewPassword] = useState('');
   const [message, setMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
+  // const [showAlert, setShowAlert] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const { handleLogin } = useContext(AuthContext);
+  
+  const { handleLogin, isLoading } = useContext(AuthContext);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    setErrorMessage(""); 
+    const response = await handleLogin(email, password);
+
+    if (!response.success) {
+      setErrorMessage(response.message || "Invalid credentials");
+    }
+  };
 
   const handlePasswordReset = async () => {
     const url = axiosInstance.getUri() + "/api/v1/users/change-password";
@@ -25,7 +41,7 @@ const Login: React.FC = () => {
         newPassword: newpassword
     };
     console.log(passwordRequest);
-    setIsLoading(true);
+    setLoading(true);
     
     try {
         const response = await fetch(url, {
@@ -41,6 +57,7 @@ const Login: React.FC = () => {
         if (!response.ok) {
             let errorMessage = "Failed to change password";
             
+            // Check if response is JSON
             if (contentType && contentType.includes("application/json")) {
                 const errorData = await response.json();
                 errorMessage = errorData.message || errorMessage;
@@ -52,6 +69,7 @@ const Login: React.FC = () => {
             throw new Error(errorMessage);
         }
 
+        // Check if the response is JSON before parsing
         let data;
         if (contentType && contentType.includes("application/json")) {
             data = await response.json();
@@ -62,12 +80,13 @@ const Login: React.FC = () => {
         setSuccessMessage('Password changed successfully');
         setTimeout(() => {
             setSuccessMessage('');
-            setShowResetModal(false);
-            navigate('/login');
+            setShowResetModal(false); // Close modal
+            navigate('/login'); // Redirect to login
         }, 3000);
       } catch (error) {
         console.error('Password reset error:', error);
         
+        // Ensure error is an instance of Error before accessing message
         if (error instanceof Error) {
             setMessage(error.message);
         } else {
@@ -76,17 +95,16 @@ const Login: React.FC = () => {
     }
   };
 
-  const handleLoginClick = async () => {
-    const success = await handleLogin(email, password);
-    if (success) {
-      setMessage('Successfully logged in!');
-    } else {
-      setMessage('Invalid email or password. Please try again.');
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
+              {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+
+      {/* {loading && showAlert ? (
+  <Alert message="Loading..." type="success" onClose={() => setShowAlert(false)} />
+) : null} */}
+
+      {/* Header Section */}
       <div className="text-center mb-6">
         <img src={Logo} alt="Organization Logo" className="mx-auto w-32 h-32" />
         <h1 className="text-xl font-light italic mt-4 text-gray-800">
@@ -94,8 +112,9 @@ const Login: React.FC = () => {
         </h1>
       </div>
       
+      {/* Login Form */}
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
               Email Address
@@ -110,12 +129,12 @@ const Login: React.FC = () => {
             <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password" className="w-full mt-1 p-3 border border-gray-300 rounded-lg" />
           </div>
-          <button type="button" onClick={handleLoginClick}
+          <button type="button" onClick={() => handleLogin(email, password)} disabled={isLoading}
             className="w-full py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600">
-            Login
+            
+            {isLoading ? "Logging in..." : "Login"}
           </button>
         </form>
-        {message && <p className="text-center mt-3 text-red-500">{message}</p>}
         
         <div className="mt-6 text-sm text-gray-600 text-center">
           <p>
@@ -129,6 +148,7 @@ const Login: React.FC = () => {
         </div>
       </div>
 
+      {/* Password Reset Modal */}
       {showResetModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
@@ -137,9 +157,10 @@ const Login: React.FC = () => {
               className="w-full p-2 mb-3 border border-gray-300 rounded-lg" />
             <input type="password" placeholder="Enter new password" value={newpassword} onChange={(e) => setNewPassword(e.target.value)}
               className="w-full p-2 mb-3 border border-gray-300 rounded-lg" />
-            <button onClick={handlePasswordReset} className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
-              Change Password
-            </button>
+           <button onClick={handlePasswordReset} className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
+    Change Password
+</button>
+
             <button onClick={() => setShowResetModal(false)} className="w-full mt-2 text-gray-700 hover:underline">
               Cancel
             </button>
