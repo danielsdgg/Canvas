@@ -58,6 +58,20 @@ import Date10 from '../pages/Frontend/Lesson3-pages/Date10';
 // backend lessons
 import Leson1 from '../pages/Backend/Leson1';
 import Leson2 from '../pages/Backend/Leson2';
+// lesson 1 pages
+import Dey1 from '../pages/Backend/Leson1-pages/Dey1';
+import Dey2 from '../pages/Backend/Leson1-pages/Dey2';
+import Dey3 from '../pages/Backend/Leson1-pages/Dey3';
+import Dey4 from '../pages/Backend/Leson1-pages/Dey4';
+import Dey5 from '../pages/Backend/Leson1-pages/Dey5';
+import Dey6 from '../pages/Backend/Leson1-pages/Dey6';
+import Dey7 from '../pages/Backend/Leson1-pages/Dey7';
+import Dey8 from '../pages/Backend/Leson1-pages/Dey8';
+import Dey9 from '../pages/Backend/Leson1-pages/Dey9';
+import Dey10 from '../pages/Backend/Leson1-pages/Dey10';
+import Dey11 from '../pages/Backend/Leson1-pages/Dey11';
+import Dey12 from '../pages/Backend/Leson1-pages/Dey12';
+import Dey13 from '../pages/Backend/Leson1-pages/Dey13';
 
 
 //   DATA SCIENCE ROUTES
@@ -129,6 +143,22 @@ const Adminroutes = () => {
             <Route path='/fdl3day8' element={<Date8/>} />
             <Route path='/fdl3day9' element={<Date9/>} />
             <Route path='/fdl3day10' element={<Date10/>} />
+
+            {/* backend pages here */}
+            {/* lesson 1 */}
+            <Route path='/sdl1day1' element={<Dey1/>} />
+            <Route path='/sdl1day2' element={<Dey2/>} />
+            <Route path='/sdl1day3' element={<Dey3/>} />
+            <Route path='/sdl1day4' element={<Dey4/>} />
+            <Route path='/sdl1day5' element={<Dey5/>} />
+            <Route path='/sdl1day6' element={<Dey6/>} />
+            <Route path='/sdl1day7' element={<Dey7/>} />
+            <Route path='/sdl1day8' element={<Dey8/>} />
+            <Route path='/sdl1day9' element={<Dey9/>} />
+            <Route path='/sdl1day10' element={<Dey10/>} />
+            <Route path='/sdl1day11' element={<Dey11/>} />
+            <Route path='/sdl1day12' element={<Dey12/>} />
+            <Route path='/sdl1day13' element={<Dey13/>} />
 
         </Routes>
     </div>

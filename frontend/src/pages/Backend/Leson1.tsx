@@ -204,7 +204,7 @@ const Leson1:React.FC = () => {
                     {/* day 13 */}
                     <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                         <h3 className="text-xl font-bold text-center text-red-700 mb-4 underline">
-                            <Link to="/sdl1day12">Day 13: Lesson 1 Project</Link>
+                            <Link to="/sdl1day13">Day 13: Lesson 1 Project - Python</Link>
                         </h3>
                         <p className="text-gray-800 leading-relaxed">
                             Put you knowledge to the test by building a project
