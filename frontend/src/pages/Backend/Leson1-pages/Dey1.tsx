@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
-import { useAuth } from '../../../context/authContext'; // Assuming this exists in your project
+import { useAuth } from '../../../context/authContext'; 
 
 const Dey1: React.FC = () => {
     const navigate = useNavigate();
-    const { userData, userToken } = useAuth(); // Added for form submission
+    const { userData, userToken } = useAuth();
     
     // State for file upload
     const [submitted, setSubmitted] = useState(false);
