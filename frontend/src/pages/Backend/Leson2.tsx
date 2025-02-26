@@ -64,7 +64,7 @@ const Leson2:React.FC = () => {
                 openWeek === 2 ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700 hover:bg-blue-400 hover:text-white"
               }`}
             >
-              Week 2: Indepth Flask
+              Week 2: Indepth Flask & More
             </div>
             <div
               onClick={() => toggleDropdown(3)}
@@ -84,51 +84,51 @@ const Leson2:React.FC = () => {
                 {/* Day 1 */}
                 <div className="bg-indigo-50 shadow-lg rounded-lg p-6 md:p-8">
                   <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                    <Link to="/sdl1day1">Day 1: Introduction to Programming & Python Basics</Link>
+                    <Link to="/sdl2day1">Day 1: Introduction to Flask & Environment setup</Link>
                   </h3>
                   <p className="text-gray-800 leading-relaxed">
-                    Understanding programming, installing Python, and writing first scripts.
+                    Learn about the Flask framework, setting up a development environment, and creating your first Flask application
                   </p>
                 </div>
                 {/* Day 2 */}
                 <div className="bg-indigo-50 shadow-lg rounded-lg p-6 md:p-8">
                   <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                    <Link to="/sdl1day2">Day 2: Variables, Data Types & Operators</Link>
+                    <Link to="/sdl2day2">Day 2: Routing & Request handling</Link>
                   </h3>
                   <p className="text-gray-800 leading-relaxed">
-                    Discover working with numbers, strings, booleans, lists, tuples, and dictionaries
+                    Understand routing in Flask, handling requests, and working with query parameters
                   </p>
                 </div>
                  {/* Day 3 */}
             <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
               <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                <Link to="/sdl1day3">Day 3: Control Flow: Conditions & Loops</Link>
+                <Link to="/sdl2day3">Day 3: Forms & Handling User Inputs</Link>
               </h3>
               <p className="text-gray-800 leading-relaxed">
-                Using if-else statements, for loops, and while loops effectively
+                Handling form inputs in flask
               </p>
             </div>
 
             {/* day 4 */}
             <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
               <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                <Link to="/sdl1day4">Day 4: Functions & Modules</Link>
+                <Link to="/sdl2day4">Day 4: Flask & Databases</Link>
               </h3>
               <p className="text-gray-800 leading-relaxed">
-                Learn about defining functions, using built-in modules, and creating custom modules
+                Defining models using Flask-SQLAlchemy,CRUD operations, and database migrations
               </p>
             </div>
 
             {/* day 5 */}
             <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
               <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                <Link to="/sdl1day5">Day 5: Object-Oriented Programming (OOP)</Link>
+                <Link to="/sdl2day5">Day 5: Flask Blueprints & Application Structuring</Link>
               </h3>
               <p className="text-gray-800 leading-relaxed">
-                Introduction to classes, objects, inheritance, and polymorphism'Understanding classes, objects, inheritance, and encapsulation in Python
+                Understanding Flask blueprints, structuring your application, and working with multiple routes
               </p>
             </div>
-                {/* Add the rest of the days here */}
+
               </div>
             )}
 
@@ -137,49 +137,49 @@ const Leson2:React.FC = () => {
                 {/* Example Content for Week 2 */}
                 <div className="bg-purple-50 shadow-lg rounded-lg p-6 md:p-8">
                   <h3 className="text-xl font-bold text-center text-purple-700 mb-4 underline">
-                    <Link to="/sdl1day6">Day 6: Object Inheritance in python</Link>
+                    <Link to="/sdl2day6">Day 6: User Authentication & Authorization</Link>
                   </h3>
                   <p className="text-gray-800 leading-relaxed">
-                    Talk of inheritance,composition,subclass,superclass,child,parent,super() and decorators  in Python
+                    Implementing user authentication with flask-login,hashing passwords, and role-based access control(RBAC)
                   </p>
                 </div>
                 {/* day 7 */}
                 <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                   <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                    <Link to="/sdl1day7">Day 7: Regular expressions</Link>
+                    <Link to="/sdl2day7">Day 7: Flask Middleware & Request Hooks</Link>
                   </h3>
                   <p className="text-gray-800 leading-relaxed">
-                    Learn about the regex basics and do a practical test
+                    Understanding before_request, after_request, and teardown_request
                   </p>
                 </div>
 
                 {/* day 8 */}
                 <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                   <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                    <Link to="/sdl1day8">Day 8: Working with SQLite </Link>
+                    <Link to="/sdl2day8">Day 8: Working with Flask Restful APIs </Link>
                   </h3>
                   <p className="text-gray-800 leading-relaxed">
-                    Setting up databases, sqlite data types,table relations and performing CRUD operations using SQLite and how to work with it in Python
+                    Building RESTful APIs with Flask-RESTful
                   </p>
                 </div>
 
                 {/* day 9 */}
                 <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                   <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                    <Link to="/sdl1day9">Day 9: object relational mapping(ORM)</Link>
+                    <Link to="/sdl2day9">Day 9: Working with external APIs & Data Handling</Link>
                   </h3>
                   <p className="text-gray-800 leading-relaxed">
-                    Get in depth knowledge about ORM and how to use it in Python
+                    Fetching and sending data to third-party APIs, using requests and handling JSON data
                   </p>
                 </div>
 
                 {/* day 10 */}
                 <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                   <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                    <Link to="/sdl1day10">Day 10: Using sqlalchemy</Link>
+                    <Link to="/sdl2day10">Day 10: Error Handling & Debugging in Flask</Link>
                   </h3>
                   <p className="text-gray-800 leading-relaxed">
-                    Introduction to sqlalchemy, perfroming CRUD with sqlalchemy      
+                    Handling common flask errors, debugging, and logging    
                   </p>
                 </div>
               </div>
@@ -190,28 +190,19 @@ const Leson2:React.FC = () => {
                     {/* day 11 */}
                     <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                         <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                            <Link to="/sdl1day11">Day 11: Sqlalchemy relationships</Link>
+                            <Link to="/sdl2day11">Day 11: Deployment and best practices</Link>
                         </h3>
                         <p className="text-gray-800 leading-relaxed">
-                            Learn about the different types of relationships in sqlalchemy and how they work.
+                            Learn to prepare a flask app for production, best practices, and deployment strategies
                         </p>
                     </div>
                     {/* day 12 */}
                     <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
-                        <h3 className="text-xl font-bold text-center text-indigo-700 mb-4 underline">
-                            <Link to="/sdl1day12">Day 12: Data structures & Algorithims</Link>
-                        </h3>
-                        <p className="text-gray-800 leading-relaxed">
-                            Learn about data structures and algorithms in Python
-                        </p>
-                    </div>
-                    {/* day 13 */}
-                    <div className="bg-gray-100 shadow-lg rounded-lg p-6 md:p-8 max-w-4xl mx-auto">
                         <h3 className="text-xl font-bold text-center text-red-700 mb-4 underline">
-                            <Link to="/sdl1day12">Day 13: Lesson 1 Project</Link>
+                            <Link to="/sdl2day12">Day 12: Backend Lesson 2 Project</Link>
                         </h3>
                         <p className="text-gray-800 leading-relaxed">
-                            Put you knowledge to the test by building a project
+                            You are now a fullstack developer; build a fullstack project using Flask and React
                         </p>
                     </div>
                 </div>

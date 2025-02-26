@@ -72,6 +72,19 @@ import Dey10 from '../pages/Backend/Leson1-pages/Dey10';
 import Dey11 from '../pages/Backend/Leson1-pages/Dey11';
 import Dey12 from '../pages/Backend/Leson1-pages/Dey12';
 import Dey13 from '../pages/Backend/Leson1-pages/Dey13';
+// lesson 2 pages
+import Deyy1 from '../pages/Backend/Leson2-pages/Deyy1';
+import Deyy2 from '../pages/Backend/Leson2-pages/Deyy2';
+import Deyy3 from '../pages/Backend/Leson2-pages/Deyy3';
+import Deyy4 from '../pages/Backend/Leson2-pages/Deyy4';
+import Deyy5 from '../pages/Backend/Leson2-pages/Deyy5';
+import Deyy6 from '../pages/Backend/Leson2-pages/Deyy6';
+import Deyy7 from '../pages/Backend/Leson2-pages/Deyy7';
+import Deyy8 from '../pages/Backend/Leson2-pages/Deyy8';
+import Deyy9 from '../pages/Backend/Leson2-pages/Deyy9';
+import Deyy10 from '../pages/Backend/Leson2-pages/Deyy10';
+import Deyy11 from '../pages/Backend/Leson2-pages/Deyy11';
+import Deyy12 from '../pages/Backend/Leson2-pages/Deyy12';
 
 
 //   DATA SCIENCE ROUTES
@@ -159,6 +172,19 @@ const Adminroutes = () => {
             <Route path='/sdl1day11' element={<Dey11/>} />
             <Route path='/sdl1day12' element={<Dey12/>} />
             <Route path='/sdl1day13' element={<Dey13/>} />
+            {/* lesson 2 */}
+            <Route path='/sdl2day1' element={<Deyy1/>} />
+            <Route path='/sdl2day2' element={<Deyy2/>} />
+            <Route path='/sdl2day3' element={<Deyy3/>} />
+            <Route path='/sdl2day4' element={<Deyy4/>} />
+            <Route path='/sdl2day5' element={<Deyy5/>} />
+            <Route path='/sdl2day6' element={<Deyy6/>} />
+            <Route path='/sdl2day7' element={<Deyy7/>} />
+            <Route path='/sdl2day8' element={<Deyy8/>} />
+            <Route path='/sdl2day9' element={<Deyy9/>} />
+            <Route path='/sdl2day10' element={<Deyy10/>} />
+            <Route path='/sdl2day11' element={<Deyy11/>} />
+            <Route path='/sdl2day12' element={<Deyy12/>} />
 
         </Routes>
     </div>
