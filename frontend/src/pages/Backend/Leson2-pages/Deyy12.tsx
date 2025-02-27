@@ -219,7 +219,7 @@ api.add_resource(TaskAPI, '/api/task/<int:task_id>')`}
                     Incredible work! You’ve conquered the foundations of Flask, tackled complex concepts like authentication, APIs, and deployment, and built a full-stack app with React. This journey is proof of your resilience and passion for software engineering. Becoming a full-stack developer is within your reach—every line of code you write brings you closer to mastering this craft. Stay curious, keep pushing, and watch yourself soar to new heights. The tech world is waiting for your brilliance! 🚀
                 </p>
             </section>
-
+            
         </section>
         </>
     )
