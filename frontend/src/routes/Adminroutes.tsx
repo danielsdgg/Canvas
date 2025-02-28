@@ -54,6 +54,7 @@ import Date7 from '../pages/Frontend/Lesson3-pages/Date7';
 import Date8 from '../pages/Frontend/Lesson3-pages/Date8';
 import Date9 from '../pages/Frontend/Lesson3-pages/Date9';
 import Date10 from '../pages/Frontend/Lesson3-pages/Date10';
+import Date11 from '../pages/Frontend/Lesson3-pages/Date11';
 
 // backend lessons
 import Leson1 from '../pages/Backend/Leson1';
@@ -156,6 +157,7 @@ const Adminroutes = () => {
             <Route path='/fdl3day8' element={<Date8/>} />
             <Route path='/fdl3day9' element={<Date9/>} />
             <Route path='/fdl3day10' element={<Date10/>} />
+            <Route path='/fdl3day11' element={<Date11/>} />
 
             {/* backend pages here */}
             {/* lesson 1 */}

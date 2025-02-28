@@ -86,7 +86,7 @@ const Day12: React.FC = () => {
         {/* Section Heading */}
         <div className="bg-indigo-600 text-white py-4 px-6 rounded-t-lg flex items-center justify-center">
           <FaLaptopCode className="mr-3 text-2xl" />
-          <h1 className="text-2xl sm:text-3xl font-extrabold uppercase">Lesson 1 Project</h1>
+          <h1 className="text-2xl sm:text-3xl font-extrabold uppercase">Frontend Lesson 1 Project - HTML</h1>
         </div>
 
         <div className="p-4 sm:p-6">
