@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useAuth } from '../../context/authContext';
-import SideNav from '../../components/SideNav';
-import { FaArrowLeft } from 'react-icons/fa';
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAuth } from "../../context/authContext";
+import SideNav from "../../components/SideNav";
+import { FaArrowLeft } from "react-icons/fa";
 
 interface Submission {
   submissionId: number;
@@ -17,9 +17,6 @@ interface User {
   id: number;
   firstName: string;
   lastName: string;
-  emailAddress: string;
-  phoneNumber: string | null;
-  createdAt: string;
 }
 
 const UserDetail: React.FC = () => {
@@ -41,14 +38,14 @@ const UserDetail: React.FC = () => {
         });
 
         if (!response.ok) {
-          console.error('Failed to fetch user details. Status:', response.status);
+          console.error("Failed to fetch user details. Status:", response.status);
           return;
         }
 
         const data = await response.json();
         setUser(data);
       } catch (error) {
-        console.error('Error fetching user details:', error);
+        console.error("Error fetching user details:", error);
       }
     };
 
@@ -61,14 +58,14 @@ const UserDetail: React.FC = () => {
         });
 
         if (!response.ok) {
-          console.error('Failed to fetch submissions. Status:', response.status);
+          console.error("Failed to fetch submissions. Status:", response.status);
           return;
         }
 
         const data = await response.json();
         setSubmissions(data);
       } catch (error) {
-        console.error('Error fetching submissions:', error);
+        console.error("Error fetching submissions:", error);
       }
     };
 
@@ -78,7 +75,7 @@ const UserDetail: React.FC = () => {
     }
   }, [emailAddress, userToken]);
 
-  const handleGradeChange = (submissionId: number, field: 'grade' | 'feedback', value: any) => {
+  const handleGradeChange = (submissionId: number, field: "grade" | "feedback", value: any) => {
     setGrading((prev) => ({
       ...prev,
       [submissionId]: {
@@ -93,17 +90,17 @@ const UserDetail: React.FC = () => {
     if (grade === undefined || feedback === undefined) return;
 
     try {
-      const response = await fetch('/api/v1/assignments/grade', {
-        method: 'PUT',
+      const response = await fetch("/api/v1/assignments/grade", {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${userToken}`,
         },
         body: JSON.stringify({ submissionId, grade, feedback }),
       });
 
       if (!response.ok) {
-        console.error('Failed to grade submission:', response.status);
+        console.error("Failed to grade submission:", response.status);
         return;
       }
 
@@ -112,85 +109,126 @@ const UserDetail: React.FC = () => {
       );
       setEditing((prev) => ({ ...prev, [submissionId]: false }));
     } catch (error) {
-      console.error('Error submitting grade:', error);
+      console.error("Error submitting grade:", error);
     }
   };
 
   if (!user) {
-    return <p className="text-center text-lg text-gray-700">Loading user details...</p>;
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-900 via-gray-800 to-gray-900">
+        <p className="text-lg sm:text-xl text-white animate-pulse">Loading user details...</p>
+      </div>
+    );
   }
 
   return (
     <>
       <SideNav />
-      <div className="p-6 bg-gradient-to-r from-blue-500 to-purple-600 min-h-screen">
-        <button 
+      <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-gray-800 to-gray-900 text-gray-100 p-4 sm:p-6 md:p-8">
+        <button
           onClick={() => navigate(-1)}
-          className="flex items-center text-white hover:text-yellow-300 mb-6 transition-all duration-300 ease-in-out transform hover:scale-110"
+          className="flex items-center text-indigo-300 hover:text-indigo-100 mb-6 sm:mb-8 transition-all duration-300 ease-in-out transform hover:scale-105"
         >
           <FaArrowLeft className="mr-2" />
           Back to Users List
         </button>
-        
-        <div className="bg-white shadow-2xl rounded-xl p-8 max-w-3xl mx-auto">
-          <header className="text-4xl font-bold text-center text-blue-700 mb-6 border-b-4 border-blue-300 pb-3">
-            User Details
+
+        <div className="bg-indigo-900/30 backdrop-blur-md shadow-xl rounded-xl p-6 sm:p-8 max-w-4xl mx-auto border border-indigo-500/20 transition-all duration-300 hover:shadow-2xl">
+          <header className="relative text-2xl sm:text-3xl md:text-4xl font-extrabold text-center text-indigo-300 mb-6 sm:mb-8">
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 opacity-20 blur-2xl rounded-full -z-10"></div>
+            <span className="relative bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 animate-fade-in">
+              USER DETAILS
+            </span>
           </header>
 
-          <h2 className="text-2xl text-center font-extrabold text-gray-800 mb-6 uppercase bg-gray-200 p-3 rounded-md shadow-md">
+          <h2 className="text-xl underline sm:text-2xl md:text-3xl font-bold text-center text-teal-400 mb-6 sm:mb-8 uppercase tracking-wide">
             {user.firstName} {user.lastName}
           </h2>
 
-          <h3 className="text-xl font-bold text-gray-800 mt-6 bg-blue-200 p-3 rounded-md shadow-md">Submissions</h3>
-          <table className="w-full mt-3 bg-white shadow-md rounded-md overflow-hidden">
-            <thead>
-              <tr className="bg-yellow-400 text-gray-900 text-lg">
-                <th className="px-6 py-3">File-URL</th>
-                <th className="px-6 py-3">Title</th>
-                <th className="px-6 py-3">Grade</th>
-                <th className="px-6 py-3">Feedback</th>
-                <th className="px-6 py-3">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {submissions.map((submission) => (
-                <tr key={submission.submissionId} className="text-center hover:bg-yellow-100">
-                  <td className="px-6 py-4 border-b border-gray-300">
-                    <a href={submission.fileUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
-                      View Submission
-                    </a>
-                  </td>
-                  <td className="px-6 py-4 border-b border-gray-300">{submission.assignmentTitle}</td>
-                  <td className="px-6 py-4 border-b border-gray-300">
-  {editing[submission.submissionId] ? (
-    <input
-      type="number"
-      value={grading[submission.submissionId]?.grade ?? submission.grade ?? ''}
-      onChange={(e) => handleGradeChange(submission.submissionId, 'grade', parseInt(e.target.value))}
-      className="border rounded p-1"
-    />
-  ) : (
-    <span onClick={() => setEditing({ ...editing, [submission.submissionId]: true })} className="cursor-pointer">
-      {submission.grade !== null ? submission.grade : 'Not graded'}
-    </span>
-  )}
-</td>
-
-                  <td className="px-6 py-4 border-b border-gray-300">
-                    <input
-                      type="text"
-                      defaultValue={submission.feedback || ''}
-                      onChange={(e) => handleGradeChange(submission.submissionId, 'feedback', e.target.value)}
-                      className="border rounded p-1"
-                    />
-                  </td>
-                  <td className="px-6 py-4 border-b border-gray-300">
-                    <button onClick={() => submitGrade(submission.submissionId)} className="bg-green-500 text-white px-3 py-1 rounded">Save</button>
-                  </td>
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-indigo-300 mb-4 sm:mb-6 uppercase tracking-wide">
+            Submissions
+          </h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs sm:text-sm md:text-base border-collapse">
+              <thead>
+                <tr className="bg-indigo-700/50 text-gray-100 uppercase tracking-wider">
+                  <th className="px-2 sm:px-4 py-2 sm:py-3 border-b border-indigo-500/30">File-URL</th>
+                  <th className="px-2 sm:px-4 py-2 sm:py-3 border-b border-indigo-500/30">Title</th>
+                  <th className="px-2 sm:px-4 py-2 sm:py-3 border-b border-indigo-500/30">Grade</th>
+                  <th className="px-2 sm:px-4 py-2 sm:py-3 border-b border-indigo-500/30">Feedback</th>
+                  <th className="px-2 sm:px-4 py-2 sm:py-3 border-b border-indigo-500/30">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {submissions.length > 0 ? (
+                  submissions.map((submission) => (
+                    <tr
+                      key={submission.submissionId}
+                      className="text-center border-b border-indigo-500/20 hover:bg-indigo-600/20 transition duration-300"
+                    >
+                      <td className="px-2 sm:px-4 py-2 sm:py-3">
+                        <a
+                          href={submission.fileUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-teal-400 hover:text-teal-200 font-semibold transition duration-200 whitespace-nowrap"
+                        >
+                          View Submission
+                        </a>
+                      </td>
+                      <td className="px-2 sm:px-4 py-2 sm:py-3 text-gray-200 whitespace-nowrap">
+                        {submission.assignmentTitle}
+                      </td>
+                      <td className="px-2 sm:px-4 py-2 sm:py-3 text-gray-300">
+                        {editing[submission.submissionId] ? (
+                          <input
+                            type="number"
+                            value={grading[submission.submissionId]?.grade ?? submission.grade ?? ""}
+                            onChange={(e) =>
+                              handleGradeChange(submission.submissionId, "grade", parseInt(e.target.value))
+                            }
+                            className="w-full sm:w-20 bg-gray-800 border border-indigo-500/50 rounded p-1 text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                          />
+                        ) : (
+                          <span
+                            onClick={() => setEditing({ ...editing, [submission.submissionId]: true })}
+                            className="cursor-pointer text-gray-300 hover:text-indigo-200 transition duration-200"
+                          >
+                            {submission.grade !== null ? submission.grade : "Not graded"}
+                          </span>
+                        )}
+                      </td>
+                      <td className="px-2 sm:px-4 py-2 sm:py-3 text-gray-300">
+                        <input
+                          type="text"
+                          defaultValue={submission.feedback || ""}
+                          onChange={(e) => handleGradeChange(submission.submissionId, "feedback", e.target.value)}
+                          className="w-full bg-gray-800 border border-indigo-500/50 rounded p-1 text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                        />
+                      </td>
+                      <td className="px-2 sm:px-4 py-2 sm:py-3">
+                        <button
+                          onClick={() => submitGrade(submission.submissionId)}
+                          className="bg-teal-500 hover:bg-teal-600 text-white px-3 py-1 rounded-md transition-all duration-200 transform hover:scale-105"
+                        >
+                          Save
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan={5}
+                      className="px-2 sm:px-4 py-4 sm:py-6 text-center text-gray-400 text-xs sm:text-sm md:text-base"
+                    >
+                      No submissions available yet.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </>

@@ -3,150 +3,238 @@ import { AuthContext } from '../../context/Authentication';
 import Logo from '../../assets/new_logo.jpg';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../api/api';
+import Alert from '../../components/Alert';
+import { FaArrowLeft } from 'react-icons/fa'; // Import the back arrow icon
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const [showResetModal, setShowResetModal] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
   const [newpassword, setNewPassword] = useState('');
   const [message, setMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const { handleLogin } = useContext(AuthContext);
+  const { handleLogin, isLoading } = useContext(AuthContext);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMessage("");
+    const response = await handleLogin(email, password);
+
+    if (!response.success) {
+      setErrorMessage(response.message || "Invalid credentials");
+    }
+  };
 
   const handlePasswordReset = async () => {
     const url = axiosInstance.getUri() + "/api/v1/users/change-password";
     console.log(resetEmail, newpassword);
     const passwordRequest = {
-        emailAddress: resetEmail,
-        newPassword: newpassword
+      emailAddress: resetEmail,
+      newPassword: newpassword
     };
     console.log(passwordRequest);
-    setIsLoading(true);
+    setLoading(true);
     
     try {
-        const response = await fetch(url, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(passwordRequest),
-        });
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(passwordRequest),
+      });
 
-        const contentType = response.headers.get("content-type");
-        
-        if (!response.ok) {
-            let errorMessage = "Failed to change password";
-            
-            if (contentType && contentType.includes("application/json")) {
-                const errorData = await response.json();
-                errorMessage = errorData.message || errorMessage;
-            } else {
-                const errorText = await response.text();
-                errorMessage = errorText || errorMessage;
-            }
-
-            throw new Error(errorMessage);
-        }
-
-        let data;
+      const contentType = response.headers.get("content-type");
+      
+      if (!response.ok) {
+        let errorMessage = "Failed to change password";
         if (contentType && contentType.includes("application/json")) {
-            data = await response.json();
+          const errorData = await response.json();
+          errorMessage = errorData.message || errorMessage;
         } else {
-            data = { message: await response.text() };
+          const errorText = await response.text();
+          errorMessage = errorText || errorMessage;
         }
+        throw new Error(errorMessage);
+      }
 
-        setSuccessMessage('Password changed successfully');
-        setTimeout(() => {
-            setSuccessMessage('');
-            setShowResetModal(false);
-            navigate('/login');
-        }, 3000);
-      } catch (error) {
-        console.error('Password reset error:', error);
-        
-        if (error instanceof Error) {
-            setMessage(error.message);
-        } else {
-            setMessage('An unknown error occurred');
-        }
-    }
-  };
+      let data;
+      if (contentType && contentType.includes("application/json")) {
+        data = await response.json();
+      } else {
+        data = { message: await response.text() };
+      }
 
-  const handleLoginClick = async () => {
-    const success = await handleLogin(email, password);
-    if (success) {
-      setMessage('Successfully logged in!');
-    } else {
-      setMessage('Invalid email or password. Please try again.');
+      setSuccessMessage('Password changed successfully');
+      setTimeout(() => {
+        setSuccessMessage('');
+        setShowResetModal(false);
+        navigate('/login');
+      }, 3000);
+    } catch (error) {
+      console.error('Password reset error:', error);
+      if (error instanceof Error) {
+        setMessage(error.message);
+      } else {
+        setMessage('An unknown error occurred');
+      }
     }
+    setLoading(false);
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
-      <div className="text-center mb-6">
-        <img src={Logo} alt="Organization Logo" className="mx-auto w-32 h-32" />
-        <h1 className="text-xl font-light italic mt-4 text-gray-800">
-          Sign in with your Morgan Technical Training account
-        </h1>
-      </div>
-      
-      <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
-        <form className="space-y-6">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 font-sans">
+      {/* Login Container */}
+      <div className="bg-white shadow-2xl rounded-xl p-8 w-full max-w-md transform transition-all duration-500 animate-fade-in-up relative">
+        {/* Back Arrow */}
+        <button
+          onClick={() => navigate('/')}
+          className="absolute top-4 left-4 flex items-center text-gray-600 hover:text-blue-600 transition-all duration-300 transform hover:scale-110 focus:outline-none"
+        >
+          <FaArrowLeft className="text-xl mr-2" /> Landing Page
+        </button>
+
+        {/* Header Section */}
+        <div className="text-center mb-8">
+          <img src={Logo} alt="Morgan LMS Logo" className="mx-auto w-24 h-24 rounded-full shadow-md" />
+          <h1 className="text-3xl font-bold text-gray-800 mt-4">
+            Morgan LMS Login
+          </h1>
+          <p className="text-gray-600 italic mt-2 text-lg">
+            Sign in with your Morgan Technical Training account
+          </p>
+        </div>
+
+        {/* Error Message */}
+        {errorMessage && (
+          <div className="mb-6 p-3 bg-red-100 text-red-700 rounded-lg text-center animate-fade-in">
+            {errorMessage}
+          </div>
+        )}
+
+        {/* Login Form */}
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
               Email Address
             </label>
-            <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com" className="w-full mt-1 p-3 border border-gray-300 rounded-lg" />
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+            />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
               Password
             </label>
-            <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password" className="w-full mt-1 p-3 border border-gray-300 rounded-lg" />
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+            />
           </div>
-          <button type="button" onClick={handleLoginClick}
-            className="w-full py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600">
-            Login
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full py-3 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105 disabled:bg-blue-400 disabled:cursor-not-allowed"
+          >
+            {isLoading ? "Logging in..." : "Login"}
           </button>
         </form>
-        {message && <p className="text-center mt-3 text-red-500">{message}</p>}
-        
-        <div className="mt-6 text-sm text-gray-600 text-center">
+
+        {/* Links */}
+        <div className="mt-6 text-sm text-gray-600 text-center space-y-3">
           <p>
-            <button onClick={() => setShowResetModal(true)} className="text-blue-500 hover:underline">
+            <button
+              onClick={() => setShowResetModal(true)}
+              className="text-blue-600 hover:text-blue-800 hover:underline font-medium transition-colors duration-300"
+            >
               Forgot your password?
             </button>
           </p>
-          <p className="mt-3">
-            Don’t have an account? <a href="/signup" className="text-blue-500 hover:underline font-medium">Sign up</a>
+          <p>
+            Don’t have an account?{' '}
+            <a href="/signup" className="text-blue-600 hover:text-blue-800 hover:underline font-medium transition-colors duration-300">
+              Sign up
+            </a>
           </p>
         </div>
       </div>
 
+      {/* Password Reset Modal */}
       {showResetModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-            <h2 className="text-lg font-semibold mb-4">Reset Password</h2>
-            <input type="email" placeholder="Enter your email" value={resetEmail} onChange={(e) => setResetEmail(e.target.value)}
-              className="w-full p-2 mb-3 border border-gray-300 rounded-lg" />
-            <input type="password" placeholder="Enter new password" value={newpassword} onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full p-2 mb-3 border border-gray-300 rounded-lg" />
-            <button onClick={handlePasswordReset} className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
-              Change Password
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-60 z-50 animate-fade-in">
+          <div className="bg-white p-6 rounded-xl shadow-2xl w-full max-w-sm transform transition-all duration-300 animate-fade-in-up">
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">Reset Your Password</h2>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={resetEmail}
+              onChange={(e) => setResetEmail(e.target.value)}
+              className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+            />
+            <input
+              type="password"
+              placeholder="Enter new password"
+              value={newpassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+            />
+            <button
+              onClick={handlePasswordReset}
+              disabled={loading}
+              className="w-full py-3 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 disabled:bg-blue-400 disabled:cursor-not-allowed"
+            >
+              {loading ? "Processing..." : "Change Password"}
             </button>
-            <button onClick={() => setShowResetModal(false)} className="w-full mt-2 text-gray-700 hover:underline">
+            <button
+              onClick={() => setShowResetModal(false)}
+              className="w-full mt-3 text-gray-700 hover:text-gray-900 hover:underline font-medium transition-colors duration-300"
+            >
               Cancel
             </button>
-            {message && <p className="text-center mt-3 text-green-500">{message}</p>}
+            {message && (
+              <p className="text-center mt-3 text-red-500 animate-fade-in">{message}</p>
+            )}
+            {successMessage && (
+              <p className="text-center mt-3 text-green-500 animate-fade-in">{successMessage}</p>
+            )}
           </div>
         </div>
       )}
+
+      {/* Custom Animations */}
+      <style>
+        {`
+          @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+          }
+          @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          .animate-fade-in {
+            animation: fadeIn 0.5s ease-out;
+          }
+          .animate-fade-in-up {
+            animation: fadeInUp 0.5s ease-out;
+          }
+        `}
+      </style>
     </div>
   );
 };

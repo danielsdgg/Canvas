@@ -1,109 +1,147 @@
 import { Link } from "react-router-dom";
+import { FaArrowRight, FaBook, FaChartLine, FaGlobe } from 'react-icons/fa';
 
 export default function Landing() {
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gray-100 font-sans">
       {/* Hero Section */}
-      <header className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12">
-        <div className="container mx-auto text-center px-6">
-          <h1 className="text-5xl font-extrabold tracking-wide">Welcome to Morgan LMS</h1>
-          <p className="mt-4 text-lg max-w-2xl mx-auto">
-            Your ultimate platform for modern, interactive, and effective online learning.
+      <header className="relative bg-gradient-to-r from-blue-700 via-blue-600 to-blue-800 text-white py-20 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center opacity-20"></div>
+        <div className="relative container mx-auto text-center px-6 z-10">
+          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-tight drop-shadow-lg animate-fade-in-down">
+            Welcome to Morgan LMS
+          </h1>
+          <p className="mt-4 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed drop-shadow-md animate-fade-in-up">
+            Unlock a world of modern, interactive, and effective online learning tailored just for you.
           </p>
+          <div className="mt-8 flex justify-center gap-4">
+            <Link
+              to="/signup"
+              className="inline-block bg-green-500 text-white px-6 py-3 rounded-full font-semibold text-lg hover:bg-green-600 transition-all duration-300 transform hover:scale-105 shadow-lg"
+            >
+              Get Started
+            </Link>
+            <Link
+              to="/login"
+              className="inline-block bg-transparent border-2 border-white text-white px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-blue-700 transition-all duration-300 transform hover:scale-105"
+            >
+              Log In
+            </Link>
+          </div>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="container mx-auto px-6 py-16">
-        {/* About EduSphere LMS */}
+        {/* About Morgan LMS */}
         <section className="mb-16 text-center">
-          <h2 className="text-3xl font-bold text-blue-700 mb-6">Why Choose Morgan LMS?</h2>
-          <p className="text-gray-700 max-w-3xl mx-auto leading-relaxed">
-            Morgan LMS is a powerful and user-friendly Learning Management System (LMS) 
-            designed to provide seamless online education. It allows institutions, instructors, 
-            and students to collaborate efficiently, track progress, and enhance learning experiences 
-            with interactive tools.
+          <h2 className="text-4xl font-bold text-gray-800 mb-6 animate-fade-in">
+            Why Choose Morgan LMS?
+          </h2>
+          <p className="text-gray-700 text-lg max-w-3xl mx-auto leading-relaxed animate-fade-in-up">
+            Morgan LMS is a cutting-edge Learning Management System designed to deliver seamless online education. It empowers institutions, instructors, and students to collaborate efficiently, track progress, and elevate learning with powerful, interactive tools.
           </p>
         </section>
 
         {/* About Morgan Technical Training */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-blue-700 text-center mb-6">
+          <h2 className="text-4xl font-bold text-gray-800 text-center mb-6 animate-fade-in">
             About Morgan Technical Training
           </h2>
-          <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
-            <p className="text-gray-700 leading-relaxed">
-              Morgan Technical Training is a leading institution committed to delivering 
-              high-quality technical education and professional development. Our goal is 
-              to empower learners with the skills and knowledge required to excel in 
-              today’s fast-paced industries.
+          <div className="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-xl transform transition-all duration-500 hover:shadow-2xl animate-fade-in-up">
+            <p className="text-gray-700 text-lg leading-relaxed">
+              Morgan Technical Training is a premier institution dedicated to providing top-tier technical education and professional development. Our mission is to equip learners with the skills and knowledge needed to thrive in today’s dynamic industries.
             </p>
-            <p className="text-gray-700 leading-relaxed mt-4">
-              By integrating <span className="font-semibold text-blue-700 mr-1">Morgan LMS</span> 
-              into our training programs, we offer a dynamic and interactive learning experience. 
-              Whether you are a student, a working professional, or an organization looking to 
-              upskill employees, Morgan Technical Training provides top-tier resources tailored 
-              to your needs.
+            <p className="text-gray-700 text-lg leading-relaxed mt-4">
+              By integrating <span className="font-semibold text-blue-700">Morgan LMS</span> into our programs, we deliver a dynamic and engaging learning experience. Whether you’re a student, a professional, or an organization aiming to upskill your team, we offer tailored resources to meet your goals.
             </p>
           </div>
         </section>
 
         {/* Key Features */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-blue-700 text-center mb-6">
+          <h2 className="text-4xl font-bold text-gray-800 text-center mb-10 animate-fade-in">
             Key Features of Morgan LMS
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold text-gray-800">📚 Course Management</h3>
+            <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-100">
+              <div className="text-blue-600 text-3xl mb-4"><FaBook /></div>
+              <h3 className="text-xl font-semibold text-gray-800">Course Management</h3>
               <p className="text-gray-600 mt-2">
                 Create, organize, and manage courses effortlessly with an intuitive interface.
               </p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold text-gray-800">📊 Progress Tracking</h3>
+            <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-200">
+              <div className="text-blue-600 text-3xl mb-4"><FaChartLine /></div>
+              <h3 className="text-xl font-semibold text-gray-800">Progress Tracking</h3>
               <p className="text-gray-600 mt-2">
-                Monitor student performance with real-time analytics and reports.
+                Monitor student performance with real-time analytics and detailed reports.
               </p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold text-gray-800">🌍 Interactive Learning</h3>
+            <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-300">
+              <div className="text-blue-600 text-3xl mb-4"><FaGlobe /></div>
+              <h3 className="text-xl font-semibold text-gray-800">Interactive Learning</h3>
               <p className="text-gray-600 mt-2">
-                Engage students with practical contents, live sessions, and discussion forums.
+                Engage students with practical content, live sessions, and discussion forums.
               </p>
             </div>
           </div>
         </section>
 
         {/* Call to Action */}
-        <section className="text-center">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">Get Started Today!</h2>
-          <p className="text-gray-700 mb-6">
-            Join Morgan Technical Training and experience world-class education through Morgan LMS.
+        <section className="text-center py-12 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl shadow-inner">
+          <h2 className="text-3xl font-bold text-gray-800 mb-4 animate-fade-in">
+            Ready to Transform Your Learning Experience?
+          </h2>
+          <p className="text-gray-700 text-lg mb-6 max-w-xl mx-auto animate-fade-in-up">
+            Join Morgan Technical Training and dive into world-class education with Morgan LMS today!
           </p>
-          <div>
+          <div className="flex justify-center gap-6">
             <Link
               to="/login"
-              className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-bold text-lg mr-4 hover:bg-blue-700 transition-colors"
+              className="inline-flex items-center bg-blue-600 text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-md"
             >
-              Login
+              Login <FaArrowRight className="ml-2" />
             </Link>
             <Link
               to="/signup"
-              className="inline-block bg-green-500 text-white px-6 py-3 rounded-lg font-bold text-lg hover:bg-green-600 transition-colors"
+              className="inline-flex items-center bg-green-500 text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-green-600 transition-all duration-300 transform hover:scale-105 shadow-md"
             >
-              Sign Up
+              Sign Up <FaArrowRight className="ml-2" />
             </Link>
           </div>
         </section>
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-200 text-gray-700 py-6 text-center">
-        <p>
+      <footer className="bg-gray-800 text-white py-6 text-center">
+        <p className="text-sm">
           © {new Date().getFullYear()} Morgan LMS. Powered by Morgan Technical Training.
         </p>
       </footer>
+
+      {/* Custom Animations */}
+      <style>
+        {`
+          @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          .animate-fade-in-down {
+            animation: fadeInDown 1s ease-out;
+          }
+          .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out;
+          }
+          .delay-100 { animation-delay: 0.1s; }
+          .delay-200 { animation-delay: 0.2s; }
+          .delay-300 { animation-delay: 0.3s; }
+        `}
+      </style>
     </div>
   );
 }

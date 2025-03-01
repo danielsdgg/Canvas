@@ -1,292 +1,388 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaArrowLeft } from 'react-icons/fa';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  FaArrowLeft,
+  FaCode,
+  FaLaptopCode,
+  FaList,
+  FaTable,
+  FaLink,
+  FaEdit,
+  FaCheckCircle,
+  FaBookOpen,
+  FaRocket,
+} from "react-icons/fa";
 
 const Dayy1: React.FC = () => {
-    const navigate = useNavigate();
-    return (
-        <>
-            <section className="bg-white shadow-lg rounded-lg p-8 mb-8">
-                {/* Back Button */}
-                <button onClick={() => navigate(-1)} className="flex items-center text-gray-600 hover:text-blue-600 mb-6 transition-all duration-300 ease-in-out transform hover:scale-105">
-                    <FaArrowLeft className="mr-2" />
-                    Back
-                </button>
-                
-                <h1 className="text-2xl text-center font-extrabold text-gray-800 mb-6 uppercase bg-blue-200 p-3 rounded-md shadow-md">
-                    Introduction to JavaScript
-                </h1>
+  const navigate = useNavigate();
 
-                <p className="text-gray-800 mb-4 leading-relaxed">
-                    JavaScript is one of the core technologies of web development alongside HTML and CSS. It is a powerful, flexible, and fast programming language used to create interactive and dynamic web pages. JavaScript enables functionalities such as form validation, animations, interactive maps, and much more.
-                </p>
+  return (
+    <>
+      <section className="bg-white shadow-lg rounded-lg p-4 sm:p-6 md:p-8 mb-8 mx-auto max-w-5xl">
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center text-gray-600 hover:text-indigo-600 mb-6 transition-all duration-300 ease-in-out transform hover:scale-105"
+        >
+          <FaArrowLeft className="mr-2" />
+          Back
+        </button>
 
-                {/* Things to Know Section */}
-                <section className="bg-gray-100 p-6 rounded-lg shadow-md mb-6">
-                    <h2 className="text-xl font-semibold text-gray-800 mb-4">
-                        Things to Know Before Learning JavaScript
-                    </h2>
-                    <ul className="list-disc list-inside text-gray-700 leading-relaxed">
-                        <li className="mb-2">
-                            Learning JavaScript can be challenging because of its unique behaviors and extensive functionality. It requires patience and continuous practice.
-                        </li>
-                        <li className="mb-2">
-                            This module will challenge you to think critically and solve problems logically. Unlike HTML and CSS, JavaScript requires an understanding of programming logic, not just pattern recognition.
-                        </li>
-                        <li className="mb-2">
-                            Debugging and testing your code frequently is essential. JavaScript doesn't always behave as expected, so regularly checking outputs will help reinforce your understanding.
-                        </li>
-                        <li className="mb-2">
-                            The language is composed of many interconnected parts. Some topics may not seem to follow a direct sequence, but understanding each individually is key to mastering JavaScript.
-                        </li>
-                        <li className="mb-2">
-                            Not all assignments will have predefined tests. Some will be open-ended to encourage creativity and deeper thinking, allowing you to practice applying concepts in real-world scenarios.
-                        </li>
-                    </ul>
-                </section>
-                
-                <h2 className="text-xl text-center font-bold text-blue-700 underline mt-6">What is JavaScript?</h2>
-                <p className="text-gray-700 mb-4 leading-relaxed">
-                    JavaScript (JS) is a high-level, interpreted scripting language that allows developers to create dynamic content, control multimedia, animate images, and even build web applications.
-                </p>
+        {/* Section Heading */}
+        <div className="bg-indigo-600 text-white py-4 px-6 rounded-t-lg flex items-center">
+          <FaLaptopCode className="mr-3 text-2xl" />
+          <h1 className="text-2xl sm:text-3xl font-extrabold uppercase">Introduction to JavaScript</h1>
+        </div>
 
-                <h2 className="text-xl font-bold text-gray-800 mt-6">Key Features of JavaScript</h2>
-                <ul className="list-disc list-inside text-gray-700 mb-4">
-                    <li>Lightweight and interpreted</li>
-                    <li>Client-side execution (can also be used on the server with Node.js)</li>
-                    <li>Event-driven and asynchronous programming support</li>
-                    <li>Object-oriented capabilities</li>
-                    <li>Works with HTML and CSS to enhance web pages</li>
-                </ul>
+        <div className="p-4 sm:p-6">
+          {/* Introduction */}
+          <p className="text-gray-800 text-sm sm:text-base leading-relaxed mb-6">
+            Welcome to Day 1 of Morgan Technical Training’s frontend development course! Today, we kick off with JavaScript (JS), a versatile and powerful programming language that brings interactivity to the web. Alongside HTML and CSS, JavaScript forms the backbone of modern web development, enabling dynamic content, user interactions, animations, and even full-fledged applications.
+          </p>
+          <p className="text-gray-800 text-sm sm:text-base leading-relaxed mb-6">
+            In this lesson, you’ll learn JavaScript’s fundamentals—its purpose, syntax, key features, and how it integrates with HTML. We’ll also cover setting up your environment and submitting your work via GitHub and Morgan-LMS, mirroring professional workflows. Let’s dive into the world of programming!
+          </p>
 
-                {/* Setting up JavaScript Development Environment */}
-      <section className="mb-6">
-        <h2 className="text-2xl font-semibold mb-2">Setting up a JavaScript Development Environment</h2>
-        <p>
-          To begin writing JavaScript, you need a code editor. Popular choices include:
-        </p>
-        <ul className="list-disc ml-6">
-          <li>Visual Studio Code (VS Code)</li>
-          <li>Atom</li>
-          <li>Sublime Text</li>
-          <li>WebStorm</li>
-        </ul>
-        <p>
-          You can also run JavaScript in the browser console. Open DevTools in Chrome with <code>Ctrl + Shift + J</code> (Windows) or <code>Cmd + Option + J</code> (Mac).
-        </p>
-      </section>
+          {/* Why Learn JavaScript? */}
+          <div className="mb-8">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 flex items-center">
+              <FaCode className="mr-2 text-indigo-600" />
+              Why Learn JavaScript?
+            </h2>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4">
+              JavaScript is a must-know for web developers, offering unparalleled flexibility and power. Here’s why it’s essential:
+            </p>
+            <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-3">
+              <li className="flex items-start">
+                <FaCheckCircle className="mr-2 mt-1 text-indigo-600" />
+                <strong>Interactivity:</strong> Adds dynamic features like form validation, animations, and real-time updates to websites.
+              </li>
+              <li className="flex items-start">
+                <FaCheckCircle className="mr-2 mt-1 text-indigo-600" />
+                <strong>Versatility:</strong> Runs in browsers and on servers (via Node.js), making it a full-stack tool.
+              </li>
+              <li className="flex items-start">
+                <FaCheckCircle className="mr-2 mt-1 text-indigo-600" />
+                <strong>Community & Ecosystem:</strong> Supported by a vast ecosystem of libraries (e.g., React, Vue) and a thriving developer community.
+              </li>
+              <li className="flex items-start">
+                <FaCheckCircle className="mr-2 mt-1 text-indigo-600" />
+                <strong>Career Demand:</strong> A core skill for frontend, backend, and full-stack roles across industries.
+              </li>
+            </ul>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mt-4">
+              At Morgan Technical Training, you’ll use JavaScript to build projects, submitting them to GitHub for review via Morgan-LMS. This hands-on approach prepares you for real-world coding challenges.
+            </p>
+          </div>
 
-      {/* Linking JavaScript to HTML */}
-      <section className="mb-6">
-      <h2 className="text-2xl text-center text-blue-700 font-bold underline mb-4">Linking JavaScript to HTML</h2>
-      <p className="mb-4">
-        JavaScript is a powerful programming language that allows us to add interactivity, functionality, and logic to our web pages. To use JavaScript in an HTML file, we need to link it properly. There are two primary ways to do this: 
-        using <strong>Internal JavaScript</strong> and <strong>External JavaScript</strong>.
-      </p>
+          {/* What is JavaScript? */}
+          <div className="mb-8">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 flex items-center">
+              <FaBookOpen className="mr-2 text-indigo-600" />
+              What is JavaScript?
+            </h2>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4">
+              JavaScript is a high-level, interpreted scripting language created by Brendan Eich in 1995. Initially designed to add interactivity to static HTML pages in Netscape Navigator, it has since evolved into a cornerstone of the web. Unlike HTML (structure) and CSS (style), JavaScript handles logic and behavior, executing directly in the browser or on servers with Node.js.
+            </p>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4">
+              Modern JavaScript (ES6+) includes advanced features like arrow functions, promises, and modules, making it both powerful and approachable. It’s event-driven, asynchronous, and object-oriented, enabling everything from simple scripts to complex applications like Google Maps or Netflix.
+            </p>
+          </div>
 
-      {/* Internal JavaScript */}
-      <h3 className="text-xl font-semibold mb-2">1. Internal JavaScript</h3>
-      <p className="mb-2">
-        Internal JavaScript is written directly inside the HTML file within a <code>&lt;script&gt;</code> tag. 
-        This method is useful for small scripts or quick testing. The script is placed inside the 
-        <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code> section.
-      </p>
-      <p className="mb-2">
-        Example of internal JavaScript:
-      </p>
-      <pre className="bg-gray-900 text-white p-3 rounded mb-4">
-        {`<script>
-  console.log("Hello, World!"); // This will display "Hello, World!" in the browser's console
+          {/* Setting up a JavaScript Environment */}
+          <div className="mb-8 bg-gray-50 border border-gray-200 rounded-lg p-4 sm:p-6">
+  <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+    <FaEdit className="mr-2 text-indigo-600 text-2xl" />
+    Setting Up Your JavaScript Environment
+  </h2>
+  <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-6">
+    To start coding in JavaScript, you’ll need a few essential tools. Here’s a step-by-step guide to get you set up:
+  </p>
+  <ul className="list-none text-gray-700 text-sm sm:text-base space-y-4">
+    <li className="flex items-start bg-white p-3 rounded-md shadow-sm hover:shadow-md transition-shadow duration-200">
+      <FaCode className="mr-3 mt-1 text-indigo-600 flex-shrink-0" />
+      <div>
+        <strong className="font-medium text-gray-800">Code Editor:</strong>{" "}
+        <span>
+          Choose a powerful editor like{" "}
+          <span className="text-indigo-600 font-semibold">Visual Studio Code (VS Code)</span>,{" "}
+          <span className="text-indigo-600 font-semibold">Sublime Text</span>, or{" "}
+          <span className="text-indigo-600 font-semibold">WebStorm</span> to write and manage your code efficiently.
+        </span>
+      </div>
+    </li>
+    <li className="flex items-start bg-white p-3 rounded-md shadow-sm hover:shadow-md transition-shadow duration-200">
+      <FaCode className="mr-3 mt-1 text-indigo-600 flex-shrink-0" />
+      <div>
+        <strong className="font-medium text-gray-800">Browser:</strong>{" "}
+        <span>
+          Use modern browsers like{" "}
+          <span className="text-indigo-600 font-semibold">Chrome</span>,{" "}
+          <span className="text-indigo-600 font-semibold">Firefox</span>, or{" "}
+          <span className="text-indigo-600 font-semibold">Edge</span> with DevTools (e.g.,{" "}
+          <code className="bg-gray-200 px-1 py-0.5 rounded text-indigo-700">Ctrl + Shift + J</code> in Chrome) to run and debug JavaScript directly in the console.
+        </span>
+      </div>
+    </li>
+    <li className="flex items-start bg-white p-3 rounded-md shadow-sm hover:shadow-md transition-shadow duration-200">
+      <FaCode className="mr-3 mt-1 text-indigo-600 flex-shrink-0" />
+      <div>
+        <strong className="font-medium text-gray-800">Node.js (Optional):</strong>{" "}
+        <span>
+          Install{" "}
+          <span className="text-indigo-600 font-semibold">Node.js</span> to run JavaScript outside the browser—perfect for server-side projects or advanced development later on.
+        </span>
+      </div>
+    </li>
+  </ul>
+  <p className="text-gray-700 text-sm sm:text-base leading-relaxed mt-6 italic">
+    No setup yet? No problem! Start experimenting right away in your browser’s console—no tools required!
+  </p>
+</div>
+
+          {/* Linking JavaScript to HTML */}
+          <div className="mb-8">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 flex items-center">
+              <FaLink className="mr-2 text-indigo-600" />
+              Linking JavaScript to HTML
+            </h2>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4">
+              JavaScript integrates with HTML in two main ways: internal scripts within <code>&lt;script&gt;</code> tags or external files linked via <code>src</code>. Here’s how:
+            </p>
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">1. Internal JavaScript</h3>
+            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto text-sm sm:text-base mb-4">
+              {`<script>
+  console.log("Hello, World!");
 </script>`}
-      </pre>
-      <p className="mb-4">
-        However, using internal JavaScript is not recommended for larger projects because it makes the HTML file cluttered and difficult to maintain.
-      </p>
-
-      {/* External JavaScript */}
-      <h3 className="text-xl font-semibold mb-2">2. External JavaScript</h3>
-      <p className="mb-2">
-        External JavaScript is stored in a separate file with a <code>.js</code> extension (e.g., <code>script.js</code>) and linked to the HTML file using the <code>&lt;script&gt;</code> tag with the <code>src</code> attribute. This method is preferred because it keeps the JavaScript code separate, making it easier to manage and reuse.
-      </p>
-      <p className="mb-2">
-        Example of linking an external JavaScript file:
-      </p>
-      <pre className="bg-gray-900 text-white p-3 rounded mb-4">
-        {`<script src="script.js"></script>`}
-      </pre>
-      <p className="mb-2">
-        The <code>script.js</code> file should contain JavaScript code, such as:
-      </p>
-      <pre className="bg-gray-900 text-white p-3 rounded mb-4">
-        {`// script.js
+            </pre>
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">2. External JavaScript</h3>
+            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto text-sm sm:text-base mb-4">
+              {`<script src="script.js"></script>`}
+            </pre>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4">
+              External files (e.g., <code>script.js</code>) keep code organized:
+            </p>
+            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto text-sm sm:text-base">
+              {`// script.js
 console.log("Hello from script.js!");`}
-      </pre>
-      <p className="mb-4">
-        The external script is typically placed before the closing <code>&lt;/body&gt;</code> tag to ensure the HTML content loads first before the JavaScript runs.
-      </p>
+            </pre>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mt-4">
+              Place <code>&lt;script&gt;</code> tags before the closing <code>&lt;/body&gt;</code> tag or use <code>defer</code> to ensure HTML loads first.
+            </p>
+          </div>
 
-      {/* Best Practices */}
-      <h3 className="text-xl font-semibold text-center text-blue-700 underline mb-2">Best Practices for Linking JavaScript</h3>
-      <ul className="list-disc ml-6 mb-4">
-        <li className="mb-2">
-          Always use <strong>external JavaScript</strong> for better code organization and maintainability.
-        </li>
-        <li className="mb-2">
-          Place the <code>&lt;script&gt;</code> tag at the end of the <code>&lt;body&gt;</code> section for better page performance.
-        </li>
-        <li className="mb-2">
-          Use the <code>defer</code> attribute in the script tag (<code>&lt;script src="script.js" defer&gt;</code>) to ensure the script loads after the HTML content.
-        </li>
-        <li className="mb-2">
-          Avoid mixing JavaScript and HTML as much as possible to keep your code clean.
-        </li>
-      </ul>
+          {/* JavaScript Variables */}
+          <div className="mb-8">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 flex items-center">
+              <FaCode className="mr-2 text-indigo-600" />
+              Variables: var, let, and const
+            </h2>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4">
+              Variables store data in JavaScript. There are three declarations:
+            </p>
+            <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-3">
+              <li className="flex items-start">
+                <FaCode className="mr-2 mt-1 text-indigo-600" />
+                <strong><code>var</code>:</strong> Function-scoped, can be redeclared (older style, less preferred).
+              </li>
+              <li className="flex items-start">
+                <FaCode className="mr-2 mt-1 text-indigo-600" />
+                <strong><code>let</code>:</strong> Block-scoped, reassignable, modern standard.
+              </li>
+              <li className="flex items-start">
+                <FaCode className="mr-2 mt-1 text-indigo-600" />
+                <strong><code>const</code>:</strong> Block-scoped, constant value (cannot be reassigned).
+              </li>
+            </ul>
+            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto text-sm sm:text-base mt-4">
+              {`var name = "Alice"; // Old way
+let age = 25;        // Reassignable
+const country = "USA"; // Fixed value`}
+            </pre>
+          </div>
 
-      {/* Conclusion */}
-      <p className="mb-2">
-        Understanding how to link JavaScript to HTML is crucial for web development. Whether using internal or external JavaScript, proper script placement and best practices help create efficient and well-structured web applications.
-      </p>
-    </section>
-
-      {/* var, let, and const */}
-      <section className="mb-6">
-        <h2 className="text-2xl font-semibold text-center text-blue-700 underline mb-2">Understanding var, let, and const</h2>
-        <p>
-          JavaScript has three ways to declare variables:
-        </p>
-        <ul className="list-disc ml-6">
-          <li><code>var</code>: Function-scoped, can be redeclared.</li>
-          <li><code>let</code>: Block-scoped, can be reassigned but not redeclared.</li>
-          <li><code>const</code>: Block-scoped, cannot be reassigned.</li>
-        </ul>
-        <pre className="bg-gray-900 text-white p-3 rounded">
-          {`var name = "Alice";
-let age = 25;
-const country = "USA";`}
-        </pre>
-      </section>
-
-      {/* Data Types */}
-      <section className="mb-6">
-        <h2 className="text-2xl font-semibold text-blue-700 underline mb-2">JavaScript Data Types</h2>
-        <ul className="list-disc ml-6">
-          <li>String: <code>"Hello"</code></li>
-          <li>Number: <code>42</code></li>
-          <li>Boolean: <code>true</code> or <code>false</code></li>
-          <li>Null: <code>null</code> (intentional absence of value)</li>
-          <li>Undefined: Variable declared but not assigned</li>
-          <li>Object: Collections of key-value pairs</li>
-        </ul>
-        <pre className="bg-gray-900 text-white p-3 rounded">
-          {`let person = {
+          {/* JavaScript Data Types */}
+          <div className="mb-8">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 flex items-center">
+              <FaList className="mr-2 text-indigo-600" />
+              JavaScript Data Types
+            </h2>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4">
+              JavaScript supports various data types for storing and manipulating data:
+            </p>
+            <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-3">
+              <li className="flex items-start">
+                <FaCode className="mr-2 mt-1 text-indigo-600" />
+                <strong>String:</strong> Text, e.g., <code>"Hello"</code>.
+              </li>
+              <li className="flex items-start">
+                <FaCode className="mr-2 mt-1 text-indigo-600" />
+                <strong>Number:</strong> Numeric values, e.g., <code>42</code>.
+              </li>
+              <li className="flex items-start">
+                <FaCode className="mr-2 mt-1 text-indigo-600" />
+                <strong>Boolean:</strong> True/false, e.g., <code>true</code>.
+              </li>
+              <li className="flex items-start">
+                <FaCode className="mr-2 mt-1 text-indigo-600" />
+                <strong>Null/Undefined:</strong> Absence of value or unassigned variables.
+              </li>
+              <li className="flex items-start">
+                <FaCode className="mr-2 mt-1 text-indigo-600" />
+                <strong>Object:</strong> Key-value pairs, e.g., <code>{'{ "name": "John" }'}</code>.
+              </li>
+            </ul>
+            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto text-sm sm:text-base mt-4">
+              {`let person = {
   name: "John",
   age: 30
 };`}
-        </pre>
-      </section>
+            </pre>
+          </div>
 
-      {/* Basic Console Operations */}
-      <section className="mb-6">
-        <h2 className="text-2xl font-semibold text-blue-700 underline mb-2">Basic Console Operations</h2>
-        <ul className="list-disc ml-6">
-          <li><code>console.log()</code>: Outputs to the console</li>
-          <li><code>alert()</code>: Displays a pop-up alert</li>
-          <li><code>prompt()</code>: Asks user for input</li>
-        </ul>
-        <pre className="bg-gray-900 text-white p-3 rounded">
-          {`console.log("Hello, Console!");
+          {/* Basic Console Operations */}
+          <div className="mb-8">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 flex items-center">
+              <FaEdit className="mr-2 text-indigo-600" />
+              Basic Console Operations
+            </h2>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4">
+              Start interacting with JavaScript using these browser methods:
+            </p>
+            <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-3">
+              <li className="flex items-start">
+                <FaCode className="mr-2 mt-1 text-indigo-600" />
+                <strong><code>console.log()</code>:</strong> Outputs messages to the console.
+              </li>
+              <li className="flex items-start">
+                <FaCode className="mr-2 mt-1 text-indigo-600" />
+                <strong><code>alert()</code>:</strong> Shows a pop-up message.
+              </li>
+              <li className="flex items-start">
+                <FaCode className="mr-2 mt-1 text-indigo-600" />
+                <strong><code>prompt()</code>:</strong> Requests user input.
+              </li>
+            </ul>
+            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto text-sm sm:text-base mt-4">
+              {`console.log("Hello, Console!");
 alert("Welcome to JavaScript!");
 let userInput = prompt("Enter your name:");`}
-        </pre>
+            </pre>
+          </div>
+
+          {/* JavaScript Best Practices */}
+          <div className="mb-8">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 flex items-center">
+              <FaCheckCircle className="mr-2 text-indigo-600" />
+              JavaScript Best Practices
+            </h2>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4">
+              Write clean, effective JavaScript with these tips:
+            </p>
+            <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-3">
+              <li className="flex items-start">
+                <FaCode className="mr-2 mt-1 text-indigo-600" />
+                <strong>Use <code>let</code>/<code>const</code>:</strong> Avoid <code>var</code> for better scoping.
+              </li>
+              <li className="flex items-start">
+                <FaCheckCircle className="mr-2 mt-1 text-indigo-600" />
+                <strong>Debug Often:</strong> Use <code>console.log()</code> or DevTools to test code.
+              </li>
+              <li className="flex items-start">
+                <FaEdit className="mr-2 mt-1 text-indigo-600" />
+                <strong>External Files:</strong> Keep JS separate from HTML for maintainability.
+              </li>
+              <li className="flex items-start">
+                <FaCode className="mr-2 mt-1 text-indigo-600" />
+                <strong>Comment Code:</strong> Add notes (e.g., <code>// This logs a message</code>) for clarity.
+              </li>
+            </ul>
+          </div>
+
+          {/* Practice Exercises */}
+          <div className="mb-8">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 flex items-center">
+              <FaRocket className="mr-2 text-indigo-600" />
+              Practice Exercises
+            </h2>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4">
+              Apply what you’ve learned with these tasks. Submit your work to GitHub and share the link via Morgan-LMS:
+            </p>
+            <ol className="list-decimal list-inside text-gray-700 text-sm sm:text-base space-y-3">
+              <li className="flex items-start">
+                <FaCode className="mr-2 mt-1 text-indigo-600" />
+                Create an HTML page with a button that uses <code>alert()</code> to say "Hello, World!".
+              </li>
+              <li className="flex items-start">
+                <FaEdit className="mr-2 mt-1 text-indigo-600" />
+                Build a script using <code>prompt()</code> to ask for a name and log it to the console.
+              </li>
+              <li className="flex items-start">
+                <FaList className="mr-2 mt-1 text-indigo-600" />
+                Write a page with an unordered list of your favorite foods, styled with external JS to log the list when clicked.
+              </li>
+              <li className="flex items-start">
+                <FaTable className="mr-2 mt-1 text-indigo-600" />
+                Create a table of 3 students’ names and ages, using JS to populate it dynamically.
+              </li>
+            </ol>
+          </div>
+
+          {/* Resources */}
+          <div>
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 flex items-center">
+              <FaBookOpen className="mr-2 text-indigo-600" />
+              Resources for Further Learning
+            </h2>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4">
+              Deepen your JavaScript skills with these resources:
+            </p>
+            <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-3">
+              <li className="flex items-start">
+                <FaLink className="mr-2 mt-1 text-indigo-600" />
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-indigo-600 underline hover:text-indigo-800"
+                >
+                  MDN Web Docs: JavaScript
+                </a>
+                — Authoritative reference with examples.
+              </li>
+              <li className="flex items-start">
+                <FaLink className="mr-2 mt-1 text-indigo-600" />
+                <a
+                  href="https://www.w3schools.com/js/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-indigo-600 underline hover:text-indigo-800"
+                >
+                  W3Schools: JavaScript Tutorial
+                </a>
+                — Beginner-friendly lessons.
+              </li>
+              <li className="flex items-start">
+                <FaLink className="mr-2 mt-1 text-indigo-600" />
+                <a
+                  href="https://javascript.info/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-indigo-600 underline hover:text-indigo-800"
+                >
+                  JavaScript.info
+                </a>
+                — In-depth modern tutorial.
+              </li>
+            </ul>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mt-4 italic text-center">
+              JavaScript is your gateway to interactive web development. Keep practicing, experimenting, and building—every line of code is a step toward mastery. You’ve got this! 🚀
+            </p>
+          </div>
+        </div>
       </section>
-
-                <h2 className="text-xl font-bold text-blue-700 underline mt-6">How JavaScript Works in a Web Page</h2>
-                <p className="text-gray-700 mb-4 leading-relaxed">
-                    JavaScript is typically embedded inside an HTML document and executed by the browser. It can be written inline within an HTML file using the <code>&lt;script&gt;</code> tag or in a separate file with a `.js` extension.
-                </p>
-                <pre className="bg-gray-900 text-white p-4 rounded-md overflow-x-auto mb-4">
-                    {`<!DOCTYPE html>
-<html>
-<head>
-    <title>JavaScript Example</title>
-</head>
-<body>
-    <h1>Welcome to JavaScript</h1>
-    <button onclick="sayHello()">Click Me</button>
-    <script>
-        function sayHello() {
-            alert('Hello, JavaScript!');
-        }
-    </script>
-</body>
-</html>`}
-                </pre>
-
-                <h2 className="text-xl font-bold text-blue-700 underline mt-6">JavaScript Syntax</h2>
-                <p className="text-gray-700 mb-4 leading-relaxed">
-                    JavaScript syntax includes variables, data types, operators, functions, and control structures. Here’s a quick example:
-                </p>
-                <pre className="bg-gray-900 text-white p-4 rounded-md overflow-x-auto mb-4">
-                    {`// Declaring a variable
-let name = "John Doe";
-console.log("Hello, " + name);
-
-// Basic function
-task();
-function task() {
-    console.log("JavaScript is fun!");
-}`}
-                </pre>
-
-                <h2 className="text-xl font-bold text-blue-700 underline mt-6">Practical Exercise</h2>
-                <p className="text-gray-700 mb-4 leading-relaxed">
-                    Here is a simple exercise; create an HTML page with JavaScript that does the following:
-                </p>
-                <ul className="list-decimal list-inside text-gray-700 mb-4">
-                    <li>Displays a button labeled "Greet Me"</li>
-                    <li>When clicked, prompts the user to enter their name</li>
-                    <li>Displays an alert with a greeting message using the entered name</li>
-                </ul>
-                
-                <pre className="bg-gray-900 text-white p-4 rounded-md overflow-x-auto mb-4">
-                    {`<!DOCTYPE html>
-<html>
-<head>
-    <title>JavaScript Practice</title>
-</head>
-<body>
-    <button onclick="greetUser()">Greet Me</button>
-    <script>
-        function greetUser() {
-            let name = prompt("What is your name?");
-            alert("Hello, " + name + "! Welcome to JavaScript.");
-        }
-    </script>
-</body>
-</html>`}
-                </pre>
-               
-                
-                 {/* Further Resources */}
-      <section className="mb-6">
-        <h2 className="text-2xl italic font-semibold mt-5 mb-2">Here are further Resources for study:</h2>
-        <ul className="list-disc ml-6">
-          <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" className="text-blue-600">MDN Web Docs</a></li>
-          <li><a href="https://www.w3schools.com/js/" className="text-blue-600">W3Schools JavaScript Tutorial</a></li>
-          <li><a href="https://javascript.info/" className="text-blue-600">JavaScript.info</a></li>
-        </ul>
-      </section>
-                {/* Words of Encouragement */}
-      <section className="mb-6 text-center">
-        <h2 className="text-2xl font-semibold mb-2">Keep Going!</h2>
-        <p className="italic">
-          Learning JavaScript takes time, but every line of code you write gets you closer to mastery.
-          Keep practicing, building projects, and enjoying the journey. You got this! 🚀
-        </p>
-      </section>
-            </section>
-        </>
-    );
+    </>
+  );
 };
 
 export default Dayy1;
