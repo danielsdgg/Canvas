@@ -23,7 +23,7 @@ interface Course {
     users: User[];
 }
 
-const EnrolledCoursesPage: React.FC = () => {
+const EnrolledAdmins: React.FC = () => {
     const [courses, setCourses] = useState<Course[]>([]);
     const { userToken, userData } = useAuth(); 
     const userId = userData?.userDetails.emailAddress; 
@@ -64,12 +64,15 @@ const EnrolledCoursesPage: React.FC = () => {
                         <FaArrowLeft className="mr-2" />
                         Back
                     </button>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-teal-400 mb-6 uppercase tracking-wide text-center sm:text-left">
-                        Enrolled Courses
-                    </h2>
+                    <header className="relative text-2xl sm:text-3xl md:text-4xl font-extrabold text-center text-white mb-8 sm:mb-10 md:mb-12">
+                        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 opacity-20 blur-2xl rounded-full -z-10"></div>
+                        <span className="relative bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 animate-fade-in">
+                            Assigned Courses
+                        </span>
+                    </header>
                     {courses.length === 0 ? (
                         <p className="text-gray-300 text-lg sm:text-xl text-center">
-                            You are not enrolled in any courses yet.
+                            You are not assigned to any courses yet.
                         </p>
                     ) : (
                         <div className="space-y-6">
@@ -124,4 +127,4 @@ const EnrolledCoursesPage: React.FC = () => {
     );
 };
 
-export default EnrolledCoursesPage;
+export default EnrolledAdmins;

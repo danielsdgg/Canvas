@@ -103,7 +103,7 @@ const History: React.FC = () => {
                         index % 2 === 0 ? "bg-indigo-900/10" : "bg-transparent"
                       }`}
                     >
-                      <td className="px-4 sm:px-5 py-3 sm:py-4 text-left whitespace-nowrap">
+                      <td className="px-4 sm:px-5 py-3 sm:py-4 text-left whitespace-nowrap italic">
                         {new Date(submission.submittedAt).toLocaleString()}
                       </td>
                       <td className="px-4 sm:px-5 py-3 sm:py-4 text-left">

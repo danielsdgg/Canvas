@@ -86,6 +86,8 @@ import Deyy9 from '../pages/Backend/Leson2-pages/Deyy9';
 import Deyy10 from '../pages/Backend/Leson2-pages/Deyy10';
 import Deyy11 from '../pages/Backend/Leson2-pages/Deyy11';
 import Deyy12 from '../pages/Backend/Leson2-pages/Deyy12';
+import EnrolledCoursesPage from '../components/EnrolledcoursesPage';
+import EnrolledAdmins from '../components/EnrolledAdmins';
 
 
 //   DATA SCIENCE ROUTES
@@ -102,7 +104,7 @@ const Adminroutes = () => {
             <Route path="/history" element={<History />} />
             <Route path="/help" element={<Help />} />
             <Route path="/calendar" element={<Calendar />} />
-            <Route path="/courses" element={<CoursesPage />} />
+            <Route path="/courses" element={<EnrolledAdmins />} />
             <Route path="/courses/:courseId" element={<CourseDetails />} />
             <Route path="/courses/:courseId/lessons/:lessonId" element={<LessonPage />} />
             <Route path="*" element={<div className="p-6 text-center">404: Page Not Found</div>}/>

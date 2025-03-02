@@ -47,21 +47,26 @@ const Grade: React.FC = () => {
   return (
     <>
       <SideNav />
-      <div className="p-6 bg-gradient-to-r from-green-500 to-blue-600 min-h-screen">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-gray-800 to-gray-900 text-gray-100 p-4 sm:p-6 md:p-8">
         {/* Back Button */}
-        <button onClick={() => navigate(-1)} className="flex items-center text-gray-600 hover:text-blue-600 mb-6 transition-all duration-300 ease-in-out transform hover:scale-105">
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center text-indigo-300 hover:text-indigo-100 mb-6 sm:mb-8 transition-all duration-300 ease-in-out transform hover:scale-105"
+        >
           <FaArrowLeft className="mr-2" />
           Back
         </button>
-        <div className="bg-white shadow-2xl rounded-xl p-8 max-w-3xl mx-auto">
-          <header className="text-4xl font-bold text-center text-green-700 mb-6 border-b-4 border-green-300 pb-3">
+        <div className="max-w-3xl mx-auto bg-indigo-900/30 backdrop-blur-md shadow-xl rounded-lg p-6 sm:p-8 border border-indigo-500/20 transition-all duration-300 hover:shadow-2xl">
+          <header className="text-2xl sm:text-3xl md:text-4xl font-bold text-teal-400 mb-6 uppercase tracking-wide text-center border-b-2 border-indigo-500/50 pb-3">
             My Grades
           </header>
 
-          <h3 className="text-xl font-bold text-gray-800 mt-6 bg-green-200 p-3 rounded-md shadow-md">Submissions & Grades</h3>
-          <table className="w-full mt-3 bg-white shadow-md rounded-md overflow-hidden">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-indigo-300 mb-4 uppercase tracking-wide">
+            Submissions & Grades
+          </h3>
+          <table className="w-full mt-3 bg-indigo-800/20 rounded-md overflow-hidden shadow-md">
             <thead>
-              <tr className="bg-blue-400 text-white text-lg">
+              <tr className="bg-indigo-700/50 text-gray-100 text-lg">
                 <th className="px-6 py-3">Title</th>
                 <th className="px-6 py-3">Grade</th>
                 <th className="px-6 py-3">Feedback</th>
@@ -70,19 +75,26 @@ const Grade: React.FC = () => {
             <tbody>
               {submissions.length > 0 ? (
                 submissions.map((submission) => (
-                  <tr key={submission.submissionId} className="text-center hover:bg-blue-100">
-                    <td className="px-6 py-4 border-b border-gray-300">{submission.assignmentTitle}</td>
-                    <td className="px-6 py-4 border-b border-gray-300 font-semibold text-green-600">
+                  <tr
+                    key={submission.submissionId}
+                    className="text-center hover:bg-indigo-800/40 transition duration-200"
+                  >
+                    <td className="px-6 py-4 border-b border-indigo-500/30 text-gray-300">
+                      {submission.assignmentTitle}
+                    </td>
+                    <td className="px-6 py-4 border-b border-indigo-500/30 font-semibold text-teal-400">
                       {submission.graded ? submission.grade : 'Not Graded'}
                     </td>
-                    <td className="px-6 py-4 border-b border-gray-300 text-gray-700">
+                    <td className="px-6 py-4 border-b border-indigo-500/30 text-gray-400">
                       {submission.graded ? submission.feedback : 'No Feedback'}
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan={3} className="px-6 py-4 text-center text-gray-500">No submissions available yet</td>
+                  <td colSpan={3} className="px-6 py-4 text-center text-gray-400">
+                    No submissions available yet
+                  </td>
                 </tr>
               )}
             </tbody>

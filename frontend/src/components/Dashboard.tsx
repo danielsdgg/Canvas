@@ -1,65 +1,120 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '../context/authContext';
 import SideNav from './SideNav';
 import { Link } from 'react-router-dom';
 
-const Dashboard:React.FC = () => {
-  return (
-    <div className="flex flex-col md:flex-row min-h-screen">
-      {/* SideNav */}
-      <div className="md:w-12">
-        <SideNav />
-      </div>
+interface User {
+    id: number;
+    emailAddress: string;
+    firstName: string;
+    lastName: string;
+    phoneNumber: string | null;
+    createdAt: string;
+    role: string;
+    courses: any[];
+}
+  
+interface Course {
+    id: number;
+    courseName: string;
+    description: string;
+    lessons: { id: number; title: string }[];
+    users: User[];
+}
 
-      {/* Main Content Area */}
-      <div className="flex-1 p-4 sm:p-6 bg-gray-200 ml-0 md:ml-0">
-        <div className="max-w-7xl mx-auto">
-          {/* Welcome Banner */}
-          <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-6 rounded-md shadow-sm">
-            <p className="text-sm sm:text-base">
-              <strong>Welcome to Canvas!</strong> You don't have any courses, so this page won't be very exciting for now.
-              Once you've created or signed up for courses, you'll start to see conversations from all of your classes.
-            </p>
-          </div>
+const Dashboard: React.FC = () => {
+    const [courses, setCourses] = useState<Course[]>([]);
+    const { userToken, userData } = useAuth(); 
+    const userEmail = userData?.userDetails.emailAddress; 
 
-          {/* Dashboard Title */}
-          <h1 className="text-2xl sm:text-3xl font-semibold mb-4 text-center lg:text-left">
-            Dashboard
-          </h1>
+    useEffect(() => {
+        const fetchEnrolledCourses = async () => {
+            try {
+                const response = await fetch("/api/v1/users/profile", {
+                    headers: { Authorization: `Bearer ${userToken}` },
+                });
+                if (!response.ok) throw new Error('Failed to fetch courses');
+                
+                const userData = await response.json();
+                setCourses(userData.courses || []);
+            } catch (error) {
+                console.error("Error fetching enrolled courses:", error);
+            }
+        };
 
-          {/* Recent Activity Section */}
-          <section className="border-b border-gray-300 mb-6 pb-4">
-            <h2 className="text-lg sm:text-xl font-semibold text-center lg:text-left">
-              Recent Activity
-            </h2>
-            <p className="text-gray-600 mt-2 text-center lg:text-left">
-              Nothing to show for now
-            </p>
-          </section>
+        fetchEnrolledCourses();
+    }, [userEmail, userToken]);
 
-          {/* Right Sidebar Section (To-Do List, Feedback) */}
-          <div className="grid gap-4 lg:flex lg:justify-between lg:space-x-4">
-            <div className="bg-white p-4 shadow rounded">
-              <h3 className="text-base sm:text-lg font-semibold mb-2 text-center lg:text-left">
-                To Do
-              </h3>
-              <p className="text-gray-600 text-sm sm:text-base">Nothing for now</p>
+    return (
+        <>
+            <SideNav />
+            <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-gray-800 to-gray-900 text-gray-100 p-4 sm:p-6 md:p-8">
+                <div className="max-w-5xl mx-auto">
+                    {/* Header Section */}
+                    <div className="text-center mb-10">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-teal-400 uppercase tracking-wide">
+                            Welcome to Morgan-LMS
+                        </h2>
+                        <p className="mt-2 text-gray-400 text-sm sm:text-base md:text-lg">
+                            Your learning journey starts here
+                        </p>
+                    </div>
+
+                    {/* Content Section */}
+                    <div className="bg-indigo-900/20 backdrop-blur-md rounded-xl p-6 sm:p-8 shadow-xl border border-indigo-500/30">
+                        {courses.length === 0 ? (
+                            <div className="text-center py-10">
+                                <p className="text-gray-300 text-lg sm:text-xl md:text-2xl font-medium">
+                                    No courses yet
+                                </p>
+                                <p className="text-gray-400 text-sm sm:text-base mt-2">
+                                    Once you're enrolled, your courses will appear here.
+                                </p>
+                            </div>
+                        ) : (
+                            <div>
+                                <h3 className="text-xl sm:text-2xl font-semibold text-indigo-300 mb-6 uppercase tracking-wide">
+                                    Your Enrolled Courses
+                                </h3>
+                                <div className="grid gap-6 sm:grid-cols-2">
+                                    {courses.map((course) => (
+                                        <div
+                                            key={course.id}
+                                            className="p-5 bg-indigo-800/30 rounded-lg shadow-md border border-indigo-500/20 hover:bg-indigo-800/50 transition-all duration-300"
+                                        >
+                                            <h4 className="text-lg sm:text-xl font-semibold text-teal-400 mb-2 uppercase tracking-wide">
+                                                {course.courseName}
+                                            </h4>
+                                            <p className="text-gray-300 text-sm sm:text-base line-clamp-2">
+                                                {course.description}
+                                            </p>
+                                            {/* Uncomment if needed */}
+                                            {/* <Link
+                                                to={`/courses/${course.id}`}
+                                                className="text-indigo-300 hover:text-indigo-100 text-sm font-medium underline transition duration-200 mt-3 inline-block"
+                                            >
+                                                Go to Course
+                                            </Link> */}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* View Grades Button */}
+                    <div className="mt-10 text-center">
+                        <Link
+                            to="/grades"
+                            className="inline-flex items-center px-6 py-3 bg-indigo-700 hover:bg-indigo-600 text-indigo-100 font-semibold rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-50"
+                        >
+                            View Grades
+                        </Link>
+                    </div>
+                </div>
             </div>
-
-            <div className="bg-white p-4 shadow rounded">
-              <h3 className="text-base sm:text-lg font-semibold mb-2 text-center lg:text-left">
-                Recent Feedback
-              </h3>
-              <p className="text-gray-600 text-sm sm:text-base">Nothing for now</p>
-            </div>
-
-            <Link to={'/grades'}><button className="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition text-sm sm:text-base h-20">
-              View Grades
-            </button></Link>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+        </>
+    );
 };
 
 export default Dashboard;

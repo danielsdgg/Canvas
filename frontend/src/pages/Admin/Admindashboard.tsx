@@ -16,13 +16,15 @@ export interface Student {
 export interface Courses {
   id: number;
   courseName: string;
+  users?: Student[];
 }
 
 const Admindashboard: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const { userToken } = useAuth();
+  const { userToken, userData } = useAuth();
   const [courses, setCourses] = useState<Courses[]>([]);
+  const [isAssigned, setIsAssigned] = useState<boolean>(true);
 
   useEffect(() => {
     fetchCourses();
@@ -37,29 +39,29 @@ const Admindashboard: React.FC = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`Error fetching courses. Status: ${response.status}`);
       }
 
       const data = await response.json();
-      setCourses(Array.isArray(data) ? data : []);
-    } catch (err: any) {
-      setError(err.message);
+      if (Array.isArray(data) && data.length > 0) {
+        setCourses(data);
+        setIsAssigned(true);
+      } else {
+        setCourses([]);
+        setIsAssigned(false);
+      }
+    } catch (err) {
+      setError("You are not Enrolled in any course. Kindly contact Admin.");
+      setIsAssigned(false);
     } finally {
       setLoading(false);
     }
   };
 
-  const displayStudentList = courses?.map((course) => (
-    <StudentListCard key={course.id} courseName={course.courseName} id={course.id} />
-  ));
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-900 via-gray-800 to-gray-900">
-        <p className="text-lg sm:text-xl text-white animate-pulse">Loading dashboard...</p>
-      </div>
-    );
-  }
+  // Find courses where the logged-in user is enrolled
+  const enrolledCourses = courses.filter((course) =>
+    course.users?.some((user) => user.emailAddress === userData?.userDetails.emailAddress)
+  );
 
   return (
     <>
@@ -79,12 +81,26 @@ const Admindashboard: React.FC = () => {
             </div>
           )}
 
+          {!isAssigned && (
+            <div className="mb-6 p-4 bg-red-900/30 backdrop-blur-md shadow-lg rounded-xl border border-red-500/20 text-center">
+              <p className="text-red-300 text-sm sm:text-base font-semibold">
+                You are not Assigned to a course yet.
+              </p>
+            </div>
+          )}
+
           <div className="grid gap-6 sm:gap-8">
-            {displayStudentList.length > 0 ? (
-              displayStudentList
+            {enrolledCourses.length > 0 ? (
+              enrolledCourses.map((course) => (
+                <StudentListCard
+                  key={course.id}
+                  courseName={course.courseName}
+                  id={course.id}
+                />
+              ))
             ) : (
               <p className="text-center text-base sm:text-lg md:text-xl text-gray-400">
-                No courses available yet.
+                You are not Assigned to a course yet.
               </p>
             )}
           </div>
