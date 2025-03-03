@@ -203,7 +203,7 @@ const Lesson3: React.FC = () => {
                 <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
                   <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
                     <Link to="/fdl3day11" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
-                      Day 11: Lesson 3 Project - React
+                      Day 11: Frontend Lesson 3 Project - React
                     </Link>
                   </h3>
                   <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
