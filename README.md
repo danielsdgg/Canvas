@@ -106,8 +106,17 @@ Morgan-LMS is a **Learning Management System** designed to facilitate online lea
 This project is licensed under the **MIT License**.
 
 ## Authors
-**Daniel Muiruri** & **Owen Ngare**
-- GitHub: [danielsdgg](https://github.com/danielsdgg) [Ngaremaina](https://github.com/Ngaremaina)
-- Portfolio: [danielmuiruri.netlify.app](https://danielmuiruri.netlify.app/) [owenmaina.netlify.app/] (https://owenmaina.netlify.app/)
-- LinkedIn: [Daniel Muiruri](https://www.linkedin.com/in/daniel-muiruri-541a701a3/) [Owen Ngare] (https://www.linkedin.com/in/owen-ngare-maina/)
 
+**Daniel Muiruri** & **Owen Ngare**
+
+- **GitHub:** 
+  - [danielsdgg](https://github.com/danielsdgg)  
+  - [Ngaremaina](https://github.com/Ngaremaina)  
+
+- **Portfolio:** 
+  - [danielmuiruri.netlify.app](https://danielmuiruri.netlify.app/)  
+  - [owenmaina.netlify.app](https://owenmaina.netlify.app/)  
+
+- **LinkedIn:** 
+  - [Daniel Muiruri](https://www.linkedin.com/in/daniel-muiruri-541a701a3/)  
+  - [Owen Ngare](https://www.linkedin.com/in/owen-ngare-maina/)  
