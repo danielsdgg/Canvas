@@ -11,7 +11,7 @@ const Deyy11: React.FC = () => {
     const [submitted, setSubmitted] = useState(false);
 
     const [form, setForm] = useState({
-        assignmentId: 11, // Changed to 11 for Deyy11
+        assignmentId: 34,
         userId: userData?.userDetails.id,
         fileUrl: "",
     });
@@ -73,7 +73,7 @@ const Deyy11: React.FC = () => {
             <div className="bg-indigo-600 text-white py-4 px-6 rounded-t-lg flex items-center justify-center">
                 <FaLaptopCode className="mr-3 text-2xl" />
                 <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold uppercase text-center">
-                    Deployment
+                    Flask Deployment
                 </h1>
             </div>
 

@@ -66,24 +66,24 @@ const Admindashboard: React.FC = () => {
   return (
     <>
       <SideNav />
-      <div className="flex min-h-screen bg-gradient-to-br from-indigo-900 via-gray-800 to-gray-900 text-gray-100">
+      <div className="flex min-h-screen bg-white text-black">
         <div className="flex-1 p-4 sm:p-6 md:p-8">
-          <header className="relative text-2xl sm:text-3xl md:text-4xl font-extrabold text-center text-white mb-8 sm:mb-10 md:mb-12">
+        <header className="relative text-2xl sm:text-3xl md:text-4xl font-extrabold text-center text-indigo-600 mb-8 sm:mb-10 md:mb-12">
             <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 opacity-20 blur-2xl rounded-full -z-10"></div>
-            <span className="relative bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 animate-fade-in">
+            <span className="relative animate-fade-in">
               Admin Dashboard
             </span>
           </header>
 
           {error && (
-            <div className="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-200 text-center text-sm sm:text-base">
+            <div className="mb-6 p-4 bg-red-100/30 border border-red-500 rounded-lg text-red-600 text-center text-sm sm:text-base">
               {error}
             </div>
           )}
 
           {!isAssigned && (
-            <div className="mb-6 p-4 bg-red-900/30 backdrop-blur-md shadow-lg rounded-xl border border-red-500/20 text-center">
-              <p className="text-red-300 text-sm sm:text-base font-semibold">
+            <div className="mb-6 p-4 bg-red-100/30 backdrop-blur-md shadow-lg rounded-xl border border-red-500/20 text-center">
+              <p className="text-red-600 text-sm sm:text-base font-semibold">
                 You are not Assigned to a course yet.
               </p>
             </div>
@@ -99,7 +99,7 @@ const Admindashboard: React.FC = () => {
                 />
               ))
             ) : (
-              <p className="text-center text-base sm:text-lg md:text-xl text-gray-400">
+              <p className="text-center text-base sm:text-lg md:text-xl text-black">
                 You are not Assigned to a course yet.
               </p>
             )}

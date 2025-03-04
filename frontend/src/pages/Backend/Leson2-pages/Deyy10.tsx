@@ -11,7 +11,7 @@ const Deyy10: React.FC = () => {
     const [submitted, setSubmitted] = useState(false);
 
     const [form, setForm] = useState({
-        assignmentId: 10, // Changed to 10 for Deyy10
+        assignmentId: 33,
         userId: userData?.userDetails.id,
         fileUrl: "",
     });

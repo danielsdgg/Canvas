@@ -48,50 +48,50 @@ const Dashboard: React.FC = () => {
     return (
         <>
             <SideNav />
-            <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-gray-800 to-gray-900 text-gray-100 p-4 sm:p-6 md:p-8">
+            <div className="min-h-screen bg-white text-black p-4 sm:p-6 md:p-8">
                 <div className="max-w-5xl mx-auto">
                     {/* Header Section */}
                     <div className="text-center mb-10">
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-teal-400 uppercase tracking-wide">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-indigo-600 uppercase tracking-wide">
                             Welcome to Morgan-LMS
                         </h2>
-                        <p className="mt-2 text-gray-400 text-sm sm:text-base md:text-lg">
+                        <p className="mt-2 text-black text-sm sm:text-base md:text-lg">
                             Your learning journey starts here
                         </p>
                     </div>
 
                     {/* Content Section */}
-                    <div className="bg-indigo-900/20 backdrop-blur-md rounded-xl p-6 sm:p-8 shadow-xl border border-indigo-500/30">
+                    <div className="bg-white/20 backdrop-blur-md rounded-xl p-6 sm:p-8 shadow-xl border border-indigo-500/30">
                         {courses.length === 0 ? (
                             <div className="text-center py-10">
-                                <p className="text-gray-300 text-lg sm:text-xl md:text-2xl font-medium">
+                                <p className="text-black text-lg sm:text-xl md:text-2xl font-medium">
                                     No courses yet
                                 </p>
-                                <p className="text-gray-400 text-sm sm:text-base mt-2">
+                                <p className="text-black text-sm sm:text-base mt-2">
                                     Once you're enrolled, your courses will appear here.
                                 </p>
                             </div>
                         ) : (
                             <div>
-                                <h3 className="text-xl sm:text-2xl font-semibold text-indigo-300 mb-6 uppercase tracking-wide">
+                                <h3 className="text-xl sm:text-2xl font-semibold text-indigo-600 mb-6 uppercase tracking-wide">
                                     Your Enrolled Courses
                                 </h3>
                                 <div className="grid gap-6 sm:grid-cols-2">
                                     {courses.map((course) => (
                                         <div
                                             key={course.id}
-                                            className="p-5 bg-indigo-800/30 rounded-lg shadow-md border border-indigo-500/20 hover:bg-indigo-800/50 transition-all duration-300"
+                                            className="p-5 bg-indigo-100/30 rounded-lg shadow-md border border-indigo-500/20 hover:bg-indigo-100/50 transition-all duration-300"
                                         >
-                                            <h4 className="text-lg sm:text-xl font-semibold text-teal-400 mb-2 uppercase tracking-wide">
+                                            <h4 className="text-lg sm:text-xl font-semibold text-indigo-600 mb-2 uppercase tracking-wide">
                                                 {course.courseName}
                                             </h4>
-                                            <p className="text-gray-300 text-sm sm:text-base line-clamp-2">
+                                            <p className="text-black text-sm sm:text-base line-clamp-2">
                                                 {course.description}
                                             </p>
                                             {/* Uncomment if needed */}
                                             {/* <Link
                                                 to={`/courses/${course.id}`}
-                                                className="text-indigo-300 hover:text-indigo-100 text-sm font-medium underline transition duration-200 mt-3 inline-block"
+                                                className="text-indigo-600 hover:text-indigo-400 text-sm font-medium underline transition duration-200 mt-3 inline-block"
                                             >
                                                 Go to Course
                                             </Link> */}

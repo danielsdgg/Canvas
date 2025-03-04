@@ -54,21 +54,21 @@ const EnrolledCoursesPage: React.FC = () => {
     return (
         <>
             <SideNav />
-            <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-gray-800 to-gray-900 text-gray-100 p-4 sm:p-6 md:p-8 flex flex-col items-center">
+            <div className="min-h-screen bg-white text-black p-4 sm:p-6 md:p-8 flex flex-col items-center">
                 <div className="w-full max-w-4xl">
                     {/* Back Button */}
                     <button
                         onClick={() => navigate(-1)}
-                        className="flex items-center text-indigo-300 hover:text-indigo-100 mb-6 sm:mb-8 transition-all duration-300 ease-in-out transform hover:scale-105"
+                        className="flex items-center text-indigo-600 hover:text-indigo-400 mb-6 sm:mb-8 transition-all duration-300 ease-in-out transform hover:scale-105"
                     >
                         <FaArrowLeft className="mr-2" />
                         Back
                     </button>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-teal-400 mb-6 uppercase tracking-wide text-center sm:text-left">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-indigo-600 mb-6 uppercase tracking-wide text-center sm:text-left">
                         Enrolled Courses
                     </h2>
                     {courses.length === 0 ? (
-                        <p className="text-gray-300 text-lg sm:text-xl text-center">
+                        <p className="text-black text-lg sm:text-xl text-center">
                             You are not enrolled in any courses yet.
                         </p>
                     ) : (
@@ -76,32 +76,32 @@ const EnrolledCoursesPage: React.FC = () => {
                             {courses.map((course) => (
                                 <div
                                     key={course.id}
-                                    className="p-6 bg-indigo-900/30 backdrop-blur-md shadow-xl rounded-lg border border-indigo-500/20 transition-all duration-300 hover:shadow-2xl"
+                                    className="p-6 bg-indigo-100/30 backdrop-blur-md shadow-xl rounded-lg border border-indigo-500/20 transition-all duration-300 hover:shadow-2xl"
                                 >
-                                    <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-indigo-300 mb-4 uppercase tracking-wide">
+                                    <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-indigo-600 mb-4 uppercase tracking-wide">
                                         {course.courseName}
                                     </h3>
-                                    <p className="text-gray-300 text-sm sm:text-base md:text-lg mb-6">
+                                    <p className="text-black text-sm sm:text-base md:text-lg mb-6">
                                         {course.description}
                                     </p>
 
                                     {/* Lessons Section */}
                                     {course.lessons.length > 0 ? (
                                         <div className="mt-4">
-                                            <h4 className="text-lg font-semibold text-teal-400 mb-3">
+                                            <h4 className="text-xl font-bold text-indigo-800 mb-3">
                                                 Lessons:
                                             </h4>
                                             <ul className="space-y-3">
                                                 {course.lessons.map((lesson) => (
                                                     <li
                                                         key={lesson.id}
-                                                        className="flex items-center bg-indigo-800/20 p-3 rounded-md hover:bg-indigo-800/40 transition duration-200"
+                                                        className="flex items-center bg-indigo-200/20 p-3 rounded-md hover:bg-indigo-300/40 transition duration-200"
                                                     >
-                                                        <span className="text-gray-400 mr-2">•</span>
+                                                        <span className="text-black mr-2">•</span>
                                                         <Link
                                                             to={`/courses/${course.id}/lessons/${lesson.id}`}
                                                             onClick={() => fetchLessonDetails(lesson.id)}
-                                                            className="underline text-indigo-300 hover:text-indigo-100 font-medium transition duration-200"
+                                                            className="underline text-indigo-700 hover:text-indigo-900 font-bold text-lg transition duration-400"
                                                         >
                                                             {lesson.title}
                                                         </Link>
@@ -110,7 +110,7 @@ const EnrolledCoursesPage: React.FC = () => {
                                             </ul>
                                         </div>
                                     ) : (
-                                        <p className="text-sm text-gray-400 mt-2">
+                                        <p className="text-sm text-black mt-2">
                                             No lessons available for this course.
                                         </p>
                                     )}

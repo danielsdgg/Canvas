@@ -50,28 +50,28 @@ const History: React.FC = () => {
   return (
     <>
       <SideNav />
-      <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-gray-800 to-gray-900 text-gray-100 p-4 sm:p-6 md:p-8">
+      <div className="min-h-screen bg-white text-black p-4 sm:p-6 md:p-8">
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center text-indigo-300 hover:text-indigo-100 mb-6 sm:mb-8 transition-all duration-300 ease-in-out transform hover:scale-105"
+          className="flex items-center text-indigo-600 hover:text-indigo-400 mb-6 sm:mb-8 transition-all duration-300 ease-in-out transform hover:scale-105"
         >
           <FaArrowLeft className="mr-2" />
           <span className="font-semibold">Back</span>
         </button>
 
         {/* Card Container */}
-        <div className="bg-indigo-900/30 backdrop-blur-md shadow-xl rounded-lg p-6 sm:p-8 max-w-4xl mx-auto border border-indigo-500/20 transition-all duration-300 hover:shadow-2xl">
+        <div className="bg-indigo-100/30 backdrop-blur-md shadow-xl rounded-lg p-6 sm:p-8 max-w-4xl mx-auto border border-indigo-500/20 transition-all duration-300 hover:shadow-2xl">
           {/* Title */}
-          <header className="relative text-2xl sm:text-3xl md:text-4xl font-extrabold text-center text-indigo-300 mb-6 sm:mb-8">
+          <header className="relative text-2xl sm:text-3xl md:text-4xl font-extrabold text-center text-indigo-600 mb-6 sm:mb-8">
             <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 opacity-20 blur-2xl rounded-full -z-10"></div>
-            <span className="relative bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 animate-fade-in">
+            <span className="relative animate-fade-in">
               Submission History
             </span>
           </header>
 
           {/* Submissions Section */}
-          <h3 className="text-lg underline sm:text-xl md:text-2xl font-semibold text-teal-400 mb-4 sm:mb-6 uppercase tracking-wide">
+          <h3 className="text-lg underline sm:text-xl md:text-2xl font-semibold text-indigo-600 mb-4 sm:mb-6 uppercase tracking-wide">
             Submissions & Grades
           </h3>
 
@@ -79,7 +79,7 @@ const History: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-xs sm:text-sm md:text-base border-collapse">
               <thead>
-                <tr className="bg-indigo-700/50 text-gray-100 uppercase tracking-wider">
+                <tr className="bg-indigo-200/50 text-black uppercase tracking-wider">
                   <th className="px-4 sm:px-5 py-2 sm:py-3 text-left border-b border-indigo-500/30">
                     Date Submitted
                   </th>
@@ -99,8 +99,8 @@ const History: React.FC = () => {
                   submissions.map((submission, index) => (
                     <tr
                       key={submission.submissionId}
-                      className={`text-gray-200 border-b border-indigo-500/20 hover:bg-indigo-600/20 transition duration-300 ${
-                        index % 2 === 0 ? "bg-indigo-900/10" : "bg-transparent"
+                      className={`text-black border-b border-indigo-500/20 hover:bg-indigo-100/20 transition duration-300 ${
+                        index % 2 === 0 ? "bg-indigo-100/10" : "bg-transparent"
                       }`}
                     >
                       <td className="px-4 sm:px-5 py-3 sm:py-4 text-left whitespace-nowrap italic">
@@ -111,16 +111,16 @@ const History: React.FC = () => {
                       </td>
                       <td className="px-4 sm:px-5 py-3 sm:py-4 text-center font-semibold">
                         {submission.graded ? (
-                          <span className="text-teal-400">{submission.grade}</span>
+                          <span className="text-indigo-600">{submission.grade}</span>
                         ) : (
-                          <span className="text-red-400">Not Graded</span>
+                          <span className="text-red-600">Not Graded</span>
                         )}
                       </td>
-                      <td className="px-4 sm:px-5 py-3 sm:py-4 text-center text-gray-300">
+                      <td className="px-4 sm:px-5 py-3 sm:py-4 text-center text-black">
                         {submission.graded ? (
                           submission.feedback
                         ) : (
-                          <span className="text-gray-400">No Feedback</span>
+                          <span className="text-gray-600">No Feedback</span>
                         )}
                       </td>
                     </tr>
@@ -129,7 +129,7 @@ const History: React.FC = () => {
                   <tr>
                     <td
                       colSpan={4}
-                      className="px-4 sm:px-6 py-4 sm:py-6 text-center text-gray-400 text-xs sm:text-sm md:text-base"
+                      className="px-4 sm:px-6 py-4 sm:py-6 text-center text-gray-600 text-xs sm:text-sm md:text-base"
                     >
                       No submissions available yet
                     </td>

@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { FaArrowLeft, FaCode, FaLaptopCode, FaList, FaLink, FaEdit, FaCheckCircle, FaRocket, FaBars, FaTimes } from "react-icons/fa";
+import { FaArrowLeft, FaCode, FaLaptopCode, FaList, FaLink, FaEdit, FaBars, FaTimes } from "react-icons/fa";
 
 const Date6: React.FC = () => {
     const navigate = useNavigate();
