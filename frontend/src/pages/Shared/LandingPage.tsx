@@ -5,7 +5,7 @@ export default function Landing() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-100 font-sans">
       {/* Hero Section */}
-      <header className="relative bg-gradient-to-r from-blue-700 via-blue-600 to-blue-800 text-white py-20 overflow-hidden">
+      <header className="relative bg-gradient-to-r from-indigo-700 via-indigo-600 to-indigo-800 text-white py-20 overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center opacity-20"></div>
         <div className="relative container mx-auto text-center px-6 z-10">
           <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-tight drop-shadow-lg animate-fade-in-down">
@@ -23,7 +23,7 @@ export default function Landing() {
             </Link>
             <Link
               to="/login"
-              className="inline-block bg-transparent border-2 border-white text-white px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-blue-700 transition-all duration-300 transform hover:scale-105"
+              className="inline-block bg-transparent border-2 border-white text-white px-6 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-indigo-700 transition-all duration-300 transform hover:scale-105"
             >
               Log In
             </Link>
@@ -53,7 +53,7 @@ export default function Landing() {
               Morgan Technical Training is a premier institution dedicated to providing top-tier technical education and professional development. Our mission is to equip learners with the skills and knowledge needed to thrive in today’s dynamic industries.
             </p>
             <p className="text-gray-700 text-lg leading-relaxed mt-4">
-              By integrating <span className="font-semibold text-blue-700">Morgan LMS</span> into our programs, we deliver a dynamic and engaging learning experience. Whether you’re a student, a professional, or an organization aiming to upskill your team, we offer tailored resources to meet your goals.
+              By integrating <span className="font-semibold text-indigo-700">Morgan LMS</span> into our programs, we deliver a dynamic and engaging learning experience. Whether you’re a student, a professional, or an organization aiming to upskill your team, we offer tailored resources to meet your goals.
             </p>
           </div>
         </section>
@@ -65,21 +65,21 @@ export default function Landing() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-100">
-              <div className="text-blue-600 text-3xl mb-4"><FaBook /></div>
+              <div className="text-indigo-600 text-3xl mb-4"><FaBook /></div>
               <h3 className="text-xl font-semibold text-gray-800">Course Management</h3>
               <p className="text-gray-600 mt-2">
                 Create, organize, and manage courses effortlessly with an intuitive interface.
               </p>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-200">
-              <div className="text-blue-600 text-3xl mb-4"><FaChartLine /></div>
+              <div className="text-indigo-600 text-3xl mb-4"><FaChartLine /></div>
               <h3 className="text-xl font-semibold text-gray-800">Progress Tracking</h3>
               <p className="text-gray-600 mt-2">
                 Monitor student performance with real-time analytics and detailed reports.
               </p>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-300">
-              <div className="text-blue-600 text-3xl mb-4"><FaGlobe /></div>
+              <div className="text-indigo-600 text-3xl mb-4"><FaGlobe /></div>
               <h3 className="text-xl font-semibold text-gray-800">Interactive Learning</h3>
               <p className="text-gray-600 mt-2">
                 Engage students with practical content, live sessions, and discussion forums.
@@ -99,7 +99,7 @@ export default function Landing() {
           <div className="flex justify-center gap-6">
             <Link
               to="/login"
-              className="inline-flex items-center bg-blue-600 text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-md"
+              className="inline-flex items-center bg-indigo-600 text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-indigo-700 transition-all duration-300 transform hover:scale-105 shadow-md"
             >
               Login <FaArrowRight className="ml-2" />
             </Link>

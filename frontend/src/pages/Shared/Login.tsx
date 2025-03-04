@@ -24,6 +24,14 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage("");
+
+    // Check if email and password are filled
+    if (!email || !password) {
+      setErrorMessage("Both email and password must be filled out to log in.");
+      return;
+    }
+
+    // Proceed with login if fields are filled
     const response = await handleLogin(email, password);
 
     if (!response.success) {
@@ -89,13 +97,13 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 font-sans">
+    <div className="min-h-screen bg-white flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 font-sans">
       {/* Login Container */}
       <div className="bg-white shadow-2xl rounded-xl p-8 w-full max-w-md transform transition-all duration-500 animate-fade-in-up relative">
         {/* Back Arrow */}
         <button
           onClick={() => navigate('/')}
-          className="absolute top-4 left-4 flex items-center text-gray-600 hover:text-blue-600 transition-all duration-300 transform hover:scale-110 focus:outline-none"
+          className="absolute top-4 left-4 flex items-center text-indigo-600 hover:text-indigo-400 transition-all duration-300 transform hover:scale-110 focus:outline-none"
         >
           <FaArrowLeft className="text-xl mr-2" /> Landing Page
         </button>
@@ -103,17 +111,17 @@ const Login: React.FC = () => {
         {/* Header Section */}
         <div className="text-center mb-8">
           <img src={Logo} alt="Morgan LMS Logo" className="mx-auto w-24 h-24 rounded-full shadow-md" />
-          <h1 className="text-3xl font-bold text-gray-800 mt-4">
+          <h1 className="text-3xl font-bold text-indigo-600 mt-4">
             Morgan LMS Login
           </h1>
-          <p className="text-gray-600 italic mt-2 text-lg">
+          <p className="text-black italic mt-2 text-lg">
             Sign in with your Morgan Technical Training account
           </p>
         </div>
 
         {/* Error Message */}
         {errorMessage && (
-          <div className="mb-6 p-3 bg-red-100 text-red-700 rounded-lg text-center animate-fade-in">
+          <div className="mb-6 p-3 bg-red-100/30 border border-red-500 rounded-lg text-red-600 text-center animate-fade-in">
             {errorMessage}
           </div>
         )}
@@ -121,7 +129,7 @@ const Login: React.FC = () => {
         {/* Login Form */}
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="email" className="block text-sm font-medium text-black mb-1">
               Email Address
             </label>
             <input
@@ -130,11 +138,11 @@ const Login: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="password" className="block text-sm font-medium text-black mb-1">
               Password
             </label>
             <input
@@ -143,31 +151,31 @@ const Login: React.FC = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
             />
           </div>
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105 disabled:bg-blue-400 disabled:cursor-not-allowed"
+            className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105 disabled:bg-indigo-400 disabled:cursor-not-allowed"
           >
             {isLoading ? "Logging in..." : "Login"}
           </button>
         </form>
 
         {/* Links */}
-        <div className="mt-6 text-sm text-gray-600 text-center space-y-3">
+        <div className="mt-6 text-sm text-black text-center space-y-3">
           <p>
             <button
               onClick={() => setShowResetModal(true)}
-              className="text-blue-600 hover:text-blue-800 hover:underline font-medium transition-colors duration-300"
+              className="text-indigo-600 hover:text-indigo-400 hover:underline font-medium transition-colors duration-300"
             >
               Forgot your password?
             </button>
           </p>
           <p>
             Don’t have an account?{' '}
-            <a href="/signup" className="text-blue-600 hover:text-blue-800 hover:underline font-medium transition-colors duration-300">
+            <a href="/signup" className="text-indigo-600 hover:text-indigo-400 hover:underline font-medium transition-colors duration-300">
               Sign up
             </a>
           </p>
@@ -178,39 +186,39 @@ const Login: React.FC = () => {
       {showResetModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-60 z-50 animate-fade-in">
           <div className="bg-white p-6 rounded-xl shadow-2xl w-full max-w-sm transform transition-all duration-300 animate-fade-in-up">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">Reset Your Password</h2>
+            <h2 className="text-xl font-semibold text-indigo-600 mb-4">Reset Your Password</h2>
             <input
               type="email"
               placeholder="Enter your email"
               value={resetEmail}
               onChange={(e) => setResetEmail(e.target.value)}
-              className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+              className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
             />
             <input
               type="password"
               placeholder="Enter new password"
               value={newpassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+              className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
             />
             <button
               onClick={handlePasswordReset}
               disabled={loading}
-              className="w-full py-3 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 disabled:bg-blue-400 disabled:cursor-not-allowed"
+              className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-300 disabled:bg-indigo-400 disabled:cursor-not-allowed"
             >
               {loading ? "Processing..." : "Change Password"}
             </button>
             <button
               onClick={() => setShowResetModal(false)}
-              className="w-full mt-3 text-gray-700 hover:text-gray-900 hover:underline font-medium transition-colors duration-300"
+              className="w-full mt-3 text-black hover:text-gray-900 hover:underline font-medium transition-colors duration-300"
             >
               Cancel
             </button>
             {message && (
-              <p className="text-center mt-3 text-red-500 animate-fade-in">{message}</p>
+              <p className="text-center mt-3 text-red-600 animate-fade-in">{message}</p>
             )}
             {successMessage && (
-              <p className="text-center mt-3 text-green-500 animate-fade-in">{successMessage}</p>
+              <p className="text-center mt-3 text-green-600 animate-fade-in">{successMessage}</p>
             )}
           </div>
         </div>
