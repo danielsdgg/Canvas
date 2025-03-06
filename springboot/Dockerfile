@@ -1,26 +1,26 @@
-FROM ubuntu:latest
-LABEL authors="Owen"
-
-# Stage 1: Build the .jar
-FROM maven:latest AS build
+# Use Maven with Java 21 for building
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 
 WORKDIR /app
 
-COPY . .
+# Copy source files and dependencies first to improve caching
+COPY pom.xml .
 
+COPY src ./src
+
+# Build the Spring Boot app
 RUN mvn clean package -DskipTests
 
-COPY ./pom.xml /app/pom.xml
-
-COPY ./src /app/src
-
-# Stage 2: Run the .jar
-FROM openjdk:17-jdk-slim
+# Use Java 21 to run the application
+FROM eclipse-temurin:21-jdk AS runtime
 
 WORKDIR /app
 
-COPY --from=build /app/target/backend-0.0.1-SNAPSHOT.jar /app/backend.jar
+# Copy the built .jar file
+COPY --from=build /app/target/springboot-0.0.1-SNAPSHOT.jar /app/backend.jar
 
+# Expose the Spring Boot default port
 EXPOSE 8080
 
+# Run the application
 CMD ["java", "-jar", "/app/backend.jar"]
