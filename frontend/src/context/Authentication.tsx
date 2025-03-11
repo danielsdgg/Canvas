@@ -103,7 +103,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
   
       // Fetch new access token using a utility function
-      const res = await fetch('http://localhost:8080/api/v1/users/refresh-token', {
+      const res = await fetch('https://canvas-1-mr06.onrender.com/api/v1/users/refresh-token', {
         method: 'POST',
         headers: {
           'Authorization':` Bearer ${userToken}`,
