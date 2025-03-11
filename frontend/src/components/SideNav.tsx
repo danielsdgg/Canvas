@@ -14,6 +14,7 @@ import {
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
+import logo from '../assets/morgan_ai.png'
 
 const SideNav: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -32,7 +33,7 @@ const SideNav: React.FC = () => {
       <div className="md:hidden flex justify-between items-center bg-gray-800 p-4">
         <Link to="/" className="text-white flex items-center">
           <img
-            src="https://res.cloudinary.com/ddei3mzex/image/upload/v1729158010/crest_x1gutu.jpg"
+            src={logo}
             alt="Logo"
             className="h-10 w-auto"
           />
@@ -52,7 +53,7 @@ const SideNav: React.FC = () => {
         <div className="flex justify-center p-4">
           <Link to="/dashboard" className="text-white">
             <img
-              src="https://res.cloudinary.com/ddei3mzex/image/upload/v1729158010/crest_x1gutu.jpg"
+              src={logo}
               alt="Logo"
               className="h-10 w-auto"
             />
