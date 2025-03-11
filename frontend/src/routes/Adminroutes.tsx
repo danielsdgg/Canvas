@@ -112,8 +112,8 @@ const Adminroutes = () => {
 
 
             {/* backend lessons*/}
-            <Route path="/courses/:courseId/lessons/5" element={<Leson1 />} />
-            <Route path="/courses/:courseId/lessons/6" element={<Leson2 />} />
+            <Route path="/courses/:courseId/lessons/4" element={<Leson1 />} />
+            <Route path="/courses/:courseId/lessons/5" element={<Leson2 />} />
 
             {/* frontend lessons */}
             <Route path="/courses/:courseId/lessons/1" element={<Lesson1 />} />
