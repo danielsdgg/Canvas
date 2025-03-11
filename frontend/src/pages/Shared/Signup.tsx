@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { registerUser } from "../../services/User";
 import { useNavigate } from "react-router-dom";
-import Logo from '../../assets/morgan.jpg';
+import Logo from '../../assets/morgan_ai.png';
 import { FaArrowLeft } from 'react-icons/fa'; // Import the back arrow icon
 
 const SignUp: React.FC = () => {
