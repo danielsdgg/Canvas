@@ -12,23 +12,5 @@ services:
     build:
       context: ./springboot  # Path to your Spring Boot app's Dockerfile
       dockerfile: Dockerfile
-    environment:
-      - DB_HOST=dpg-cv7v9rin91rc739g1nhg-a.oregon-postgres.render.com
-      - DB_USERNAME_FILE=/run/secrets/db_username
-      - DB_PASSWORD_FILE=/run/secrets/db_password
-      - JWT_ISSUER_URI_FILE=/run/secrets/jwt_issuer_uri  # Add this
-    secrets:
-      - db_username
-      - db_password
-      - jwt_issuer_uri  # Add this
-secrets:
-  db_username:
-    file: ./secrets/db_username.txt
-  db_password:
-    file: ./secrets/db_password.txt
-  jwt_issuer_uri:      # Add this
-    file: ./secrets/jwt_issuer_uri.txt
     ports:
       - "8080:8080"
-
- 
