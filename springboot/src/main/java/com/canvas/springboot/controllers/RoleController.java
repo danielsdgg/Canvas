@@ -18,7 +18,7 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<RoleResponse> addRole(@RequestBody RoleRequest roleRequest) {
         RoleResponse roleResponse = roleService.addRole(roleRequest);
