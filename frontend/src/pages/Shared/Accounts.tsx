@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { FormEvent, useContext, useEffect, useState } from "react";
 import SideNav from "../../components/SideNav";
 import { AuthContext } from "../../context/authContext";
-import { getEachUser } from "../../services/User";
+import { editUser, getEachUser } from "../../services/User";
 import { UserDetailsResponse } from "../../models/responses/User";
 import axios from "axios";
 
@@ -12,8 +12,8 @@ const Account: React.FC = () => {
   const [formValues, setFormValues] = useState({
     firstName: "",
     lastName: "",
-    email: "",
-    phone: "",
+    emailAddress: "",
+    phoneNumber: "",
   });
   const [isLoading, setIsLoading] = useState(true);
 
@@ -32,8 +32,8 @@ const Account: React.FC = () => {
           setFormValues({
             firstName: response.firstName || "",
             lastName: response.lastName || "",
-            email: response.emailAddress || "",
-            phone: response.phoneNumber || "",
+            emailAddress: response.emailAddress || "",
+            phoneNumber: response.phoneNumber || "",
           });
         }
       } catch (error) {
@@ -53,31 +53,22 @@ const Account: React.FC = () => {
     }));
   };
 
-  const handleEditProfile = async () => {
-    if (!userData?.userDetails?.id || !userToken) return;
-    try {
-      const userId = userData.userDetails.id;
-      const url = `/api/v1/users`;
-      const response = await axios.put(
-        url,
-        {
-          firstName: formValues.firstName,
-          lastName: formValues.lastName,
-          emailAddress: formValues.email,
-          phoneNumber: formValues.phone,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        }
-      );
-      setProfile(response.data);
+  const handleEditProfile = async (event:FormEvent) => {
+    event.preventDefault()
+    console.log("Save Changes clicked");
+    console.log("userData:", userData, "userToken:", userToken);
+    
+     try {
+      const response = await editUser(userToken,formValues)
+      console.log("Success:", response);
+      setProfile(response);
       setIsEditing(false);
-      console.log("Profile updated successfully:", response.data);
+
     } catch (error) {
-      console.error("Failed to update profile:", error);
+      console.error("Error:", error);
     }
+    
+    
   };
   console.log(profile);
 
@@ -94,7 +85,7 @@ const Account: React.FC = () => {
           </header>
 
           {/* Personal Details */}
-          <div className="bg-indigo-100/20 p-6 rounded-lg border border-indigo-500/30">
+          <form onSubmit={handleEditProfile} className="bg-indigo-100/20 p-6 rounded-lg border border-indigo-500/30">
             <h3 className="text-lg underline sm:text-xl md:text-2xl font-bold text-center text-indigo-600 mb-4 sm:mb-6 uppercase tracking-wide">
               Personal Details
             </h3>
@@ -128,8 +119,8 @@ const Account: React.FC = () => {
                   <label className="text-indigo-600 font-medium">Email</label>
                   <input
                     type="email"
-                    name="email"
-                    value={formValues.email}
+                    name="emailAddress"
+                    value={formValues.emailAddress}
                     onChange={handleInputChange}
                     className="w-full bg-white border border-indigo-500/50 rounded-lg p-2 sm:p-3 text-black focus:outline-none focus:ring-2 focus:ring-indigo-400"
                   />
@@ -138,15 +129,15 @@ const Account: React.FC = () => {
                   <label className="text-indigo-600 font-medium">Phone</label>
                   <input
                     type="tel"
-                    name="phone"
-                    value={formValues.phone}
+                    name="phoneNumber"
+                    value={formValues.phoneNumber}
                     onChange={handleInputChange}
                     className="w-full bg-white border border-indigo-500/50 rounded-lg p-2 sm:p-3 text-black focus:outline-none focus:ring-2 focus:ring-indigo-400"
                   />
                 </div>
                 <div className="col-span-1 sm:col-span-2 flex justify-center gap-4 sm:gap-6 mt-4">
                   <button
-                    onClick={handleEditProfile}
+                    type="submit"
                     className="px-4 sm:px-6 py-2 bg-teal-500 text-white font-semibold rounded-lg shadow-md hover:bg-teal-600 transform transition duration-300 hover:scale-105"
                   >
                     Save Changes
@@ -194,16 +185,16 @@ const Account: React.FC = () => {
                   >
                     Edit Profile
                   </button>
-                  <button
+                  {/* <button
                     onClick={() => alert("Change password functionality")}
                     className="px-4 sm:px-6 py-2 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 transform transition duration-300 hover:scale-105"
                   >
                     Change Password
-                  </button>
+                  </button> */}
                 </div>
               </div>
             )}
-          </div>
+          </form>
         </div>
       </div>
     </>

@@ -8,8 +8,8 @@ export interface UserSignup{
 }
 
 export interface UserRequest{
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    emailAddress: "",  
+    firstName: string,
+    lastName: string,
+    phoneNumber: string,
+    emailAddress: string,  
 }

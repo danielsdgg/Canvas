@@ -105,12 +105,12 @@ export const getEachUser = async (token: string | null): Promise<UserDetailsResp
 };
 
 
-export const editUser = async (token: string | undefined, userRequest: UserRequest) => {
+export const editUser = async (token: string | null, userRequest: UserRequest) => {
   const url = axiosInstance.getUri() + "/api/v1/users";
 
   try{
     const response = await fetch(url, {
-        method:'PATCH',
+        method:'PUT',
         headers: {"Content-Type": 'application/json',
                   "Authorization":`Bearer ${token}`},
         body: JSON.stringify(userRequest)
@@ -121,9 +121,8 @@ export const editUser = async (token: string | undefined, userRequest: UserReque
       throw new Error(errorMessage);
     }
 
-    const message = 'User edited successfully'+ response.json()
     
-    console.log(message);
+    return await response.json()
 
   }
   catch (error) {

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaCode, FaLaptopCode, FaList, FaLink, FaEdit, FaCheckCircle, FaRocket } from "react-icons/fa";
 import { useAuth } from "../../../context/authContext";
+import SideNav from "../../../components/SideNav";
 
 const Dey1: React.FC = () => {
     const navigate = useNavigate();
@@ -58,7 +59,9 @@ const Dey1: React.FC = () => {
     };
 
     return (
-        <section className="bg-white shadow-lg rounded-lg p-4 sm:p-6 md:p-8 mb-8 mx-auto max-w-5xl">
+        <>
+        {/* <SideNav/> */}
+         <section className="bg-white shadow-lg rounded-lg p-4 sm:p-6 md:p-8 mb-8 mx-auto max-w-5xl">
             {/* Back Button */}
             <button
                 onClick={() => navigate(-1)}
@@ -342,6 +345,8 @@ print(f"You're using Python version: {sys.version.split()[0]}")`}
                 </section>
             </div>
         </section>
+        </>
+       
     );
 };
 

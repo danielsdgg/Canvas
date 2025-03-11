@@ -42,7 +42,7 @@ const Help: React.FC = () => {
             If you need further assistance, feel free to reach out to our support team. We’re here to help you.
           </p>
           <a
-            href="mailto:support@yourdomain.com"
+            href="mailto:gathigidg26@gmail.com"
             className="inline-block px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-200"
           >
             Contact Support
