@@ -13,28 +13,22 @@ services:
       context: ./springboot  # Path to your Spring Boot app's Dockerfile
       dockerfile: Dockerfile
     environment:
-      SPRING_APPLICATION_NAME: springboot
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/canvas  # Internal Docker Network
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
-      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQLDialect
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://localhost:8080
-    depends_on:
-      - db
+      - DB_HOST=dpg-cv7v9rin91rc739g1nhg-a.oregon-postgres.render.com
+      - DB_USERNAME_FILE=/run/secrets/db_username
+      - DB_PASSWORD_FILE=/run/secrets/db_password
+      - JWT_ISSUER_URI_FILE=/run/secrets/jwt_issuer_uri  # Add this
+    secrets:
+      - db_username
+      - db_password
+      - jwt_issuer_uri  # Add this
+secrets:
+  db_username:
+    file: ./secrets/db_username.txt
+  db_password:
+    file: ./secrets/db_password.txt
+  jwt_issuer_uri:      # Add this
+    file: ./secrets/jwt_issuer_uri.txt
     ports:
       - "8080:8080"
 
-  db:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: canvas
-    ports:
-      - "3307:3306"  # Change host port to 3307
-    volumes:
-      - mysql-data:/var/lib/mysql
-
-volumes:
-  mysql-data:
+ 
