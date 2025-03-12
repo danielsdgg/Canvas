@@ -3,6 +3,7 @@ import { useAuth } from '../context/authContext';
 import SideNav from './SideNav';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
+import axiosInstance from '../api/api';
 
 interface Submission {
   submissionId: number;
@@ -20,8 +21,9 @@ const Grade: React.FC = () => {
 
   useEffect(() => {
     const fetchSubmissions = async () => {
+      const url = axiosInstance.getUri() + `/api/v1/assignments/submission/${emailAddress}`
       try {
-        const response = await fetch(`https://canvas-1-mr06.onrender.com/api/v1/assignments/submission/${emailAddress}`, {
+        const response = await fetch(url, {
           headers: {
             Authorization: `Bearer ${userToken}`,
           },

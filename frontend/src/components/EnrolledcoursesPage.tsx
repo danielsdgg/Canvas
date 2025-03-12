@@ -32,8 +32,8 @@ const EnrolledCoursesPage: React.FC = () => {
 
     useEffect(() => {
         const fetchEnrolledCourses = async () => {
+            const url = axiosInstance.getUri() + "/api/v1/users/profile"
             try {
-                const url = axiosInstance.getUri() + "/api/v1/users/profile"
                 const response = await fetch(url, {
                     headers: { Authorization: `Bearer ${userToken}` },
                 });

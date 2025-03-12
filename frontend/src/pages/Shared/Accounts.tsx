@@ -3,7 +3,6 @@ import SideNav from "../../components/SideNav";
 import { AuthContext } from "../../context/authContext";
 import { editUser, getEachUser } from "../../services/User";
 import { UserDetailsResponse } from "../../models/responses/User";
-import axios from "axios";
 
 const Account: React.FC = () => {
   const { userData, userToken } = useContext(AuthContext);
@@ -70,7 +69,6 @@ const Account: React.FC = () => {
     
     
   };
-  console.log(profile);
 
   return (
     <>

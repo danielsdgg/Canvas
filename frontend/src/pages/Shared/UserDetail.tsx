@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import SideNav from "../../components/SideNav";
 import { FaArrowLeft } from "react-icons/fa";
+import axiosInstance from "../../api/api";
 
 interface Submission {
   submissionId: number;
@@ -31,7 +32,8 @@ const UserDetail: React.FC = () => {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await fetch(`https://canvas-1-mr06.onrender.com/api/v1/users/${emailAddress}`, {
+        const url = axiosInstance.getUri() + `/api/v1/users/${emailAddress}`
+        const response = await fetch(url, {
           headers: {
             Authorization: `Bearer ${userToken}`,
           },
@@ -51,7 +53,8 @@ const UserDetail: React.FC = () => {
 
     const fetchSubmissions = async () => {
       try {
-        const response = await fetch(`https://canvas-1-mr06.onrender.com/api/v1/assignments/submission/${emailAddress}`, {
+        const url = axiosInstance.getUri() + `/api/v1/assignments/submission/${emailAddress}`
+        const response = await fetch(url, {
           headers: {
             Authorization: `Bearer ${userToken}`,
           },
@@ -90,7 +93,8 @@ const UserDetail: React.FC = () => {
     if (grade === undefined || feedback === undefined) return;
 
     try {
-      const response = await fetch("/api/v1/assignments/grade", {
+      const url = axiosInstance.getUri() + "/api/v1/assignments/grade"
+      const response = await fetch(url, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

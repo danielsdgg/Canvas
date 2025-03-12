@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import SideNav from "./SideNav";
+import axiosInstance from "../api/api";
 
 interface Course {
   id: number;
@@ -24,7 +25,8 @@ const CoursesPage: React.FC = () => {
           return;
         }
 
-        const response = await fetch("/api/v1/courses", {
+        const url = axiosInstance.getUri() + "/api/v1/courses" 
+        const response = await fetch(url, {
           headers: { Authorization: `Bearer ${userToken}` },
         });
 

@@ -13,9 +13,8 @@ export const registerUser = async (payload: UserSignup, navigate: (path: string)
         }) 
 
         if (response.status === 200){
-          console.log('Form submitted successfully', response.json());
+          console.log('Form submitted successfully');
           navigate("/login")
-
         }
 
         
@@ -27,7 +26,7 @@ export const registerUser = async (payload: UserSignup, navigate: (path: string)
 
 export const loginUser = async (emailAddress: string, password: string, navigate: (path: string) => void) => {
    const url = axiosInstance.getUri() + "/api/v1/users/login";
-//    console.log(url);
+
   try {
     const res = await fetch(url, {
       method: "POST",
@@ -81,8 +80,6 @@ export const logoutUser = async (navigate: (path:string) => void) => {
 
 export const getEachUser = async (token: string | null): Promise<UserDetailsResponse | null> => {
   const url = axiosInstance.getUri() + "/api/v1/users/profile";
-  console.log("Fetching user details from URL:", url);
-  console.log("Authorization token:", token);
 
   try {
     const response = await fetch(url, {
