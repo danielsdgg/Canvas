@@ -28,9 +28,7 @@ export default function StudentListCard({ id, courseName }: Courses) {
       const data = await response.json();
       if (Array.isArray(data) && data.length > 0) {
         setStudents(data);
-      } else {
-        setError("You are not enrolled in any course. Kindly contact Admin.");
-      }
+      } 
     } catch (err: any) {
       setError("You are not enrolled in any course. Kindly contact Admin.");
     } finally {

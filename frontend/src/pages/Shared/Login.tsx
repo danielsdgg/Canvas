@@ -110,9 +110,9 @@ const Login: React.FC = () => {
 
         {/* Header Section */}
         <div className="text-center mb-8">
-          <img src={Logo} alt="Morgan LMS Logo" className="mx-auto w-24 h-24 rounded-full shadow-md" />
+          <img src={Logo} alt="Morgan LMS Logo" className="mx-auto w-16 h-24" />
           <h1 className="text-3xl font-bold text-indigo-600 mt-4">
-            Morgan LMS Login
+            Morgan-LMS Login
           </h1>
           <p className="text-black italic mt-2 text-lg">
             Sign in with your Morgan Technical Training account
