@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/authContext";
 import SideNav from "../../components/SideNav";
 import StudentListCard from "../../components/StudentListCard";
+import axiosInstance from "../../api/api";
 
 export interface Student {
   id: number;
@@ -31,8 +32,9 @@ const Admindashboard: React.FC = () => {
   }, [userToken]);
 
   const fetchCourses = async () => {
+    const url = axiosInstance.getUri() + "/api/v1/courses"
     try {
-      const response = await fetch("/api/v1/courses", {
+      const response = await fetch(url, {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },

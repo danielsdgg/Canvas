@@ -2,6 +2,7 @@ import { Courses, Student } from "../pages/Admin/Admindashboard";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/authContext";
+import axiosInstance from "../api/api";
 
 export default function StudentListCard({ id, courseName }: Courses) {
   const [students, setStudents] = useState<Student[]>([]);
@@ -14,8 +15,9 @@ export default function StudentListCard({ id, courseName }: Courses) {
   }, [userData?.userDetails.id]);
 
   const fetchStudents = async () => {
+    const url = axiosInstance.getUri() + `/api/v1/users/students?courseId=${id}`
     try {
-      const response = await fetch(`/api/v1/users/students?courseId=${id}`, {
+      const response = await fetch(url, {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },

@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import SideNav from "./SideNav";
 import { FaArrowLeft } from "react-icons/fa";
 import { useAuth } from "../context/authContext";
+import axiosInstance from "../api/api";
 
 interface User {
   id: number;
@@ -42,7 +43,8 @@ const CourseDetails: React.FC = () => {
 
       try {
         setLoading(true);
-        const response = await fetch(`/api/v1/courses/${courseId}`, {
+        const url = axiosInstance.getUri() + `/api/v1/courses/${courseId}`
+        const response = await fetch(url, {
           headers: {
             Authorization: `Bearer ${userToken}`,
           },
@@ -67,7 +69,8 @@ const CourseDetails: React.FC = () => {
   const fetchLessonDetails = async (lessonId: number) => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/v1/lessons/${lessonId}`, {
+      const url = axiosInstance.getUri() + `/api/v1/lessons/${lessonId}`
+      const response = await fetch(url, {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
