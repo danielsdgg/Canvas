@@ -32,7 +32,8 @@ const UserDetail: React.FC = () => {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await fetch(`https://canvas-1-mr06.onrender.com/api/v1/users/${emailAddress}`, {
+        const url = axiosInstance.getUri() + `https://canvas-1-mr06.onrender.com/api/v1/users/${emailAddress}`
+        const response = await fetch(url, {
           headers: {
             Authorization: `Bearer ${userToken}`,
           },
@@ -52,7 +53,8 @@ const UserDetail: React.FC = () => {
 
     const fetchSubmissions = async () => {
       try {
-        const response = await fetch(`https://canvas-1-mr06.onrender.com/api/v1/assignments/submission/${emailAddress}`, {
+        const url = axiosInstance.getUri() + `https://canvas-1-mr06.onrender.com/api/v1/assignments/submission/${emailAddress}`
+        const response = await fetch(url, {
           headers: {
             Authorization: `Bearer ${userToken}`,
           },
