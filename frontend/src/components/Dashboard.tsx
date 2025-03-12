@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/authContext';
 import SideNav from './SideNav';
 import { Link } from 'react-router-dom';
+import axiosInstance from '../api/api';
 
 interface User {
     id: number;
@@ -30,7 +31,8 @@ const Dashboard: React.FC = () => {
     useEffect(() => {
         const fetchEnrolledCourses = async () => {
             try {
-                const response = await fetch("/api/v1/users/profile", {
+                const url = axiosInstance.getUri() + "/api/v1/users/profile"
+                const response = await fetch(url, {
                     headers: { Authorization: `Bearer ${userToken}` },
                 });
                 if (!response.ok) throw new Error('Failed to fetch courses');

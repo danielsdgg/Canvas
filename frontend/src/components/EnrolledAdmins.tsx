@@ -3,6 +3,7 @@ import { useAuth } from '../context/authContext';
 import SideNav from './SideNav';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
+import axiosInstance from '../api/api';
 
 interface User {
     id: number;
@@ -32,7 +33,8 @@ const EnrolledAdmins: React.FC = () => {
     useEffect(() => {
         const fetchEnrolledCourses = async () => {
             try {
-                const response = await fetch("/api/v1/users/profile", {
+                const url = axiosInstance.getUri() + "/api/v1/users/profile"
+                const response = await fetch(url, {
                     headers: { Authorization: `Bearer ${userToken}` },
                 });
                 if (!response.ok) throw new Error('Failed to fetch courses');
