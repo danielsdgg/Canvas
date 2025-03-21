@@ -32,7 +32,7 @@ const UserDetail: React.FC = () => {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const url = axiosInstance.getUri() + `/api/v1/users/${emailAddress}`
+        const url = axiosInstance.getUri() + `/api/v1/users/${emailAddress}`;
         const response = await fetch(url, {
           headers: {
             Authorization: `Bearer ${userToken}`,
@@ -53,7 +53,7 @@ const UserDetail: React.FC = () => {
 
     const fetchSubmissions = async () => {
       try {
-        const url = axiosInstance.getUri() + `/api/v1/assignments/submission/${emailAddress}`
+        const url = axiosInstance.getUri() + `/api/v1/assignments/submission/${emailAddress}`;
         const response = await fetch(url, {
           headers: {
             Authorization: `Bearer ${userToken}`,
@@ -93,7 +93,7 @@ const UserDetail: React.FC = () => {
     if (grade === undefined || feedback === undefined) return;
 
     try {
-      const url = axiosInstance.getUri() + "/api/v1/assignments/grade"
+      const url = axiosInstance.getUri() + "/api/v1/assignments/grade";
       const response = await fetch(url, {
         method: "PUT",
         headers: {
@@ -117,10 +117,20 @@ const UserDetail: React.FC = () => {
     }
   };
 
+  const handleFileUrlClick = (fileUrl: string) => {
+    const isUrl = /^(https?:\/\/|www\.)[^\s/$.?#].[^\s]*$/i.test(fileUrl);
+    if (isUrl) {
+      window.open(fileUrl, "_blank", "noopener,noreferrer");
+    } else {
+      const dataUri = `data:text/html;charset=utf-8,${encodeURIComponent(`<pre>${fileUrl}</pre>`)}`;
+      window.open(dataUri, "_blank");
+    }
+  };
+
   if (!user) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-white">
-        <p className="text-lg sm:text-xl text-black animate-pulse">Loading user details...</p>
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <p className="text-base sm:text-lg text-gray-700 animate-pulse">Loading user details...</p>
       </div>
     );
   }
@@ -128,110 +138,103 @@ const UserDetail: React.FC = () => {
   return (
     <>
       <SideNav />
-      <div className="min-h-screen bg-white text-black p-4 sm:p-6 md:p-8">
+      <div className="min-h-screen bg-gray-50 text-gray-900 p-4 sm:p-6 lg:p-8">
+        {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center text-indigo-600 hover:text-indigo-400 mb-6 sm:mb-8 transition-all duration-300 ease-in-out transform hover:scale-105"
+          className="flex items-center text-indigo-600 hover:text-indigo-500 mb-4 sm:mb-6 transition-all duration-300 ease-in-out group"
         >
-          <FaArrowLeft className="mr-2" />
-          Back to Users List
+          <FaArrowLeft className="mr-2 text-sm sm:text-base transition-transform group-hover:-translate-x-1" />
+          <span className="text-sm sm:text-base font-medium">Back to Users List</span>
         </button>
 
-        <div className="bg-indigo-100/30 backdrop-blur-md shadow-xl rounded-xl p-6 sm:p-8 max-w-4xl mx-auto border border-indigo-500/20 transition-all duration-300 hover:shadow-2xl">
-            <header className="relative text-2xl sm:text-3xl md:text-4xl font-extrabold text-center text-indigo-600 mb-8 sm:mb-10 md:mb-12">
-                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 opacity-20 blur-2xl rounded-full -z-10"></div>
-                    <span className="relative animate-fade-in">
-                          User Details
-                    </span>
-            </header>
+        {/* Main Container */}
+        <div className="bg-white shadow-lg rounded-xl p-4 sm:p-6 lg:p-8 mx-auto border border-gray-200 transition-all duration-300 hover:shadow-xl max-w-full">
+          <header className="relative text-xl sm:text-2xl lg:text-3xl font-bold text-center text-indigo-700 mb-4 sm:mb-6 lg:mb-8">
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-200 to-purple-200 opacity-30 blur-2xl rounded-full -z-10"></div>
+            <span className="relative">User Details</span>
+          </header>
 
-          <h2 className="text-xl underline sm:text-2xl md:text-3xl font-bold text-center text-indigo-600 mb-6 sm:mb-8 uppercase tracking-wide">
+          <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold text-center text-gray-800 mb-4 sm:mb-6 tracking-tight">
             {user.firstName} {user.lastName}
           </h2>
 
-          <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-indigo-600 mb-4 sm:mb-6 uppercase tracking-wide">
+          <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-indigo-700 mb-3 sm:mb-4 lg:mb-5 tracking-wide">
             Submissions
           </h3>
-          <div className="overflow-x-auto">
-            <table className="w-full text-xs sm:text-sm md:text-base border-collapse">
-              <thead>
-                <tr className="bg-indigo-200/50 text-black uppercase tracking-wider">
-                  <th className="px-2 sm:px-4 py-2 sm:py-3 border-b border-indigo-500/30">File-URL</th>
-                  <th className="px-2 sm:px-4 py-2 sm:py-3 border-b border-indigo-500/30">Title</th>
-                  <th className="px-2 sm:px-4 py-2 sm:py-3 border-b border-indigo-500/30">Grade</th>
-                  <th className="px-2 sm:px-4 py-2 sm:py-3 border-b border-indigo-500/30">Feedback</th>
-                  <th className="px-2 sm:px-4 py-2 sm:py-3 border-b border-indigo-500/30">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {submissions.length > 0 ? (
-                  submissions.map((submission) => (
-                    <tr
-                      key={submission.submissionId}
-                      className="text-center border-b border-indigo-500/20 hover:bg-indigo-100/20 transition duration-300"
-                    >
-                      <td className="px-2 sm:px-4 py-2 sm:py-3">
-                        <a
-                          href={submission.fileUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-indigo-600 hover:text-indigo-400 font-semibold transition duration-200 whitespace-nowrap"
+
+          <div className="space-y-4 sm:space-y-5">
+            {submissions.length > 0 ? (
+              submissions.map((submission) => (
+                <div
+                  key={submission.submissionId}
+                  className="border border-gray-200 rounded-lg p-3 sm:p-4 bg-white hover:bg-gray-50 transition duration-300 shadow-sm hover:shadow-md"
+                >
+                  <div className="flex flex-col gap-3 sm:gap-4">
+                    {/* Title */}
+                    <h4 className="text-lg sm:text-xl lg:text-2xl font-bold text-indigo-600 tracking-tight">
+                      {submission.assignmentTitle}
+                    </h4>
+
+                    {/* Submission Details */}
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
+                      <div className="flex-1">
+                        <button
+                          onClick={() => handleFileUrlClick(submission.fileUrl)}
+                          className="text-indigo-600 hover:text-indigo-500 font-medium text-sm sm:text-base transition duration-200 underline hover:no-underline"
                         >
                           View Submission
-                        </a>
-                      </td>
-                      <td className="px-2 sm:px-4 py-2 sm:py-3 text-black whitespace-nowrap">
-                        {submission.assignmentTitle}
-                      </td>
-                      <td className="px-2 sm:px-4 py-2 sm:py-3 text-black">
-                        {editing[submission.submissionId] ? (
+                        </button>
+                      </div>
+
+                      <div className="flex-1 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm sm:text-base font-medium text-gray-700">Grade:</span>
+                          {editing[submission.submissionId] ? (
+                            <input
+                              type="number"
+                              value={grading[submission.submissionId]?.grade ?? submission.grade ?? ""}
+                              onChange={(e) =>
+                                handleGradeChange(submission.submissionId, "grade", parseInt(e.target.value))
+                              }
+                              className="w-16 sm:w-20 bg-gray-50 border border-gray-300 rounded-md p-1 text-sm sm:text-base text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all"
+                            />
+                          ) : (
+                            <span
+                              onClick={() => setEditing({ ...editing, [submission.submissionId]: true })}
+                              className="cursor-pointer text-gray-600 hover:text-indigo-600 text-sm sm:text-base transition duration-200"
+                            >
+                              {submission.grade !== null ? submission.grade : "Not Graded"}
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="flex-1 flex items-center gap-2">
+                          <span className="text-sm sm:text-base font-medium text-gray-700">Feedback:</span>
                           <input
-                            type="number"
-                            value={grading[submission.submissionId]?.grade ?? submission.grade ?? ""}
-                            onChange={(e) =>
-                              handleGradeChange(submission.submissionId, "grade", parseInt(e.target.value))
-                            }
-                            className="w-full sm:w-20 bg-white border border-indigo-500/50 rounded p-1 text-black focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                            type="text"
+                            defaultValue={submission.feedback || ""}
+                            onChange={(e) => handleGradeChange(submission.submissionId, "feedback", e.target.value)}
+                            className="w-full bg-gray-50 border border-gray-300 rounded-md p-1 text-sm sm:text-base text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all"
                           />
-                        ) : (
-                          <span
-                            onClick={() => setEditing({ ...editing, [submission.submissionId]: true })}
-                            className="cursor-pointer text-black hover:text-indigo-600 transition duration-200"
-                          >
-                            {submission.grade !== null ? submission.grade : "Not graded"}
-                          </span>
-                        )}
-                      </td>
-                      <td className="px-2 sm:px-4 py-2 sm:py-3 text-black">
-                        <input
-                          type="text"
-                          defaultValue={submission.feedback || ""}
-                          onChange={(e) => handleGradeChange(submission.submissionId, "feedback", e.target.value)}
-                          className="w-full bg-white border border-indigo-500/50 rounded p-1 text-black focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                        />
-                      </td>
-                      <td className="px-2 sm:px-4 py-2 sm:py-3">
+                        </div>
+
                         <button
                           onClick={() => submitGrade(submission.submissionId)}
-                          className="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded-md transition-all duration-200 transform hover:scale-105"
+                          className="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded-md text-sm sm:text-base font-medium transition-all duration-200 hover:shadow-md active:scale-95"
                         >
                           Save
                         </button>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td
-                      colSpan={5}
-                      className="px-2 sm:px-4 py-4 sm:py-6 text-center text-gray-600 text-xs sm:text-sm md:text-base"
-                    >
-                      No submissions available yet.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-center text-sm sm:text-base lg:text-lg text-gray-500 py-4 sm:py-6">
+                No submissions available yet.
+              </p>
+            )}
           </div>
         </div>
       </div>

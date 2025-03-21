@@ -15,7 +15,7 @@ export default function StudentListCard({ id, courseName }: Courses) {
   }, [userData?.userDetails.id]);
 
   const fetchStudents = async () => {
-    const url = axiosInstance.getUri() + `/api/v1/users/students?courseId=${id}`
+    const url = axiosInstance.getUri() + `/api/v1/users/students?courseId=${id}`;
     try {
       const response = await fetch(url, {
         headers: {
@@ -30,7 +30,7 @@ export default function StudentListCard({ id, courseName }: Courses) {
       const data = await response.json();
       if (Array.isArray(data) && data.length > 0) {
         setStudents(data);
-      } 
+      }
     } catch (err: any) {
       setError("You are not enrolled in any course. Kindly contact Admin.");
     } finally {
@@ -40,7 +40,7 @@ export default function StudentListCard({ id, courseName }: Courses) {
 
   if (loading) {
     return (
-      <div className="bg-indigo-100/30 backdrop-blur-md shadow-lg rounded-xl p-4 sm:p-6 border border-indigo-500/20 mb-6 animate-pulse">
+      <div className="bg-indigo-100/30 backdrop-blur-md shadow-lg rounded-xl p-4 sm:p-5 border border-indigo-500/20 mb-6 animate-pulse">
         <p className="text-center text-sm sm:text-base text-black">Loading students...</p>
       </div>
     );
@@ -48,63 +48,68 @@ export default function StudentListCard({ id, courseName }: Courses) {
 
   if (error) {
     return (
-      <div className="bg-red-100/30 backdrop-blur-md shadow-lg rounded-xl p-4 sm:p-6 border border-red-500/20 mb-6">
+      <div className="bg-red-100/30 backdrop-blur-md shadow-lg rounded-xl p-4 sm:p-5 border border-red-500/20 mb-6">
         <p className="text-center text-sm sm:text-base text-red-600">{error}</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-indigo-100/30 backdrop-blur-md shadow-lg rounded-xl p-4 sm:p-6 border border-indigo-500/20 mb-6 transition-all duration-300 hover:shadow-xl hover:border-indigo-400/50">
-      <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-indigo-600 uppercase tracking-wide">
+    <div className="bg-indigo-100/30 backdrop-blur-md shadow-lg rounded-xl p-4 sm:p-5 border border-indigo-500/20 mb-6 transition-all duration-300 hover:shadow-xl hover:border-indigo-400/50">
+      <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-5 text-indigo-600 uppercase tracking-wide text-center">
         {courseName} Students
       </h2>
 
-      <div className="overflow-x-auto">
-        <table className="w-full text-xs sm:text-sm md:text-base border-collapse">
-          <thead>
-            <tr className="bg-indigo-200/50 text-black uppercase tracking-wider">
-              <th className="px-2 sm:px-4 py-2 sm:py-3 border-b border-indigo-500/30">First Name</th>
-              <th className="px-2 sm:px-4 py-2 sm:py-3 border-b border-indigo-500/30">Last Name</th>
-              <th className="px-2 sm:px-4 py-2 sm:py-3 border-b border-indigo-500/30">Email</th>
-              <th className="px-2 sm:px-4 py-2 sm:py-3 border-b border-indigo-500/30">Phone</th>
-              <th className="px-2 sm:px-4 py-2 sm:py-3 border-b border-indigo-500/30">Joined</th>
-              <th className="px-2 sm:px-4 py-2 sm:py-3 border-b border-indigo-500/30">Role</th>
-            </tr>
-          </thead>
-          <tbody>
-            {students.map((student) => (
-              <tr
-                key={student.id || student.emailAddress}
-                className="border-b border-indigo-500/20 hover:bg-indigo-100/20 transition duration-300"
+      <div className="space-y-3 sm:space-y-4">
+        {/* Header Row */}
+        <div className="hidden sm:grid sm:grid-cols-6 gap-2 bg-indigo-200/50 text-black text-sm font-semibold uppercase tracking-wider p-2 rounded-md">
+          <div className="text-center">First Name</div>
+          <div className="text-center">Last Name</div>
+          <div className="text-center">Email</div>
+          <div className="text-center">Phone</div>
+          <div className="text-center">Joined</div>
+          <div className="text-center">Role</div>
+        </div>
+
+        {/* Student List */}
+        {students.map((student) => (
+          <div
+            key={student.id || student.emailAddress}
+            className="flex flex-col sm:grid sm:grid-cols-6 gap-2 sm:gap-3 p-2 sm:p-3 border-b border-indigo-500/20 last:border-b-0 hover:bg-indigo-100/20 transition duration-300 rounded-md"
+          >
+            <div className="sm:text-center">
+              <span className="sm:hidden font-semibold text-indigo-600 text-sm">First Name: </span>
+              <NavLink
+                to={`/user/${student.emailAddress}`}
+                className="text-indigo-600 hover:underline hover:text-indigo-400 font-semibold transition duration-200 text-sm sm:text-base break-words"
               >
-                <td className="px-2 sm:px-4 py-2 sm:py-3 text-center">
-                  <NavLink
-                    to={`/user/${student.emailAddress}`}
-                    className="text-indigo-600 hover:text-indigo-400 font-semibold transition duration-200 whitespace-nowrap"
-                  >
-                    {student.firstName}
-                  </NavLink>
-                </td>
-                <td className="px-2 sm:px-4 py-2 sm:py-3 text-center text-black whitespace-nowrap">
-                  {student.lastName}
-                </td>
-                <td className="px-2 sm:px-4 py-2 sm:py-3 text-center text-black break-all sm:break-words">
-                  {student.emailAddress}
-                </td>
-                <td className="px-2 sm:px-4 py-2 sm:py-3 text-center text-black whitespace-nowrap">
-                  {student.phoneNumber || "N/A"}
-                </td>
-                <td className="px-2 sm:px-4 py-2 sm:py-3 text-center text-black whitespace-nowrap">
-                  {new Date(student.createdAt).toLocaleDateString()}
-                </td>
-                <td className="px-2 sm:px-4 py-2 sm:py-3 text-center text-black whitespace-nowrap">
-                  {student.role}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                {student.firstName}
+              </NavLink>
+            </div>
+            <div className="sm:text-center">
+              <span className="sm:hidden font-semibold text-indigo-600 text-sm">Last Name: </span>
+              <span className="text-black text-sm sm:text-base break-words">{student.lastName}</span>
+            </div>
+            <div className="sm:text-center">
+              <span className="sm:hidden font-semibold text-indigo-600 text-sm">Email: </span>
+              <span className="text-black text-sm sm:text-base break-words">{student.emailAddress}</span>
+            </div>
+            <div className="sm:text-center">
+              <span className="sm:hidden font-semibold text-indigo-600 text-sm">Phone: </span>
+              <span className="text-black text-sm sm:text-base break-words">{student.phoneNumber || "N/A"}</span>
+            </div>
+            <div className="sm:text-center">
+              <span className="sm:hidden font-semibold text-indigo-600 text-sm">Joined: </span>
+              <span className="text-black text-sm sm:text-base break-words">
+                {new Date(student.createdAt).toLocaleDateString()}
+              </span>
+            </div>
+            <div className="sm:text-center">
+              <span className="sm:hidden font-semibold text-indigo-600 text-sm">Role: </span>
+              <span className="text-black text-sm sm:text-base break-words">{student.role}</span>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

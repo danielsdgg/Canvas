@@ -32,7 +32,7 @@ const Admindashboard: React.FC = () => {
   }, [userToken]);
 
   const fetchCourses = async () => {
-    const url = axiosInstance.getUri() + "/api/v1/courses"
+    const url = axiosInstance.getUri() + "/api/v1/courses";
     try {
       const response = await fetch(url, {
         headers: {
@@ -60,7 +60,6 @@ const Admindashboard: React.FC = () => {
     }
   };
 
-  // Find courses where the logged-in user is enrolled
   const enrolledCourses = courses.filter((course) =>
     course.users?.some((user) => user.emailAddress === userData?.userDetails.emailAddress)
   );
@@ -69,8 +68,8 @@ const Admindashboard: React.FC = () => {
     <>
       <SideNav />
       <div className="flex min-h-screen bg-white text-black">
-        <div className="flex-1 p-4 sm:p-6 md:p-8">
-        <header className="relative text-2xl sm:text-3xl md:text-4xl font-extrabold text-center text-indigo-600 mb-8 sm:mb-10 md:mb-12">
+        <div className="flex-1 p-4 sm:p-6 lg:p-8">
+          <header className="relative text-xl sm:text-2xl lg:text-3xl font-extrabold text-center text-indigo-600 mb-6 sm:mb-8 lg:mb-10">
             <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 opacity-20 blur-2xl rounded-full -z-10"></div>
             <span className="relative animate-fade-in">
               Admin Dashboard
@@ -78,20 +77,20 @@ const Admindashboard: React.FC = () => {
           </header>
 
           {error && (
-            <div className="mb-6 p-4 bg-red-100/30 border border-red-500 rounded-lg text-red-600 text-center text-sm sm:text-base">
+            <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-100/30 border border-red-500 rounded-lg text-red-600 text-center text-sm sm:text-base">
               {error}
             </div>
           )}
 
           {!isAssigned && (
-            <div className="mb-6 p-4 bg-red-100/30 backdrop-blur-md shadow-lg rounded-xl border border-red-500/20 text-center">
+            <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-100/30 backdrop-blur-md shadow-lg rounded-xl border border-red-500/20 text-center">
               <p className="text-red-600 text-sm sm:text-base font-semibold">
                 You are not Assigned to a course yet.
               </p>
             </div>
           )}
 
-          <div className="grid gap-6 sm:gap-8">
+          <div className="space-y-6 sm:space-y-8">
             {enrolledCourses.length > 0 ? (
               enrolledCourses.map((course) => (
                 <StudentListCard
@@ -101,7 +100,7 @@ const Admindashboard: React.FC = () => {
                 />
               ))
             ) : (
-              <p className="text-center text-base sm:text-lg md:text-xl text-black">
+              <p className="text-center text-sm sm:text-base lg:text-lg text-black">
                 You are not Assigned to a course yet.
               </p>
             )}
