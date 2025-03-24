@@ -72,7 +72,7 @@ const EnrolledAdmins: React.FC = () => {
                         <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-indigo-600">
                             <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-indigo-300 opacity-20 blur-2xl rounded-full -z-10"></div>
                             <span className="relative bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-400 animate-fade-in">
-                                Enrolled Courses
+                                Assigned Courses
                             </span>
                         </h2>
                     </div>
@@ -80,7 +80,7 @@ const EnrolledAdmins: React.FC = () => {
                     {/* Courses Section */}
                     {courses.length === 0 ? (
                         <p className="text-gray-600 font-medium text-sm sm:text-base text-center">
-                            You are not enrolled in any courses yet.
+                            You are not assigned in any courses yet.
                         </p>
                     ) : (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
