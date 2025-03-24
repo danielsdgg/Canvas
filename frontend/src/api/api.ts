@@ -5,7 +5,7 @@ const axiosInstance = axios.create({
   baseURL: "https://canvas-xkxr.onrender.com/", 
   timeout: 1000,                             
   headers: {
-    'Content-Type': 'application/json',      // Set the headers, like Content-Type
+    'Content-Type': 'application/json',      
   },
 });
 
