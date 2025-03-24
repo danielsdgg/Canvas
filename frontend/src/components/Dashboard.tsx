@@ -14,7 +14,14 @@ interface User {
     role: string;
     courses: any[];
 }
+
+interface Lesson {
+    id: number;
+    title: string;
+  }
   
+
+
 interface Course {
     id: number;
     courseName: string;
@@ -91,12 +98,12 @@ const Dashboard: React.FC = () => {
                                                 {course.description}
                                             </p>
                                             {/* Uncomment if needed */}
-                                            {/* <Link
+                                            <Link
                                                 to={`/courses/${course.id}`}
                                                 className="text-indigo-600 hover:text-indigo-400 text-sm font-medium underline transition duration-200 mt-3 inline-block"
                                             >
                                                 Go to Course
-                                            </Link> */}
+                                            </Link>
                                         </div>
                                     ))}
                                 </div>

@@ -1,197 +1,168 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
-import SideNav from "./SideNav";
-import { FaArrowLeft } from "react-icons/fa";
-import { useAuth } from "../context/authContext";
-import axiosInstance from "../api/api";
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '../context/authContext';
+import SideNav from './SideNav';
+import { Link } from 'react-router-dom';
+import axiosInstance from '../api/api';
 
 interface User {
-  id: number;
-  emailAddress: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string | null;
-  createdAt: string;
-  role: string;
-  courses: any[];
+    id: number;
+    emailAddress: string;
+    firstName: string;
+    lastName: string;
+    phoneNumber: string | null;
+    createdAt: string;
+    role: string;
+    courses: any[];
 }
 
 interface Lesson {
-  id: number;
-  title: string;
+    id: number;
+    title: string;
 }
 
 interface Course {
-  courseName: string;
-  description: string;
-  lessons: { id: number; title: string }[];
-  users: User[];
+    id: number;
+    courseName: string;
+    description: string;
+    lessons: { id: number; title: string }[];
+    users: User[];
 }
 
-const CourseDetails: React.FC = () => {
-  const { courseId } = useParams<{ courseId: string }>();
-  const [course, setCourse] = useState<Course | null>(null);
-  const [lessonDetails, setLessonDetails] = useState<Lesson | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
-  const { userToken } = useAuth();
+const Dashboard: React.FC = () => {
+    const [courses, setCourses] = useState<Course[]>([]);
+    const { userToken, userData } = useAuth(); 
+    const userEmail = userData?.userDetails.emailAddress; 
 
-  useEffect(() => {
-    const fetchCourseDetails = async () => {
-      if (!courseId) return;
+    useEffect(() => {
+        const fetchEnrolledCourses = async () => {
+            try {
+                const url = axiosInstance.getUri() + "/api/v1/users/profile";
+                const response = await fetch(url, {
+                    headers: { Authorization: `Bearer ${userToken}` },
+                });
+                if (!response.ok) throw new Error('Failed to fetch courses');
+                
+                const userData = await response.json();
+                setCourses(userData.courses || []);
+            } catch (error) {
+                console.error("Error fetching enrolled courses:", error);
+            }
+        };
 
-      try {
-        setLoading(true);
-        const url = axiosInstance.getUri() + `/api/v1/courses/${courseId}`
-        const response = await fetch(url, {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        });
+        fetchEnrolledCourses();
+    }, [userEmail, userToken]);
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch course details.");
+    // Placeholder function to fetch lesson details
+    const fetchLessonDetails = async (lessonId: number) => {
+        try {
+            const url = axiosInstance.getUri() + `/api/v1/lessons/${lessonId}`;
+            const response = await fetch(url, {
+                headers: { Authorization: `Bearer ${userToken}` },
+            });
+            if (!response.ok) throw new Error('Failed to fetch lesson details');
+            const lessonData = await response.json();
+            console.log("Lesson Details:", lessonData);
+            // Add logic to handle the lesson data (e.g., set to state, display in UI, etc.)
+        } catch (error) {
+            console.error("Error fetching lesson details:", error);
         }
-        const data: Course = await response.json();
-        setCourse(data);
-      } catch (error) {
-        setError("Error fetching course details.");
-        console.error("Error fetching course details:", error);
-      } finally {
-        setLoading(false);
-      }
     };
 
-    fetchCourseDetails();
-  }, [courseId, userToken]);
-
-  const fetchLessonDetails = async (lessonId: number) => {
-    try {
-      setLoading(true);
-      const url = axiosInstance.getUri() + `/api/v1/lessons/${lessonId}`
-      const response = await fetch(url, {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch lesson details.");
-      }
-      const data: Lesson = await response.json();
-      setLessonDetails(data);
-    } catch (error) {
-      setError("Error fetching lesson details.");
-      console.error("Error fetching lesson details:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-900 via-gray-800 to-gray-900">
-        <p className="text-gray-300 text-lg sm:text-xl animate-pulse">Loading...</p>
-      </div>
-    );
-  }
+        <>
+            <SideNav />
+            <div className="min-h-screen bg-white text-black p-4 sm:p-6 md:p-8">
+                <div className="max-w-5xl mx-auto">
+                    {/* Header Section */}
+                    <div className="text-center mb-10">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-indigo-600 uppercase tracking-wide">
+                            Welcome to Morgan-LMS
+                        </h2>
+                        <p className="mt-2 text-black text-sm sm:text-base md:text-lg">
+                            Your learning journey starts here
+                        </p>
+                    </div>
 
-  if (error) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-900 via-gray-800 to-gray-900">
-        <p className="text-red-400 text-lg sm:text-xl font-semibold bg-red-500/20 border border-red-500 rounded-lg p-3">
-          {error}
-        </p>
-      </div>
-    );
-  }
+                    {/* Content Section */}
+                    <div className="bg-white/20 backdrop-blur-md rounded-xl p-6 sm:p-8 shadow-xl border border-indigo-500/30">
+                        {courses.length === 0 ? (
+                            <div className="text-center py-10">
+                                <p className="text-black text-lg sm:text-xl md:text-2xl font-medium">
+                                    No courses yet
+                                </p>
+                                <p className="text-black text-sm sm:text-base mt-2">
+                                    Once you're enrolled, your courses will appear here.
+                                </p>
+                            </div>
+                        ) : (
+                            <div>
+                                <h3 className="text-xl sm:text-2xl font-semibold text-indigo-600 mb-6 uppercase tracking-wide">
+                                    Your Enrolled Courses
+                                </h3>
+                                <div className="grid gap-6 sm:grid-cols-2">
+                                    {courses.map((course) => (
+                                        <div
+                                            key={course.id}
+                                            className="p-5 bg-indigo-100/30 rounded-lg shadow-md border border-indigo-500/20 hover:bg-indigo-100/50 transition-all duration-300"
+                                        >
+                                            <h4 className="text-lg sm:text-xl font-semibold text-indigo-600 mb-2 uppercase tracking-wide">
+                                                {course.courseName}
+                                            </h4>
+                                            <p className="text-black text-sm sm:text-base line-clamp-2 mb-4">
+                                                {course.description}
+                                            </p>
+                                            {/* Lessons Section */}
+                                            {course.lessons && course.lessons.length > 0 ? (
+                                                <div className="mb-4">
+                                                    <h5 className="text-sm font-semibold text-indigo-600 mb-2">
+                                                        Lessons:
+                                                    </h5>
+                                                    <ul className="space-y-3">
+                                                        {course.lessons.map((lesson) => (
+                                                            <li key={lesson.id} className="flex items-center">
+                                                                <span className="text-gray-400 mr-2">•</span>
+                                                                <Link
+                                                                    to={`/courses/${course.id}/lessons/${lesson.id}`}
+                                                                    onClick={() => fetchLessonDetails(lesson.id)}
+                                                                    className="underline text-indigo-600 hover:text-indigo-400 font-medium transition duration-200"
+                                                                >
+                                                                    {lesson.title}
+                                                                </Link>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            ) : (
+                                                <p className="text-black text-sm italic mb-4">
+                                                    No lessons available yet.
+                                                </p>
+                                            )}
+                                            <Link
+                                                to={`/courses/${course.id}`}
+                                                className="text-indigo-600 hover:text-indigo-400 text-sm font-medium underline transition duration-200 mt-3 inline-block"
+                                            >
+                                                Go to Course
+                                            </Link>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
 
-  return (
-    <>
-      <SideNav />
-      <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-gray-800 to-gray-900 text-gray-100 p-4 sm:p-6 md:p-8">
-        {/* Back Button */}
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center text-indigo-300 hover:text-indigo-100 mb-6 sm:mb-8 transition-all duration-300 ease-in-out transform hover:scale-105"
-        >
-          <FaArrowLeft className="mr-2" />
-          Back to Courses
-        </button>
-
-        <div className="max-w-4xl mx-auto bg-indigo-900/30 backdrop-blur-md shadow-xl rounded-lg p-6 sm:p-8 border border-indigo-500/20 transition-all duration-300 hover:shadow-2xl">
-          {course ? (
-            <>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-teal-400 mb-4 uppercase tracking-wide text-center sm:text-left">
-                {course.courseName}
-              </h1>
-              <p className="text-gray-300 text-sm sm:text-base md:text-lg mb-6">{course.description}</p>
-
-              <div>
-                <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-indigo-300 mb-4 uppercase tracking-wide">
-                  Lessons
-                </h2>
-                <ul className="space-y-3">
-                  {course.lessons.map((lesson) => (
-                    <li key={lesson.id} className="flex items-center">
-                      <span className="text-gray-400 mr-2">•</span>
-                      <Link
-                        to={`/courses/${courseId}/lessons/${lesson.id}`}
-                        onClick={() => fetchLessonDetails(lesson.id)}
-                        className="underline text-indigo-300 hover:text-indigo-100 font-medium transition duration-200"
-                      >
-                        {lesson.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {lessonDetails && (
-                <div className="mt-6 p-4 sm:p-6 bg-indigo-800/20 rounded-lg border border-indigo-500/30">
-                  <h3 className="text-lg sm:text-xl font-semibold text-teal-400">{lessonDetails.title}</h3>
-                  {/* Content will be dynamically loaded, so keeping this commented */}
-                  {/* <p className="text-gray-300 mt-2">{lessonDetails.content}</p> */}
+                    {/* View Grades Button */}
+                    <div className="mt-10 text-center">
+                        <Link
+                            to="/grades"
+                            className="inline-flex items-center px-6 py-3 bg-indigo-700 hover:bg-indigo-600 text-indigo-100 font-semibold rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-50"
+                        >
+                            View Grades
+                        </Link>
+                    </div>
                 </div>
-              )}
-            </>
-          ) : (
-            <p className="text-red-400 text-lg sm:text-xl font-semibold text-center">
-              Course not found
-            </p>
-          )}
-        </div>
-        {/* <header className="mt-16 text-xl text-center">Students enrolled to this course</header>
-        <table className="min-w-full text-left text-sm sm:text-base mt-16">
-          <thead>
-            <tr className="bg-yellow-100">
-              <th className="px-4 py-2 font-medium text-gray-700">First Name</th>
-              <th className="px-4 py-2 font-medium text-gray-700">Last Name</th>
-              <th className="px-4 py-2 font-medium text-gray-700">Email</th>
-              <th className="px-4 py-2 font-medium text-gray-700">Phone Number</th>
-              <th className="px-4 py-2 font-medium text-gray-700">Joined</th>
-            </tr>
-          </thead>
-          <tbody>
-            {course?.users.filter(user=>user.role==='STUDENT').map((user) => (
-              <tr key={user.id} className="hover:bg-yellow-50">
-                <td className="px-4 py-2">
-                  <Link to={`/user/${user.id}`} className="text-blue-500 hover:text-blue-700">
-                    {user.firstName}
-                  </Link>
-                </td>
-                <td className="px-4 py-2">{user.lastName}</td>
-                <td className="px-4 py-2">{user.emailAddress}</td>
-                <td className="px-4 py-2">{user.phoneNumber ? user.phoneNumber : 'N/A'}</td>
-                <td className="px-4 py-2">{new Date(user.createdAt).toLocaleDateString()}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table> */}
-      </div>
-    </>
-  );
+            </div>
+        </>
+    );
 };
 
-export default CourseDetails;
+export default Dashboard;
