@@ -4,7 +4,7 @@ import { getData, storeData, removeData } from '../hooks/idbHelpers';
 import { AuthContext, AuthProviderProps } from './authContext';
 import { UserResponse } from '../models/responses/User';
 import { loginUser, logoutUser } from '../services/User';
-import Alert from '../components/Alert';
+// import Alert from '../components/Alert';
 import axiosInstance from '../api/api';
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {

@@ -3,7 +3,7 @@ import { AuthContext } from '../../context/Authentication';
 import Logo from '../../assets/morgan_ai.png';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../api/api';
-import Alert from '../../components/Alert';
+// import Alert from '../../components/Alert';
 import { FaArrowLeft } from 'react-icons/fa'; // Import the back arrow icon
 
 const Login: React.FC = () => {

@@ -26,6 +26,7 @@ export const registerUser = async (payload: UserSignup, navigate: (path: string)
 
 export const loginUser = async (emailAddress: string, password: string, navigate: (path: string) => void) => {
    const url = axiosInstance.getUri() + "/api/v1/users/login";
+   console.log(url);
 
   try {
     const res = await fetch(url, {
