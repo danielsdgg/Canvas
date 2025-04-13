@@ -18,9 +18,7 @@ interface User {
 interface Lesson {
     id: number;
     title: string;
-  }
-  
-
+}
 
 interface Course {
     id: number;
@@ -34,6 +32,7 @@ const Dashboard: React.FC = () => {
     const [courses, setCourses] = useState<Course[]>([]);
     const { userToken, userData } = useAuth(); 
     const userEmail = userData?.userDetails.emailAddress; 
+    const username = userData?.userDetails.firstName || 'User';
 
     useEffect(() => {
         const fetchEnrolledCourses = async () => {
@@ -69,6 +68,15 @@ const Dashboard: React.FC = () => {
                         </p>
                     </div>
 
+                    {/* Welcome Message */}
+                    {courses.length > 0 && (
+                        <div className="mb-6 text-center border-b border-indigo-200 pb-3">
+                            <p className="text-indigo-600 font-medium text-sm sm:text-base italic tracking-wide">
+                                Welcome {username}! You have been successfully enrolled in the following course{courses.length > 1 ? 's' : ''}. View the details below.
+                            </p>
+                        </div>
+                    )}
+
                     {/* Content Section */}
                     <div className="bg-white/20 backdrop-blur-md rounded-xl p-6 sm:p-8 shadow-xl border border-indigo-500/30">
                         {courses.length === 0 ? (
@@ -99,7 +107,7 @@ const Dashboard: React.FC = () => {
                                             </p>
                                             {/* Uncomment if needed */}
                                             <Link
-                                                to={`/courses/${course.id}`}
+                                                to={`/courses`}
                                                 className="text-indigo-600 hover:text-indigo-400 text-sm font-medium underline transition duration-200 mt-3 inline-block"
                                             >
                                                 Go to Course

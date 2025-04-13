@@ -30,7 +30,7 @@ const SideNav: React.FC = () => {
     <IconContext.Provider value={{ size: "1.5em" }}>
       {/* Top Navbar for Mobile */}
       <div className="md:hidden flex justify-between items-center bg-gray-800 p-4">
-        <Link to="/" className="text-white flex items-center">
+        <Link to="/courses" className="text-white flex items-center">
           <img
             src={logo}
             alt="Logo"
@@ -51,7 +51,7 @@ const SideNav: React.FC = () => {
         className={`fixed top-0 left-0 h-screen w-64 bg-gray-800 text-white transform z-20 ${isMobile ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 md:translate-x-0 md:flex md:flex-col`}
       >
         <div className="flex justify-center p-4">
-          <Link to="/dashboard" className="text-white flex items-center">
+          <Link to="/courses" className="text-white flex items-center">
             <img
               src={logo}
               alt="Logo"

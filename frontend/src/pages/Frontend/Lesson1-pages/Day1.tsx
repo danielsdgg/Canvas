@@ -153,19 +153,13 @@ const Day1: React.FC = () => {
             <li className="flex items-start">
               <FaTasks className="mr-2 mt-1 text-teal-600" />
               <div>
-                <strong>Week 3 - Tailwind CSS:</strong> Learn <strong>Tailwind CSS</strong>, a utility-first framework that accelerates styling with pre-built classes. Master utility classes for layout, typography, and colors, and explore responsive design techniques and custom configurations.
-              </div>
-            </li>
-            <li className="flex items-start">
-              <FaProjectDiagram className="mr-2 mt-1 text-teal-600" />
-              <div>
-                <strong>Week 4 - Project Implementation:</strong> Apply your skills by building a real-world project with <strong>HTML, CSS, and Tailwind CSS</strong>. Learn file organization, image optimization, version control with Git, and performance best practices.
+                <strong>Week 3 - Tailwind CSS & Project Implementation:</strong> Learn <strong>Tailwind CSS</strong>, a utility-first framework that accelerates styling with pre-built classes and Apply your skills by building a real-world project now with <strong>HTML, CSS, and Tailwind CSS</strong>. Learn file organization, image optimization, version control with Git, and performance best practices.
               </div>
             </li>
           </ul>
 
           <p className="text-sm sm:text-base text-gray-800 mb-4">
-            <strong>Final Project:</strong> By the end of this four-week module, you’ll create a fully responsive personal portfolio website showcasing your skills. This hands-on project will include:
+            <strong>Final Project:</strong> By the end of this three-week module, you’ll create a fully responsive personal portfolio website showcasing your skills. This hands-on project will include:
           </p>
 
           <ul className="list-disc pl-6 text-sm sm:text-base text-gray-700 space-y-4 mb-6">

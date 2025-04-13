@@ -7,7 +7,6 @@ import History from "../components/History";
 import Help from "../components/Help";
 import Account from "../pages/Shared/Accounts";
 import LessonPage from '../components/LessonPage';
-import CoursesPage from "../components/CoursesPage";
 import CourseDetails from "../components/CourseDetails";
 import UserDetail from '../pages/Shared/UserDetail';
 

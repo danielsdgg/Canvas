@@ -26,6 +26,7 @@ const Admindashboard: React.FC = () => {
   const { userToken, userData } = useAuth();
   const [courses, setCourses] = useState<Courses[]>([]);
   const [isAssigned, setIsAssigned] = useState<boolean>(true);
+  const username = userData?.userDetails.firstName || 'User';
 
   useEffect(() => {
     fetchCourses();
@@ -75,6 +76,15 @@ const Admindashboard: React.FC = () => {
               Admin Dashboard
             </span>
           </header>
+
+          {/* Welcome Message */}
+          {enrolledCourses.length > 0 && (
+            <div className="mb-6 text-center border-b border-indigo-200 pb-3">
+              <p className="text-indigo-600 font-medium text-sm sm:text-base italic tracking-wide">
+                Welcome, {username}! Your course content{enrolledCourses.length > 1 ? 's are' : ' is'} now available. View the details below.
+              </p>
+            </div>
+          )}
 
           {error && (
             <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-100/30 border border-red-500 rounded-lg text-red-600 text-center text-sm sm:text-base">

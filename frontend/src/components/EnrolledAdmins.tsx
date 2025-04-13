@@ -28,6 +28,8 @@ const EnrolledAdmins: React.FC = () => {
     const [courses, setCourses] = useState<Course[]>([]);
     const { userToken, userData } = useAuth();
     const userId = userData?.userDetails.emailAddress;
+    const username = userData?.userDetails.firstName || 'User';
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -76,6 +78,14 @@ const EnrolledAdmins: React.FC = () => {
                             </span>
                         </h2>
                     </div>
+
+                    {/* Welcome Message */}
+                    {courses.length > 0 && (
+                    <div className="mb-6 text-center border-b border-indigo-200 pb-3">
+                        <p className="text-indigo-600 font-medium text-sm sm:text-base italic tracking-wide">
+                            Welcome once again, {username}! Your course content{courses.length > 1 ? 's are' : ' is'} now available. Happy mentoring..!.                        </p>
+                    </div>
+                    )}
 
                     {/* Courses Section */}
                     {courses.length === 0 ? (
