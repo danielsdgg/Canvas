@@ -266,20 +266,22 @@ public class UserService implements UserDetailsService {
     public void changeUserPassword(PasswordRequest passwordRequest) {
         User user = userRepository.findByEmailAddress(passwordRequest.getEmailAddress());
 
+        if (user == null) {
+            throw new RuntimeException("User not found. Cannot change password.");
+        }
+
         if (!user.getIsActive()) {
             throw new RuntimeException("User account is inactive. Cannot change password.");
         }
 
-        try{
+        try {
             user.setPassword(passwordEncoder.encode(passwordRequest.getNewPassword()));
             userRepository.save(user);
-
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
-        catch (Exception e){
-           throw new RuntimeException(e.getMessage());
-        }
-
     }
+
 
     public List<UserDetailsResponse> getAllUsers() {
         List<User> users = userRepository.findAll()

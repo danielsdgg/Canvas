@@ -66,6 +66,10 @@ public class LessonService {
         return convertLessonResponse(lesson);
     }
 
+    public void deleteLesson(Long id){
+        lessonRepository.deleteById(id);
+    }
+
     private LessonResponse convertLessonResponse(Lessons lessons) {
         LessonResponse lessonResponse = new LessonResponse();
         lessonResponse.setId(lessons.getId());

@@ -17,7 +17,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImV4cCI6MTczOTY0ODY0MSwiaWF0IjoxNzM5NjEyNjQxfQ.nrOdd5JHDUoUMrK2nXckjygx5bYayKGGMD9a7I1ptG8",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnYXRoaWdpZGcyNkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlkIjoxLCJleHAiOjE3NDE4MDkzNTYsImlhdCI6MTc0MTgwNTc1Nn0.E7ED6OhzFCw2yFSem3I3yXYMrvgQDA1g3yvrLpC-vIE",
 									"type": "string"
 								}
 							]
@@ -34,12 +34,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/courses",
-							"protocol": "http",
+							"raw": "https://canvas-xkxr.onrender.com/api/v1/courses",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"canvas-xkxr",
+								"onrender",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -107,7 +108,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImV4cCI6MTc0MDA5NzEyMCwiaWF0IjoxNzQwMDYxMTIwfQ.a53NCIjqx61CSka6shvqG0C1N0cGVwIlI-FAafTOGm0",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvd2VubWFpbmFAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpZCI6MywiZXhwIjoxNzQ0NjU0NDUwLCJpYXQiOjE3NDQ2NTA4NTB9.S-2aXT8tHRlr7S4hhWf8FL9tvscp-4LXdW5sNGJ7JuQ",
 									"type": "string"
 								}
 							]
@@ -115,12 +116,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/courses",
-							"protocol": "http",
+							"raw": "https://canvas-xkxr.onrender.com/api/v1/courses",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"canvas-xkxr",
+								"onrender",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -170,7 +172,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImV4cCI6MTc0MDA5NzEyMCwiaWF0IjoxNzQwMDYxMTIwfQ.a53NCIjqx61CSka6shvqG0C1N0cGVwIlI-FAafTOGm0",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnYXRoaWdpZGcyNkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlkIjoxLCJleHAiOjE3NDE4MDkzNTYsImlhdCI6MTc0MTgwNTc1Nn0.E7ED6OhzFCw2yFSem3I3yXYMrvgQDA1g3yvrLpC-vIE",
 									"type": "string"
 								}
 							]
@@ -196,19 +198,20 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/courses/1/enroll/4",
-							"protocol": "http",
+							"raw": "https://canvas-xkxr.onrender.com/api/v1/courses/1/enroll/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"canvas-xkxr",
+								"onrender",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
 								"courses",
 								"1",
 								"enroll",
-								"4"
+								"1"
 							]
 						}
 					},
@@ -266,7 +269,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"emailAddress\": \"admin@gmail.com\",\r\n    \"newPassword\":\"securePassword123\"\r\n}",
+							"raw": "{\r\n    \"emailAddress\": \"owenmaina@gmail.com\",\r\n    \"newPassword\":\"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -302,7 +305,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"emailAddress\": \"owenmaina@gmail.com\",\n   \"password\": \"securePassword123\"\n}\n",
+							"raw": "{\n   \"emailAddress\": \"owenmaina@gmail.com\",\n   \"password\": \"password\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -338,7 +341,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"firstName\": \"Michael\",\n  \"lastName\":\"Kimani\",\n  \"phoneNumber\": \"+1234567890\",\n  \"emailAddress\": \"michael@gmail.com\",\n  \"password\": \"securePassword123\",\n  \"roleId\": \"1\"\n}\n",
+							"raw": "{\n  \"firstName\": \"Michael\",\n  \"lastName\":\"Kimani\",\n  \"phoneNumber\": \"+1234567890\",\n  \"emailAddress\": \"michael32@gmail.com\",\n  \"password\": \"securePassword123\",\n  \"roleId\": \"1\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -585,7 +588,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aWN0b3JAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpZCI6OCwiZXhwIjoxNzQwMjY0NjIwLCJpYXQiOjE3NDAyMjg2MjB9.xpkCrXtI14NbMi4kEO4ODw3nYbEHFAaL4LusGzxKhAM",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvd2VubWFpbmFAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpZCI6MywiZXhwIjoxNzQwMjM5OTYxLCJpYXQiOjE3NDAyMzk2NjF9.PIJLr6aF8G6qQ8apnN8iSwySqRn6u0vkMM1hd3F9g08",
 									"type": "string"
 								}
 							]
@@ -727,6 +730,47 @@
 								"v1",
 								"users",
 								"jamesdoe@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvd2VubWFpbmFAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpZCI6MywiZXhwIjoxNzQwMjc1MzU3LCJpYXQiOjE3NDAyMzkzNTd9.peClR7KdXXShc1cy5CHatoTwSYfMNSaS2WFheYAgjJU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvd2VubWFpbmFAZ21haWwuY29tIiwiaWF0IjoxNzQwMjM5MzU3LCJleHAiOjE3NDA4NDQxNTd9.oQYxJyMUWvMEoGWTwqKKyLjysPCtdbEb0X8D0J9QBKY\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/refresh-token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"refresh-token"
 							]
 						}
 					},
@@ -941,7 +985,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/assignments/submission",
+							"raw": "http://localhost:8080/api/v1/assignments/submission/michael@gmail.com",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -951,7 +995,8 @@
 								"api",
 								"v1",
 								"assignments",
-								"submission"
+								"submission",
+								"michael@gmail.com"
 							]
 						}
 					},
@@ -1192,7 +1237,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3OTEwNjkwLCJpYXQiOjE3Mzc4NzQ2OTB9.-Ddw7Yu0cGgasnjcxU8HRtRGan4YUNKV0HK2txoMznM",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvd2VubWFpbmFAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpZCI6MywiZXhwIjoxNzQ0NjU0NDUwLCJpYXQiOjE3NDQ2NTA4NTB9.S-2aXT8tHRlr7S4hhWf8FL9tvscp-4LXdW5sNGJ7JuQ",
 									"type": "string"
 								}
 							]
@@ -1201,7 +1246,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Spring Boot Basics\",\r\n    \"content\": \"This lesson introduces Spring Boot concepts.\",\r\n    \"courseId\": 3\r\n}",
+							"raw": "{\r\n    \"title\": \"Spring Boot Basics\",\r\n    \"content\": \"This lesson introduces Spring Boot concepts.\",\r\n    \"courseId\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1232,7 +1277,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW1lc2RvZSIsInJvbGVzIjpbXSwiZXhwIjoxNzM3OTE1MDk0LCJpYXQiOjE3Mzc4NzkwOTR9.hWwnUJxiNkiFNUAaSgWB2uZPiR_WJqryYcfrHqtlYxY",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvd2VubWFpbmFAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpZCI6MywiZXhwIjoxNzQ0NjU0NDUwLCJpYXQiOjE3NDQ2NTA4NTB9.S-2aXT8tHRlr7S4hhWf8FL9tvscp-4LXdW5sNGJ7JuQ",
 									"type": "string"
 								}
 							]
@@ -1292,6 +1337,69 @@
 								"v1",
 								"lessons",
 								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lessons",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvd2VubWFpbmFAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpZCI6MywiZXhwIjoxNzQ0NjU0NDUwLCJpYXQiOjE3NDQ2NTA4NTB9.S-2aXT8tHRlr7S4hhWf8FL9tvscp-4LXdW5sNGJ7JuQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/lessons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"lessons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Lesson",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvd2VubWFpbmFAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpZCI6MywiZXhwIjoxNzQ0NjU0NDUwLCJpYXQiOjE3NDQ2NTA4NTB9.S-2aXT8tHRlr7S4hhWf8FL9tvscp-4LXdW5sNGJ7JuQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/lessons/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"lessons",
+								"1"
 							]
 						}
 					},

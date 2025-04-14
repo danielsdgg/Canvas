@@ -41,4 +41,9 @@ public class LessonController {
         LessonResponse lessonResponse = lessonService.updateLesson(id, lessonRequest);
         return new ResponseEntity<>(lessonResponse, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteLesson(@PathVariable Long id){
+        lessonService.deleteLesson(id);
+    }
 }
