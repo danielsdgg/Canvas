@@ -87,6 +87,12 @@ import Deyy11 from '../pages/Backend/Leson2-pages/Deyy11';
 import Deyy12 from '../pages/Backend/Leson2-pages/Deyy12';
 import EnrolledCoursesPage from '../components/EnrolledcoursesPage';
 import EnrolledAdmins from '../components/EnrolledAdmins';
+import Lesoon1 from '../pages/Cyber/Lesoon1';
+import Lesoon2 from '../pages/Cyber/Lesoon2';
+import Lesoon3 from '../pages/Cyber/Lesoon3';
+import Lesoon4 from '../pages/Cyber/Lesoon4';
+import Lesoon5 from '../pages/Cyber/Lesoon5';
+import Lesoon6 from '../pages/Cyber/Lesoon6';
 
 
 //   DATA SCIENCE ROUTES
@@ -107,12 +113,19 @@ const Adminroutes = () => {
             <Route path="/courses/:courseId" element={<CourseDetails />} />
             <Route path="/courses/:courseId/lessons/:lessonId" element={<LessonPage />} />
             <Route path="*" element={<div className="p-6 text-center">404: Page Not Found</div>}/>
-            <Route path="/user/:emailAddress" element={<UserDetail />} /> 
+            <Route path="/user/:emailAddress" element={<UserDetail />} />
 
+             {/* cyber security lessons  */}
+             <Route path="/courses/:courseId/lessons/8" element={<Lesoon1 />} />
+             <Route path="/courses/:courseId/lessons/9" element={<Lesoon2 />} />
+             <Route path="/courses/:courseId/lessons/10" element={<Lesoon3 />} />
+             <Route path="/courses/:courseId/lessons/11" element={<Lesoon4 />} />
+             <Route path="/courses/:courseId/lessons/12" element={<Lesoon5 />} />
+             <Route path="/courses/:courseId/lessons/13" element={<Lesoon6 />} />
 
             {/* backend lessons*/}
-            <Route path="/courses/:courseId/lessons/4" element={<Leson1 />} />
-            <Route path="/courses/:courseId/lessons/5" element={<Leson2 />} />
+            <Route path="/courses/:courseId/lessons/5" element={<Leson1 />} />
+            <Route path="/courses/:courseId/lessons/6" element={<Leson2 />} />
 
             {/* frontend lessons */}
             <Route path="/courses/:courseId/lessons/1" element={<Lesson1 />} />

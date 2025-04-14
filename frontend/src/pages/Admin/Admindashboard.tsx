@@ -81,7 +81,7 @@ const Admindashboard: React.FC = () => {
           {enrolledCourses.length > 0 && (
             <div className="mb-6 text-center border-b border-indigo-200 pb-3">
               <p className="text-indigo-600 font-medium text-sm sm:text-base italic tracking-wide">
-                Welcome, {username}! Your course content{enrolledCourses.length > 1 ? 's are' : ' is'} now available. View the details below.
+                Welcome, {username}! Your course content{enrolledCourses.length > 1 ? 's are' : ' is'} now available as well as your class list of students. Take a look below.
               </p>
             </div>
           )}
