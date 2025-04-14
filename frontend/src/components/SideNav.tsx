@@ -14,28 +14,29 @@ import {
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
+import logo from '../assets/morgan_ai.png'
 
 const SideNav: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
-  const { handleLogout, userRole } = useContext(AuthContext);  // assuming userRole is available in context
+  const { handleLogout, userRole } = useContext(AuthContext);
 
   const toggleMobileMenu = () => {
     setIsMobile(!isMobile);
   };
 
-  // Define the dashboard route based on the user's role
   const dashboardLink = userRole === "ADMIN" ? "/admin-dashboard" : "/dashboard";
 
   return (
     <IconContext.Provider value={{ size: "1.5em" }}>
       {/* Top Navbar for Mobile */}
       <div className="md:hidden flex justify-between items-center bg-gray-800 p-4">
-        <Link to="/" className="text-white flex items-center">
+        <Link to="/courses" className="text-white flex items-center">
           <img
-            src="https://res.cloudinary.com/ddei3mzex/image/upload/v1729158010/crest_x1gutu.jpg"
+            src={logo}
             alt="Logo"
             className="h-10 w-auto"
           />
+          <span className="ml-2 text-2xl font-bold tracking-wide text-white">Morgan-LMS</span>
         </Link>
         <button
           onClick={toggleMobileMenu}
@@ -50,12 +51,13 @@ const SideNav: React.FC = () => {
         className={`fixed top-0 left-0 h-screen w-64 bg-gray-800 text-white transform z-20 ${isMobile ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 md:translate-x-0 md:flex md:flex-col`}
       >
         <div className="flex justify-center p-4">
-          <Link to="/dashboard" className="text-white">
+          <Link to="/courses" className="text-white flex items-center">
             <img
-              src="https://res.cloudinary.com/ddei3mzex/image/upload/v1729158010/crest_x1gutu.jpg"
+              src={logo}
               alt="Logo"
               className="h-10 w-auto"
             />
+            <span className="ml-2 text-2xl font-bold tracking-wide text-white">Morgan-LMS</span>
           </Link>
         </div>
         <Link to="/accounts" className="flex items-center p-4 hover:bg-gray-700">

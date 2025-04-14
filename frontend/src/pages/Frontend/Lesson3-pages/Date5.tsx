@@ -1,12 +1,64 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaCode, FaLaptopCode, FaList, FaLink, FaEdit, FaCheckCircle, FaRocket } from "react-icons/fa";
+import { useAuth } from "../../../context/authContext";
 
 const Date5: React.FC = () => {
     const navigate = useNavigate();
+    const { userData, userToken } = useAuth();
     const [count, setCount] = useState(0);
     const [data, setData] = useState<string | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
+
+    // State for GitHub submission
+    const [submitted, setSubmitted] = useState(false);
+    const [form, setForm] = useState({
+        assignmentId: 16,
+        userId: userData?.userDetails.id ?? "",
+        fileUrl: "",
+    });
+
+    // Handle file selection
+    const handleFileChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setForm((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    // Handle form submission
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        console.log("Form Data:", form);
+
+        if (!userToken) {
+            alert("Authentication error. Please log in again.");
+            return;
+        }
+
+        try {
+            const response = await fetch("http://localhost:8080/api/v1/assignments/submit", {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${userToken}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(form),
+            });
+
+            if (response.ok) {
+                setSubmitted(true);
+                alert("Assignment submitted successfully!");
+            } else {
+                const errorData = await response.json();
+                alert(`Error: ${errorData.message}`);
+            }
+        } catch (error) {
+            console.error("Error submitting assignment:", error);
+            alert("Failed to submit. Please try again later.");
+        }
+    };
 
     // 🔄 Simulating component lifecycle with useEffect
     useEffect(() => {
@@ -371,7 +423,7 @@ const ChildComponent = () => {
                         </div>
                     </section>
 
-                    {/* React Router Hooks & State Management */}
+                    {/* 📚 React Router Hooks & State Management */}
                     <section className="mb-12 bg-indigo-50 border border-indigo-200 rounded-lg p-4 sm:p-6">
                         <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 flex items-center">
                             <FaCode className="mr-2 text-indigo-600" />
@@ -489,72 +541,278 @@ const Counter = () => {
                         </pre>
                     </section>
 
-                    {/* 🧑‍💻 Practical Exercise: Fetching Data & DOM Manipulation */}
+                    {/* 🧑‍💻 Practical Exercise: Task Manager */}
                     <section className="mb-12 bg-indigo-50 border border-indigo-200 rounded-lg p-4 sm:p-6">
-                        <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 flex items-center justify-center">
+                        <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4 flex items-center justify-center">
                             <FaRocket className="mr-2 text-indigo-600" />
-                            🧑‍💻 Practical Exercise: Fetching Data & DOM Manipulation
+                            🧑‍💻 Practical Exercise: Build a Task Manager
                         </h2>
                         <p className="text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-                            In this hands-on exercise, you will practice applying your knowledge of React hooks to both fetch data from an external API and perform DOM manipulation. You will utilize key React hooks like <code>useState</code>, <code>useEffect</code>, and <code>useRef</code> in real-world scenarios. By the end of this exercise, you'll understand how to manage state and side effects in functional components and interact with the DOM directly.
+                            In this comprehensive exercise, you'll create a "Task Manager" application that integrates everything you've learned from Day 1 to Day 5: <strong>JSX</strong>, <strong>components</strong>, <strong>props and state</strong>, <strong>event handling and conditional rendering</strong>, <strong>lists, keys & forms</strong>, and <strong>React hooks</strong>. This project will simulate a real-world scenario where users can manage tasks fetched from an API, add new tasks via a form, and interact with the UI dynamically.
                         </p>
                         <p className="text-gray-700 text-sm sm:text-base mb-6 leading-relaxed">
-                            Follow the step-by-step guide below to implement the required functionality. Make sure to thoroughly test each step before moving on to the next one.
+                            Follow the step-by-step guide below to build the application. Test each step thoroughly, and submit your GitHub repository link once complete. Your instructor will review your work and provide feedback.
                         </p>
 
-                        {/* Step 1 - Fetch Data from an API */}
+                        {/* Step 1 - Setup and JSX Structure */}
                         <div className="bg-indigo-100 p-4 rounded-lg shadow-md mb-6">
                             <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
                                 <FaCode className="mr-2 text-indigo-600" />
-                                Step 1: Fetch Data from an API
+                                Step 1: Setup and JSX Structure
                             </h3>
                             <p className="text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-                                In this step, you will use the <code>useEffect</code> hook to fetch data from a public API endpoint, <strong>https://jsonplaceholder.typicode.com/posts</strong>. You will store the data in a state variable using <code>useState</code> and render the titles of the first 5 posts in a list below.
+                                Start by creating a new React component called <code>TaskManager</code> using JSX. Use Tailwind CSS to style a basic layout with a header, a form section, and a task list section. This leverages <strong>JSX</strong> from Day 1.
                             </p>
-                            <p className="text-gray-700 text-sm sm:text-base mb-6 leading-relaxed">
-                                The <code>useEffect</code> hook will be used to initiate the fetch request when the component mounts. After receiving the response, you will parse the data as JSON and extract the first 5 posts from the result. These posts will be rendered dynamically using <code>map</code> to iterate over the array of posts.
+                            <p className="text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
+                                <strong>Goal:</strong> Establish the UI structure with semantic JSX elements.
                             </p>
                         </div>
 
-                        {/* Step 2 - Manipulate DOM with useRef */}
+                        {/* Step 2 - Components with Props */}
                         <div className="bg-indigo-100 p-4 rounded-lg shadow-md mb-6">
                             <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
                                 <FaCode className="mr-2 text-indigo-600" />
-                                Step 2: DOM Manipulation with useRef
+                                Step 2: Components with Props
                             </h3>
                             <p className="text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-                                Now, let's add some interactivity to the UI. You will use the <code>useRef</code> hook to manipulate the DOM. Specifically, you will create a button that, when clicked, focuses on the first post title in the list.
+                                Break the UI into reusable components: <code>TaskForm</code> (for adding tasks) and <code>TaskItem</code> (for each task). Pass <strong>props</strong> to <code>TaskItem</code> (e.g., task title, status) and to <code>TaskForm</code> (e.g., a callback to add tasks). This builds on <strong>components and props</strong> from Day 2.
                             </p>
-                            <p className="text-gray-700 text-sm sm:text-base mb-6 leading-relaxed">
-                                The <code>useRef</code> hook provides a way to access and interact with a DOM element directly, without affecting the component's state. In this case, you will create a reference for the first post title and focus it when the button is clicked.
+                            <p className="text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
+                                <strong>Goal:</strong> Modularize the app with props for data passing.
                             </p>
                         </div>
 
-                        {/* Step 3 - Input Field for Submitting the Work */}
+                        {/* Step 3 - State Management */}
+                        <div className="bg-indigo-100 p-4 rounded-lg shadow-md mb-6">
+                            <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                                <FaCode className="mr-2 text-indigo-600" />
+                                Step 3: State Management
+                            </h3>
+                            <p className="text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
+                                Use <code>useState</code> in <code>TaskManager</code> to manage a list of tasks and form input values. Implement state updates in <code>TaskForm</code> for the input field and in <code>TaskManager</code> for adding tasks. This reinforces <strong>state</strong> from Day 2.
+                            </p>
+                            <p className="text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
+                                <strong>Goal:</strong> Manage dynamic task data with state.
+                            </p>
+                        </div>
+
+                        {/* Step 4 - Event Handling and Conditional Rendering */}
+                        <div className="bg-indigo-100 p-4 rounded-lg shadow-md mb-6">
+                            <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                                <FaCode className="mr-2 text-indigo-600" />
+                                Step 4: Event Handling and Conditional Rendering
+                            </h3>
+                            <p className="text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
+                                Add event handlers in <code>TaskForm</code> for form submission (<code>onSubmit</code>) and input changes (<code>onChange</code>). In <code>TaskItem</code>, add a button to toggle task completion status, using <strong>conditional rendering</strong> to display "Completed" or "Pending" based on state. Use <code>event.preventDefault()</code> to prevent form reloads. This applies <strong>event handling and conditional rendering</strong> from Day 3.
+                            </p>
+                            <p className="text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
+                                <strong>Goal:</strong> Enable user interactions and dynamic UI updates.
+                            </p>
+                        </div>
+
+                        {/* Step 5 - Lists, Keys & Forms */}
+                        <div className="bg-indigo-100 p-4 rounded-lg shadow-md mb-6">
+                            <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                                <FaCode className="mr-2 text-indigo-600" />
+                                Step 5: Lists, Keys & Forms
+                            </h3>
+                            <p className="text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
+                                Render the task list in <code>TaskManager</code> using <code>.map()</code>, ensuring each <code>TaskItem</code> has a unique <strong>key</strong> (e.g., task ID). Implement a controlled form in <code>TaskForm</code> with multiple inputs (e.g., title, priority). This builds on <strong>lists, keys & forms</strong> from Day 4.
+                            </p>
+                            <p className="text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
+                                <strong>Goal:</strong> Display a dynamic task list and manage form inputs.
+                            </p>
+                        </div>
+
+                        {/* Step 6 - Fetching Data with Hooks */}
+                        <div className="bg-indigo-100 p-4 rounded-lg shadow-md mb-6">
+                            <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                                <FaCode className="mr-2 text-indigo-600" />
+                                Step 6: Fetching Data with Hooks
+                            </h3>
+                            <p className="text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
+                                Use <code>useEffect</code> in <code>TaskManager</code> to fetch initial tasks from <strong>https://jsonplaceholder.typicode.com/todos</strong> when the component mounts. Store the fetched data in state and display it. Add a <code>useRef</code> hook to focus the form input field when a button is clicked. This applies <strong>React hooks</strong> from Day 5.
+                            </p>
+                            <p className="text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
+                                <strong>Goal:</strong> Integrate API data and DOM manipulation with hooks.
+                            </p>
+                        </div>
+
+                        {/* Example Solution */}
+                        <div className="bg-indigo-100 p-4 rounded-lg shadow-md mb-6">
+                            <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                                <FaCode className="mr-2 text-indigo-600" />
+                                Example Solution
+                            </h3>
+                            <p className="text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
+                                Here’s a starter code example to guide you. Build upon it to meet all requirements:
+                            </p>
+                            <pre className="bg-gray-800 text-white p-4 rounded-md text-sm sm:text-base overflow-x-auto mb-4">
+                                {`import React, { useState, useEffect, useRef } from 'react';
+
+const TaskItem = ({ task, toggleComplete }) => (
+  <div className="flex items-center justify-between p-2 border-b">
+    <span className={task.completed ? "line-through text-gray-500" : "text-gray-800"}>
+      {task.title} (Priority: {task.priority})
+    </span>
+    <button
+      onClick={() => toggleComplete(task.id)}
+      className="bg-indigo-500 text-white px-2 py-1 rounded hover:bg-indigo-600"
+    >
+      {task.completed ? "Undo" : "Complete"}
+    </button>
+  </div>
+);
+
+const TaskForm = ({ addTask }) => {
+  const [formData, setFormData] = useState({ title: '', priority: 'Low' });
+  const inputRef = useRef(null);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (formData.title.trim()) {
+      addTask({ ...formData, id: Date.now(), completed: false });
+      setFormData({ title: '', priority: 'Low' });
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="mb-4">
+      <input
+        type="text"
+        name="title"
+        value={formData.title}
+        onChange={handleChange}
+        ref={inputRef}
+        placeholder="Task title"
+        className="border p-2 rounded w-full mb-2"
+      />
+      <select
+        name="priority"
+        value={formData.priority}
+        onChange={handleChange}
+        className="border p-2 rounded w-full mb-2"
+      >
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+      <button type="submit" className="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600">
+        Add Task
+      </button>
+      <button
+        type="button"
+        onClick={() => inputRef.current?.focus()}
+        className="ml-2 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+      >
+        Focus Input
+      </button>
+    </form>
+  );
+};
+
+const TaskManager = () => {
+  const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then(response => response.json())
+      .then(data => {
+        setTasks(data.slice(0, 5).map(task => ({
+          id: task.id,
+          title: task.title,
+          priority: 'Medium',
+          completed: task.completed,
+        })));
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching tasks:', error);
+        setLoading(false);
+      });
+  }, []);
+
+  const addTask = (newTask) => setTasks(prev => [...prev, newTask]);
+
+  const toggleComplete = (id) => {
+    setTasks(prev => prev.map(task =>
+      task.id === id ? { ...task, completed: !task.completed } : task
+    ));
+  };
+
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Task Manager</h1>
+      <TaskForm addTask={addTask} />
+      {loading ? (
+        <p>Loading tasks...</p>
+      ) : tasks.length === 0 ? (
+        <p>No tasks available.</p>
+      ) : (
+        <ul className="list-disc list-inside">
+          {tasks.map(task => (
+            <TaskItem key={task.id} task={task} toggleComplete={toggleComplete} />
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+export default TaskManager;`}
+                            </pre>
+                        </div>
+
+                        {/* Submission Field */}
                         <div className="bg-indigo-100 p-4 rounded-lg shadow-md">
                             <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
-                                <FaCode className="mr-2 text-indigo-600" />
-                                Step 3: Submit Your Work
+                                <FaLink className="mr-2 text-indigo-600" />
+                                Submit Your Work
                             </h3>
                             <p className="text-gray-700 text-sm sm:text-base mb-4 leading-relaxed">
-                                After completing the previous steps, you will submit your solution using the input field below. Paste your working code in the provided field, ensuring the following functionality is implemented:
+                                After completing the Task Manager, create a GitHub repository, push your code, and submit the link below. Ensure your project includes:
                             </p>
                             <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base mb-4 space-y-2">
-                                <li>The data from the API is successfully fetched and displayed in the UI.</li>
-                                <li>The titles of the first 5 posts are rendered correctly.</li>
-                                <li>The "Focus First Post Title" button successfully focuses the first post title when clicked.</li>
+                                <li>JSX for structured UI.</li>
+                                <li>Components with props (TaskForm, TaskItem).</li>
+                                <li>State for tasks and form data.</li>
+                                <li>Event handling (form submission, toggle completion).</li>
+                                <li>Conditional rendering (loading, empty states).</li>
+                                <li>Lists with unique keys.</li>
+                                <li>Forms with multiple controlled inputs.</li>
+                                <li>Hooks (useState, useEffect, useRef) for data fetching and DOM focus.</li>
                             </ul>
                             <p className="text-gray-700 text-sm sm:text-base mb-6 leading-relaxed">
-                                Double-check your code for any errors and ensure everything is working as expected before submitting.
+                                Test your app thoroughly and include a README with instructions before submitting.
                             </p>
-                            <input
-                                type="text"
-                                placeholder="Paste your solution here"
-                                className="border p-2 rounded-md w-full mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            />
-                            <button className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 transition">
-                                Submit Solution
-                            </button>
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                <textarea
+                                    name="fileUrl"
+                                    className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                    rows={6}
+                                    placeholder="Paste your GitHub link here"
+                                    value={form.fileUrl}
+                                    onChange={handleFileChange}
+                                />
+                                <button
+                                    type="submit"
+                                    className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 transition"
+                                >
+                                    Submit Solution
+                                </button>
+                            </form>
+                            {submitted && (
+                                <p className="mt-4 text-green-600 font-medium flex items-center">
+                                    <FaCheckCircle className="mr-2" />
+                                    Your solution has been submitted successfully!
+                                </p>
+                            )}
                         </div>
                     </section>
 

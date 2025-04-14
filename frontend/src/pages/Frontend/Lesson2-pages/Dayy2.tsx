@@ -10,8 +10,9 @@ import {
   FaCheckCircle,
   FaBookOpen,
   FaRocket,
+  FaUpload
 } from "react-icons/fa";
-import { useAuth } from "../../../context/authContext"; // Assuming this is the correct path
+import { useAuth } from "../../../context/authContext"; 
 
 const Dayy2: React.FC = () => {
   const navigate = useNavigate();
@@ -20,12 +21,12 @@ const Dayy2: React.FC = () => {
   // State for file upload
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
-    assignmentId: 2, // Unique ID for Day 2
-    userId: userData?.userDetails.id ?? "", // Fallback to empty string if undefined
+    assignmentId: 5,
+    userId: userData?.userDetails.id || 0, 
     fileUrl: "",
   });
 
-  // Handle file selection
+  // Handle file input change
   const handleFileChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm((prev) => ({
@@ -395,28 +396,27 @@ console.log("You are a " + category + " with an " + parity + " age of " + age + 
               <FaLink className="mr-2 text-indigo-600" />
               Submit Your Work
             </h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <label
-                className="block text-gray-800 text-sm sm:text-base font-semibold mb-2"
-                htmlFor="fileUrl"
-              >
-                Paste Your GitHub Repository Link:
-              </label>
-              <textarea
-                name="fileUrl"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
-                rows={4}
-                placeholder="e.g., https://github.com/username/repo"
-                value={form.fileUrl}
-                onChange={handleFileChange}
-              />
-              <button
-                type="submit"
-                className="bg-indigo-600 text-white py-2 px-6 rounded-md hover:bg-indigo-700 transition-all duration-300 ease-in-out transform hover:scale-105"
-              >
-                Submit Exercise
-              </button>
-            </form>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <label className="block text-gray-700 font-semibold text-lg mb-2" htmlFor="fileUrl">
+                  GitHub Repository URL:
+                </label>
+                <textarea
+                  name="fileUrl"
+                  id="fileUrl"
+                  className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-800 shadow-sm hover:shadow-md transition-shadow duration-200"
+                  rows={6}
+                  placeholder="Paste your GitHub repository link here"
+                  value={form.fileUrl}
+                  onChange={handleFileChange}
+                />
+                <button
+                  type="submit"
+                  className="bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center shadow-md"
+                >
+                  <FaUpload className="mr-2" />
+                  Submit Exercise
+                </button>
+              </form>
             {submitted && (
               <p className="mt-4 text-green-600 font-medium flex items-center">
                 <FaCheckCircle className="mr-2" />

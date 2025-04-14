@@ -11,7 +11,7 @@ import {
   FaBookOpen,
   FaRocket,
 } from "react-icons/fa";
-import { useAuth } from "../../../context/authContext"; // Adjust path if needed
+import { useAuth } from "../../../context/authContext"; 
 
 const Dayy5: React.FC = () => {
   const navigate = useNavigate();
@@ -20,8 +20,8 @@ const Dayy5: React.FC = () => {
   // State for submission
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
-    assignmentId: 5, // Matches Day 5
-    userId: userData?.userDetails.id ?? "", // Fallback to empty string
+    assignmentId: 8,
+    userId: userData?.userDetails.id ?? "", 
     fileUrl: "",
   });
 

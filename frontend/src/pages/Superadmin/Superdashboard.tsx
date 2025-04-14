@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/authContext';
 import SideNav from '../../components/SideNav';
+import axiosInstance from '../../api/api';
+import axios from 'axios';
 
 interface User {
   id: number;
@@ -41,8 +43,9 @@ const Superdashboard: React.FC = () => {
   }, [userToken, navigate]);
 
   const fetchUsers = async () => {
+    const url = axiosInstance.getUri() + "/api/v1/users"
     try {
-      const response = await fetch('http://localhost:8080/api/v1/users', {
+      const response = await fetch(url, {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
@@ -63,8 +66,9 @@ const Superdashboard: React.FC = () => {
   };
 
   const fetchCourses = async () => {
+    const url = axiosInstance.getUri() + "/api/v1/courses/"
     try {
-      const response = await fetch("/api/v1/courses/", {
+      const response = await fetch(url, {
         headers: {
           Authorization: `Bearer ${userToken}`, // Use the token from context in the headers
         },
@@ -89,9 +93,11 @@ const Superdashboard: React.FC = () => {
   };
 
   const enrollStudent = async () => {
+    const url = axiosInstance.getUri() + `/api/v1/courses/${selectedCourse}/enroll/${selectedUser}`
+    
     if (!selectedUser || !selectedCourse) return;
     try {
-      const response = await fetch(`http://localhost:8080/api/v1/courses/${selectedCourse}/enroll/${selectedUser}`, {
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${userToken}`,

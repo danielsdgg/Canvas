@@ -318,7 +318,7 @@ npx tailwindcss init`}
             <div className="max-w-sm mx-auto bg-white rounded-lg shadow-md overflow-hidden mt-4">
               <img
                 className="w-full h-48 object-cover"
-                src="https://via.placeholder.com/150"
+                src="https://res.cloudinary.com/ddei3mzex/image/upload/v1700162480/8ea241e96504a398f291a31939963e8ba948368c_uhaetv.webp"
                 alt="Example"
               />
               <div className="p-4">

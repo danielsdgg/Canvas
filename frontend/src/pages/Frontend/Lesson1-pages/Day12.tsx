@@ -24,7 +24,7 @@ const Day12: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     assignmentId: 4,
-    userId: userData?.userDetails.id || 0, // Fallback to 0 if undefined
+    userId: userData?.userDetails.id || 0, 
     fileUrl: "",
   });
 

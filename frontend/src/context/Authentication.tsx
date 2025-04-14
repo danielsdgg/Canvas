@@ -5,6 +5,7 @@ import { AuthContext, AuthProviderProps } from './authContext';
 import { UserResponse } from '../models/responses/User';
 import { loginUser, logoutUser } from '../services/User';
 import Alert from '../components/Alert';
+import axiosInstance from '../api/api';
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const navigate = useNavigate();
@@ -103,7 +104,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
   
       // Fetch new access token using a utility function
-      const res = await fetch('http://localhost:8080/api/v1/users/refresh-token', {
+      const url = axiosInstance.getUri() + "/api/v1/users/refresh-token"
+      const res = await fetch(url, {
         method: 'POST',
         headers: {
           'Authorization':` Bearer ${userToken}`,
@@ -137,7 +139,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (!userToken) return;
     const interval = setInterval(() => {
       refreshAccessToken();
-    }, 20 * 60 * 1000); // 20 minutes
+    }, 15 * 60 * 1000); // 15 minutes
 
     return () => clearInterval(interval);
   }, [userToken]);

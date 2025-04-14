@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../context/authContext";
+import axiosInstance from "../api/api";
 
 interface Lesson {
   id: number;
@@ -17,11 +18,12 @@ const LessonDetails: React.FC = () => {
 
   useEffect(() => {
     const fetchLesson = async () => {
+      const url = axiosInstance.getUri() + `/api/v1/lessons/${lessonId}`
       if (!lessonId) return;
 
       try {
         setLoading(true);
-        const response = await fetch(`/api/v1/lessons/${lessonId}`, {
+        const response = await fetch(url, {
           headers: {
             Authorization: `Bearer ${userToken}`, 
           },

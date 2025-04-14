@@ -19,12 +19,12 @@ const Dayy4: React.FC = () => {
   // State for file upload
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
-    assignmentId: 5,
-    userId: userData?.userDetails.id ?? "", // Fallback to empty string if undefined
+    assignmentId: 7,
+    userId: userData?.userDetails.id || 0, 
     fileUrl: "",
   });
 
-  // Handle file selection
+  // Handle file input change
   const handleFileChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm((prev) => ({

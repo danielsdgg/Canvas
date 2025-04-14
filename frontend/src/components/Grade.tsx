@@ -3,6 +3,7 @@ import { useAuth } from '../context/authContext';
 import SideNav from './SideNav';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
+import axiosInstance from '../api/api';
 
 interface Submission {
   submissionId: number;
@@ -20,8 +21,9 @@ const Grade: React.FC = () => {
 
   useEffect(() => {
     const fetchSubmissions = async () => {
+      const url = axiosInstance.getUri() + `/api/v1/assignments/submission/${emailAddress}`;
       try {
-        const response = await fetch(`http://localhost:8080/api/v1/assignments/submission/${emailAddress}`, {
+        const response = await fetch(url, {
           headers: {
             Authorization: `Bearer ${userToken}`,
           },
@@ -47,46 +49,60 @@ const Grade: React.FC = () => {
   return (
     <>
       <SideNav />
-      <div className="p-6 bg-gradient-to-r from-green-500 to-blue-600 min-h-screen">
+      <div className="min-h-screen bg-gray-50 text-gray-900 p-4 sm:p-6 lg:p-8">
         {/* Back Button */}
-        <button onClick={() => navigate(-1)} className="flex items-center text-gray-600 hover:text-blue-600 mb-6 transition-all duration-300 ease-in-out transform hover:scale-105">
-          <FaArrowLeft className="mr-2" />
-          Back
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center text-indigo-600 hover:text-indigo-500 mb-4 sm:mb-6 transition-all duration-300 ease-in-out group"
+        >
+          <FaArrowLeft className="mr-2 text-sm sm:text-base transition-transform group-hover:-translate-x-1" />
+          <span className="text-sm sm:text-base font-medium">Back</span>
         </button>
-        <div className="bg-white shadow-2xl rounded-xl p-8 max-w-3xl mx-auto">
-          <header className="text-4xl font-bold text-center text-green-700 mb-6 border-b-4 border-green-300 pb-3">
+
+        {/* Main Container */}
+        <div className="bg-white shadow-lg rounded-xl p-4 sm:p-6 lg:p-8 mx-auto border border-gray-200 transition-all duration-300 hover:shadow-xl max-w-full">
+          <header className="text-xl sm:text-2xl lg:text-3xl font-bold text-indigo-700 mb-4 sm:mb-6 lg:mb-8 text-center tracking-tight">
             My Grades
           </header>
 
-          <h3 className="text-xl font-bold text-gray-800 mt-6 bg-green-200 p-3 rounded-md shadow-md">Submissions & Grades</h3>
-          <table className="w-full mt-3 bg-white shadow-md rounded-md overflow-hidden">
-            <thead>
-              <tr className="bg-blue-400 text-white text-lg">
-                <th className="px-6 py-3">Title</th>
-                <th className="px-6 py-3">Grade</th>
-                <th className="px-6 py-3">Feedback</th>
-              </tr>
-            </thead>
-            <tbody>
-              {submissions.length > 0 ? (
-                submissions.map((submission) => (
-                  <tr key={submission.submissionId} className="text-center hover:bg-blue-100">
-                    <td className="px-6 py-4 border-b border-gray-300">{submission.assignmentTitle}</td>
-                    <td className="px-6 py-4 border-b border-gray-300 font-semibold text-green-600">
-                      {submission.graded ? submission.grade : 'Not Graded'}
-                    </td>
-                    <td className="px-6 py-4 border-b border-gray-300 text-gray-700">
-                      {submission.graded ? submission.feedback : 'No Feedback'}
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={3} className="px-6 py-4 text-center text-gray-500">No submissions available yet</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+          <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-indigo-700 mb-3 sm:mb-4 lg:mb-5 tracking-wide">
+            Submissions & Grades
+          </h3>
+
+          <div className="space-y-4 sm:space-y-5">
+            {submissions.length > 0 ? (
+              submissions.map((submission) => (
+                <div
+                  key={submission.submissionId}
+                  className="border border-gray-200 rounded-lg p-3 sm:p-4 bg-white hover:bg-gray-50 transition duration-300 shadow-sm hover:shadow-md"
+                >
+                  <div className="flex flex-col gap-2 sm:gap-3">
+                    <h4 className="text-base sm:text-lg lg:text-xl font-semibold text-indigo-600 tracking-tight">
+                      {submission.assignmentTitle}
+                    </h4>
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
+                      <div>
+                        <span className="text-sm sm:text-base font-medium text-gray-700">Grade: </span>
+                        <span className={`text-sm sm:text-base ${submission.graded ? 'text-indigo-600 font-semibold' : 'text-gray-600'}`}>
+                          {submission.graded ? submission.grade : 'Not Graded'}
+                        </span>
+                      </div>
+                      <div className="flex-1">
+                        <span className="text-sm sm:text-base font-medium text-gray-700">Feedback: </span>
+                        <span className="text-sm sm:text-base text-gray-600 break-words">
+                          {submission.graded && submission.feedback ? submission.feedback : 'No Feedback'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-center text-sm sm:text-base lg:text-lg text-gray-500 py-4 sm:py-6">
+                No submissions available yet
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </>

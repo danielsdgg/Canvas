@@ -1,6 +1,6 @@
-# Morgan LMS
+# Morgan-LMS
 
-Morgan LMS is a **Learning Management System** designed to facilitate online learning by enabling instructors to manage and track student progress. It provides a structured way to enroll users, assign courses, and monitor learning progress.
+Morgan-LMS is a **Learning Management System** designed to facilitate online learning by enabling instructors to manage and track student progress. It provides a structured way to enroll users, assign courses, and monitor learning progress.
 
 ## Features
 
@@ -11,7 +11,7 @@ Morgan LMS is a **Learning Management System** designed to facilitate online lea
   - **Admins/Instructors:**
     - Manage and track student progress.
   - **Students:**
-    - Access assigned courses and track progress.
+    - Access assigned courses and track progress of assignments submissions.
 
 - **Course Management:**
   - Admins/Instructors can track student progress within courses.
@@ -41,15 +41,15 @@ Morgan LMS is a **Learning Management System** designed to facilitate online lea
 ### Backend (Spring Boot + MySQL)
 1. Clone the repository:
    ```sh
-   git clone https://github.com/danielsdgg/morgan-lms.git
+   git clone https://github.com/danielsdgg/Canvas.git
    ```
 2. Navigate to the backend folder:
    ```sh
-   cd morgan-lms/backend
+   cd springboot
    ```
 3. Configure database settings in `application.properties`:
    ```properties
-   spring.datasource.url=jdbc:mysql://localhost:3306/morgan_lms
+   spring.datasource.url=jdbc:mysql://localhost:3306/canvas
    spring.datasource.username=root
    spring.datasource.password=your_password
    ```
@@ -78,14 +78,14 @@ Morgan LMS is a **Learning Management System** designed to facilitate online lea
    - Super Admin, Admins/Instructors, and Students log in with their assigned credentials.
    
 2. **Super Admin Capabilities:**
-   - Can enroll **Admins/Instructors** to courses.
-   - Assigns **students** to an **Admin/Instructor**.
+   - Can assign **Admins/Instructors** to courses.
+   - Enrolls **students** to an **Admin/Instructor**.
    
 3. **Admins/Instructors Capabilities:**
    - Can **manage and track students' progress**.
    
 4. **Students Capabilities:**
-   - Can access assigned **courses** and track progress.
+   - Can access enrolled **courses** and track progress.
 
 ## API Endpoints (Example)
 | Endpoint | Method | Description |
@@ -106,8 +106,16 @@ Morgan LMS is a **Learning Management System** designed to facilitate online lea
 This project is licensed under the **MIT License**.
 
 ## Authors
-**Daniel Muiruri** & **Owen Ngare**
-- GitHub: [danielsdgg](https://github.com/danielsdgg) [Ngaremaina](https://github.com/Ngaremaina)
-- Portfolio: [danielmuiruri.netlify.app](https://danielmuiruri.netlify.app/)
-- LinkedIn: [Daniel Muiruri](https://www.linkedin.com/in/daniel-muiruri-541a701a3/)
 
+**Daniel Muiruri** & **Owen Ngare**
+
+- **GitHub:** 
+  - [danielsdgg](https://github.com/danielsdgg)  [Ngaremaina](https://github.com/Ngaremaina)  
+
+- **Portfolio:** 
+  - Daniel [danielmuiruri.netlify.app](https://danielmuiruri.netlify.app/)  
+  - Owen [owenmaina.netlify.app](https://owenmaina.netlify.app/)  
+
+- **LinkedIn:** 
+  - Daniel [Daniel Muiruri](https://www.linkedin.com/in/daniel-muiruri-541a701a3/)  
+  - Owen [Owen Ngare](https://www.linkedin.com/in/owen-ngare-maina/)  

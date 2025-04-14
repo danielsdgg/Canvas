@@ -3,6 +3,7 @@ import { useAuth } from "../context/authContext";
 import SideNav from "./SideNav";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
+import axiosInstance from "../api/api";
 
 interface Submission {
   submissionId: number;
@@ -20,15 +21,13 @@ const History: React.FC = () => {
 
   useEffect(() => {
     const fetchSubmissions = async () => {
+      const url = axiosInstance.getUri() + `/api/v1/assignments/submission/${userData?.userDetails.emailAddress}`;
       try {
-        const response = await fetch(
-          `http://localhost:8080/api/v1/assignments/submission/${userData?.userDetails.emailAddress}`,
-          {
-            headers: {
-              Authorization: `Bearer ${userToken}`,
-            },
-          }
-        );
+        const response = await fetch(url, {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        });
 
         if (!response.ok) {
           console.error("Failed to fetch submissions. Status:", response.status);
@@ -50,93 +49,68 @@ const History: React.FC = () => {
   return (
     <>
       <SideNav />
-      <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-gray-800 to-gray-900 text-gray-100 p-4 sm:p-6 md:p-8">
+      <div className="min-h-screen bg-gray-50 text-gray-900 p-4 sm:p-6 lg:p-8">
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center text-indigo-300 hover:text-indigo-100 mb-6 sm:mb-8 transition-all duration-300 ease-in-out transform hover:scale-105"
+          className="flex items-center text-indigo-600 hover:text-indigo-500 mb-4 sm:mb-6 transition-all duration-300 ease-in-out group"
         >
-          <FaArrowLeft className="mr-2" />
-          <span className="font-semibold">Back</span>
+          <FaArrowLeft className="mr-2 text-sm sm:text-base transition-transform group-hover:-translate-x-1" />
+          <span className="text-sm sm:text-base font-medium">Back</span>
         </button>
 
-        {/* Card Container */}
-        <div className="bg-indigo-900/30 backdrop-blur-md shadow-xl rounded-lg p-6 sm:p-8 max-w-4xl mx-auto border border-indigo-500/20 transition-all duration-300 hover:shadow-2xl">
-          {/* Title */}
-          <header className="relative text-2xl sm:text-3xl md:text-4xl font-extrabold text-center text-indigo-300 mb-6 sm:mb-8">
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 opacity-20 blur-2xl rounded-full -z-10"></div>
-            <span className="relative bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 animate-fade-in">
-              Submission History
-            </span>
+        {/* Main Container */}
+        <div className="bg-white shadow-lg rounded-xl p-4 sm:p-6 lg:p-8 mx-auto border border-gray-200 transition-all duration-300 hover:shadow-xl max-w-full">
+          <header className="relative text-xl sm:text-2xl lg:text-3xl font-bold text-indigo-700 mb-4 sm:mb-6 lg:mb-8 text-center">
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-200 to-purple-200 opacity-30 blur-2xl rounded-full -z-10"></div>
+            <span className="relative">Submission History</span>
           </header>
 
-          {/* Submissions Section */}
-          <h3 className="text-lg underline sm:text-xl md:text-2xl font-semibold text-teal-400 mb-4 sm:mb-6 uppercase tracking-wide">
+          <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-indigo-700 mb-3 sm:mb-4 lg:mb-5 tracking-wide">
             Submissions & Grades
           </h3>
 
-          {/* Table */}
-          <div className="overflow-x-auto">
-            <table className="w-full text-xs sm:text-sm md:text-base border-collapse">
-              <thead>
-                <tr className="bg-indigo-700/50 text-gray-100 uppercase tracking-wider">
-                  <th className="px-4 sm:px-5 py-2 sm:py-3 text-left border-b border-indigo-500/30">
-                    Date Submitted
-                  </th>
-                  <th className="px-4 sm:px-5 py-2 sm:py-3 text-left border-b border-indigo-500/30">
-                    Assignment Title
-                  </th>
-                  <th className="px-4 sm:px-5 py-2 sm:py-3 text-center border-b border-indigo-500/30">
-                    Grade
-                  </th>
-                  <th className="px-4 sm:px-5 py-2 sm:py-3 text-center border-b border-indigo-500/30">
-                    Feedback
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {submissions.length > 0 ? (
-                  submissions.map((submission, index) => (
-                    <tr
-                      key={submission.submissionId}
-                      className={`text-gray-200 border-b border-indigo-500/20 hover:bg-indigo-600/20 transition duration-300 ${
-                        index % 2 === 0 ? "bg-indigo-900/10" : "bg-transparent"
-                      }`}
-                    >
-                      <td className="px-4 sm:px-5 py-3 sm:py-4 text-left whitespace-nowrap">
-                        {new Date(submission.submittedAt).toLocaleString()}
-                      </td>
-                      <td className="px-4 sm:px-5 py-3 sm:py-4 text-left">
-                        {submission.assignmentTitle}
-                      </td>
-                      <td className="px-4 sm:px-5 py-3 sm:py-4 text-center font-semibold">
-                        {submission.graded ? (
-                          <span className="text-teal-400">{submission.grade}</span>
-                        ) : (
-                          <span className="text-red-400">Not Graded</span>
-                        )}
-                      </td>
-                      <td className="px-4 sm:px-5 py-3 sm:py-4 text-center text-gray-300">
-                        {submission.graded ? (
-                          submission.feedback
-                        ) : (
-                          <span className="text-gray-400">No Feedback</span>
-                        )}
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td
-                      colSpan={4}
-                      className="px-4 sm:px-6 py-4 sm:py-6 text-center text-gray-400 text-xs sm:text-sm md:text-base"
-                    >
-                      No submissions available yet
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+          <div className="space-y-4 sm:space-y-5">
+            {submissions.length > 0 ? (
+              submissions.map((submission) => (
+                <div
+                  key={submission.submissionId}
+                  className="border border-gray-200 rounded-lg p-3 sm:p-4 bg-white hover:bg-gray-50 transition duration-300 shadow-sm hover:shadow-md"
+                >
+                  <div className="flex flex-col gap-2 sm:gap-3">
+                    <h4 className="text-base sm:text-lg lg:text-xl font-semibold text-indigo-600 tracking-tight">
+                      {submission.assignmentTitle}
+                    </h4>
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4">
+                      <div>
+                        <span className="text-sm sm:text-base font-medium text-gray-700">Submitted: </span>
+                        <span className="text-sm sm:text-base text-gray-600 italic">
+                          {new Date(submission.submittedAt).toLocaleString()}
+                        </span>
+                      </div>
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 flex-1">
+                        <div>
+                          <span className="text-sm sm:text-base font-medium text-gray-700">Grade: </span>
+                          <span className={`text-sm sm:text-base ${submission.graded ? 'text-indigo-600 font-semibold' : 'text-red-600'}`}>
+                            {submission.graded ? submission.grade : 'Not Graded'}
+                          </span>
+                        </div>
+                        <div className="flex-1">
+                          <span className="text-sm sm:text-base font-medium text-gray-700">Feedback: </span>
+                          <span className="text-sm sm:text-base text-gray-600 break-words">
+                            {submission.graded && submission.feedback ? submission.feedback : 'No Feedback'}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-center text-sm sm:text-base lg:text-lg text-gray-500 py-4 sm:py-6">
+                No submissions available yet
+              </p>
+            )}
           </div>
         </div>
       </div>

@@ -202,7 +202,7 @@ const Leson2:React.FC = () => {
                     {/* day 12 */}
                     <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
                         <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
-                            <Link to="/sdl2day12" className="text-indigo-600 hover:text-indigo-800 transition duration-200">Day 12: Backend Lesson 2 Project</Link>
+                            <Link to="/sdl2day12" className="text-indigo-600 hover:text-indigo-800 transition duration-200">Day 12: Backend Lesson 2 Project - Flask/Fullstack</Link>
                         </h3>
                         <p className="text-gray-800 leading-relaxed">
                             You are now a fullstack developer; build a fullstack project using Flask and React

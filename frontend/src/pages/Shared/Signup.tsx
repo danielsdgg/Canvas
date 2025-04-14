@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { registerUser } from "../../services/User";
 import { useNavigate } from "react-router-dom";
-import Logo from '../../assets/morgan.jpg';
+import Logo from '../../assets/morgan_ai.png';
 import { FaArrowLeft } from 'react-icons/fa'; // Import the back arrow icon
 
 const SignUp: React.FC = () => {
@@ -14,10 +14,21 @@ const SignUp: React.FC = () => {
     roleId: 2,
   });
 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // State for error message
   const navigate = useNavigate();
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+
+    // Check if all required fields are filled
+    const { firstName, lastName, emailAddress, phoneNumber, password } = formData;
+    if (!firstName || !lastName || !emailAddress || !phoneNumber || !password) {
+      setErrorMessage("All fields must be filled out to sign up.");
+      return;
+    }
+
+    // Clear error message if all fields are filled
+    setErrorMessage(null);
     registerUser(formData, navigate);
   };
 
@@ -30,32 +41,39 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 font-sans">
+    <div className="min-h-screen bg-white flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 font-sans">
       {/* Sign Up Container */}
       <div className="bg-white shadow-2xl rounded-xl p-8 w-full max-w-md transform transition-all duration-500 animate-fade-in-up relative">
         {/* Back Arrow */}
         <button
           onClick={() => navigate('/')}
-          className="absolute top-4 left-4 flex items-center text-gray-600 hover:text-blue-600 transition-all duration-300 transform hover:scale-110 focus:outline-none"
+          className="absolute top-4 left-4 flex items-center text-indigo-600 hover:text-indigo-400 transition-all duration-300 transform hover:scale-110 focus:outline-none"
         >
           <FaArrowLeft className="text-xl mr-2" /> Landing Page
         </button>
 
         {/* Header Section */}
         <div className="text-center mb-8">
-          <img src={Logo} alt="Morgan LMS Logo" className="mx-auto w-24 h-24 rounded-full shadow-md" />
-          <h1 className="text-3xl font-bold text-gray-800 mt-4">
-            Create Your Morgan LMS Account
+          <img src={Logo} alt="Morgan LMS Logo" className="mx-auto w-16 h-24" />
+          <h1 className="text-3xl font-bold text-indigo-600 mt-4">
+            Create Your Morgan-LMS Account
           </h1>
-          <p className="text-gray-600 italic mt-2 text-lg">
+          <p className="text-black italic mt-2 text-lg">
             Join Morgan Technical Training today
           </p>
         </div>
 
+        {/* Error Message */}
+        {errorMessage && (
+          <div className="mb-6 p-4 bg-red-100/30 border border-red-500 rounded-lg text-red-600 text-center text-sm sm:text-base">
+            {errorMessage}
+          </div>
+        )}
+
         {/* Sign Up Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="firstName" className="block text-sm font-medium text-black mb-1">
               First Name
             </label>
             <input
@@ -65,11 +83,11 @@ const SignUp: React.FC = () => {
               value={formData.firstName}
               onChange={handleChange}
               placeholder="Your first name"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
             />
           </div>
           <div>
-            <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="lastName" className="block text-sm font-medium text-black mb-1">
               Last Name
             </label>
             <input
@@ -79,11 +97,11 @@ const SignUp: React.FC = () => {
               value={formData.lastName}
               onChange={handleChange}
               placeholder="Your last name"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
             />
           </div>
           <div>
-            <label htmlFor="emailAddress" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="emailAddress" className="block text-sm font-medium text-black mb-1">
               Email Address
             </label>
             <input
@@ -93,11 +111,11 @@ const SignUp: React.FC = () => {
               value={formData.emailAddress}
               onChange={handleChange}
               placeholder="you@example.com"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
             />
           </div>
           <div>
-            <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="phoneNumber" className="block text-sm font-medium text-black mb-1">
               Phone Number
             </label>
             <input
@@ -107,11 +125,11 @@ const SignUp: React.FC = () => {
               value={formData.phoneNumber}
               onChange={handleChange}
               placeholder="+257123456789"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="password" className="block text-sm font-medium text-black mb-1">
               Password
             </label>
             <input
@@ -121,12 +139,12 @@ const SignUp: React.FC = () => {
               value={formData.password}
               onChange={handleChange}
               placeholder="Enter your password"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
             />
           </div>
           {/* Uncomment and style the role selection if needed */}
           {/* <div>
-            <label htmlFor="roleId" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="roleId" className="block text-sm font-medium text-black mb-1">
               Role
             </label>
             <select
@@ -134,7 +152,7 @@ const SignUp: React.FC = () => {
               name="roleId"
               value={formData.roleId}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
             >
               <option value="" disabled>
                 Select your role
@@ -146,17 +164,17 @@ const SignUp: React.FC = () => {
           </div> */}
           <button
             type="submit"
-            className="w-full py-3 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105"
+            className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105"
           >
             Sign Up
           </button>
         </form>
 
         {/* Link to Login */}
-        <div className="mt-6 text-sm text-gray-600 text-center">
+        <div className="mt-6 text-sm text-black text-center">
           <p>
             Already have an account?{" "}
-            <a href="/login" className="text-blue-600 hover:text-blue-800 hover:underline font-medium transition-colors duration-300">
+            <a href="/login" className="text-indigo-600 hover:text-indigo-400 hover:underline font-medium transition-colors duration-300">
               Log in
             </a>
           </p>

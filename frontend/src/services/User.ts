@@ -13,9 +13,8 @@ export const registerUser = async (payload: UserSignup, navigate: (path: string)
         }) 
 
         if (response.status === 200){
-          console.log('Form submitted successfully', response.json());
+          console.log('Form submitted successfully');
           navigate("/login")
-
         }
 
         
@@ -27,7 +26,8 @@ export const registerUser = async (payload: UserSignup, navigate: (path: string)
 
 export const loginUser = async (emailAddress: string, password: string, navigate: (path: string) => void) => {
    const url = axiosInstance.getUri() + "/api/v1/users/login";
-//    console.log(url);
+   console.log(url);
+
   try {
     const res = await fetch(url, {
       method: "POST",
@@ -81,8 +81,6 @@ export const logoutUser = async (navigate: (path:string) => void) => {
 
 export const getEachUser = async (token: string | null): Promise<UserDetailsResponse | null> => {
   const url = axiosInstance.getUri() + "/api/v1/users/profile";
-  console.log("Fetching user details from URL:", url);
-  console.log("Authorization token:", token);
 
   try {
     const response = await fetch(url, {
@@ -105,12 +103,12 @@ export const getEachUser = async (token: string | null): Promise<UserDetailsResp
 };
 
 
-export const editUser = async (token: string | undefined, userRequest: UserRequest) => {
+export const editUser = async (token: string | null, userRequest: UserRequest) => {
   const url = axiosInstance.getUri() + "/api/v1/users";
 
   try{
     const response = await fetch(url, {
-        method:'PATCH',
+        method:'PUT',
         headers: {"Content-Type": 'application/json',
                   "Authorization":`Bearer ${token}`},
         body: JSON.stringify(userRequest)
@@ -121,9 +119,8 @@ export const editUser = async (token: string | undefined, userRequest: UserReque
       throw new Error(errorMessage);
     }
 
-    const message = 'User edited successfully'+ response.json()
     
-    console.log(message);
+    return await response.json()
 
   }
   catch (error) {
