@@ -52,7 +52,7 @@ const Lesoon1: React.FC = () => {
                   : "bg-indigo-200 text-gray-700 hover:bg-indigo-500 hover:text-white"
               }`}
             >
-              Week 1: Networking Basics
+              Week 1: Introduction
             </div>
             <div
               onClick={() => toggleDropdown(2)}
@@ -62,7 +62,7 @@ const Lesoon1: React.FC = () => {
                   : "bg-indigo-200 text-gray-700 hover:bg-indigo-500 hover:text-white"
               }`}
             >
-              Week 2: Vulnerability Assessment 
+              Week 2: Networking Basics
             </div>
             <div
               onClick={() => toggleDropdown(3)}
@@ -72,7 +72,17 @@ const Lesoon1: React.FC = () => {
                   : "bg-indigo-200 text-gray-700 hover:bg-indigo-500 hover:text-white"
               }`}
             >
-              Week 3: Project - Network Security Audit
+              Week 3: vulnerability Assessment
+            </div>
+            <div
+              onClick={() => toggleDropdown(4)}
+              className={`cursor-pointer px-4 py-2 rounded-md transition-all duration-300 text-center text-sm sm:text-lg font-medium ${
+                openWeek === 4
+                  ? "bg-indigo-600 text-white"
+                  : "bg-indigo-200 text-gray-700 hover:bg-indigo-500 hover:text-white"
+              }`}
+            >
+              Week 4: Project - Network Security Audit
             </div>
           </div>
 
@@ -84,55 +94,55 @@ const Lesoon1: React.FC = () => {
                 <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
                   <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
                     <Link to="/csl1day1" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
-                      Day 1: Networking 101
+                      Day 1: Welcome to Morgan Technical Training
                     </Link>
                   </h3>
                   <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                  	Understand TCP/IP, OSI model, IP addresses, subnets. 
+                    Learn about our community and the course structure. Get ready to start your journey in cyber security.
                   </p>
                 </div>
                 {/* Day 2 */}
                 <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
                   <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
                     <Link to="/csl1day2" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
-                      Day 2: Protocols and ports
+                      Day 2: Getting Started
                     </Link>
                   </h3>
                   <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                  	Explore HTTP, FTP, SSH; learn common ports (80, 22).
+                    Set up your development environment and get ready to begin your cyber journey.
                   </p>
                 </div>
                 {/* Day 3 */}
                 <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
                   <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
                     <Link to="/csl1day3" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
-                      Day 3: Packet Analysis with Wireshark 
+                      Day 3: Course Outline 
                     </Link>
                   </h3>
                   <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                  	Capture and analyze packets (e.g., HTTP traffic). 
+                  	See the course outline and what you will learn in the coming weeks. 
                   </p>
                 </div>
                 {/* Day 4 */}
                 <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
                   <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
                     <Link to="/csl1day4" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
-                      Day 4: Network Scanning Basics 
+                      Day 4: Student handbook
                     </Link>
                   </h3>
                   <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                  	Use Nmap for host discovery and port scanning. 
+                    Get in-depth knowledge about the role of students in our organization.
                   </p>
                 </div>
                 {/* Day 5 */}
                 <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
                   <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
                     <Link to="/csl1day5" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
-                      Day 5: Firewall & IDS Basics 
+                      Day 5: Onboarding program 
                     </Link>
                   </h3>
                   <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                  	Learn firewall rules, intrusion detection (Snort basics). 
+                  	Get started on everything, set-up all you need to start studying the course 
                   </p>
                 </div>
               </div>
@@ -140,71 +150,131 @@ const Lesoon1: React.FC = () => {
 
             {openWeek === 2 && (
               <div className="space-y-6">
-                {/* Day 6 */}
-                <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
-                  <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
-                    <Link to="/csl1day6" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
-                      Day 6: Object Intro to Vulnerabilities 
-                    </Link>
-                  </h3>
-                  <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                  	Study CVEs, CVSS scores, vulnerability databases (NIST). 
-                  </p>
-                </div>
-                {/* Day 7 */}
-                <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
-                  <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
-                    <Link to="/csl1day7" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
-                      Day 7: Vulnerability Scanning 
-                    </Link>
-                  </h3>
-                  <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                  	Use OpenVAS to scan for weaknesses
-                  </p>
-                </div>
-                {/* Day 8 */}
-                <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
-                  <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
-                    <Link to="/csl1day8" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
-                      Day 8: Patching & Hardening 
-                    </Link>
-                  </h3>
-                  <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                  	Learn to patch systems, harden Linux/Windows configs. 
-                  </p>
-                </div>
-                {/* Day 9 */}
-                <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
-                  <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
-                    <Link to="/csl1day9" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
-                      Day 9: Social Engineering Awareness 
-                    </Link>
-                  </h3>
-                  <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                  	Explore phishing, pretexting; analyze real-world examples. 
-                  </p>
-                </div>
-                {/* Day 10 */}
-                <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
-                  <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
-                    <Link to="/csl1day10" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
-                      Day 10: Networking Lab 
-                    </Link>
-                  </h3>
-                  <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
-                  	Combine scanning, packet analysis, and hardening in a TryHackMe lab.
-                  </p>
-                </div>
+              {/* Day 6 */}
+              <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
+                <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
+                  <Link to="/csl1day6" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
+                    Day 6: Networking 101
+                  </Link>
+                </h3>
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
+                    Understand TCP/IP, OSI model, IP addresses, subnets. 
+                </p>
               </div>
+              {/* Day 7 */}
+              <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
+                <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
+                  <Link to="/csl1day7" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
+                    Day 7: Protocols and ports
+                  </Link>
+                </h3>
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
+                    Explore HTTP, FTP, SSH; learn common ports (80, 22).
+                </p>
+              </div>
+              {/* Day 8 */}
+              <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
+                <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
+                  <Link to="/csl1day8" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
+                    Day 8: Packet Analysis with Wireshark 
+                  </Link>
+                </h3>
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
+                    Capture and analyze packets (e.g., HTTP traffic). 
+                </p>
+              </div>
+              {/* Day 9 */}
+              <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
+                <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
+                  <Link to="/csl1day9" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
+                    Day 9: Network Scanning Basics 
+                  </Link>
+                </h3>
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
+                    Use Nmap for host discovery and port scanning. 
+                </p>
+              </div>
+              {/* Day 10 */}
+              <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
+                <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
+                  <Link to="/csl1day10" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
+                    Day 10: Firewall & IDS Basics 
+                  </Link>
+                </h3>
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
+                    Learn firewall rules, intrusion detection (Snort basics). 
+                </p>
+              </div>
+            </div>
             )}
 
             {openWeek === 3 && (
               <div className="space-y-6">
-                {/* Day 11 */}
+              {/* Day 11 */}
+              <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
+                <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
+                  <Link to="/csl1day11" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
+                    Day 11: Object Intro to Vulnerabilities 
+                  </Link>
+                </h3>
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
+                    Study CVEs, CVSS scores, vulnerability databases (NIST). 
+                </p>
+              </div>
+              {/* Day 12 */}
+              <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
+                <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
+                  <Link to="/csl1day12" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
+                    Day 12: Vulnerability Scanning 
+                  </Link>
+                </h3>
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
+                    Use OpenVAS to scan for weaknesses
+                </p>
+              </div>
+              {/* Day 13 */}
+              <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
+                <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
+                  <Link to="/csl1day13" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
+                    Day 13: Patching & Hardening 
+                  </Link>
+                </h3>
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
+                    Learn to patch systems, harden Linux/Windows configs. 
+                </p>
+              </div>
+              {/* Day 14 */}
+              <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
+                <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
+                  <Link to="/csl1day14" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
+                    Day 14: Social Engineering Awareness 
+                  </Link>
+                </h3>
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
+                    Explore phishing, pretexting; analyze real-world examples. 
+                </p>
+              </div>
+              {/* Day 15 */}
+              <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
+                <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
+                  <Link to="/csl1day15" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
+                    Day 15: Networking Lab 
+                  </Link>
+                </h3>
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
+                    Combine scanning, packet analysis, and hardening in a TryHackMe lab.
+                </p>
+              </div>
+            </div>
+            )}
+
+            {openWeek === 4 && (
+              <div className="space-y-6">
+                {/* Day 16 */}
                 <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
                   <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
-                    <Link to="/sdl1day11" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
-                      Day 11: Project-Network Security Audit 
+                    <Link to="/sdl1day16" className="text-indigo-600 hover:text-indigo-800 transition duration-200">
+                      Day 16: Project-Network Security Audit 
                     </Link>
                   </h3>
                   <p className="text-gray-700 text-sm sm:text-base leading-relaxed">

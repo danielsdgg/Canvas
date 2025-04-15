@@ -12,11 +12,10 @@ import UserDetail from '../pages/Shared/UserDetail';
 import Grade from '../components/Grade';
 import EnrolledCoursesPage from '../components/EnrolledcoursesPage';
 
-//   FRONTEND ROUTES
+//   frontend lessons
 import Lesson1 from '../pages/Frontend/Lesson1';
 import Lesson2 from '../pages/Frontend/Lesson2';
 import Lesson3 from '../pages/Frontend/Lesson3';
-
 // lesson1 - days
 import Day1 from '../pages/Frontend/Lesson1-pages/Day1';
 import Day2 from '../pages/Frontend/Lesson1-pages/Day2';
@@ -87,6 +86,31 @@ import Deyy10 from '../pages/Backend/Leson2-pages/Deyy10';
 import Deyy11 from '../pages/Backend/Leson2-pages/Deyy11';
 import Deyy12 from '../pages/Backend/Leson2-pages/Deyy12';
 
+// cyber security lessons
+import Lesoon1 from '../pages/Cyber/Lesoon1';
+import Lesoon2 from '../pages/Cyber/Lesoon2';
+import Lesoon3 from '../pages/Cyber/Lesoon3';
+import Lesoon4 from '../pages/Cyber/Lesoon4';
+import Lesoon5 from '../pages/Cyber/Lesoon5';
+import Lesoon6 from '../pages/Cyber/Lesoon6';
+// lesson 1 pages
+import Det1 from '../pages/Cyber/Lesoon1-pages/Det1';
+import Det2 from '../pages/Cyber/Lesoon1-pages/Det2';
+import Det3 from '../pages/Cyber/Lesoon1-pages/Det3';
+import Det4 from '../pages/Cyber/Lesoon1-pages/Det4';
+import Det5 from '../pages/Cyber/Lesoon1-pages/Det5';
+import Det6 from '../pages/Cyber/Lesoon1-pages/Det6';
+import Det7 from '../pages/Cyber/Lesoon1-pages/Det7';
+import Det8 from '../pages/Cyber/Lesoon1-pages/Det8';
+import Det9 from '../pages/Cyber/Lesoon1-pages/Det9';
+import Det10 from '../pages/Cyber/Lesoon1-pages/Det10';
+import Det11 from '../pages/Cyber/Lesoon1-pages/Det11';
+import Det12 from '../pages/Cyber/Lesoon1-pages/Det12';
+import Det13 from '../pages/Cyber/Lesoon1-pages/Det13';
+import Det14 from '../pages/Cyber/Lesoon1-pages/Det14';
+import Det15 from '../pages/Cyber/Lesoon1-pages/Det15';
+import Det16 from '../pages/Cyber/Lesoon1-pages/Det16';
+
 
 
 const Clientroutes = () => {
@@ -104,8 +128,15 @@ const Clientroutes = () => {
                     <Route path="/courses/:courseId" element={<CourseDetails />} />
                     <Route path="/courses/:courseId/lessons/:lessonId" element={<LessonDetails />} />
                     <Route path="/user/:userId" element={<UserDetail />} />
-                    <Route path="*" element={<Grade />} /> 
+                    <Route path="*" element={<Grade />} />
 
+                    {/* cyber security lessons  */}
+                    <Route path="/courses/:courseId/lessons/8" element={<Lesoon1 />} />
+                    <Route path="/courses/:courseId/lessons/9" element={<Lesoon2 />} />
+                    <Route path="/courses/:courseId/lessons/10" element={<Lesoon3 />} />
+                    <Route path="/courses/:courseId/lessons/11" element={<Lesoon4 />} />
+                    <Route path="/courses/:courseId/lessons/12" element={<Lesoon5 />} />
+                    <Route path="/courses/:courseId/lessons/13" element={<Lesoon6 />} />
 
                     {/* backend lessons*/}
                     <Route path="/courses/:courseId/lessons/5" element={<Leson1 />} />
@@ -184,6 +215,25 @@ const Clientroutes = () => {
             <Route path='/sdl2day10' element={<Deyy10/>} />
             <Route path='/sdl2day11' element={<Deyy11/>} />
             <Route path='/sdl2day12' element={<Deyy12/>} />
+
+            {/* cyber security pages here */}
+            {/* lesson 1 */}
+            <Route path='/csl1day1' element={<Det1/>} />
+            <Route path='/csl1day2' element={<Det2/>} />
+            <Route path='/csl1day3' element={<Det3/>} />
+            <Route path='/csl1day4' element={<Det4/>} />
+            <Route path='/csl1day5' element={<Det5/>} />
+            <Route path='/csl1day6' element={<Det6/>} />
+            <Route path='/csl1day7' element={<Det7/>} />
+            <Route path='/csl1day8' element={<Det8/>} />
+            <Route path='/csl1day9' element={<Det9/>} />
+            <Route path='/csl1day10' element={<Det10/>} />
+            <Route path='/csl1day11' element={<Det11/>} />
+            <Route path='/csl1day12' element={<Det12/>} />
+            <Route path='/csl1day13' element={<Det13/>} />
+            <Route path='/csl1day14' element={<Det14/>} />
+            <Route path='/csl1day15' element={<Det15/>} />
+            <Route path='/csl1day16' element={<Det16/>} />
 
 
                 </Routes>
