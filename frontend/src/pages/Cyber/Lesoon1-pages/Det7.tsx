@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import {
   FaArrowLeft,
   FaCode,
-  FaLaptopCode,
   FaList,
   FaLink,
   FaEdit,
