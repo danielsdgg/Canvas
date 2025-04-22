@@ -99,31 +99,31 @@ const Dayy12: React.FC = () => {
                         <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-2">
                             <li className="flex items-start">
                                 <FaCode className="mr-2 mt-1 text-indigo-600" />
-                                Basic knowledge of <b>HTML structure</b> for page layout.
+                                Basic knowledge of <b className="mx-2">HTML structure</b> for page layout.
                             </li>
                             <li className="flex items-start">
                                 <FaCode className="mr-2 mt-1 text-indigo-600" />
-                                Understanding of <b>CSS and Tailwind CSS</b> for styling.
+                                Understanding of <b className="mx-2">CSS and Tailwind CSS</b> for styling.
                             </li>
                             <li className="flex items-start">
                                 <FaCode className="mr-2 mt-1 text-indigo-600" />
-                                Proficiency in <b>JavaScript fundamentals</b> (variables, operators, functions, loops).
+                                Proficiency in <b className="mx-2">JavaScript fundamentals</b> (variables, operators, functions, loops).
                             </li>
                             <li className="flex items-start">
                                 <FaCode className="mr-2 mt-1 text-indigo-600" />
-                                Familiarity with <b>arrays & objects</b> for data management.
+                                Familiarity with <b className="mx-2">arrays & objects</b> for data management.
                             </li>
                             <li className="flex items-start">
                                 <FaCode className="mr-2 mt-1 text-indigo-600" />
-                                Skills in <b>DOM manipulation</b> and <b>event handling</b>.
+                                Skills in <b className="mx-2">DOM manipulation</b> and <b>event handling</b>.
                             </li>
                             <li className="flex items-start">
                                 <FaCode className="mr-2 mt-1 text-indigo-600" />
-                                Experience with <b>forms</b> and <b>async JS (fetch)</b> for user input and data fetching.
+                                Experience with <b className="mx-2">forms</b> and <b>async JS (fetch)</b> for user input and data fetching.
                             </li>
                             <li className="flex items-start">
                                 <FaCode className="mr-2 mt-1 text-indigo-600" />
-                                Understanding of <b>object-oriented programming</b> and context (<code>this</code>).
+                                Understanding of <b className="mx-2">object-oriented programming</b> and context (<code>this</code>).
                             </li>
                         </ul>
                     </section>
@@ -140,7 +140,7 @@ const Dayy12: React.FC = () => {
                         <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-2">
                             <li className="flex items-start">
                                 <FaCode className="mr-2 mt-1 text-indigo-600" />
-                                <b>Variables & Operators:</b> Use variables to store data and operators for calculations or logic (e.g., counters, comparisons).
+                                <b >Variables & Operators:</b> Use variables to store data and operators for calculations or logic (e.g., counters, comparisons).
                             </li>
                             <li className="flex items-start">
                                 <FaCode className="mr-2 mt-1 text-indigo-600" />
@@ -223,19 +223,19 @@ const Dayy12: React.FC = () => {
                         <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-2">
                             <li className="flex items-start">
                                 <FaCode className="mr-2 mt-1 text-indigo-600" />
-                                Implement a <b>search or filter</b> feature using loops and array methods.
+                                Implement a <b className="mx-2">search or filter</b> feature using loops and array methods.
                             </li>
                             <li className="flex items-start">
                                 <FaCode className="mr-2 mt-1 text-indigo-600" />
-                                Add a <b>settings form</b> to customize the app (e.g., theme, user preferences).
+                                Add a <b className="mx-2">settings form</b> to customize the app (e.g., theme, user preferences).
                             </li>
                             <li className="flex items-start">
                                 <FaCode className="mr-2 mt-1 text-indigo-600" />
-                                Store data in <b>localStorage</b> to persist across page reloads.
+                                Store data in <b className="mx-2">localStorage</b> to persist across page reloads.
                             </li>
                             <li className="flex items-start">
                                 <FaCode className="mr-2 mt-1 text-indigo-600" />
-                                Use <b>async/await</b> with multiple API calls and handle errors gracefully.
+                                Use <b className="mx-2">async/await</b> with multiple API calls and handle errors gracefully.
                             </li>
                         </ul>
                     </section>
