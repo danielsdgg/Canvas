@@ -6,12 +6,14 @@ import { UserResponse } from '../models/responses/User';
 import { loginUser, logoutUser } from '../services/User';
 import Alert from '../components/Alert';
 import axiosInstance from '../api/api';
+import { useLocation } from 'react-router-dom';
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userToken, setUserToken] = useState<string | null>(null);
   const [userData, setUserData] = useState<UserResponse | null>(null);
+  const location = useLocation();
 
   const handleLogin = async (emailAddress: string, password: string): Promise<{ success: boolean; message?: string }> => {
     setIsLoading(true);
@@ -60,11 +62,15 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setIsLoading(true);
       const usertoken = await getData('userToken');
       const userinfo = await getData('userInfo');
-
+  
       if (userinfo && usertoken) {
         setUserToken(usertoken as string);
         setUserData(userinfo as UserResponse);
-        navigateApp(userinfo as UserResponse);
+  
+        // Only navigate if on login or root path
+        if (location.pathname === '/' || location.pathname === '/login') {
+          navigateApp(userinfo as UserResponse);
+        }
       }
     } catch (error) {
       console.error('isLoggedIn error:', error);
@@ -72,6 +78,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setIsLoading(false);
     }
   };
+  
 
   const navigateApp = (userData: UserResponse) => {
     try {
