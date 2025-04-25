@@ -8,12 +8,18 @@ const Lesson3: React.FC = () => {
   const [openWeek, setOpenWeek] = useState<number | null>(null);
 
   useEffect(() => {
-    setOpenWeek(1);
+    const savedWeek = localStorage.getItem("openWeek");
+    if (savedWeek) {
+      setOpenWeek(Number(savedWeek));
+    }
   }, []);
-
+  
   const toggleDropdown = (week: number) => {
-    setOpenWeek(openWeek === week ? null : week);
+    const newWeek = openWeek === week ? null : week;
+    setOpenWeek(newWeek);
+    localStorage.setItem("openWeek", newWeek?.toString() || "");
   };
+  
 
   return (
     <>
