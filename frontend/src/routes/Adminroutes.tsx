@@ -10,6 +10,7 @@ import LessonPage from '../components/LessonPage';
 import CourseDetails from "../components/CourseDetails";
 import UserDetail from '../pages/Shared/UserDetail';
 import EnrolledAdmins from '../components/EnrolledAdmins';
+import { HelmetProvider } from 'react-helmet-async';
 
 //   Frontend lessons
 import Lesson1 from '../pages/Frontend/Lesson1';
@@ -119,6 +120,7 @@ import Det16 from '../pages/Cyber/Lesoon1-pages/Det16';
 const Adminroutes = () => {
   return (
     <div>
+      <HelmetProvider>
         <Routes>
             <Route path='/admin-dashboard' element={<Admindashboard/>} />
             <Route path="/inbox" element={<Inbox />} />
@@ -239,6 +241,7 @@ const Adminroutes = () => {
             <Route path='/csl1day16' element={<Det16/>} />
 
         </Routes>
+        </HelmetProvider>
     </div>
   )
 }

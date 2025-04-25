@@ -11,6 +11,7 @@ import { Routes, Route } from 'react-router-dom';
 import UserDetail from '../pages/Shared/UserDetail';
 import Grade from '../components/Grade';
 import EnrolledCoursesPage from '../components/EnrolledcoursesPage';
+import { HelmetProvider } from 'react-helmet-async';
 
 //   frontend lessons
 import Lesson1 from '../pages/Frontend/Lesson1';
@@ -118,6 +119,7 @@ import Det16 from '../pages/Cyber/Lesoon1-pages/Det16';
 const Clientroutes = () => {
   return (
     <div>
+      <HelmetProvider>
         <Routes>
                     {/* Add your routes here */}
                     <Route path="/dashboard" element={<Dashboard />} />
@@ -240,6 +242,7 @@ const Clientroutes = () => {
 
 
                 </Routes>
+                </HelmetProvider>
     </div>
   )
 }
