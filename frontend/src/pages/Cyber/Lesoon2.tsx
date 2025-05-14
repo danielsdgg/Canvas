@@ -238,48 +238,46 @@ const Lesoon2: React.FC = () => {
                 {/* Day 11 */}
                 <div className="bg-white shadow-md rounded-lg p-4 sm:p-6 border border-gray-200 hover:bg-gray-100 transition duration-300">
                   <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800 mb-3 underline">
-                    <Link
-                      to="/csl2day11"
-                      className="text-indigo-600 hover:text-indigo-800 transition duration-200"
-                    >
-                      Day 11: Lesson 2 Project - Vulnerability Assessment and Reporting Challenge
-                    </Link>
-                  </h3>
-                  <div className="text-gray-700 text-sm sm:text-base leading-relaxed space-y-3">
-                    <p>
-                      <strong>Objective:</strong> Perform a comprehensive vulnerability assessment on a virtual environment (e.g., TryHackMe room like “Blue”).
-                    </p>
-                    <div>
-                      <strong>Tasks:</strong>
-                      <ul className="list-disc list-inside ml-4">
-                        <li>Conduct reconnaissance (passive and active) to identify targets.</li>
-                        <li>Scan with Nmap and Nessus to map vulnerabilities.</li>
-                        <li>Analyze findings and prioritize vulnerabilities based on CVSS scores.</li>
-                        <li>Write a professional report with recommendations for remediation.</li>
-                      </ul>
+                    <Link to="/csl2day11"
+                    className="text-indigo-600 hover:text-indigo-800 transition duration-200">
+                        Day 11: Lesson 2 Project - Vulnerability Assessment and Reporting Challenge
+                      </Link>
+                    </h3>
+                    <div className="text-gray-700 text-sm sm:text-base leading-relaxed space-y-3">
+                      <p>
+                        <strong>Objective:</strong> Perform a comprehensive vulnerability assessment on a virtual environment (e.g., TryHackMe room like “Blue”).
+                      </p>
+                      <div>
+                        <strong>Tasks:</strong>
+                        <ul className="list-disc list-inside ml-4 space-y-1">
+                          <li>Conduct reconnaissance (passive and active) to identify targets, such as gathering OSINT or scanning network ranges.</li>
+                          <li>Scan with Nmap and Nessus to map vulnerabilities, identifying open ports, services, and potential weaknesses.</li>
+                          <li>Analyze findings and prioritize vulnerabilities based on CVSS scores to focus on high-impact issues.</li>
+                          <li>Write a professional report with recommendations for remediation, tailored for both technical and non-technical audiences.</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <strong>Deliverables:</strong>
+                        <ul className="list-disc list-inside ml-4 space-y-1">
+                          <li>
+                            <strong>GitHub repo:</strong> Include scripts (e.g., Nmap commands, Python automation), reconnaissance data (e.g., OSINT notes), and a detailed write-up of the assessment process.
+                          </li>
+                          <li>
+                            <strong>LMS upload:</strong> Submit a PDF report (3–5 pages) with findings, prioritized vulnerabilities (including CVSS scores), impact analysis, and actionable remediation steps.
+                          </li>
+                          <li>
+                            <strong>LMS text field:</strong> Provide any flag captured from the lab (if applicable, e.g., a CTF flag from TryHackMe’s “Blue” room).
+                          </li>
+                        </ul>
+                      </div>
+                      <p>
+                        <strong>Bonus:</strong> Automate part of the scanning process with a Python script (e.g., using <code>nmap</code> or <code>python-nmap</code> to streamline port scanning).
+                      </p>
+                      <p>
+                        <strong>Purpose:</strong> Develop hands-on offensive security skills through a beginner-friendly project focusing on reconnaissance, vulnerability scanning, and professional reporting. This challenge builds foundational skills for ethical hacking and prepares students for real-world penetration testing engagements.
+                      </p>
                     </div>
-                    <div>
-                      <strong>Deliverables:</strong>
-                      <ul className="list-disc list-inside ml-4">
-                        <li>
-                          <strong>GitHub repo:</strong> Scripts (e.g., Nmap commands), reconnaissance data, write-up.
-                        </li>
-                        <li>
-                          <strong>LMS upload:</strong> PDF report with findings, prioritized vulnerabilities, and remediation steps.
-                        </li>
-                        <li>
-                          <strong>LMS text field:</strong> Flag from the lab (if applicable).
-                        </li>
-                      </ul>
-                    </div>
-                    <p>
-                      <strong>Bonus:</strong> Automate part of the scanning process with a Python script.
-                    </p>
-                    <p>
-                      <strong>Purpose:</strong> Hands-on offensive skills, with a beginner-friendly project focusing on recon, scanning, and reporting.
-                    </p>
                   </div>
-                </div>
               </div>
             )}
           </div>

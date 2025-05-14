@@ -113,6 +113,18 @@ import Det13 from '../pages/Cyber/Lesoon1-pages/Det13';
 import Det14 from '../pages/Cyber/Lesoon1-pages/Det14';
 import Det15 from '../pages/Cyber/Lesoon1-pages/Det15';
 import Det16 from '../pages/Cyber/Lesoon1-pages/Det16';
+// lesson 2 pages
+import Dett1 from '../pages/Cyber/Lesoon2-pages/Dett1';
+import Dett2 from '../pages/Cyber/Lesoon2-pages/Dett2';
+import Dett3 from '../pages/Cyber/Lesoon2-pages/Dett3';
+import Dett4 from '../pages/Cyber/Lesoon2-pages/Dett4';
+import Dett5 from '../pages/Cyber/Lesoon2-pages/Dett5';
+import Dett6 from '../pages/Cyber/Lesoon2-pages/Dett6';
+import Dett7 from '../pages/Cyber/Lesoon2-pages/Dett7';
+import Dett8 from '../pages/Cyber/Lesoon2-pages/Dett8';
+import Dett9 from '../pages/Cyber/Lesoon2-pages/Dett9';
+import Dett10 from '../pages/Cyber/Lesoon2-pages/Dett10';
+import Dett11 from '../pages/Cyber/Lesoon2-pages/Dett11';
 
 
 
@@ -239,6 +251,19 @@ const Clientroutes = () => {
             <Route path='/csl1day14' element={<Det14/>} />
             <Route path='/csl1day15' element={<Det15/>} />
             <Route path='/csl1day16' element={<Det16/>} />
+            {/* lesson 2 */}
+            <Route path='/csl2day1' element={<Dett1/>} />
+            <Route path='/csl2day2' element={<Dett2/>} />
+            <Route path='/csl2day3' element={<Dett3/>} />
+            <Route path='/csl2day4' element={<Dett4/>} />
+            <Route path='/csl2day5' element={<Dett5/>} />
+            <Route path='/csl2day6' element={<Dett6/>} />
+            <Route path='/csl2day7' element={<Dett7/>} />
+            <Route path='/csl2day8' element={<Dett8/>} />
+            <Route path='/csl2day9' element={<Dett9/>} />
+            <Route path='/csl2day10' element={<Dett10/>} />
+            <Route path='/csl2day11' element={<Dett11/>} />
+            
 
 
                 </Routes>

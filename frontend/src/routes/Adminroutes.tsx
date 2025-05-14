@@ -111,6 +111,11 @@ import Det13 from '../pages/Cyber/Lesoon1-pages/Det13';
 import Det14 from '../pages/Cyber/Lesoon1-pages/Det14';
 import Det15 from '../pages/Cyber/Lesoon1-pages/Det15';
 import Det16 from '../pages/Cyber/Lesoon1-pages/Det16';
+// lesson 2 pages
+import Dett1 from '../pages/Cyber/Lesoon2-pages/Dett1';
+import Dett2 from '../pages/Cyber/Lesoon2-pages/Dett2';
+import Dett3 from '../pages/Cyber/Lesoon2-pages/Dett3';
+import Dett4 from '../pages/Cyber/Lesoon2-pages/Dett4';
 
 
 //   DATA SCIENCE ROUTES
@@ -239,6 +244,11 @@ const Adminroutes = () => {
             <Route path='/csl1day14' element={<Det14/>} />
             <Route path='/csl1day15' element={<Det15/>} />
             <Route path='/csl1day16' element={<Det16/>} />
+            {/* lesson 2 */}
+            <Route path='/csl2day1' element={<Dett1/>} />
+            <Route path='/csl2day2' element={<Dett2/>} />
+            <Route path='/csl2day3' element={<Dett3/>} />
+            <Route path='/csl2day4' element={<Dett4/>} />
 
         </Routes>
         </HelmetProvider>
