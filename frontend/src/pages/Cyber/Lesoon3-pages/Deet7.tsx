@@ -1,11 +1,512 @@
-import React from 'react'
+import React, { useState, useCallback, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  FaArrowLeft,
+  FaCode,
+  FaList,
+  FaLink,
+  FaEdit,
+  FaCheckCircle,
+  FaRocket,
+  FaBookOpen,
+  FaShieldAlt,
+} from "react-icons/fa";
+import { useAuth } from "../../../context/authContext";
 
-const Deet7 = () => {
-  return (
-    <div>
-      day 7
-    </div>
-  )
+// Define interfaces for type safety
+interface UserDetails {
+  id: string; // Ensure id is string to avoid TS2322
 }
 
-export default Deet7
+interface UserData {
+  userDetails: UserDetails;
+}
+
+interface AuthContext {
+  userData: UserData | null;
+  userToken: string | null;
+}
+
+interface FormState {
+  assignmentId: number;
+  userId: string;
+  submissionUrl: string;
+  submissionType: "github" | "pdf";
+}
+
+const Deet7: React.FC = () => {
+  const navigate = useNavigate();
+  const { userData, userToken } = useAuth() as AuthContext;
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // State for submission field
+  const [submitted, setSubmitted] = useState<boolean>(false);
+  const [form, setForm] = useState<FormState>({
+    assignmentId: 7, // Unique for Deet7
+    userId: String(userData?.userDetails.id ?? ""), // Cast to string to fix TS2322
+    submissionUrl: "",
+    submissionType: "pdf", // Default to PDF for analytical report
+  });
+
+  // Handle input change for submission URL and type
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+      const { name, value } = e.target;
+      setForm((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    },
+    []
+  );
+
+  // Handle file upload for PDF submissions
+  const handleFileUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      alert("No file selected. Please choose a file.");
+      return;
+    }
+    if (file.type !== "application/pdf") {
+      alert("Please upload a valid PDF file.");
+      return;
+    }
+    // Simulate file upload (replace with actual backend logic)
+    const fileUrl = URL.createObjectURL(file);
+    setForm((prev) => ({
+      ...prev,
+      submissionUrl: fileUrl,
+    }));
+  }, []);
+
+  // Handle form submission
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+
+      if (!form.submissionUrl) {
+        alert(`Please provide a ${form.submissionType === "github" ? "GitHub link" : "PDF file"}.`);
+        return;
+      }
+
+      if (!userToken) {
+        alert("Authentication error. Please log in again.");
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:8080/api/v1/assignments/submit", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Submission failed.");
+        }
+
+        setSubmitted(true);
+        alert("Assignment submitted successfully!");
+      } catch (error) {
+        console.error("Submission error:", error);
+        alert(`Failed to submit: ${error instanceof Error ? error.message : "Unknown error"}`);
+      }
+    },
+    [form, userToken]
+  );
+
+  return (
+    <>
+      <section className="bg-white shadow-lg rounded-lg p-4 sm:p-6 md:p-8 mb-8 mx-auto max-w-5xl">
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center text-gray-600 hover:text-indigo-600 mb-6 transition-all duration-300 ease-in-out transform hover:scale-105 p-2"
+          aria-label="Go back"
+        >
+          <FaArrowLeft className="mr-2 text-lg" />
+          Back
+        </button>
+
+        {/* Section Heading */}
+        <div className="bg-indigo-600 text-white py-4 px-6 rounded-t-lg flex items-center">
+          <FaShieldAlt className="mr-3 text-2xl" />
+          <h1 className="text-2xl sm:text-3xl font-extrabold uppercase">Broken Authentication</h1>
+        </div>
+
+        <div className="p-4 sm:p-6">
+          {/* Introduction */}
+          <div className="mb-8">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 flex items-center">
+              <FaEdit className="mr-2 text-indigo-600" />
+              Introduction to Broken Authentication
+            </h2>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4">
+              Broken Authentication, a critical vulnerability in the OWASP Top 10, occurs when authentication mechanisms are improperly implemented, allowing attackers to compromise user accounts through weak passwords, session mismanagement, or flawed credential recovery. This module explores exploiting weak passwords using brute force tools like Hydra and session flaws (e.g., session hijacking) with Burp Suite. These skills are essential for cybersecurity modules like OWASP Top 10 analysis (<code>Deet2</code>) and penetration testing (<code>Dett6</code>).
+            </p>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
+              Designed for beginners, this module provides detailed explanations, practical examples, and a hands-on exercise to exploit authentication vulnerabilities in a test environment. By mastering these techniques, you’ll learn to identify, exploit, and mitigate broken authentication risks, preparing you for Capture The Flag (CTF) challenges and real-world security assessments.
+            </p>
+          </div>
+
+          {/* Understanding Broken Authentication */}
+          <div className="mb-8 bg-indigo-50 border border-indigo-200 rounded-lg p-4 sm:p-6">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+              <FaCode className="mr-2 text-indigo-600" />
+              Understanding Broken Authentication
+            </h2>
+            <div className="space-y-6">
+              {/* What is Broken Authentication? */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center">
+                  <FaCode className="mr-2 text-indigo-600" />
+                  1. What is Broken Authentication?
+                </h3>
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
+                  Broken Authentication occurs when flaws in authentication or session management allow attackers to bypass security controls, gaining unauthorized access to user accounts or sessions.
+                </p>
+                <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-2">
+                  <li><strong>Impact:</strong> Account takeover, privilege escalation, data theft.</li>
+                  <li><strong>Common Flaws:</strong> Weak passwords, predictable session IDs, lack of rate limiting.</li>
+                  <li><strong>Examples:</strong> Brute-forcing weak passwords, stealing session cookies.</li>
+                </ul>
+              </div>
+
+              {/* Exploiting Weak Passwords */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center">
+                  <FaCode className="mr-2 text-indigo-600" />
+                  2. Exploiting Weak Passwords
+                </h3>
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
+                  Weak passwords (e.g., "password123") can be exploited using brute force or password spraying, often with tools like Hydra to automate login attempts.
+                </p>
+                <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-2">
+                  <li><strong>Techniques:</strong> Brute force (trying many passwords), password spraying (trying common passwords across users).</li>
+                  <li><strong>Tools:</strong> Hydra, Burp Suite Intruder for automated attacks.</li>
+                  <li><strong>Indicators:</strong> No rate limiting, no CAPTCHA, weak password policies.</li>
+                </ul>
+                <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto text-sm sm:text-base">
+                  {`# Install Hydra (Kali Linux)
+sudo apt update
+sudo apt install hydra
+
+# Brute Force Login with Hydra
+hydra -l admin -P /usr/share/wordlists/rockyou.txt testphp.vulnweb.com http-post-form "/login.php:username=^USER^&password=^PASS^:Invalid"
+
+# Example Output
+[80][http-post-form] host: testphp.vulnweb.com   login: admin   password: password123
+`}
+                </pre>
+              </div>
+
+              {/* Exploiting Session Flaws */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center">
+                  <FaCode className="mr-2 text-indigo-600" />
+                  3. Exploiting Session Flaws
+                </h3>
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
+                  Session flaws, such as predictable session IDs or lack of secure cookie attributes, allow attackers to hijack user sessions by stealing or guessing session tokens.
+                </p>
+                <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-2">
+                  <li><strong>Techniques:</strong> Session hijacking, session fixation, cookie theft via XSS.</li>
+                  <li><strong>Tools:</strong> Burp Suite to intercept and manipulate cookies.</li>
+                  <li><strong>Indicators:</strong> Missing <code>HttpOnly</code>/<code>Secure</code> flags, predictable session IDs.</li>
+                </ul>
+                <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto text-sm sm:text-base">
+                  {`# Capture Session Cookie in Burp Suite
+GET /profile HTTP/1.1
+Host: testphp.vulnweb.com
+Cookie: sessionID=123456
+
+# Use Stolen Cookie
+# In Browser: F12 > Application > Cookies
+# Set: sessionID=123456
+# Visit: http://testphp.vulnweb.com/profile
+
+# Vulnerable Cookie (No Flags)
+Set-Cookie: sessionID=123456
+
+# Secure Cookie
+Set-Cookie: sessionID=abc123; HttpOnly; Secure; SameSite=Strict
+`}
+                </pre>
+              </div>
+
+              {/* Mitigating Broken Authentication */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center">
+                  <FaCode className="mr-2 text-indigo-600" />
+                  4. Mitigating Broken Authentication
+                </h3>
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
+                  Preventing broken authentication requires strong password policies, secure session management, and robust authentication mechanisms.
+                </p>
+                <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-2">
+                  <li><strong>Password Policies:</strong> Enforce strong passwords, use password managers.</li>
+                  <li><strong>Rate Limiting:</strong> Limit login attempts, implement CAPTCHA.</li>
+                  <li><strong>Session Management:</strong> Use random session IDs, secure cookie attributes.</li>
+                  <li><strong>MFA:</strong> Enable multi-factor authentication.</li>
+                </ul>
+                <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto text-sm sm:text-base">
+                  {`# Vulnerable Login (No Rate Limiting)
+app.post('/login', (req, res) => {
+  if (req.body.password === 'password123') {
+    res.cookie('sessionID', '123456');
+    res.send('Logged in');
+  }
+});
+
+# Secure Login (Rate Limiting, MFA)
+const rateLimit = require('express-rate-limit');
+app.use('/login', rateLimit({ windowMs: 15 * 60 * 1000, max: 5 }));
+app.post('/login', (req, res) => {
+  if (req.body.password && verifyMFA(req.body.mfaToken)) {
+    res.cookie('sessionID', randomID(), { httpOnly: true, secure: true, sameSite: 'strict' });
+    res.send('Logged in');
+  }
+});
+`}
+                </pre>
+              </div>
+            </div>
+          </div>
+
+          {/* Practical Exercise */}
+          <div className="mb-8 bg-indigo-50 border border-indigo-200 rounded-lg p-4 sm:p-6">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+              <FaRocket className="mr-2 text-indigo-600" />
+              Practical Exercise: Exploit Broken Authentication
+            </h2>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4">
+              Apply your knowledge by exploiting weak passwords and session flaws on a test web application (<code>http://testphp.vulnweb.com</code>) using Hydra and Burp Suite. Document your process and findings in a PDF report (2–3 pages), including screenshots. Optionally, submit a GitHub repository with scripts (e.g., automating brute force) or Burp Suite logs and a <code>README.md</code>.
+            </p>
+            <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-3">
+              <li className="flex items-start">
+                <FaList className="mr-2 mt-1 text-indigo-600" />
+                Set up your environment: Install Hydra and Burp Suite Community Edition on Kali Linux. Configure your browser to use Burp’s proxy (127.0.0.1:8080).
+              </li>
+              <li className="flex items-start">
+                <FaList className="mr-2 mt-1 text-indigo-600" />
+                Exploit Weak Passwords:
+                <ul className="list-disc list-inside ml-6 mt-2 space-y-1">
+                  <li>Visit <code>http://testphp.vulnweb.com/login.php</code>, identify the login form.</li>
+                  <li>Use Burp Suite to capture the POST request (e.g., <code>username=admin&password=pass</code>).</li>
+                  <li>Run Hydra with a wordlist (e.g., <code>rockyou.txt</code>) to brute force the password for <code>admin</code>.</li>
+                  <li>Capture successful login (e.g., Hydra output, browser login) with screenshots.</li>
+                </ul>
+              </li>
+              <li className="flex items-start">
+                <FaList className="mr-2 mt-1 text-indigo-600" />
+                Exploit Session Flaws:
+                <ul className="list-disc list-inside ml-6 mt-2 space-y-1">
+                  <li>Log in to the test site, capture the session cookie in Burp Suite (e.g., <code>sessionID=123456</code>).</li>
+                  <li>In a new browser, set the stolen cookie (F12 - Application - Cookies) and access a protected page (e.g., <code>/profile</code>).</li>
+                  <li>Check cookie attributes (e.g., <code>HttpOnly</code>, <code>Secure</code>) in Burp or browser.</li>
+                  <li>Capture results (e.g., successful access, cookie details) with screenshots.</li>
+                </ul>
+              </li>
+              <li className="flex items-start">
+                <FaList className="mr-2 mt-1 text-indigo-600" />
+                Write a 2–3 page PDF report including:
+                <ul className="list-disc list-inside ml-6 mt-2 space-y-1">
+                  <li>Introduction: Explain broken authentication and its risks.</li>
+                  <li>Weak Password Exploitation: Describe the brute force attack (Hydra command, result) with screenshots.</li>
+                  <li>Session Flaw Exploitation: Detail the session hijacking process (cookie usage, result) with screenshots.</li>
+                  <li>Mitigation: Recommend fixes (e.g., strong passwords, secure cookies, MFA).</li>
+                </ul>
+              </li>
+              <li className="flex items-start">
+                <FaList className="mr-2 mt-1 text-indigo-600" />
+                Optional: Create a GitHub repository with a brute force script (e.g., Python with <code>requests</code>), Hydra logs, or Burp Suite logs, including a <code>README.md</code>.
+              </li>
+            </ul>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mt-4">
+              Here’s a starter guide for the exercise:
+            </p>
+            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto text-sm sm:text-base">
+              {`# Install Tools (Kali Linux)
+sudo apt update
+sudo apt install hydra burpsuite
+
+# Start Burp Suite
+burpsuite &
+
+# Configure Browser Proxy (Firefox)
+# Preferences > Network Settings > Manual Proxy
+# HTTP Proxy: 127.0.0.1, Port: 8080
+
+# Brute Force with Hydra
+hydra -l admin -P /usr/share/wordlists/rockyou.txt testphp.vulnweb.com http-post-form "/login.php:username=^USER^&password=^PASS^:Invalid"
+
+# Capture Session Cookie
+# In Burp: Proxy > Intercept > Turn on
+# Log in, note: Cookie: sessionID=123456
+
+# Test Session Hijacking
+# In Browser: F12 > Application > Cookies
+# Set: sessionID=123456
+# Visit: http://testphp.vulnweb.com/profile
+# Check cookie flags in Burp
+
+# Save Evidence
+# Hydra: Save terminal output
+# Burp: Right-click request > Save item
+# Browser: Screenshot login/profile
+
+# Create Report
+# Use Word/Google Docs, include screenshots
+# Export as PDF
+`}
+            </pre>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mt-4 italic">
+              Complete the exercise, test your setup, and submit your work below! Ensure you only test authorized systems.
+            </p>
+          </div>
+
+          {/* Submission Section */}
+          <div className="mb-8">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+              <FaLink className="mr-2 text-indigo-600" />
+              Submit Your Work
+            </h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label
+                  className="block text-gray-800 text-sm sm:text-base font-semibold mb-2"
+                  htmlFor="submissionType"
+                >
+                  Submission Type:
+                </label>
+                <select
+                  name="submissionType"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
+                  value={form.submissionType}
+                  onChange={handleInputChange}
+                  aria-label="Select submission type"
+                >
+                  <option value="github">GitHub Repository Link</option>
+                  <option value="pdf">PDF Report</option>
+                </select>
+              </div>
+              {form.submissionType === "github" ? (
+                <div>
+                  <label
+                    className="block text-gray-800 text-sm sm:text-base font-semibold mb-2"
+                    htmlFor="submissionUrl"
+                  >
+                    Paste Your GitHub Repository Link:
+                  </label>
+                  <textarea
+                    name="submissionUrl"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
+                    rows={4}
+                    placeholder="e.g., https://github.com/username/broken-auth-lab"
+                    value={form.submissionUrl}
+                    onChange={handleInputChange}
+                    aria-label="GitHub repository link"
+                  />
+                </div>
+              ) : (
+                <div>
+                  <label
+                    className="block text-gray-800 text-sm sm:text-base font-semibold mb-2"
+                    htmlFor="submissionFile"
+                  >
+                    Upload Your PDF Report:
+                  </label>
+                  <input
+                    type="file"
+                    name="submissionFile"
+                    accept="application/pdf"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
+                    onChange={handleFileUpload}
+                    ref={inputRef}
+                    aria-label="Upload PDF report"
+                  />
+                </div>
+              )}
+              <button
+                type="submit"
+                className="bg-indigo-600 text-white py-2 px-6 rounded-md hover:bg-indigo-700 transition-all duration-300 ease-in-out transform hover:scale-105"
+                aria-label="Submit exercise"
+              >
+                Submit Exercise
+              </button>
+            </form>
+            {submitted && (
+              <p className="mt-4 text-green-600 font-medium flex items-center">
+                <FaCheckCircle className="mr-2" />
+                Your exercise has been submitted successfully!
+              </p>
+            )}
+          </div>
+
+          {/* Resources */}
+          <div className="mb-8">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+              <FaBookOpen className="mr-2 text-indigo-600" />
+              Broken Authentication Resources
+            </h2>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4">
+              Enhance your skills with these recommended resources:
+            </p>
+            <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-3">
+              <li className="flex items-start">
+                <FaLink className="mr-2 mt-1 text-indigo-600" />
+                <a
+                  href="https://owasp.org/www-project-top-ten/2017/A2_2017-Broken_Authentication"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-indigo-600 underline hover:text-indigo-800"
+                >
+                  OWASP - Broken Authentication
+                </a>
+              </li>
+              <li className="flex items-start">
+                <FaLink className="mr-2 mt-1 text-indigo-600" />
+                <a
+                  href="https://portswigger.net/web-security/authentication"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-indigo-600 underline hover:text-indigo-800"
+                >
+                  PortSwigger - Authentication Labs
+                </a>
+              </li>
+              <li className="flex items-start">
+                <FaLink className="mr-2 mt-1 text-indigo-600" />
+                <a
+                  href="https://tryhackme.com/room/brokenauth"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-indigo-600 underline hover:text-indigo-800"
+                >
+                  TryHackMe - Broken Authentication Walkthrough
+                </a>
+              </li>
+              <li className="flex items-start">
+                <FaLink className="mr-2 mt-1 text-indigo-600" />
+                <a
+                  href="https://www.hacksplaining.com/exercises/broken-authentication"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-indigo-600 underline hover:text-indigo-800"
+                >
+                  Hacksplaining - Broken Authentication Training
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default Deet7;

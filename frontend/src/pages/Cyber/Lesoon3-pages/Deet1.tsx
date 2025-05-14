@@ -1,11 +1,488 @@
-import React from 'react'
+import React, { useState, useCallback, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  FaArrowLeft,
+  FaCode,
+  FaList,
+  FaLink,
+  FaEdit,
+  FaCheckCircle,
+  FaRocket,
+  FaBookOpen,
+  FaShieldAlt,
+} from "react-icons/fa";
+import { useAuth } from "../../../context/authContext";
 
-const Deet1 = () => {
-  return (
-    <div>
-      day 1
-    </div>
-  )
+// Define interfaces for type safety
+interface UserDetails {
+  id: string; // Ensure id is string to avoid TS2322
 }
 
-export default Deet1
+interface UserData {
+  userDetails: UserDetails;
+}
+
+interface AuthContext {
+  userData: UserData | null;
+  userToken: string | null;
+}
+
+interface FormState {
+  assignmentId: number;
+  userId: string;
+  submissionUrl: string;
+  submissionType: "github" | "pdf";
+}
+
+const Deet1: React.FC = () => {
+  const navigate = useNavigate();
+  const { userData, userToken } = useAuth() as AuthContext;
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // State for submission field
+  const [submitted, setSubmitted] = useState<boolean>(false);
+  const [form, setForm] = useState<FormState>({
+    assignmentId: 1,
+    userId: String(userData?.userDetails.id ?? ""), // Cast to string to fix TS2322
+    submissionUrl: "",
+    submissionType: "pdf", // Default to PDF for analytical task
+  });
+
+  // Handle input change for submission URL and type
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+      const { name, value } = e.target;
+      setForm((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    },
+    []
+  );
+
+  // Handle file upload for PDF submissions
+  const handleFileUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      alert("No file selected. Please choose a file.");
+      return;
+    }
+    if (file.type !== "application/pdf") {
+      alert("Please upload a valid PDF file.");
+      return;
+    }
+    // Simulate file upload (replace with actual backend logic)
+    const fileUrl = URL.createObjectURL(file);
+    setForm((prev) => ({
+      ...prev,
+      submissionUrl: fileUrl,
+    }));
+  }, []);
+
+  // Handle form submission
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+
+      if (!form.submissionUrl) {
+        alert(`Please provide a ${form.submissionType === "github" ? "GitHub link" : "PDF file"}.`);
+        return;
+      }
+
+      if (!userToken) {
+        alert("Authentication error. Please log in again.");
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:8080/api/v1/assignments/submit", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Submission failed.");
+        }
+
+        setSubmitted(true);
+        alert("Assignment submitted successfully!");
+      } catch (error) {
+        console.error("Submission error:", error);
+        alert(`Failed to submit: ${error instanceof Error ? error.message : "Unknown error"}`);
+      }
+    },
+    [form, userToken]
+  );
+
+  return (
+    <>
+      <section className="bg-white shadow-lg rounded-lg p-4 sm:p-6 md:p-8 mb-8 mx-auto max-w-5xl">
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center text-gray-600 hover:text-indigo-600 mb-6 transition-all duration-300 ease-in-out transform hover:scale-105 p-2"
+          aria-label="Go back"
+        >
+          <FaArrowLeft className="mr-2 text-lg" />
+          Back
+        </button>
+
+        {/* Section Heading */}
+        <div className="bg-indigo-600 text-white py-4 px-6 rounded-t-lg flex items-center">
+          <FaShieldAlt className="mr-3 text-2xl" />
+          <h1 className="text-2xl sm:text-3xl font-extrabold uppercase">How Web Applications Work</h1>
+        </div>
+
+        <div className="p-4 sm:p-6">
+          {/* Introduction */}
+          <div className="mb-8">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 flex items-center">
+              <FaEdit className="mr-2 text-indigo-600" />
+              Introduction to Web Applications
+            </h2>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4">
+              Web applications power the internet, from social media platforms to online banking systems. Understanding their core components—<strong>HTTP</strong>, <strong>cookies</strong>, <strong>sessions</strong>, and the <strong>client-server model</strong>—is foundational for cybersecurity. This module introduces these concepts, explaining how data flows between users and servers, how state is maintained, and how vulnerabilities arise. It sets the stage for advanced topics like network scanning (<code>Dett5</code>) and vulnerability assessment (<code>Dett10</code>) in this course.
+            </p>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
+              Designed for beginners, this module combines theoretical explanations with a practical exercise to analyze web traffic, equipping you with skills to identify security risks in real-world web applications. By mastering these fundamentals, you’ll be prepared for hands-on labs and Capture The Flag (CTF) challenges.
+            </p>
+          </div>
+
+          {/* Understanding Web Applications */}
+          <div className="mb-8 bg-indigo-50 border border-indigo-200 rounded-lg p-4 sm:p-6">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+              <FaCode className="mr-2 text-indigo-600" />
+              Understanding Web Applications
+            </h2>
+            <div className="space-y-6">
+              {/* Client-Server Model */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center">
+                  <FaCode className="mr-2 text-indigo-600" />
+                  1. Client-Server Model
+                </h3>
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
+                  The client-server model defines how web applications communicate. Clients (e.g., browsers) send requests to servers (e.g., Apache, Nginx), which process and respond with data like HTML or JSON.
+                </p>
+                <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-2">
+                  <li><strong>Client:</strong> Initiates requests (e.g., Chrome requesting a webpage).</li>
+                  <li><strong>Server:</strong> Handles requests and sends responses (e.g., serving a webpage).</li>
+                  <li><strong>Security Note:</strong> Misconfigured servers can expose sensitive data.</li>
+                </ul>
+                <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto text-sm sm:text-base">
+                  {`# Example Interaction
+Client: GET /home HTTP/1.1
+Host: example.com
+
+Server: HTTP/1.1 200 OK
+Content-Type: text/html
+<html><body>Home Page</body></html>`}
+                </pre>
+              </div>
+
+              {/* HTTP Protocol */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center">
+                  <FaCode className="mr-2 text-indigo-600" />
+                  2. HTTP Protocol
+                </h3>
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
+                  HTTP (Hypertext Transfer Protocol) governs web communication. It’s stateless, meaning each request is independent unless state is managed (e.g., via cookies).
+                </p>
+                <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-2">
+                  <li>
+                    <strong>Requests:</strong> Methods like GET (retrieve data), POST (send data), PUT (update), DELETE (remove).
+                  </li>
+                  <li>
+                    <strong>Responses:</strong> Status codes like 200 (OK), 404 (Not Found), 500 (Server Error).
+                  </li>
+                  <li>
+                    <strong>Security Risks:</strong> Unencrypted HTTP traffic is vulnerable to interception (use HTTPS).
+                  </li>
+                </ul>
+                <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto text-sm sm:text-base">
+                  {`# HTTP Request
+GET /login HTTP/1.1
+Host: example.com
+User-Agent: Mozilla/5.0
+
+# HTTP Response
+HTTP/1.1 200 OK
+Content-Type: text/html
+<html><body>Login Page</body></html>`}
+                </pre>
+              </div>
+
+              {/* Cookies */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center">
+                  <FaCode className="mr-2 text-indigo-600" />
+                  3. Cookies
+                </h3>
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
+                  Cookies are small data files stored by browsers to maintain state, such as user authentication or preferences.
+                </p>
+                <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-2">
+                  <li>
+                    <strong>Attributes:</strong> <code>Secure</code> (HTTPS only), <code>HttpOnly</code> (blocks JavaScript access), <code>Max-Age</code> (expiration).
+                  </li>
+                  <li>
+                    <strong>Types:</strong> Session cookies (temporary), persistent cookies (stored).
+                  </li>
+                  <li>
+                    <strong>Security Risks:</strong> Cookie theft via XSS or man-in-the-middle attacks.
+                  </li>
+                </ul>
+                <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto text-sm sm:text-base">
+                  {`# Cookie Example
+Set-Cookie: sessionID=abc123; Secure; HttpOnly; Max-Age=3600`}
+                </pre>
+              </div>
+
+              {/* Sessions */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center">
+                  <FaCode className="mr-2 text-indigo-600" />
+                  4. Sessions
+                </h3>
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3">
+                  Sessions maintain user state across requests by storing a unique session ID in a cookie, linked to server-side data.
+                </p>
+                <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-2">
+                  <li>
+                    <strong>Process:</strong> User logs in, server creates session ID, cookie is sent to browser.
+                  </li>
+                  <li>
+                    <strong>Security:</strong> Use secure cookies, regenerate IDs after login, set expiration.
+                  </li>
+                  <li>
+                    <strong>Vulnerabilities:</strong> Weak session IDs or improper logout can lead to hijacking.
+                  </li>
+                </ul>
+                <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto text-sm sm:text-base">
+                  {`# Session Flow
+1. POST /login {username: "user", password: "pass"}
+2. Set-Cookie: sessionID=xyz789
+3. GET /profile (includes sessionID)`}
+                </pre>
+              </div>
+            </div>
+          </div>
+
+          {/* Practical Exercise */}
+          <div className="mb-8 bg-indigo-50 border border-indigo-200 rounded-lg p-4 sm:p-6">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+              <FaRocket className="mr-2 text-indigo-600" />
+              Practical Exercise: Analyze Web Application Traffic
+            </h2>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4">
+              Apply your knowledge by analyzing HTTP traffic to understand how web applications function. Use browser developer tools and Wireshark to capture and interpret requests, then document your findings in a PDF report (2–3 pages). Optionally, submit a GitHub repository with scripts or logs if you automate any steps.
+            </p>
+            <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-3">
+              <li className="flex items-start">
+                <FaList className="mr-2 mt-1 text-indigo-600" />
+                Set up Wireshark and a browser (e.g., Chrome, Firefox) with developer tools on your system.
+              </li>
+              <li className="flex items-start">
+                <FaList className="mr-2 mt-1 text-indigo-600" />
+                Visit a test website (e.g., <code>http://testphp.vulnweb.com</code>) and capture HTTP traffic using Wireshark (filter: <code>http</code>) and browser Network tab (F12 &gt; Network tab).
+              </li>
+              <li className="flex items-start">
+                <FaList className="mr-2 mt-1 text-indigo-600" />
+                Analyze one HTTP request/response, noting the method (e.g., GET), headers, and status code (e.g., 200 OK).
+              </li>
+              <li className="flex items-start">
+                <FaList className="mr-2 mt-1 text-indigo-600" />
+                Examine cookies in the browser (Application &gt; Cookies) and Wireshark (<code>Set-Cookie</code> headers), identifying attributes like <code>Secure</code> or <code>HttpOnly</code>.
+              </li>
+              <li className="flex items-start">
+                <FaList className="mr-2 mt-1 text-indigo-600" />
+                Write a 2–3 page PDF report including:
+                <ul className="list-disc list-inside ml-6 mt-2 space-y-1">
+                  <li>Introduction: Explain the client-server model and HTTP.</li>
+                  <li>Findings: Detail one request/response with screenshots.</li>
+                  <li>Cookies/Sessions: Analyze a cookie’s role and attributes.</li>
+                  <li>Security: Identify one risk (e.g., missing HTTPS) and recommend a fix.</li>
+                </ul>
+              </li>
+              <li className="flex items-start">
+                <FaList className="mr-2 mt-1 text-indigo-600" />
+                Optional: Create a GitHub repository with Wireshark logs or a script (e.g., Python to parse HTTP headers) if you automate any steps.
+              </li>
+            </ul>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mt-4">
+              Here’s a starter guide for the exercise:
+            </p>
+            <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto text-sm sm:text-base">
+              {`# Install Wireshark (Kali Linux)
+sudo apt update
+sudo apt install wireshark
+
+# Start Wireshark and capture traffic
+sudo wireshark &
+
+# Filter for HTTP traffic
+http
+
+# Browser: Open developer tools
+# Press F12 > Network tab to view requests
+# Go to Application > Cookies to view cookies
+
+# Save Wireshark capture
+File > Export Objects > HTTP
+
+# Create report (e.g., in Word/Google Docs)
+# Export as PDF
+`}
+            </pre>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mt-4 italic">
+              Complete the exercise, test your setup, and submit your work below!
+            </p>
+          </div>
+
+          {/* Submission Section */}
+          <div className="mb-8">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+              <FaLink className="mr-2 text-indigo-600" />
+              Submit Your Work
+            </h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label
+                  className="block text-gray-800 text-sm sm:text-base font-semibold mb-2"
+                  htmlFor="submissionType"
+                >
+                  Submission Type:
+                </label>
+                <select
+                  name="submissionType"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
+                  value={form.submissionType}
+                  onChange={handleInputChange}
+                  aria-label="Select submission type"
+                >
+                  <option value="github">GitHub Repository Link</option>
+                  <option value="pdf">PDF Report</option>
+                </select>
+              </div>
+              {form.submissionType === "github" ? (
+                <div>
+                  <label
+                    className="block text-gray-800 text-sm sm:text-base font-semibold mb-2"
+                    htmlFor="submissionUrl"
+                  >
+                    Paste Your GitHub Repository Link:
+                  </label>
+                  <textarea
+                    name="submissionUrl"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
+                    rows={4}
+                    placeholder="e.g., https://github.com/username/web-traffic-analysis"
+                    value={form.submissionUrl}
+                    onChange={handleInputChange}
+                    aria-label="GitHub repository link"
+                  />
+                </div>
+              ) : (
+                <div>
+                  <label
+                    className="block text-gray-800 text-sm sm:text-base font-semibold mb-2"
+                    htmlFor="submissionFile"
+                  >
+                    Upload Your PDF Report:
+                  </label>
+                  <input
+                    type="file"
+                    name="submissionFile"
+                    accept="application/pdf"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
+                    onChange={handleFileUpload}
+                    ref={inputRef}
+                    aria-label="Upload PDF report"
+                  />
+                </div>
+              )}
+              <button
+                type="submit"
+                className="bg-indigo-600 text-white py-2 px-6 rounded-md hover:bg-indigo-700 transition-all duration-300 ease-in-out transform hover:scale-105"
+                aria-label="Submit exercise"
+              >
+                Submit Exercise
+              </button>
+            </form>
+            {submitted && (
+              <p className="mt-4 text-green-600 font-medium flex items-center">
+                <FaCheckCircle className="mr-2" />
+                Your exercise has been submitted successfully!
+              </p>
+            )}
+          </div>
+
+          {/* Resources */}
+          <div className="mb-8">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+              <FaBookOpen className="mr-2 text-indigo-600" />
+              Web Application Resources
+            </h2>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4">
+              Enhance your skills with these recommended resources:
+            </p>
+            <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base space-y-3">
+              <li className="flex items-start">
+                <FaLink className="mr-2 mt-1 text-indigo-600" />
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-indigo-600 underline hover:text-indigo-800"
+                >
+                  MDN Web Docs - HTTP Overview
+                </a>
+              </li>
+              <li className="flex items-start">
+                <FaLink className="mr-2 mt-1 text-indigo-600" />
+                <a
+                  href="https://owasp.org/www-community/attacks/Session_hijacking_attack"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-indigo-600 underline hover:text-indigo-800"
+                >
+                  OWASP - Session Hijacking
+                </a>
+              </li>
+              <li className="flex items-start">
+                <FaLink className="mr-2 mt-1 text-indigo-600" />
+                <a
+                  href="https://www.wireshark.org/docs/wsug_html_chunked/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-indigo-600 underline hover:text-indigo-800"
+                >
+                  Wireshark User Guide
+                </a>
+              </li>
+              <li className="flex items-start">
+                <FaLink className="mr-2 mt-1 text-indigo-600" />
+                <a
+                  href="https://tryhackme.com/room/howthewebworks"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-indigo-600 underline hover:text-indigo-800"
+                >
+                  TryHackMe - How the Web Works
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default Deet1;
